@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
-import light from './theme'
+import light from './light'
 
 Vue.use(Vuetify);
 
