@@ -12,21 +12,23 @@ const pantonYellow = Object.freeze({
     darken3: '',
     darken4: ''
 });
-/*
-accent: "",
-error: "",
-info: "",
-primary: {
-    base: "",
-    darken1: ""
-},
-secondary: {
-    base: "",
-    darken1: ""
-},
-success: "",
-warning: "",
- */
+
+const MMMtheme = Object.freeze({
+    accent: "",
+    error: "",
+    info: "",
+    primary: {
+        base: "",
+        darken1: ""
+    },
+    secondary: {
+        base: "",
+        darken1: ""
+    },
+    success: "",
+    warning: ""
+})
+
 export default {
     primary: {
         base: pantonYellow.base,

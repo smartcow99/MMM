@@ -1,5 +1,7 @@
 <template>
   <v-container>
+    <v-btn @click="getMessage">메세지 불러오기</v-btn>
+    {{message}}
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -146,5 +148,15 @@
         },
       ],
     }),
+    computed: {
+      message(){
+        return this.$store.state.message;
+      }
+    },
+    methods: {
+      getMessage() {
+        this.$store.dispatch('getMessage');
+      }
+    }
   }
 </script>
