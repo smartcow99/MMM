@@ -1,17 +1,5 @@
 /* light 테마 파일 */
 import colors from 'vuetify/lib/util/colors'
-const pantonYellow = Object.freeze({
-    base: '#FEDD00',
-    lighten5: '',
-    lighten4: '',
-    lighten3: '',
-    lighten2: '',
-    lighten1: '',
-    darken1: '',
-    darken2: '',
-    darken3: '',
-    darken4: ''
-});
 
 const MMMtheme = Object.freeze({
     accent: "FEFEFE",
@@ -32,7 +20,7 @@ const MMMtheme = Object.freeze({
 export default {
     primary: MMMtheme.primary,
     secondary: colors.indigo,
-    
+
     // All keys will generate theme styles,
     // Here we add a custom `tertiary` color
     // 아래 코드처럼 primary,secondary 외에도 tertiary 색을 추가할 수 있다.
