@@ -1,8 +1,5 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-
-Vue.use(VueRouter)
 
 const routes = [
   {
@@ -17,12 +14,31 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/analytic',
+    name: 'Analytic',
+    component: () => import('../views/Analytic.vue')
+  },
+  {
+    path: '/Channel',
+    name: 'Channel',
+    component: () => import('../views/Channel.vue')
+  },
+  {
+    path: '/Mypage',
+    name: 'Mypage',
+    component: () => import('../views/Mypage.vue')
+  },
+  {
+    path: '/Product',
+    name: 'Product',
+    component: () => import('../views/Product.vue')
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 

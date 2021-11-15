@@ -1,5 +1,8 @@
 export default {
-    changeMessage(state,payload) {
-        state.message = payload;
-    }
-};
+    temp(state,payload) {
+
+    },
+    loginPageState(state,payload) {
+        state['isLoginPageOn'] = !!payload;
+    },
+}
