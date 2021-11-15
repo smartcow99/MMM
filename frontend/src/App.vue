@@ -1,15 +1,18 @@
 <template>
-  <div id="nav">
+  <header id="nav">
     <router-link to="/">
       <img class="logo" src="@/assets/logo.png"/>
     </router-link>
     <Search id="search-bar"/>
     <button class="white" @click="openLogin">login</button> |
-    <router-link class="primary" to="/about">
+    <router-link class="primary" to="/analytic">
       <button>AI 얼굴 분석</button>
     </router-link>
-  </div>
-  <router-view/>
+  </header>
+  <main>
+    <aside>profile,recommend channel,recommend tag</aside>
+    <router-view/>
+  </main>
   <BlurCard v-if="loginClicked" @close="closeLogin">
       <div style="width:500px; height:500px; background-color:black;"></div>
   </BlurCard>
@@ -57,8 +60,8 @@ export default {
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+header#nav {
+  padding: 20px;
   border-bottom:1px solid #cccccc;
   a {
     font-weight: bold;
@@ -68,12 +71,17 @@ export default {
       color: #42b983;
     }
   }
+  .logo {
+    width:40px;
+    height:40px;
+  }
 }
-.logo {
-  width:40px;
-  height:40px;
+main {
+  padding:0 100px;
+  display:flex;
+  flex-direction:row;
 }
-button {
-
+aside {
+  width:200px;
 }
 </style>

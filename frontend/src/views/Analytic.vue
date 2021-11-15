@@ -1,5 +1,7 @@
 <template>
-  
+    <div>
+        AI 얼굴 분석
+    </div>
 </template>
 
 <script>
