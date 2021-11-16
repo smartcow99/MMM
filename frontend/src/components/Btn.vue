@@ -1,5 +1,5 @@
 <template>
-    <button @click="$emit('click',$event)" 
+    <button 
         :class="{
             'white':'white'===theme,
             'primary':'primary'===theme

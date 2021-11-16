@@ -7,7 +7,7 @@
     <Btn v-if="userInfo['isLogined']" @click="logout" theme="primary">로그아웃</Btn>
     <Btn v-else @click="openLogin" theme="primary">로그인</Btn> |
     <router-link class="primary" to="/analytic">
-      <button>AI 얼굴 분석</button>
+      <Btn theme="white">AI 얼굴 분석</Btn>
     </router-link>
   </header>
   <main>
@@ -17,7 +17,8 @@
         @openLogin="openLogin"
         @openUpload="openUpload"
       />
-      <RecommendChannels :channelList="recommandChannels"/>
+      <h3>추천 채널</h3>
+      <ChannelList :channelList="recommandChannels"/>
       <h3>추천 태그</h3>
       <TagList :tagList="recommandTags"/>
     </aside>
@@ -42,7 +43,7 @@ import Profile from '@/components/Profile.vue'
 import Search from '@/components/Searchbar.vue'
 import Short from '@/components/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
-import RecommendChannels from '@/components/recommendChannels.vue'
+import ChannelList from '@/components/ChannelList.vue'
 import TagList from '@/components/TagList.vue'
 import ShortUpload from './components/ShortUpload.vue'
 
@@ -61,7 +62,7 @@ export default {
     BlurCard,
     Short,
     Profile,
-    RecommendChannels,
+    ChannelList,
     TagList,
     ShortUpload,
     Btn
