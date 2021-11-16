@@ -1,8 +1,9 @@
 <template>
     <div class="recommend-tags">
-        <Tag v-for="(value,index) in tagList" :key="index">
-            {{value}}    
-        </Tag>  
+        <Tag 
+            v-for="(value,index) in tagList" :key="index"
+            :title="value"
+        />
     </div>
 </template>
 

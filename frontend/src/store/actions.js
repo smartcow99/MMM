@@ -11,14 +11,9 @@ export default {
     // 추천 채널 GET
     async getRecommandChannels({commit},payload) {
         commit('setRecommandChannels',[
-            {
-                'profile':'',
-                'name':'채널1'
-            },
-            {
-                'profile':'',
-                'name':'채널2'
-            }
+            {title:'채널1',profile:'#',channelId:1},
+            {title:'채널2',profile:'#',channelId:2},
+            {title:'채널3',profile:'',channelId:3}
         ]);
     },
     //login 요청
