@@ -16,7 +16,15 @@ export default {
     name: 'ChannelSearch',
     components: { ChannelSummary },
     mounted() {
-        this.requestChannelList();
+        if(!!this.$route.query['content']) {
+            this.requestSearch({
+                'type':'channel',
+                'content':this.$route.query
+            });
+        }
+        else {
+            this.getRecommandChannels();
+        }
     },
     computed: {
         ...mapState([
@@ -25,7 +33,9 @@ export default {
     },
     methods: {
         ...mapActions([
-            'requestChannelList'
+            'requestChannelList',
+            'getRecommandChannels',
+            'requestSearch'
         ])
     }
 }

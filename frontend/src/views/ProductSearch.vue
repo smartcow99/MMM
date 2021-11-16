@@ -16,6 +16,15 @@ export default {
     name: 'ProductSearch',
     components: { ProductSummary },
     mounted() {
+        if(!!this.$route.query['content']) {
+            this.requestSearch({
+                'type':'product',
+                'content':this.$route.query
+            });
+        }
+        else {
+            this.getRecommandChannels();
+        }
         this.requestProductList();
     },
     computed: {

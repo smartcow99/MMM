@@ -3,7 +3,7 @@
     <router-link to="/">
       <img class="logo" src="@/assets/images/logo.png"/>
     </router-link>
-    <Search id="search-bar"/>
+    <Search id="search-bar" @search="search"/>
     <Btn v-if="userInfo['isLogined']" @click="logout" theme="primary">로그아웃</Btn>
     <Btn v-else @click="openLogin" theme="primary">로그인</Btn> |
     <router-link class="primary" to="/analytic">
@@ -17,10 +17,11 @@
         @openLogin="openLogin"
         @openUpload="openUpload"
       />
+
       <h3>추천 채널</h3>
-      <ChannelList :channelList="recommandChannels"/>
+      <ChannelList :channelList="channelList"/>
       <h3>추천 태그</h3>
-      <TagList :tagList="recommandTags"/>
+      <TagList :tagList="tagList"/>
     </aside>
     <router-view/>
   </main>
@@ -45,7 +46,7 @@ import Short from '@/components/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
 import ChannelList from '@/components/ChannelList.vue'
 import TagList from '@/components/TagList.vue'
-import ShortUpload from './components/ShortUpload.vue'
+import ShortUpload from './components/Widget/ShortUpload.vue'
 
 import {mapState,mapActions} from 'vuex'
 
@@ -74,8 +75,8 @@ export default {
   computed: {
     ...mapState([
       'userInfo',
-      'recommandTags',
-      'recommandChannels',
+      'tagList',
+      'channelList',
       'currentShort'
     ])
   },
@@ -83,7 +84,8 @@ export default {
     ...mapActions([
       'requestLogout',
       'getRecommandTags',
-      'getRecommandChannels'
+      'getRecommandChannels',
+      'requestSearch'
     ]),
     closeLogin() {
       this.loginClicked = false;
@@ -100,9 +102,11 @@ export default {
     closeShort() {
       this.currentShort['isOpened'] = false;
     },
+    search(content) {
+      this.requestSearch(content);
+    },
     logout() {
-      alert('logout clicked');
-      // this.requestLogout();
+      this.requestLogout();
     }
   }
 }

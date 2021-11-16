@@ -2,13 +2,20 @@ export default {
     temp(state,payload) {
 
     },
+    
+    
     // 추천태그를 받아 설정하는 함수
-    setRecommandTags(state,payload) {
-        state['recommandTags'] = payload;
+    setTagsList(state,payload) {
+        state['tagList'] = payload;
     },
-    // 추천채널을 받아 설정하는 함수
-    setRecommandChannels(state,payload) {
-        state['recommandChannels'] = payload;
+    setChannelList(state,payload) {
+        state['channelList'] = payload;
+    },
+    setShortsList(state,payload) {
+        state['shortList'] = payload;
+    },
+    setProductList(state,payload) {
+        state['productList'] = payload;
     },
     // 로그인 됐다면 로그인된 상태로 변경
     setIsLogin(state,payload) {

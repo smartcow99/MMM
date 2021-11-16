@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{path:'/search/shorts', query:{'content':title} }">
+    <router-link :to="{path:'/search/', query:{'type':'short','content':title} }">
         <button class="tag"># {{title}}</button>
     </router-link>
 

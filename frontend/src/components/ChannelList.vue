@@ -17,7 +17,7 @@
 <script>
 import ChannelMini from '@/components/ChannelMini.vue'
 export default {
-    name: 'RecommendChannels',
+    name: 'ChannelList',
     props: {
         channelList: Array
     },

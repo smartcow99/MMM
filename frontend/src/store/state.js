@@ -1,12 +1,11 @@
 export default {
-    recommandTags: [],
-    recommandChannels: [],
     userInfo: {
         isLogined: true,
         nickname: 'temp채널',
         profileImage: '#',
         channel: {},
     },
+    tagList: [],
     shortList: [],
     productList: [],
     channelList: [],

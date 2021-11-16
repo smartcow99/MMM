@@ -22,7 +22,16 @@ export default {
         }
     },
     mounted() {
-        this.requestShortList();
+        if(!!this.$route.query['content']) {
+            this.requestSearch({
+                'type':'product',
+                'content':this.$route.query
+            });
+        }
+        else {
+            this.getRecommandShorts();
+        }
+        
     },
     computed: {
         ...mapState([
@@ -31,7 +40,8 @@ export default {
     },
     methods: {
         ...mapActions([
-            'requestShortList'
+            'getRecommandShorts',
+            'requestSearch'
         ])
     }
 }
