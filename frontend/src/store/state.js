@@ -1,5 +1,10 @@
 export default {
     recommandTags: [],
     recommandChannels: [],
-    isLogined: false,
+    userInfo: {
+        isLogined: false,
+        nickname: '',
+        profileImage: '',
+        channel: {}
+    }
 }

@@ -7,11 +7,11 @@ export default {
         state['recommandTags'] = payload;
     },
     // 추천채널을 받아 설정하는 함수
-    setRecommandTags(state,payload) {
+    setRecommandChannels(state,payload) {
         state['recommandChannels'] = payload;
     },
     // 로그인 됐다면 로그인된 상태로 변경
     setIsLogin(state,payload) {
-        state['isLogin'] = payload;
+        state['userInfo'].isLogined = payload;
     }
 }

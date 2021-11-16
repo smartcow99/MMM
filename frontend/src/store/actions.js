@@ -12,8 +12,12 @@ export default {
     async getRecommandChannels({commit},payload) {
         commit('setRecommandChannels',[
             {
-                'profile':'url',
-                'channelName':''
+                'profile':'',
+                'name':'채널1'
+            },
+            {
+                'profile':'',
+                'name':'채널2'
             }
         ]);
     },
