@@ -1,5 +1,5 @@
 <template>
-  
+    shorts summary
 </template>
 
 <script>
