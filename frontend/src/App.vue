@@ -4,7 +4,8 @@
       <img class="logo" src="@/assets/logo.png"/>
     </router-link>
     <Search id="search-bar"/>
-    <button class="white" @click="openLogin">login</button> |
+    <button v-if="isLogined" class="white" @click="logout">로그아웃</button>
+    <button v-else class="white" @click="openLogin">로그인</button> |
     <router-link class="primary" to="/analytic">
       <button>AI 얼굴 분석</button>
     </router-link>
@@ -20,6 +21,7 @@
 <script>
 import Search from '@/components/Searchbar.vue'
 import BlurCard from '@/components/BlurCard.vue'
+import {mapState,mapActions} from 'vuex'
 export default {
   data() {
     return {
@@ -30,12 +32,19 @@ export default {
     Search,
     BlurCard
   },
+  computed: {
+    ...mapState(['isLogined'])
+  },
   methods: {
+    ...mapActions(['requestLogout']),
     closeLogin() {
       this.loginClicked = false;
     },
     openLogin() {
       this.loginClicked = true;
+    },
+    logout() {
+      this.requestLogout();
     }
   }
 }
@@ -83,5 +92,6 @@ main {
 }
 aside {
   width:200px;
+  background-color:#CCCCCC;
 }
 </style>

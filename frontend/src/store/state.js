@@ -1,3 +1,5 @@
 export default {
-    isLoginPageOn: false
+    recommandTags: [],
+    recommandChannels: [],
+    isLogined: false,
 }
