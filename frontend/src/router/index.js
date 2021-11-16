@@ -32,17 +32,27 @@ const routes = [
     component: () => import('../views/Analytic.vue')
   },
   {
-    path: '/Channel',
+    path: '/channel',
     name: 'Channel',
     component: () => import('../views/Channel.vue')
   },
   {
-    path: '/Mypage',
+    path: '/mypage',
     name: 'Mypage',
-    component: () => import('../views/Mypage.vue')
+    component: () => import('../views/Mypage.vue'),
+    children: [
+      {
+        path:'',
+        component: () => import('../views/UserInfo.vue'),
+      },
+      {
+        path:'purchase-history',
+        component: () => import('../views/PurchaseHistory.vue'),
+      }
+    ]
   },
   {
-    path: '/Product',
+    path: '/product',
     name: 'Product',
     component: () => import('../views/Product.vue')
   }

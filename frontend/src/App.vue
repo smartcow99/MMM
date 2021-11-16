@@ -4,8 +4,8 @@
       <img class="logo" src="@/assets/images/logo.png"/>
     </router-link>
     <Search id="search-bar"/>
-    <button v-if="userInfo['isLogined']" class="white" @click="logout">로그아웃</button>
-    <button v-else class="white" @click="openLogin">로그인</button> |
+    <Btn v-if="userInfo['isLogined']" @click="logout" theme="primary">로그아웃</Btn>
+    <Btn v-else @click="openLogin" theme="primary">로그인</Btn> |
     <router-link class="primary" to="/analytic">
       <button>AI 얼굴 분석</button>
     </router-link>
@@ -37,6 +37,7 @@
   
 </template>
 <script>
+import Btn from './components/Btn.vue'
 import Profile from '@/components/Profile.vue'
 import Search from '@/components/Searchbar.vue'
 import Short from '@/components/Short.vue'
@@ -47,6 +48,7 @@ import ShortUpload from './components/ShortUpload.vue'
 import LoginCard from '@/components/LoginCard.vue'
 
 import {mapState,mapActions} from 'vuex'
+
 
 export default {
   data() {
@@ -64,6 +66,7 @@ export default {
     TagList,
     ShortUpload,
     LoginCard,
+    Btn
   },
   mounted() {
     this.getRecommandTags();

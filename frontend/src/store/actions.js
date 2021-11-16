@@ -43,5 +43,9 @@ export default {
     async requestChannelList({commit},payload) {
         //채널리스트 요청
         commit('setChannelList',[{title:'채널1',channelId:1},{title:'채널2',channelId:2},{title:'채널3',channelId:3}]);
+    },
+    async requestPurchaseList({commit},payload) {
+        //구매내역 요청
+        commit('setPurchaseList',[{title:'구매1'},{title:'구매2'},{title:'구매3'}]);
     }
 }
