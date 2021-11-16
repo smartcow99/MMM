@@ -1,17 +1,21 @@
 <template>
   <header id="nav">
     <router-link to="/">
-      <img class="logo" src="@/assets/logo.png"/>
+      <img class="logo" src="@/assets/images/logo.png"/>
     </router-link>
     <Search id="search-bar"/>
-    <button v-if="isLogined" class="white" @click="logout">로그아웃</button>
+    <button v-if="userInfo['isLogined']" class="white" @click="logout">로그아웃</button>
     <button v-else class="white" @click="openLogin">로그인</button> |
     <router-link class="primary" to="/analytic">
       <button>AI 얼굴 분석</button>
     </router-link>
   </header>
   <main>
-    <aside>profile,recommend channel,recommend tag</aside>
+    <aside>
+      <Profile :userInfo="userInfo" @openLogin="openLogin"/>
+      <RecommendChannels :channelList="recommandChannels"/>
+      <RecommendTags :tagList="recommandTags"/>
+    </aside>
     <router-view/>
   </main>
   <BlurCard v-if="loginClicked" @close="closeLogin">
@@ -19,9 +23,14 @@
   </BlurCard>
 </template>
 <script>
+import Profile from '@/components/Profile.vue'
 import Search from '@/components/Searchbar.vue'
 import BlurCard from '@/components/BlurCard.vue'
+import RecommendChannels from './components/recommendChannels.vue'
+import RecommendTags from './components/recommendTags.vue'
+
 import {mapState,mapActions} from 'vuex'
+
 export default {
   data() {
     return {
@@ -30,13 +39,28 @@ export default {
   },
   components: {
     Search,
-    BlurCard
+    BlurCard,
+    Profile,
+    RecommendChannels,
+    RecommendTags
+  },
+  mounted() {
+    this.getRecommandTags();
+    this.getRecommandChannels();
   },
   computed: {
-    ...mapState(['isLogined'])
+    ...mapState([
+      'userInfo',
+      'recommandTags',
+      'recommandChannels'
+    ])
   },
   methods: {
-    ...mapActions(['requestLogout']),
+    ...mapActions([
+      'requestLogout',
+      'getRecommandTags',
+      'getRecommandChannels'
+    ]),
     closeLogin() {
       this.loginClicked = false;
     },
@@ -55,6 +79,7 @@ export default {
   --placeholder-color: #CCCCCC;
   --text-color:#000000;
   --background-color: #FEFEFE;
+  --background-color-darken: #EEEEEE;
   --primary-color: #3D3D78;
   --error-color: #FF5252;
   --warning-color: #FB8C00;
