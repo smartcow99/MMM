@@ -10,6 +10,8 @@ export default {
     shortList: [],
     productList: [],
     channelList: [],
+    purchaseList: [],
+
     currentShort: {
         isOpened: false,
         title:'',
@@ -23,5 +25,6 @@ export default {
         relatedTagList: [],
         relatedProductList: [],
         comments: []
-    }
+    },
+
 }

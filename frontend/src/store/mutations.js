@@ -26,5 +26,8 @@ export default {
     openShort(state,payload) {
         state['currentShort'].title = payload['title'];
         state['currentShort'].isOpened = true;
+    },
+    setPurchaseList(state,payload) {
+        state['purchaseList'] = payload;
     }
 }
