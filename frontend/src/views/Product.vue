@@ -1,5 +1,6 @@
 <template>
     <div>
+        {{$route.query['productId']}}
         상품사진
         상품정보
         상품상세설명
@@ -10,7 +11,10 @@
 
 <script>
 export default {
-
+    name:'Product',
+    mounted() {
+        console.log(this.$route)
+    }
 }
 </script>
 

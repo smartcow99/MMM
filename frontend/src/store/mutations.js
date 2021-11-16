@@ -22,5 +22,9 @@ export default {
     },
     addChannelList(state,payload) {
         state['channelList'].push(...payload);
+    },
+    openShort(state,payload) {
+        state['currentShort'].title = payload['title'];
+        state['currentShort'].isOpened = true;
     }
 }

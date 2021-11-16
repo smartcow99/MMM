@@ -1,5 +1,5 @@
 <template>
-    <div @click="openShort">
+    <div @click="openShort(shortInfo)">
         shorts info
     </div>
 </template>
@@ -19,9 +19,9 @@ export default {
         ...mapActions([
             'requestShort'
         ]),
-        openShort() {
-            //this.requestShort('short ID');//shortInfo에서 알 수 있는 shortID정보
-        }
+        ...mapMutations([
+            'openShort'
+        ]),
     }
 }
 </script>

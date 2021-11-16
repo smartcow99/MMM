@@ -29,9 +29,11 @@
   <BlurCard v-if="uploadClicked" @close="closeUpload">
       <ShortUpload/>
   </BlurCard>
-  <BlurCard v-if="currentShort['isOpened']" @close="closeUpload">
-      <Short :info="currentShort"/>
-  </BlurCard>
+  <Short 
+    v-if="currentShort['isOpened']"
+    :info="currentShort"
+    @close="closeShort"
+  />
   
 </template>
 <script>
@@ -90,6 +92,9 @@ export default {
     },
     openUpload() {
       this.uploadClicked = true;
+    },
+    closeShort() {
+      this.currentShort['isOpened'] = false;
     },
     logout() {
       alert('logout clicked');

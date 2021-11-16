@@ -19,6 +19,7 @@ export default {
     },
     currentProdict: {
         title:'',
+        id:'',
         relatedTagList: [],
         relatedProductList: [],
         comments: []
