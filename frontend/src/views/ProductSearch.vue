@@ -34,7 +34,8 @@ export default {
     },
     methods: {
         ...mapActions([
-            'requestProductList'
+            'requestProductList',
+            'requestSearch',
         ])
     }
 }
