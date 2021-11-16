@@ -1,24 +1,37 @@
 <template>
     <div>
         shorts search
-        <ShortSummary v-for="(value,index) in shortList" :key="index"/>
+        <ShortSummary 
+            v-for="(value,index) in shortList" 
+            :key="index" 
+            :shortInfo="value"
+        />
     </div>
 </template>
 
 <script>
 import ShortSummary from '../components/ShortSummary.vue'
-import {mapState} from 'vuex'
+import {mapState,mapActions} from 'vuex'
 export default {
+    //$route의 params확인해서 검색요청에 따른 shortList 요청 만들 것
     name: 'ShortSearch',
     components: { ShortSummary },
     data() {
         return {
-            shortList
+            
         }
+    },
+    mounted() {
+        this.requestShortList();
     },
     computed: {
         ...mapState([
-            'shortsList'
+            'shortList'
+        ])
+    },
+    methods: {
+        ...mapActions([
+            'requestShortList'
         ])
     }
 }
@@ -27,3 +40,4 @@ export default {
 <style>
 
 </style>
+

@@ -12,37 +12,54 @@
   </header>
   <main>
     <aside>
-      <Profile :userInfo="userInfo" @openLogin="openLogin"/>
+      <Profile 
+        :userInfo="userInfo" 
+        @openLogin="openLogin"
+        @openUpload="openUpload"
+      />
       <RecommendChannels :channelList="recommandChannels"/>
-      <RecommendTags :tagList="recommandTags"/>
+      <h3>추천 태그</h3>
+      <TagList :tagList="recommandTags"/>
     </aside>
     <router-view/>
   </main>
   <BlurCard v-if="loginClicked" @close="closeLogin">
       <div style="width:500px; height:500px; background-color:black;"></div>
   </BlurCard>
+  <BlurCard v-if="uploadClicked" @close="closeUpload">
+      <ShortUpload/>
+  </BlurCard>
+  <BlurCard v-if="currentShort['isOpened']" @close="closeUpload">
+      <Short :info="currentShort"/>
+  </BlurCard>
+  
 </template>
 <script>
 import Profile from '@/components/Profile.vue'
 import Search from '@/components/Searchbar.vue'
+import Short from '@/components/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
-import RecommendChannels from './components/recommendChannels.vue'
-import RecommendTags from './components/recommendTags.vue'
+import RecommendChannels from '@/components/recommendChannels.vue'
+import TagList from '@/components/TagList.vue'
+import ShortUpload from './components/ShortUpload.vue'
 
 import {mapState,mapActions} from 'vuex'
 
 export default {
   data() {
     return {
-      loginClicked:false
+      loginClicked:false,
+      uploadClicked:false,
     }
   },
   components: {
     Search,
     BlurCard,
+    Short,
     Profile,
     RecommendChannels,
-    RecommendTags
+    TagList,
+    ShortUpload
   },
   mounted() {
     this.getRecommandTags();
@@ -52,7 +69,8 @@ export default {
     ...mapState([
       'userInfo',
       'recommandTags',
-      'recommandChannels'
+      'recommandChannels',
+      'currentShort'
     ])
   },
   methods: {
@@ -67,8 +85,15 @@ export default {
     openLogin() {
       this.loginClicked = true;
     },
+    closeUpload() {
+      this.uploadClicked = false;
+    },
+    openUpload() {
+      this.uploadClicked = true;
+    },
     logout() {
-      this.requestLogout();
+      alert('logout clicked');
+      // this.requestLogout();
     }
   }
 }

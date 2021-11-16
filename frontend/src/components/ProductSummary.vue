@@ -1,5 +1,11 @@
 <template>
-    <div>product summary</div>
+    <div>
+        product summary
+        상품사진
+        상품이름
+        가격
+        별점
+    </div>
 </template>
 
 <script>

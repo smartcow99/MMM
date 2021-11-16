@@ -1,6 +1,5 @@
 <template>
     <div class="recommend-tags">
-        <h3>추천 태그</h3>
         <Tag v-for="(value,index) in tagList" :key="index">
             {{value}}    
         </Tag>  

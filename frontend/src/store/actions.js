@@ -32,8 +32,16 @@ export default {
         commit('SetIsLogin',false);
     },
     //추가적인 shorts 요청
-    async requestShortsList({commit},payload) {
+    async requestShortList({commit},payload) {
         //추가적인 shorts 요청
-        commit('addShortsList',['1','2','3']);
+        commit('addShortList',['1','2','3']);
+    },
+    async requestProductList({commit},payload) {
+        //추가적인 shorts 요청
+        commit('addProductList',['1','2','3']);
+    },
+    async requestChannelList({commit},payload) {
+        //추가적인 shorts 요청
+        commit('addChannelList',['1','2','3']);
     }
 }

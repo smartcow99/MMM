@@ -2,10 +2,25 @@ export default {
     recommandTags: [],
     recommandChannels: [],
     userInfo: {
-        isLogined: false,
-        nickname: '',
-        profileImage: '',
+        isLogined: true,
+        nickname: 'temp채널',
+        profileImage: '#',
         channel: {},
     },
-    shortsList: []
+    shortList: [],
+    productList: [],
+    channelList: [],
+    currentShort: {
+        isOpened: false,
+        title:'',
+        relatedTagList: [],
+        relatedProductList: [],
+        comments: []
+    },
+    currentProdict: {
+        title:'',
+        relatedTagList: [],
+        relatedProductList: [],
+        comments: []
+    }
 }

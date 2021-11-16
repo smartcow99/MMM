@@ -14,7 +14,13 @@ export default {
     setIsLogin(state,payload) {
         state['userInfo'].isLogined = payload;
     },
-    addShortsList(state,payload) {
-        state['shortsList'].push(payload);
+    addShortList(state,payload) {
+        state['shortList'].push(...payload);
+    },
+    addProductList(state,payload) {
+        state['productList'].push(...payload);
+    },
+    addChannelList(state,payload) {
+        state['channelList'].push(...payload);
     }
 }

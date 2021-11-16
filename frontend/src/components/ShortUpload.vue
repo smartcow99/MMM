@@ -1,5 +1,5 @@
 <template>
-  mypage
+    upload shorts
 </template>
 
 <script>
