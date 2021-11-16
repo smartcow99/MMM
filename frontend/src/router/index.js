@@ -13,7 +13,7 @@ const routes = [
     component: () => import('../views/Search.vue'),
     children: [
       {
-        path:'shorts',
+        path:'',
         component: () => import('../views/ShortSearch.vue')
       },
       {
