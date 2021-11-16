@@ -48,7 +48,7 @@ data(){
 
 methods:{
     requestLogin(){
-        this.$store.actions.requestLogin;
+        this.$store.actions.requestLogin();
     },
     
     // closeCard(){

@@ -6,7 +6,7 @@
     <Search id="search-bar" @search="search"/>
     <Btn v-if="userInfo['isLogined']" @click="logout" theme="primary">로그아웃</Btn>
     <Btn v-else @click="openLogin" theme="primary">로그인</Btn> |
-    <router-link class="primary" to="/analytic">
+    <router-link class="primary" to="/analysis">
       <Btn theme="white">AI 얼굴 분석</Btn>
     </router-link>
   </header>
@@ -33,7 +33,6 @@
   </BlurCard>
   <Short 
     v-if="currentShort['isOpened']"
-    :info="currentShort"
     @close="closeShort"
   />
   
@@ -42,14 +41,14 @@
 import Btn from './components/Btn.vue'
 import Profile from '@/components/Profile.vue'
 import Search from '@/components/Searchbar.vue'
-import Short from '@/components/Short.vue'
+import Short from '@/components/widget/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
 import ChannelList from '@/components/ChannelList.vue'
 import TagList from '@/components/TagList.vue'
-import ShortUpload from './components/Widget/ShortUpload.vue'
-import LoginCard from '@/components/LoginCard.vue'
+import ShortUpload from '@/components/widget/ShortUpload.vue'
+import LoginCard from '@/components/widget/LoginCard.vue'
 
-import {mapState,mapActions} from 'vuex'
+import {mapState,mapActions, mapMutations} from 'vuex'
 
 
 export default {

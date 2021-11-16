@@ -11,9 +11,6 @@ export default {
     setChannelList(state,payload) {
         state['channelList'] = payload;
     },
-    setShortsList(state,payload) {
-        state['shortList'] = payload;
-    },
     setProductList(state,payload) {
         state['productList'] = payload;
     },
@@ -32,9 +29,31 @@ export default {
     },
     openShort(state,payload) {
         state['currentShort'].title = payload['title'];
+        state['currentShort'].shortId = payload['shortId'];
+        state['currentShort'].channelId = payload['channelId'];
         state['currentShort'].isOpened = true;
     },
     setPurchaseList(state,payload) {
         state['purchaseList'] = payload;
+    },
+    setAnalysisResult(state,payload) {
+        state['analysisResult'].img = payload.img;
+        state['analysisResult'].content = payload.content;
+    },
+    initAnalysisResult(state,payload) {
+        state['analysisResult'].img = '';
+        state['analysisResult'].content = '';
+    },
+    setRelatedProducts(state,payload) {
+        state['currentShort'].relatedProducts = payload;
+    },
+    setRelatedTags(state,payload) {
+        state['currentShort'].relatedTags = payload;
+    },
+    setComments(state,payload) {
+        state['currentShort'].comments = payload;
+    },
+    setChannelInfo(state,payload) {
+        state['currentShort'].channelInfo = payload;
     }
 }

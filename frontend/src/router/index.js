@@ -27,9 +27,9 @@ const routes = [
     ],
   },
   {
-    path: '/analytic',
-    name: 'Analytic',
-    component: () => import('../views/Analytic.vue')
+    path: '/analysis',
+    name: 'Analysis',
+    component: () => import('../views/Analysis.vue')
   },
   {
     path: '/channel',

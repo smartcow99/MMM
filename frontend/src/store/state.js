@@ -2,6 +2,7 @@ export default {
     userInfo: {
         isLogined: true,
         nickname: 'temp채널',
+        userId:'',
         profileImage: '#',
         channel: {},
     },
@@ -14,16 +15,21 @@ export default {
     currentShort: {
         isOpened: false,
         title:'',
-        relatedTagList: [],
-        relatedProductList: [],
+        shortId:'',
+        channelInfo:{},
+        relatedTags: [],
+        relatedProducts: [],
         comments: []
     },
-    currentProdict: {
+    currentProduct: {
         title:'',
         id:'',
-        relatedTagList: [],
-        relatedProductList: [],
+        relatedTags: [],
+        relatedProducts: [],
         comments: []
     },
-
+    analysisResult: {
+        img: '',
+        content: '',
+    }
 }

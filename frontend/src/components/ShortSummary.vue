@@ -1,6 +1,6 @@
 <template>
     <div @click="openShort(shortInfo)">
-        shorts info
+        shorts
     </div>
 </template>
 

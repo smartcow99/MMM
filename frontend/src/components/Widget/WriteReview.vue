@@ -1,8 +1,5 @@
 <template>
-    <div>
-        프로필 채널명
-        댓글내용
-    </div>
+    사용 후기
 </template>
 
 <script>
