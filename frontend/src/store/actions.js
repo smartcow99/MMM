@@ -30,5 +30,10 @@ export default {
     async requestLogout({commit},payload) {
         //로그아웃 요청
         commit('SetIsLogin',false);
+    },
+    //추가적인 shorts 요청
+    async requestShortsList({commit},payload) {
+        //추가적인 shorts 요청
+        commit('addShortsList',['1','2','3']);
     }
 }

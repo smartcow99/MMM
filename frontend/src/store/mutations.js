@@ -13,5 +13,8 @@ export default {
     // 로그인 됐다면 로그인된 상태로 변경
     setIsLogin(state,payload) {
         state['userInfo'].isLogined = payload;
+    },
+    addShortsList(state,payload) {
+        state['shortsList'].push(payload);
     }
 }

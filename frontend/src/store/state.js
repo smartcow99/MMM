@@ -5,6 +5,7 @@ export default {
         isLogined: false,
         nickname: '',
         profileImage: '',
-        channel: {}
-    }
+        channel: {},
+    },
+    shortsList: []
 }
