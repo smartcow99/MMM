@@ -66,7 +66,7 @@ methods:{
 }
 </script>
 
-<style>
+<style scoped>
 *{
     font-family: 'rubik';
     font-size:14px;
