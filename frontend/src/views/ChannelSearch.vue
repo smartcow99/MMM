@@ -1,5 +1,7 @@
 <template>
-  
+    <div>
+        channel search
+    </div>
 </template>
 
 <script>

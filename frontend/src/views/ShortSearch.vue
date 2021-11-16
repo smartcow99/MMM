@@ -1,6 +1,6 @@
 <template>
     <div>
-        product search
+        shorts search
     </div>
 </template>
 
