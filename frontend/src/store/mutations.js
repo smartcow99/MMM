@@ -14,14 +14,14 @@ export default {
     setIsLogin(state,payload) {
         state['userInfo'].isLogined = payload;
     },
-    addShortList(state,payload) {
-        state['shortList'].push(...payload);
+    setShortList(state,payload) {
+        state['shortList'] = payload;
     },
-    addProductList(state,payload) {
-        state['productList'].push(...payload);
+    setProductList(state,payload) {
+        state['productList'] = payload;
     },
-    addChannelList(state,payload) {
-        state['channelList'].push(...payload);
+    setChannelList(state,payload) {
+        state['channelList'] = payload;
     },
     openShort(state,payload) {
         state['currentShort'].title = payload['title'];

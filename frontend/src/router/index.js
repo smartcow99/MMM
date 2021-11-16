@@ -32,7 +32,7 @@ const routes = [
     component: () => import('../views/Analytic.vue')
   },
   {
-    path: '/Channel/:id',
+    path: '/Channel',
     name: 'Channel',
     component: () => import('../views/Channel.vue')
   },

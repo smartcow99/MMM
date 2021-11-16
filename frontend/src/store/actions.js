@@ -34,14 +34,14 @@ export default {
     //추가적인 shorts 요청
     async requestShortList({commit},payload) {
         //추가적인 shorts 요청
-        commit('addShortList',[{title:'1'},{title:'2'},{title:'3'}]);
+        commit('setShortList',[{title:'1'},{title:'2'},{title:'3'}]);
     },
     async requestProductList({commit},payload) {
-        //추가적인 shorts 요청
-        commit('addProductList',[{title:'상품1',productId:1},{title:'상품2',productId:2},{title:'상품3',productId:3}]);
+        //상품리스트 요청
+        commit('setProductList',[{title:'상품1',productId:1},{title:'상품2',productId:2},{title:'상품3',productId:3}]);
     },
     async requestChannelList({commit},payload) {
-        //추가적인 shorts 요청
-        commit('addChannelList',['1','2','3']);
+        //채널리스트 요청
+        commit('setChannelList',[{title:'채널1',channelId:1},{title:'채널2',channelId:2},{title:'채널3',channelId:3}]);
     }
 }
