@@ -1,14 +1,16 @@
 <template>
     <div class="recommend-tags">
-        <h3>추천 채널</h3>
-        <ChannelMini 
+        <router-link
             v-for="(value,index) in channelList.slice(0,5)" 
             :key="index"
-            :profile="value.profile"
-            :name="value.name"
+            :to="{ path:'/channel', query:{'channelId':value.channelId}}"
         >
-            {{value}}    
-        </ChannelMini>  
+            <ChannelMini 
+                :profile="value.profile"
+                :name="value.title"
+            >
+            </ChannelMini>  
+        </router-link>
     </div>
 </template>
 
