@@ -24,7 +24,7 @@
     <router-view/>
   </main>
   <BlurCard v-if="loginClicked" @close="closeLogin">
-      <div style="width:500px; height:500px; background-color:black;"></div>
+    <LoginCard/>
   </BlurCard>
   <BlurCard v-if="uploadClicked" @close="closeUpload">
       <ShortUpload/>
@@ -44,6 +44,7 @@ import BlurCard from '@/components/BlurCard.vue'
 import RecommendChannels from '@/components/recommendChannels.vue'
 import TagList from '@/components/TagList.vue'
 import ShortUpload from './components/ShortUpload.vue'
+import LoginCard from '@/components/LoginCard.vue'
 
 import {mapState,mapActions} from 'vuex'
 
@@ -61,7 +62,8 @@ export default {
     Profile,
     RecommendChannels,
     TagList,
-    ShortUpload
+    ShortUpload,
+    LoginCard,
   },
   mounted() {
     this.getRecommandTags();
