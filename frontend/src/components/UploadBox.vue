@@ -5,13 +5,15 @@
         @dragleave="dragleaveHandler($event)" 
         @dragover.prevent
         @drop.prevent="dropHandler($event)"
-        @click="clickHandler($event)"
         class="dropzone upload-box">
-        <img v-if="!!src" :src="src"/>
-        <span v-else class="guide">
-            <font-awesome-icon icon="upload"/>
-            <div>{{explain}}</div>
-        </span>
+        <label for="file-upload">
+            <img v-if="!!src"  class="preview" :src="src"/>
+            <span v-else class="guide">
+                <font-awesome-icon icon="upload"/>
+                <div>{{explain}}</div>
+            </span>
+        </label>
+        <input id="file-upload" type="file" @change="fileUploadHandler"/>
     </div>
 </template>
 
@@ -58,8 +60,22 @@ export default {
                 }
             }
         },
-        clickHandler(evt) {
-            alert('click')
+        fileUploadHandler(evt) {
+            const files = evt.target.files;
+            
+            if(files.length>1) {
+                alert('한 장의 사진만 올려주세요.')
+            }
+            else {
+                const file = files[0];
+                if(!/^image\//.test(file.type)) {
+                    alert('이미지 파일만 가능합니다.')
+                }
+                else {
+                    this.reader.readAsDataURL(file);
+                    this.$emit('upload',file);
+                }
+            }
         }
     }
 }
@@ -73,5 +89,12 @@ export default {
     background-color:var(--primary-color);
     opacity:0.7;
     color:var(--white-text-color);
+}
+.preview {
+    width:300px;
+    height:400px;
+}
+input[type='file'] {
+    display:none;
 }
 </style>
