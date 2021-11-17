@@ -38,7 +38,7 @@ const routes = [
   },
   {
     path: "/mypage",
-    name: "Mypage",
+    name: "MyPage",
     component: () => import("../views/MyPage.vue"),
     children: [
       {

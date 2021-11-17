@@ -23,6 +23,7 @@
             <button id="sign-up" @click="goToSignUp">회원가입</button>
             <button id="find-password" @click="goToFindPassword">비밀번호 찾기</button> 
         </div>
+    </div>
 </div>
 <!-- <button id="close-button" @click="closeCard"><font-awesome-icon :icon="faTimes"/></button> -->
 <!-- </div> -->
