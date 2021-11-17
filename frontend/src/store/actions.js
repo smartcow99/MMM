@@ -317,6 +317,7 @@ export default {
     },
     async requestChannelInfo({commit},payload) {
         //channelId에 해당하는 채널 정보 요청
+        //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
         if(payload==10) {
             commit('setChannelInfo',{
                 title:'내 채널',
