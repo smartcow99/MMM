@@ -28,8 +28,6 @@ export default {
         el.style.marginLeft = `-${this.width/2}px`
         el.style.marginTop = `-${this.height/2}px`
     },
-
-  
 }
 </script>
 

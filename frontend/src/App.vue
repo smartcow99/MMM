@@ -13,7 +13,6 @@
   <main>
     <aside>
       <Profile 
-        :userInfo="userInfo" 
         @openLogin="openLogin"
         @openUpload="openUpload"
       />

@@ -8,7 +8,7 @@
     </div>
     
     <!-- <form @submit="onSubmit" class="login-form"> -->
-    <form class="login-form" >
+    <div class="login-form" >
         <div id="input-id">
             <font-awesome-icon :icon="faUser"/>
             <input type="text" name="userId"/>
@@ -18,12 +18,11 @@
             <input type="password" name="userPassword"/>
         </div>
         <button type="submit" id="submit-button" @click="requestLogin">Log in</button>      
-    </form>
-
-        <div class="other-button">
-            <button id="sign-up" @click="goToSignUp">회원가입</button>
-            <button id="find-password" @click="goToFindPassword">비밀번호 찾기</button> 
-        </div>
+    </div>
+    <div class="other-button">
+        <button id="sign-up" @click="goToSignUp">회원가입</button>
+        <button id="find-password" @click="goToFindPassword">비밀번호 찾기</button> 
+    </div>
 </div>
 <!-- <button id="close-button" @click="closeCard"><font-awesome-icon :icon="faTimes"/></button> -->
 <!-- </div> -->
@@ -36,7 +35,7 @@ import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {faLock} from '@fortawesome/free-solid-svg-icons'
 // import {faTimes} from '@fortawesome/free-solid-svg-icons'
 
-export default{
+export default {
 name:'Login',
 data(){
     return{
@@ -45,10 +44,14 @@ data(){
         // faTimes,
     }
 },
-
+computed: {
+    ...mapState([
+        'userInfo'
+    ])
+},
 methods:{
     requestLogin(){
-        this.$store.actions.requestLogin();
+        this.$store.dispatch('requestLogin');
     },
     
     // closeCard(){
@@ -62,7 +65,13 @@ methods:{
     }
     
 },
-
+watch: {
+    'userInfo.isLogined'(isLogined) {
+        if(isLogined) {
+            this.$parent.$emit('close',true);
+        }
+    }
+}
 }
 </script>
 

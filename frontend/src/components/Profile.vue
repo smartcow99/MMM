@@ -23,8 +23,10 @@ import Btn from './Btn.vue'
 export default {
   components: { Btn },
     name: 'Profile',
-    props: {
-        'userInfo': Object,// isLogined: boolean, 
+    computed: {
+        userInfo() {
+            return this.$store.state['userInfo'];
+        }
     }
 }
 </script>
