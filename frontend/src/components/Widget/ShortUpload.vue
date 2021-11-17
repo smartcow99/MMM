@@ -14,21 +14,61 @@
        </span>
 
        <div class="shortsInfo">
-           <span id="title">제목<input type="text" placeholder="제목입력"></span>
-           <span id="info">영상 설명<input type="text" placeholder="영상설명" id="short-explain"></span>
-           <span id="tag">태그<input type="text" placeholder="태그입력(Enter로 추가)"></span>
+           <span id="title">제목<input type="text" placeholder="제목입력" v-model="inputTitle"></span>
+           <span id="explanation">영상 설명<input id="short-explain" type="text" placeholder="영상설명" v-model="inputExplanation"></span>
+           <span id="tag">태그<input type="text" placeholder="태그입력(Enter로 추가)" v-model="inputTag" @keyup.enter="addTag"></span>
+           <TagList v-if="tagOn" :tagList="tagList"/>
        </div>
-       <Btn id="upload-button">upload</Btn>
+       <Btn id="upload-button" @click="clickUploadButton">upload</Btn>
    </div>
 </template>
 
 <script>
 import Btn from '@/components/Btn.vue';
-
+import TagList from '@/components/TagList.vue';
+import { mapActions, mapMutations, mapState } from 'vuex';
 export default {
+    data:{
+        inputTitle:'',
+        inputExplanation:'',
+        inputTag:'',
+    },
+    data(){
+        return{
+            tagOn:false,
+        }
+    },
+    computed:{
+        ...mapState([
+            'tagList',
+            'userInfo'
+        ]),
+    },
+methods:{
+    ...mapActions([
+        'addTagList',
+        'resetTagList',
+        'requestUpload'
+    ]),
+    
+    addTag(){
+        console.log(this.tagList),
+        this.tagOn=true;
+        this.addTagList(this.inputTag);
+        
+    },
+    clickUploadButton(){
+       this.requestUpload([this.userInfo.userId, this.inputTitle, this.inputExplanation, this.tagList]); 
+       this.resetTagList();
+       this.$parent.$emit('close',true);
+    }
+},
+
 components:{
     Btn,
-}
+    TagList,
+},
+
 
 }
 </script>
