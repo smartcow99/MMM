@@ -40,12 +40,12 @@
 import Btn from './components/Btn.vue'
 import Profile from '@/components/Profile.vue'
 import Search from '@/components/Searchbar.vue'
-import Short from '@/components/widget/Short.vue'
+import Short from '@/components/Widget/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
 import ChannelList from '@/components/ChannelList.vue'
 import TagList from '@/components/TagList.vue'
-import ShortUpload from '@/components/widget/ShortUpload.vue'
-import LoginCard from '@/components/widget/LoginCard.vue'
+import ShortUpload from '@/components/Widget/ShortUpload.vue'
+import LoginCard from '@/components/Widget/LoginCard.vue'
 
 import {mapState,mapActions, mapMutations} from 'vuex'
 
