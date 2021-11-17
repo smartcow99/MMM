@@ -17,12 +17,12 @@
             <font-awesome-icon :icon="faLock"/>
             <input type="password" name="userPassword"/>
         </div>
-        <button type="submit" id="submit-button" @click="requestLogin">Log in</button>      
-    </div>
-    <div class="other-button">
-        <button id="sign-up" @click="goToSignUp">회원가입</button>
-        <button id="find-password" @click="goToFindPassword">비밀번호 찾기</button> 
-    </div>
+        <Btn type="submit" id="submit-button" @click="requestLogin">Log in</Btn>      
+
+        <div class="other-button">
+            <button id="sign-up" @click="goToSignUp">회원가입</button>
+            <button id="find-password" @click="goToFindPassword">비밀번호 찾기</button> 
+        </div>
 </div>
 <!-- <button id="close-button" @click="closeCard"><font-awesome-icon :icon="faTimes"/></button> -->
 <!-- </div> -->
@@ -30,6 +30,7 @@
 
 <script>
 import { mapState,mapMutations,mapActions } from 'vuex'
+import Btn from '@/components/Btn.vue';
 
 import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {faLock} from '@fortawesome/free-solid-svg-icons'
@@ -71,7 +72,11 @@ watch: {
             this.$parent.$emit('close',true);
         }
     }
+},
+components:{
+    Btn,
 }
+
 }
 </script>
 
@@ -139,7 +144,7 @@ input{
     display:flex;
     flex-direction:row;
 }
-#input-password{
+#input-password{ 
     display:flex;
     flex-direction:row;
 } */
