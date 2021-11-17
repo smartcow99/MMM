@@ -89,6 +89,7 @@ export default {
     display:flex;
     flex-direction:row;
     background-color:#ffffff;
+    z-index:100;
 }
 .left .close {
     position:absolute;

@@ -1,8 +1,35 @@
 <template>
     <div>
-        {{currentChannel['title']}}
-        <Detail>
-            채널정보
+        <div class="channel-info">
+            <img :src="currentChannel['profile']" alt="채널 프로필"/>
+            {{currentChannel['title']}}
+            <span>구독자 수 {{currentChannel['numOfSubscribers']}} | shorts {{currentChannel['numOfShorts']}}</span>
+            <div>{{currentChannel['introduce']}}</div>
+        </div>
+        <Detail v-if="currentChannel['channelId']==userInfo['channelId']">
+            <template v-slot:summary>
+                <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
+            </template>
+            <div class="product-list"
+                v-for="(productList,key) of currentChannel['dressingTable']"
+                :key="key"
+            >
+                {{key}}
+                <DeleteBox @delete="deleteProduct"
+                    v-for="(product,index) in productList"
+                    :key="index">
+                    <ProductMini
+                        :img="product.img"
+                        :productId="product.productId"
+                        :title="product.title"
+                    />
+                </DeleteBox>
+            </div>
+        </Detail>
+        <Detail v-else>
+            <template v-slot:summary>
+                <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
+            </template>
             <div class="product-list"
                 v-for="(productList,key) of currentChannel['dressingTable']"
                 :key="key"
@@ -16,9 +43,18 @@
                     :title="product.title"
                 />
             </div>
-
         </Detail>
-        <div>
+        <div v-if="currentChannel['channelId']==userInfo['channelId']">
+            쇼츠 가로 3개씩 나오도록 만들것
+            <DeleteBox @delete="deleteShort"
+                v-for="(short,index) in currentChannel['shortList']"
+                :key="index">
+                <ShortSummary
+                    :shortInfo="short">
+                </ShortSummary>
+            </DeleteBox>
+        </div>
+        <div v-else>
             쇼츠 가로 3개씩 나오도록 만들것
             <ShortSummary
                 v-for="(short,index) in currentChannel['shortList']"
@@ -34,21 +70,36 @@ import Detail from '../components/Detail.vue'
 import { mapActions, mapState } from 'vuex';
 import ShortSummary from '../components/ShortSummary.vue';
 import ProductMini from '../components/ProductMini.vue';
+import DeleteBox from '../components/DeleteBox.vue';
 export default {
     name:'Channel',
-    components: { Detail, ShortSummary, ProductMini },
+    components: { Detail, ShortSummary, ProductMini, DeleteBox },
     computed: {
         ...mapState([
+            'userInfo',
             'currentChannel'
         ])
     },
     methods: {
         ...mapActions([
             'requestChannelInfo'
-        ])
+        ]),
+        deleteProduct() {
+            alert('데모 아이디로는 상품을 삭제할 수 없습니다.')
+        },
+        deleteShort() {
+            alert('데모 아이디로는 영상을 삭제할 수 없습니다.')
+        }
     },
     mounted() {
         this.requestChannelInfo(this.$route.query['channelId']);
+    },
+    watch: {
+        '$route' () {
+            if(!!this.$route.query['channelId']) {
+                this.requestChannelInfo(this.$route.query['channelId']);
+            }
+        },
     }
 }
 </script>

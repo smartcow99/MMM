@@ -133,6 +133,7 @@ export default {
     //logout 요청
     async requestLogout({commit},payload) {
         //로그아웃 요청
+        commit('initUserInfo');
         commit('setIsLogin',false);
     },
     // shorts 요청
@@ -381,7 +382,7 @@ export default {
         }
         else {
             commit('setChannelInfo',{
-                title:'남의 채널',
+                title:`남의 채널${payload}`,
                 profile:'#',
                 channelId:20,
                 numOfSubscribers: 130,

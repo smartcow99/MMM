@@ -1,7 +1,7 @@
 <template>
     <details>
         <summary>
-            요약
+            <slot name="summary"/>
         </summary>
         <slot/>
     </details>

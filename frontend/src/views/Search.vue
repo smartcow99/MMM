@@ -1,9 +1,7 @@
 <template>
     <div>
         search
-
         <Menubar/>
-        {{$route.query}}
         <router-view/>
     </div>
 </template>

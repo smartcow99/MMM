@@ -7,6 +7,14 @@ export default {
         state['userInfo'].birth = payload.birth
         state['userInfo'].profileImage = payload.profileImage
     },
+    initUserInfo(state,payload) {
+        state['userInfo'].isLogined = false
+        state['userInfo'].name = ''
+        state['userInfo'].userId = 0
+        state['userInfo'].channelId = 0
+        state['userInfo'].birth = null
+        state['userInfo'].profileImage = ''
+    },
     // 로그인 됐다면 로그인된 상태로 변경
     setIsLogin(state,payload) {
         state['userInfo'].isLogined = payload;
