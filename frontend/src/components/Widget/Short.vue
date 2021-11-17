@@ -51,7 +51,7 @@ export default {
     name:'Short',
     created(){
         this.requestComments(this.currentShort.shortId);
-        this.requestChannelInfo(this.currentShort.channelId);
+        this.requestRelatedChannelInfo(this.currentShort.channelId);
         this.requestRelatedProducts(this.currentShort.shortId);
         this.requestRelatedTags(this.currentShort.shortId);
     },
@@ -64,7 +64,7 @@ export default {
     methods: {
         ...mapActions([
             'requestComments',
-            'requestChannelInfo',
+            'requestRelatedChannelInfo',
             'requestRelatedProducts',
             'requestRelatedTags',
             'requestRegistComment'

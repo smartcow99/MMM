@@ -119,6 +119,15 @@ export default {
     //login 요청
     async requestLogin({commit},payload) {
         //로그인 요청
+        //유저 정보 요청
+        commit('setUserInfo',{
+            isLogined: false,
+            name: '홍길동',
+            userId:'',
+            birth:'1998-11-02',
+            profileImage: '#',
+            channelId:10
+        })
         commit('setIsLogin',true);
     },
     //logout 요청
@@ -283,10 +292,10 @@ export default {
             {name:'토토로엄마',profile:'#',content:'아브라카다브라'}
         ])
     },
-    async requestChannelInfo({commit},payload) {
+    async requestRelatedChannelInfo({commit},payload) {
         //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
-        //자세한 채널정보 요청(short.vue에서 사용)
-        commit('setChannelInfo',            {
+        //영상을 올린 채널정보 요청(short.vue에서 사용)
+        commit('setRelatedChannel',{
             title:'채널10',
             profile:'',
             channelId:7,
@@ -305,6 +314,131 @@ export default {
             {name:'토토로엄마',profile:'#',content:'아브라카다브라'},
             {name:'토토로엄마사칭범',profile:'#',content:'아브라카다브라'}
         ])
+    },
+    async requestChannelInfo({commit},payload) {
+        //channelId에 해당하는 채널 정보 요청
+        if(payload==10) {
+            commit('setChannelInfo',{
+                title:'내 채널',
+                profile:'#',
+                channelId:10,
+                numOfSubscribers: 130,
+                numOfShorts: 3,
+                introduce:'내 채널 설명',
+                dressingTable:{
+                    '마스카라':[
+                        {title:'마스카라1',img:'#',productId:'11'},
+                        {title:'마스카라2',img:'#',productId:'12'},
+                    ],
+                    '립밤':[
+                        {title:'립밤1',img:'#',productId:'13'},
+                        {title:'립밤2',img:'#',productId:'14'},
+                    ],
+                    '파우더':[
+                        {title:'파우더1',img:'#',productId:'15'},
+                        {title:'파우더2',img:'#',productId:'16'},
+                    ],
+                    '크림':[
+                        {title:'크림1',img:'#',productId:'17'},
+                        {title:'크림2',img:'#',productId:'18'},
+                        {title:'크림3',img:'#',productId:'19'},
+                    ],
+                    '향수':[
+                        {title:'향수1',img:'#',productId:'20'},
+                    ],
+                },
+                shortList:[
+                    {
+                        title:'내 쇼츠1',
+                        thumnail:'#',
+                        shortId:123,
+                        channelId:10,
+                        numOfSubscribers:12345,
+                        numOfHearts:54321,
+                        numOfViews:12321
+                    },
+                    {
+                        title:'내 쇼츠2',
+                        thumnail:'#',
+                        shortId:124,
+                        channelId:10,
+                        numOfSubscribers:12345,
+                        numOfHearts:54321,
+                        numOfViews:12321
+                    },
+                    {
+                        title:'내 쇼츠3',
+                        thumnail:'#',
+                        shortId:125,
+                        channelId:10,
+                        numOfSubscribers:12345,
+                        numOfHearts:54321,
+                        numOfViews:12321
+                    },
+                ]
+            })
+        }
+        else {
+            commit('setChannelInfo',{
+                title:'남의 채널',
+                profile:'#',
+                channelId:20,
+                numOfSubscribers: 130,
+                numOfShorts: 3,
+                introduce:'내 채널 설명',
+                dressingTable:{
+                    '마스카라':[
+                        {title:'마스카라2',img:'#',productId:'11'},
+                        {title:'마스카라3',img:'#',productId:'12'},
+                    ],
+                    '립밤':[
+                        {title:'립밤1',img:'#',productId:'13'},
+                        {title:'립밤2',img:'#',productId:'14'},
+                    ],
+                    '파우더':[
+                        {title:'파우더1',img:'#',productId:'15'},
+                        {title:'파우더3',img:'#',productId:'16'},
+                    ],
+                    '크림':[
+                        {title:'크림1',img:'#',productId:'17'},
+                        {title:'크림3',img:'#',productId:'18'},
+                        {title:'크림4',img:'#',productId:'19'},
+                    ],
+                    '향수':[
+                        {title:'향수1',img:'#',productId:'20'},
+                    ],
+                },
+                shortList:[
+                    {
+                        title:'남의 쇼츠1',
+                        thumnail:'#',
+                        shortId:222,
+                        channelId:20,
+                        numOfSubscribers:12345,
+                        numOfHearts:54321,
+                        numOfViews:12321
+                    },
+                    {
+                        title:'남의 쇼츠2',
+                        thumnail:'#',
+                        shortId:223,
+                        channelId:20,
+                        numOfSubscribers:12345,
+                        numOfHearts:54321,
+                        numOfViews:12321
+                    },
+                    {
+                        title:'남의 쇼츠3',
+                        thumnail:'#',
+                        shortId:224,
+                        channelId:20,
+                        numOfSubscribers:12345,
+                        numOfHearts:54321,
+                        numOfViews:12321
+                    },
+                ]
+            })
+        }
     },
     async requestSubscribe({commit},payload) {
         //params 유저 아이디(또는 session으로 처리)

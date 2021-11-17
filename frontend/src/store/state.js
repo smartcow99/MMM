@@ -1,10 +1,11 @@
 export default {
     userInfo: {
         isLogined: false,
-        nickname: 'temp채널',
+        name: '홍길동',
         userId:'',
+        channelId:'',
+        birth:'1998-11-02',
         profileImage: '#',
-        channel: {},
     },
     tagList: [],
     shortList: [],
@@ -18,7 +19,7 @@ export default {
         isOpened: false,
         title:'',
         shortId:'',
-        channelInfo:{},
+        relatedChannel:{},
         relatedTags: [],
         relatedProducts: [],
         comments: []
@@ -29,6 +30,16 @@ export default {
         relatedTags: [],
         relatedProducts: [],
         comments: []
+    },
+    currentChannel: {
+        title:'',
+        profile:'',
+        channelId:0,
+        numOfSubscribers: 0,
+        numOfShorts: 0,
+        introduce:'',
+        dressingTable:{},
+        shortList:[]
     },
     analysisResult: {
         img: '',

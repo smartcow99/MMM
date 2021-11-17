@@ -6,12 +6,12 @@
             <p>사진 용량 제한</p>
         </div>
         <div class="box">
-            <span>이름</span><input type="text"/>
-            <span>생년월일</span><input type="date"/>
+            <span>이름</span><input type="text" :value="userInfo['name']"/>
+            <span>생년월일</span><input type="date" :value="userInfo['birth']"/>
         </div>
         <div class="box">
             로그인 정보
-            <span>아이디</span><input type="text"/>
+            <span>아이디</span><input type="text" :value="userInfo['userId']"/>
             <span>비밀번호</span><Btn theme="gray" @click="changePassword">비밀번호 변경</Btn>
             <div v-if="changePasswordState">
                 <span>새 비밀번호</span><input type="password"/>

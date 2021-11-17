@@ -2,7 +2,7 @@
     <div>
         channel search
         <ChannelSummary 
-            v-for="(value,index) in channelList" 
+            v-for="(value,index) in recommandChannelList" 
             :key="index"
             :channelInfo="value"
         />
@@ -28,7 +28,7 @@ export default {
     },
     computed: {
         ...mapState([
-            'channelList'
+            'recommandChannelList'
         ])
     },
     methods: {

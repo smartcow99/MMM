@@ -1,8 +1,12 @@
 export default {
-    temp(state,payload) {
-
+    setUserInfo(state,payload) {
+        state['userInfo'].isLogined = payload.isLogined
+        state['userInfo'].name = payload.name
+        state['userInfo'].userId = payload.userId
+        state['userInfo'].channelId = payload.channelId
+        state['userInfo'].birth = payload.birth
+        state['userInfo'].profileImage = payload.profileImage
     },
-    
     // 로그인 됐다면 로그인된 상태로 변경
     setIsLogin(state,payload) {
         state['userInfo'].isLogined = payload;
@@ -49,11 +53,25 @@ export default {
     setRelatedTags(state,payload) {
         state['currentShort'].relatedTags = payload;
     },
+    setRelatedChannel(state,payload) {
+        state['currentShort'].relatedChannel = payload;
+    },
     setComments(state,payload) {
         state['currentShort'].comments = payload;
     },
     setChannelInfo(state,payload) {
-        state['currentShort'].channelInfo = payload;
+        state['currentChannel'] = payload;
+        state['currentChannel'].title = payload.title;
+        state['currentChannel'].profile = payload.profile;
+        state['currentChannel'].channelId = payload.channelId;
+        state['currentChannel'].numOfSubscribers = payload.numOfSubscribers;
+        state['currentChannel'].numOfShorts = payload.numOfShorts;
+        state['currentChannel'].introduce = payload.introduce;
+        state['currentChannel'].dressingTable = payload.dressingTable;
+        state['currentChannel'].shortList = payload.shortList;
+    },
+    setDressingTable(state,payload) {
+        state['currentChannel'].dressingTable = payload;
     },
     setSearchType(state,payload) {
         state['searchType'] = payload;
