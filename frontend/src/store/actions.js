@@ -203,7 +203,11 @@ export default {
     },
     async requestPurchaseList({commit},payload) {
         //구매내역 요청
-        commit('setPurchaseList',[{title:'구매1'},{title:'구매2'},{title:'구매3'}]);
+        commit('setPurchaseList',[
+            {title:'구매1',thumnail:'#',date:'2021-11-17',price:30000},
+            {title:'구매2',thumnail:'#',date:'2021-11-18',price:40000},
+            {title:'구매3',thumnail:'#',date:'2021-11-19',price:50000}
+        ]);
     },
     async requestSearch({commit},payload) {
         //검색 요청 ( payload: 검색 string )
@@ -292,7 +296,7 @@ export default {
             introduce:'나는 채널10 이다'
         });
     },
-    async requestRegistComment({commit},payload) {
+    async requestRegistComment({commit},payload) {//안쓸예정
         //댓글 등록 요구 후, 댓글 목록 갱신 요청
         commit('setComments',[
             {name:'토토로',profile:'#',content:'아브라카다브라'},
