@@ -14,7 +14,11 @@ import {
   faEye,
   faComment,
   faHeart,
+  faStar,
+  faStarHalfAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(faUserSecret);
 library.add(faSearch);
@@ -25,6 +29,9 @@ library.add(faAngleRight);
 library.add(faEye);
 library.add(faComment);
 library.add(faHeart);
+library.add(faStar);
+library.add(farStar);
+library.add(faStarHalfAlt);
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
