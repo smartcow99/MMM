@@ -1,6 +1,6 @@
 <template>
     <div>
-        product search
+        product search result
         <ProductSummary 
             v-for="(value,index) in productList" 
             :key="index" 
@@ -23,9 +23,8 @@ export default {
             });
         }
         else {
-            this.getRecommandChannels();
+            this.getRecommandProducts();
         }
-        this.requestProductList();
     },
     computed: {
         ...mapState([
@@ -34,6 +33,7 @@ export default {
     },
     methods: {
         ...mapActions([
+            'getRecommandProducts',
             'requestProductList',
             'requestSearch',
         ])

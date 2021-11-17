@@ -6,32 +6,115 @@ export default {
     },
     // 추천 태그 GET
     async getRecommandTags({commit},payload) {
-        commit('setTagsList',['012','01234','0123456789']);
+        commit('setRecommandTagList',[
+            '012',
+            '01234',
+            '0123456789'
+        ]);
     },
+    
     // 추천 채널 GET
     async getRecommandChannels({commit},payload) {
-        commit('setChannelList',[
-            {title:'채널1',profile:'#',channelId:1},
-            {title:'채널2',profile:'#',channelId:2},
-            {title:'채널3',profile:'',channelId:3}
+        commit('setRecommandChannelList',[
+            {
+                title:'추천채널1',
+                profile:'#',
+                channelId:1,
+                numOfSubscribers: 105000,
+                numOfShorts: 10,
+                isSubscribed:false,
+                introduce:'나는 채널1 이다'
+            },
+            {
+                title:'추천채널2',
+                profile:'#',
+                channelId:2,
+                numOfSubscribers: 25000,
+                numOfShorts: 24,
+                isSubscribed:false,
+                introduce:'나는 채널2 이다'
+            },
+            {
+                title:'추천채널3',
+                profile:'#',
+                channelId:3,
+                numOfSubscribers: 35000,
+                numOfShorts: 27,
+                isSubscribed:false,
+                introduce:'나는 채널3 이다'
+            },
+            {
+                title:'추천채널4',
+                profile:'',
+                channelId:4,
+                numOfSubscribers: 45000,
+                numOfShorts: 30,
+                isSubscribed:false,
+                introduce:'나는 채널4 이다'
+            }    
         ]);
     },
     // 추천 shorts
     async getRecommandShorts({commit},payload) {
         //필요 정보: 제목, 썸네일,shortId, channelId
         commit('setShortList',[
-            {title:'쇼츠1',thumnail:'#',shortId:1,channelId:'123'},
-            {title:'쇼츠1',thumnail:'#',shortId:2,channelId:'234'},
-            {title:'쇼츠1',thumnail:'',shortId:3,channelId:'345'}
+            {
+                title:'쇼츠1',
+                thumnail:'#',
+                shortId:1,
+                channelId:'123',
+                numOfSubscribers:12345,
+                numOfHearts:54321,
+                numOfViews:12321
+            },
+            {
+                title:'쇼츠2',
+                thumnail:'#',
+                shortId:2,
+                channelId:'1234',
+                numOfSubscribers:12345,
+                numOfHearts:54321,
+                numOfViews:12321
+            },
+            {
+                title:'쇼츠3',
+                thumnail:'#',
+                shortId:3,
+                channelId:'13',
+                numOfSubscribers:12345,
+                numOfHearts:54321,
+                numOfViews:12321
+            },
         ]);
     },
     // 추천 상품 리스트
-    async getRecommandsetProducts({commit},payload) {
+    async getRecommandProducts({commit},payload) {
         commit('setProductList',[
-            {title:'상품1',profile:'#',productId:1},
-            {title:'상품2',profile:'#',productId:2},
-            {title:'상품3',profile:'',productId:3}
-        ]);setProductList
+            {
+                title:'상품1',
+                thumnail:'#',
+                productId:1,
+                rate:3.4,
+                price:20000,
+                //아직 더 추가해야함
+            },
+            {
+                title:'상품2',
+                thumnail:'#',
+                productId:2,
+                rate:3,
+                price:30000,
+                //아직 더 추가해야함
+            },
+            {
+                title:'상품3',
+                thumnail:'#',
+                productId:3,
+                rate:4.6,
+                price:15000,
+                //아직 더 추가해야함
+            },
+        ]);
     },
     //login 요청
     async requestLogin({commit},payload) {
@@ -43,18 +126,80 @@ export default {
         //로그아웃 요청
         commit('setIsLogin',false);
     },
-    //추가적인 shorts 요청
+    // shorts 요청
     async requestShortList({commit},payload) {
-        //추가적인 shorts 요청
+        // shorts 요청
         commit('setShortList',[{title:'1'},{title:'2'},{title:'3'}]);
     },
     async requestProductList({commit},payload) {
         //상품리스트 요청
-        commit('setProductList',[{title:'상품1',productId:1},{title:'상품2',productId:2},{title:'상품3',productId:3}]);
+        commit('setProductList',[
+            {
+                title:'상품1',
+                thumnail:'#',
+                productId:1,
+                rate:3.4,
+                price:20000,
+                //아직 더 추가해야함
+            },
+            {
+                title:'상품2',
+                thumnail:'#',
+                productId:2,
+                rate:3,
+                price:30000,
+                //아직 더 추가해야함
+            },
+            {
+                title:'상품3',
+                thumnail:'#',
+                productId:3,
+                rate:4.6,
+                price:40000,
+                //아직 더 추가해야함
+            },
+        ]);
     },
     async requestChannelList({commit},payload) {
         //채널리스트 요청
-        commit('setChannelList',[{title:'채널1',channelId:1},{title:'채널2',channelId:2},{title:'채널3',channelId:3}]);
+        commit('setChannelList',[
+            {
+                title:'채널1',
+                profile:'#',
+                channelId:4,
+                numOfSubscribers: 10000,
+                numOfShorts: 20,
+                isSubscribed:true,
+                introduce:'나는 채널1 이다'
+            },
+            {
+                title:'채널2',
+                profile:'#',
+                channelId:5,
+                numOfSubscribers: 20000,
+                numOfShorts: 24,
+                isSubscribed:false,
+                introduce:'나는 채널2 이다'
+            },
+            {
+                title:'채널3',
+                profile:'#',
+                channelId:6,
+                numOfSubscribers: 30000,
+                numOfShorts: 27,
+                isSubscribed:false,
+                introduce:'나는 채널3 이다'
+            },
+            {
+                title:'채널4',
+                profile:'',
+                channelId:7,
+                numOfSubscribers: 40000,
+                numOfShorts: 30,
+                isSubscribed:false,
+                introduce:'나는 채널4 이다'
+            }
+        ]);
     },
     async requestPurchaseList({commit},payload) {
         //구매내역 요청
@@ -63,11 +208,45 @@ export default {
     async requestSearch({commit},payload) {
         //검색 요청 ( payload: 검색 string )
         //검색 타입에 따라 다른 commit 실행(short,channel,product)
-
+        if(payload['type']==='channel') {
+            commit('setChannelList',[
+                {
+                    title:'검색채널1',
+                    profile:'#',
+                    channelId:4,
+                    numOfSubscribers: 10000,
+                    numOfShorts: 20,
+                    isSubscribed:true,
+                    introduce:'나는 채널1 이다'
+                }
+            ]);
+        }
+        else if(payload['type']==='product') {
+            commit('setProductList',[
+                {
+                    title:'검색상품1',
+                    thumnail:'#',
+                    productId:1,
+                    rate:3.4,
+                    price:12000,
+                    //아직 더 추가해야함
+                }
+            ]);
+        }
+        else {
+            commit('setShortList',[{
+                title:'검색쇼츠1',
+                thumnail:'#',
+                shortId:1,
+                channelId:'123',
+                numOfSubscribers:12345,
+                numOfHearts:54321,
+                numOfViews:12321
+            }]);
+        }
     },
     async requestAnalysis({commit},payload) {
-        //이미지 전송
-        // console.log(payload)
+        //이미지 전송 - multer, axios + formData
         commit('setAnalysisResult',{'img':'#','content':'니얼굴 잘생김'})
     },
     async requestRelatedProducts({commit},payload) {
@@ -101,11 +280,16 @@ export default {
         ])
     },
     async requestChannelInfo({commit},payload) {
-        commit('setChannelInfo',{
-            name:'',
-            profile:'#',
-            isSubscribed:false,//구독 여부(따로 때는게 나을까?)
-            introduce:'나는 채널이다'
+        //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
+        //자세한 채널정보 요청(short.vue에서 사용)
+        commit('setChannelInfo',            {
+            title:'채널10',
+            profile:'',
+            channelId:7,
+            numOfSubscribers: 210000,
+            numOfShorts: 10,
+            isSubscribed:false,
+            introduce:'나는 채널10 이다'
         });
     },
     async requestRegistComment({commit},payload) {
@@ -117,5 +301,13 @@ export default {
             {name:'토토로엄마',profile:'#',content:'아브라카다브라'},
             {name:'토토로엄마사칭범',profile:'#',content:'아브라카다브라'}
         ])
+    },
+    async requestSubscribe({commit},payload) {
+        //params 유저 아이디(또는 session으로 처리)
+        //구독 하기
+    },
+    async requestUnsubscribe({commit},payload) {
+        //params 유저 아이디(또는 session으로 처리)
+        //구독 취소
     }
 }

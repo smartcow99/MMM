@@ -1,17 +1,17 @@
 <template>
     <div>
       home
-      <router-link to="/search/">쇼츠</router-link> |
-      <router-link to="/search/channels">채널</router-link> |
-      <router-link to="/search/products">상품</router-link>
+      <Menubar/>
     </div>
 </template>
 
 <script>
+import Menubar from '../components/Menubar.vue'
 
 export default {
   name: 'Home',
   components: {
+    Menubar
 
   },
 }

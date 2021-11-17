@@ -1,6 +1,6 @@
 <template>
-    <div @click="openShort(shortInfo)">
-        shorts
+    <div class="short-summary" @click="openShort(shortInfo)">
+        {{shortInfo['title']}}
     </div>
 </template>
 
@@ -10,15 +10,7 @@ export default {
     props:{
         shortInfo: Object
     },
-    computed: {
-        ...mapState([
-
-        ])
-    },
     methods: {
-        ...mapActions([
-            'requestShort'
-        ]),
         ...mapMutations([
             'openShort'
         ]),
@@ -27,5 +19,7 @@ export default {
 </script>
 
 <style>
-
+.short-summary {
+    border:1px solid #cccccc;
+}
 </style>

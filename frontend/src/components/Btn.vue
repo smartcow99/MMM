@@ -2,7 +2,8 @@
     <button 
         :class="{
             'white':'white'===theme,
-            'primary':'primary'===theme
+            'primary':'primary'===theme,
+            'gray':'gray'===theme
         }"
     >
         <slot/>
@@ -17,7 +18,7 @@ export default {
             required: false,
             default:'primary',
             validator: (value)=> {
-                return ['white','primary',''].indexOf(value) !== -1;
+                return ['white','primary','gray'].indexOf(value) !== -1;
             }
         }
     }
@@ -30,5 +31,8 @@ export default {
 }
 .primary {
     background-color: var(--primary-color);
+}
+.gray {
+    background-color: var(--placeholder-color)
 }
 </style>

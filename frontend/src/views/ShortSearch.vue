@@ -24,7 +24,7 @@ export default {
     mounted() {
         if(!!this.$route.query['content']) {
             this.requestSearch({
-                'type':'product',
+                'type':'short',
                 'content':this.$route.query
             });
         }

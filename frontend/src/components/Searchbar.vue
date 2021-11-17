@@ -14,9 +14,27 @@ export default {
             content:'',
         }
     },
+    computed: {
+        searchType() {
+            return this.$store.state.searchType;
+        }
+    },
     methods: {
         search() {
-            this.$router.push({path:'/search',query:{'type':'shorts','content':this.content}})
+            console.log(this.searchType)
+            this.$router.push({path:`/search${this.getPath(this.searchType)}`,query:{'type':this.searchType,'content':this.content}})
+        },
+        getPath(type) {
+            if(type==='channel') return '/channels';
+            else if(type==='product') return '/products';
+            else return '/';
+        }
+    },
+    watch: {
+        '$route'(to,from) {
+            if(to.query['content']!=='') {
+                this.content = to.query['content'];
+            }
         }
     }
 }

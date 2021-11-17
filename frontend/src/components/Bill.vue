@@ -1,6 +1,9 @@
 <template>
     <div>
         {{PurchaseInfo}}
+        상품명
+        가격
+        
     </div>
 </template>
 

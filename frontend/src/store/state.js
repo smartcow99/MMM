@@ -1,6 +1,6 @@
 export default {
     userInfo: {
-        isLogined: true,
+        isLogined: false,
         nickname: 'temp채널',
         userId:'',
         profileImage: '#',
@@ -9,9 +9,11 @@ export default {
     tagList: [],
     shortList: [],
     productList: [],
+    recommandTagList: [],
+    recommandChannelList: [],
     channelList: [],
     purchaseList: [],
-
+    searchType:'short',
     currentShort: {
         isOpened: false,
         title:'',

@@ -9,7 +9,7 @@
 <script>
 export default {
     props: {
-        'profile':URL,
+        'profile':String,
         'name':String
     }
 }

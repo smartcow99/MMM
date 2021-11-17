@@ -19,9 +19,9 @@
       />
 
       <h3>추천 채널</h3>
-      <ChannelList :channelList="channelList"/>
+      <ChannelList :channelList="recommandChannelList"/>
       <h3>추천 태그</h3>
-      <TagList :tagList="tagList"/>
+      <TagList :tagList="recommandTagList"/>
     </aside>
     <router-view/>
   </main>
@@ -76,8 +76,8 @@ export default {
   computed: {
     ...mapState([
       'userInfo',
-      'tagList',
-      'channelList',
+      'recommandTagList',
+      'recommandChannelList',
       'currentShort'
     ])
   },

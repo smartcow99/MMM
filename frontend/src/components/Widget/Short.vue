@@ -71,7 +71,7 @@ export default {
         ]),
         registComment(comment) {
             this.requestRegistComment({
-                user:this.userInfo['userId'],
+                shortId:this.currentShort.shortId,
                 comment
             })
         }
