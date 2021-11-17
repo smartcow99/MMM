@@ -83,5 +83,13 @@ export default {
     },
     setSearchType(state,payload) {
         state['searchType'] = payload;
-    }
+    },
+    addTagList(state, payload) {
+        //shorts 업로드 창에서 태그 추가시키면 태그리스트에 push해주는 함수
+        state.tagList.push(payload);
+    },
+    resetTagList(state) {
+        //shorts 업로드 버튼 클릭 하면 추가되었던 태그리스트 초기화해주는 함수
+        state.tagList = [];
+    },
 }

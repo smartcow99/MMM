@@ -1,9 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-    async actionTemp({commit},payload) {
-
-    },
     // 추천 태그 GET
     async getRecommandTags({commit},payload) {
         commit('setRecommandTagList',[
@@ -450,4 +447,154 @@ export default {
         //params 유저 아이디(또는 session으로 처리)
         //구독 취소
     }
-}
+  },
+  async requestAnalysis({ commit }, payload) {
+    //이미지 전송 - multer, axios + formData
+    commit("setAnalysisResult", { img: "#", content: "니얼굴 잘생김" });
+  },
+  async requestRelatedProducts({ commit }, payload) {
+    commit("setRelatedProducts", [
+      { title: "관련상품1", img: "#", productId: "12" },
+      { title: "관련상품2", img: "#", productId: "23" },
+      { title: "관련상품3", img: "#", productId: "34" },
+      { title: "관련상품4", img: "#", productId: "45" },
+      { title: "관련상품5", img: "#", productId: "56" },
+      { title: "관련상품6", img: "#", productId: "67" },
+    ]);
+  },
+  async requestRelatedTags({ commit }, payload) {
+    commit("setRelatedTags", [
+      "관련상품1",
+      "관련상품2",
+      "관련상품3",
+      "관련상품4",
+      "관련상품5",
+      "관련상품6",
+    ]);
+  },
+  async requestComments({ commit }, payload) {
+    //payload: shortId
+    //해당 short의 댓글을 모두 읽어 반환
+    commit("setComments", [
+      { name: "토토로", profile: "#", content: "아브라카다브라" },
+      { name: "토토로아빠", profile: "#", content: "아브라카다브라" },
+      { name: "토토로아들", profile: "#", content: "아브라카다브라" },
+      { name: "토토로엄마", profile: "#", content: "아브라카다브라" },
+    ]);
+  },
+  async requestChannelInfo({ commit }, payload) {
+    //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
+    //자세한 채널정보 요청(short.vue에서 사용)
+    commit("setChannelInfo", {
+      title: "채널10",
+      profile: "",
+      channelId: 7,
+      numOfSubscribers: 210000,
+      numOfShorts: 10,
+      isSubscribed: false,
+      introduce: "나는 채널10 이다",
+    });
+  },
+  async requestRegistComment({ commit }, payload) {
+    //안쓸예정
+    //댓글 등록 요구 후, 댓글 목록 갱신 요청
+    commit("setComments", [
+      { name: "토토로", profile: "#", content: "아브라카다브라" },
+      { name: "토토로아빠", profile: "#", content: "아브라카다브라" },
+      { name: "토토로아들", profile: "#", content: "아브라카다브라" },
+      { name: "토토로엄마", profile: "#", content: "아브라카다브라" },
+      { name: "토토로엄마사칭범", profile: "#", content: "아브라카다브라" },
+    ]);
+  },
+  async requestSubscribe({ commit }, payload) {
+    //params 유저 아이디(또는 session으로 처리)
+    //구독 하기
+  },
+  async requestUnsubscribe({ commit }, payload) {
+    //params 유저 아이디(또는 session으로 처리)
+    //구독 취소
+  },
+
+  async requestAnalysis({ commit }, payload) {
+    //이미지 전송 - multer, axios + formData
+    commit("setAnalysisResult", { img: "#", content: "니얼굴 잘생김" });
+  },
+  async requestRelatedProducts({ commit }, payload) {
+    commit("setRelatedProducts", [
+      { title: "관련상품1", img: "#", productId: "12" },
+      { title: "관련상품2", img: "#", productId: "23" },
+      { title: "관련상품3", img: "#", productId: "34" },
+      { title: "관련상품4", img: "#", productId: "45" },
+      { title: "관련상품5", img: "#", productId: "56" },
+      { title: "관련상품6", img: "#", productId: "67" },
+    ]);
+  },
+  async requestRelatedTags({ commit }, payload) {
+    commit("setRelatedTags", [
+      "관련상품1",
+      "관련상품2",
+      "관련상품3",
+      "관련상품4",
+      "관련상품5",
+      "관련상품6",
+    ]);
+  },
+  async requestComments({ commit }, payload) {
+    //payload: shortId
+    //해당 short의 댓글을 모두 읽어 반환
+    commit("setComments", [
+      { name: "토토로", profile: "#", content: "아브라카다브라" },
+      { name: "토토로아빠", profile: "#", content: "아브라카다브라" },
+      { name: "토토로아들", profile: "#", content: "아브라카다브라" },
+      { name: "토토로엄마", profile: "#", content: "아브라카다브라" },
+    ]);
+  },
+  async requestChannelInfo({ commit }, payload) {
+    //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
+    //자세한 채널정보 요청(short.vue에서 사용)
+    commit("setChannelInfo", {
+      title: "채널10",
+      profile: "",
+      channelId: 7,
+      numOfSubscribers: 210000,
+      numOfShorts: 10,
+      isSubscribed: false,
+      introduce: "나는 채널10 이다",
+    });
+  },
+  async requestRegistComment({ commit }, payload) {
+    //댓글 등록 요구 후, 댓글 목록 갱신 요청
+    commit("setComments", [
+      { name: "토토로", profile: "#", content: "아브라카다브라" },
+      { name: "토토로아빠", profile: "#", content: "아브라카다브라" },
+      { name: "토토로아들", profile: "#", content: "아브라카다브라" },
+      { name: "토토로엄마", profile: "#", content: "아브라카다브라" },
+      { name: "토토로엄마사칭범", profile: "#", content: "아브라카다브라" },
+    ]);
+  },
+  async requestSubscribe({ commit }, payload) {
+    //params 유저 아이디(또는 session으로 처리)
+    //구독 하기
+  },
+  async requestUnsubscribe({ commit }, payload) {
+    //params 유저 아이디(또는 session으로 처리)
+    //구독 취소
+  },
+  async addTagList({ commit }, payload) {
+    // (payload:shorts 업로드 창에서 추가한 태그)
+    commit("addTagList", [{ payload }]);
+  },
+  async resetTagList({ commit }) {
+    commit("resetTagList");
+  },
+  //   async requestUpload({ commit }, payload) {
+  //     console.log(payload);
+  //     console.log(payload[2]);
+  //     commit("setShorts", [
+  //       //   { userId: payload[0] },
+  //       { title: payload[1] },
+  //       { explanation: payload[2] },
+  //       //   { tag: payload[3] },
+  //     ]);
+  //   },
+};

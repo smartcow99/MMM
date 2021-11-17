@@ -25,7 +25,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+*{
+    cursor:pointer;
+}
 .white {
     background-color: var(--background-color);
 }
