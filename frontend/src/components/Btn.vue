@@ -28,6 +28,9 @@ export default {
 <style scoped>
 *{
     cursor:pointer;
+    color:white;
+    border:transparent;
+    border-radius: 4px;
 }
 .white {
     background-color: var(--background-color);
