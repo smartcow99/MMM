@@ -4,13 +4,9 @@
             <font-awesome-icon icon="angle-left"/>
         </button>
         <div class="view-box">
-            <ProductMini
-                v-for="(value,index) in viewProduct"
-                :key="index"
-                :title="value.title"
-                :img="value.img"
-                :productId="value.productId"
-            />
+            <span class="contents" :style="{ transform:`translateX(${-100*index}px)`}">
+                <slot/>
+            </span>
         </div>
         <button @click="showRight">
             <font-awesome-icon icon="angle-right"/>
@@ -19,40 +15,26 @@
 </template>
 
 <script>
-import ProductMini from './ProductMini.vue'
 
 export default {
-    components: { ProductMini },
+    name:'ProductSlider',
     props: {
-        'productList':Array
+        'maxIndex':Number
     },
     data() {
         return {
-            viewProduct:[],
-            leftIndex:0,
-            rightIndex:3
+            index:0
         }
-    },
-    mounted() {
-        this.viewProduct = this.productList.slice(this.leftIndex,this.rightIndex);
-    },
-    updated() {
-        this.viewProduct = this.productList.slice(this.leftIndex,this.rightIndex);
     },
     methods: {
         showLeft() {
-            if(this.leftIndex!=0) {
-                this.leftIndex--;
-                this.rightIndex--;
-                this.viewProduct = this.productList.slice(this.leftIndex,this.rightIndex);
+            if(this.index!=0) {
+                this.index--;
             }
         },
         showRight() {
-            console.log(this.productList,this.viewProduct,this.leftIndex,this.rightIndex)
-            if(this.rightIndex+1<this.productList.length) {
-                this.rightIndex++;
-                this.leftIndex++;
-                this.viewProduct = this.productList.slice(this.leftIndex,this.rightIndex);
+            if(this.index<this.maxIndex-3) {
+                this.index++;
             }
         }
     }
@@ -64,11 +46,17 @@ export default {
 .product-slider {
     display:flex;
     flex-direction:row;
+    justify-content: center;
+    overflow:hidden;
 }
 .product-slider .view-box {
-    flex-grow:1;
+    display:block;
+    width:300px;
+    overflow:hidden;
+}
+.product-slider .view-box .contents {
     display:flex;
-    flex-direction: row;
-    justify-content: center;
+    width:1000px;
+    flex-direction:row;
 }
 </style>

@@ -37,7 +37,7 @@
                 v-for="(value,index) in currentShort['relatedTags']" :key="index"
                 :title="value"
             />
-            <ProductSlider :productList="currentShort['relatedProducts']">
+            <ProductSlider :maxIndex="currentShort['relatedProducts'].length">
                 <ProductMini
                     v-for="(value,index) in currentShort['relatedProducts']"
                     :key="index"
