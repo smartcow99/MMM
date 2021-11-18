@@ -5,6 +5,18 @@ const multer = require('multer');
 const { PythonShell } = require("python-shell");
 
 const upload = multer({ dest: 'uploads/', limits: { fileSize: 5 * 1024 * 1024 } });
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     // set a localstorage destination
+//     destination: (req, file, cb) => {
+//       cb(null, 'uploads/');
+//     },
+//     // convert a file name
+//     filename: (req, file, cb) => {
+//       cb(null, new Date().valueOf() + path.extname(file.originalname));
+//     },
+//   }),
+// });
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -20,10 +32,11 @@ router.post('/imgtest', upload.single('file'/* img사용 가능?*/), (req, res)=
   res.send('ok');
 })
 
+
 router.get('/pytest',(req, res)=>{
   let options = {
     scriptPath: "my_modules",
-    args: ['value1', 'value2']
+    args: ['helloworld', 'value2']
   };
   PythonShell.run("test.py", options, function(err, data) {
     if (err) throw err;
@@ -31,4 +44,5 @@ router.get('/pytest',(req, res)=>{
     res.send('ok')
   });
 })
+
 module.exports = router;
