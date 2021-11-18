@@ -1,11 +1,13 @@
 <template>
     <div id="home">
       home
-      <ShortSummary 
-          v-for="(value,index) in recommandShortList" 
-          :key="index" 
-          :shortInfo="value"
-      />
+      <div class="short-list">
+        <ShortSummary 
+            v-for="(value,index) in recommandShortList" 
+            :key="index" 
+            :shortInfo="value"
+        />
+      </div>
     </div>
 </template>
 
@@ -45,3 +47,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+#home .short-list {
+  display:flex;
+  flex-direction:row;
+}
+</style>
