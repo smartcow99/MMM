@@ -35,8 +35,8 @@ export default {
     setRecommandChannelList(state,payload) {
         state['recommandChannelList'] = payload;
     },
-    setTagList(state,payload) {
-        state['tagList'] = payload;
+    setRecommandShortList(state,payload) {
+        state['recommandShortList'] = payload;
     },
     setChannelList(state,payload) {
         state['channelList'] = payload;

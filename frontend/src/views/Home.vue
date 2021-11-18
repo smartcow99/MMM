@@ -1,25 +1,23 @@
 <template>
-    <div>
+    <div id="home">
       home
-      <!-- <Menubar/> -->
-      <!--추천 shorts 만 나오도록 -->
-      <div id="shortList">
-        <ShortSummary 
-            v-for="(value,index) in shortList" 
-            :key="index" 
-            :shortInfo="value"
-        />
-        </div>
+      <ShortSummary 
+          v-for="(value,index) in recommandShortList" 
+          :key="index" 
+          :shortInfo="value"
+      />
     </div>
 </template>
 
 <script>
+import ShortSummary from '../components/ShortSummary.vue'
 import Menubar from '../components/Menubar.vue'
 import {mapState,mapActions} from 'vuex'
 export default {
   name: 'Home',
   components: {
-    Menubar
+    Menubar,
+    ShortSummary
   },
   data() {
     return {
@@ -28,7 +26,7 @@ export default {
   },
   computed: {
         ...mapState([
-            'shortList'
+            'recommandShortList'
         ])
     },
     methods: {
@@ -41,15 +39,7 @@ export default {
     '$route': {
       immediate: true,
       handler(to,from) {
-          if(!!to.query['content']) {
-              this.requestSearch({
-                  'type':'short',
-                  'content':this.$route.query
-              });
-          }
-          else {
-              this.getRecommandShorts();
-          }
+          this.getRecommandShorts();
       }
     }
   }

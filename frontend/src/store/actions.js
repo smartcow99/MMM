@@ -54,7 +54,7 @@ export default {
     // 추천 shorts
     async getRecommandShorts({commit},payload) {
         //필요 정보: 제목, 썸네일,shortId, channelId
-        commit('setShortList',[
+        commit('setRecommandShortList',[
             {
                 title:'쇼츠1',
                 thumnail:'#',

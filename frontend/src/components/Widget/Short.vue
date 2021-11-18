@@ -95,7 +95,7 @@ export default {
             'requestUnsubscribe'
         ]),
         registComment(comment) {
-            alert('데모 버전에선 댓글을 등록할 수 없습니다.')
+            alert('데모 아이디로는 댓글을 등록할 수 없습니다.')
             // this.requestRegistComment({
             //     shortId:this.currentShort.shortId,
             //     comment
