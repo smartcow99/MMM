@@ -20,7 +20,12 @@
       <h3>추천 채널</h3>
       <ChannelList :channelList="recommandChannelList"/>
       <h3>추천 태그</h3>
-      <TagList :tagList="recommandTagList"/>
+      <div>
+        <Tag 
+          v-for="(value,index) in recommandTagList" :key="index"
+          :title="value"
+        />
+      </div>
     </aside>
     <router-view/>
   </main>
@@ -141,14 +146,6 @@ export default {
 header#nav {
   padding: 20px;
   border-bottom:1px solid #cccccc;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
   .logo {
     width:40px;
     height:40px;

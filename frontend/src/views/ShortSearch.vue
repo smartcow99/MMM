@@ -1,6 +1,6 @@
 <template>
     <div>
-        shorts search
+        shorts search {{$route.query}}
         <div id="shortList">
         <ShortSummary 
             v-for="(value,index) in shortList" 
@@ -23,18 +23,6 @@ export default {
             
         }
     },
-    mounted() {
-        if(!!this.$route.query['content']) {
-            this.requestSearch({
-                'type':'short',
-                'content':this.$route.query
-            });
-        }
-        else {
-            this.getRecommandShorts();
-        }
-        
-    },
     computed: {
         ...mapState([
             'shortList'
@@ -45,6 +33,22 @@ export default {
             'getRecommandShorts',
             'requestSearch'
         ])
+    },
+    watch: {
+        '$route': {
+            immediate: true,
+            handler(to,from) {
+                if(!!to.query['content']) {
+                    this.requestSearch({
+                        'type':'short',
+                        'content':this.$route.query
+                    });
+                }
+                else {
+                    this.getRecommandShorts();
+                }
+            }
+        }
     }
 }
 </script>

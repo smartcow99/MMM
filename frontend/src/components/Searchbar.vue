@@ -21,7 +21,6 @@ export default {
     },
     methods: {
         search() {
-            console.log(this.searchType)
             this.$router.push({path:`/search${this.getPath(this.searchType)}`,query:{'type':this.searchType,'content':this.content}})
         },
         getPath(type) {

@@ -2,7 +2,6 @@
     <router-link :to="{path:'/search/', query:{'type':'short','content':title} }">
         <button class="tag"># {{title}}</button>
     </router-link>
-
 </template>
 
 <script>

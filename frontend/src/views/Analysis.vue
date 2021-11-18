@@ -3,9 +3,9 @@
         <div class="analytics">
             <UploadBox 
                 class="upload-box"
-                :explain="explainText"
+                
                 @upload="uploadFile"
-            />
+            >{{explainText}}</UploadBox>
             <div class="analytics-result">
                 <h2>AI 얼굴 분석</h2>
                 <h3>분석 결과</h3>
@@ -16,13 +16,15 @@
             </div>
         </div>
         <h2>추천 화장법</h2>
-        <div class="recommand-makeup">
+        <div class="recommand-makeup"><!--추천화장법 클릭시 검색되도록 수정하세요-->
             <span 
                 v-for="(value,index) in analysisResult['recommandDressing']"
                 :key="index"
             >
-                <img :src="value.thumnail"/>
-                <h3>{{value.title}}</h3>
+                <router-link :to="{path:'/search/', query:{'type':'short','content':title} }">
+                    <img :src="value.thumnail"/>
+                    <h3>{{value.title}}</h3>
+                </router-link>
             </span>
         </div>
     </div>

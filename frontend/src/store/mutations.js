@@ -61,6 +61,8 @@ export default {
         state['analysisResult'].recommandDressing = [];
     },
     setShortInfo(state,payload) {
+        state['currentShort'].numOfHearts = payload.numOfHearts;
+        state['currentShort'].numOfViews = payload.numOfViews;
         state['currentShort'].title =payload.title;
         state['currentShort'].shortId =payload.shortId;
         state['currentShort'].relatedChannel =payload.relatedChannel;

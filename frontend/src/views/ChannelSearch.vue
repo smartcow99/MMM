@@ -21,7 +21,7 @@ export default {
                 'type':'channel',
                 'content':this.$route.query
             });
-        }
+        }//recommandChannel 말고 검색 결과도 쓸 수 있게 수정하세요 ( route에 대한 v-if 사용)
         else {
             this.getRecommandChannels();
         }

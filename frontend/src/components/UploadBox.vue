@@ -10,7 +10,7 @@
             <img v-if="!!src"  class="preview" :src="src"/>
             <span v-else class="guide">
                 <font-awesome-icon icon="upload"/>
-                <div>{{explain}}</div>
+                <div><slot/></div>
             </span>
         </label>
         <input id="file-upload" type="file" @change="fileUploadHandler"/>
@@ -18,11 +18,7 @@
 </template>
 
 <script>
-//todo: 이미지 드래그해서 hover시 애니메이션, 
 export default {
-    props: {
-        explain:String
-    },
     data() {
         return {
             file: null,

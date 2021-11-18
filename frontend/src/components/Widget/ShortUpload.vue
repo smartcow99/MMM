@@ -2,16 +2,17 @@
    <div class="uploadCard">
        <span class="uploadArea">
                 <div id="uploadShorts">
-                    <UploadBox/>
-                    <font-awesome-icon icon="upload"/>
-                    shorts 드래그하세요<br>
-                    (영상 제한 50MB)
+                    <UploadBox><!--크기 정정하세요-->
+                    <p>shorts 드래그하세요</p>
+                    <small>(영상 제한 50MB)</small>
+                    
+                    </UploadBox>
                 </div>
                 <div id="uploadThumbnail">
-                <UploadBox />
-                    <font-awesome-icon icon="upload"/>
+                <UploadBox>
                     썸네일 드래그하세요<br>
                     (이미지 제한 5MB)
+                </UploadBox>
                 </div>
        </span>
 
@@ -22,13 +23,16 @@
             </span>
             <span id="explanationBox">
                <span id="explanation">영상 설명</span>
-               <input id="short-explain" type="text" placeholder="영상설명" v-model="inputExplanation">
+               <input id="short-explain" type="text" placeholder="영상설명" v-model="inputExplanation"><!--textarea로 고치세요-->
             </span>
             <span id="tagBox">
                 <span id="tag">태그</span>
                 <input type="text" placeholder="태그입력(Enter로 추가)" v-model="inputTag" @keyup.enter="addTag">
             </span>
-            <TagList v-if="tagOn" :tagList="tagList"/>
+            <Tag 
+                v-for="(value,index) in tagList" :key="index"
+                :title="value"
+            /><!--deletableTag 생성 후 Tag 대체-->
        </div>
        <Btn id="upload-button" @click="clickUploadButton">upload</Btn>
    </div>
@@ -36,23 +40,21 @@
 
 <script>
 import Btn from '@/components/Btn.vue';
-import TagList from '@/components/TagList.vue';
+import Tag from '@/components/Tag.vue';
 import UploadBox from '@/components/UploadBox.vue'
 import { mapActions, mapMutations, mapState } from 'vuex';
 export default {
-    data:{
-        inputTitle:'',
-        inputExplanation:'',
-        inputTag:'',
-    },
     data(){
         return{
             tagOn:false,
+            inputTitle:'',
+            inputExplanation:'',
+            inputTag:'',
+            tagList:[]
         }
     },
     computed:{
-        ...mapState([
-            'tagList',
+        ...mapState([,
             'userInfo'
         ]),
     },
@@ -64,21 +66,20 @@ methods:{
     ]),
     
     addTag(){
-        console.log(this.tagList),
-        this.tagOn=true;
-        this.addTagList(this.inputTag);
-        
+        this.tagList.push(this.inputTag+'');
+        this.inputTag="";
     },
     clickUploadButton(){
-       this.requestUpload([this.userInfo.userId, this.inputTitle, this.inputExplanation, this.tagList]); 
-       this.resetTagList();
-       this.$parent.$emit('close',true);
+        alert('데모 계정에선 영상을 업로드할 수 없습니다.')
+    //    this.requestUpload([this.userInfo.userId, this.inputTitle, this.inputExplanation, this.tagList]); 
+    //    this.resetTagList();
+    //    this.$parent.$emit('close',true);
     }
 },
 
 components:{
     Btn,
-    TagList,
+    Tag,
     UploadBox,
 },
 

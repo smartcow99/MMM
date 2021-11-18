@@ -6,8 +6,11 @@
             </button>
             <video></video>
             <font-awesome-icon icon="eye"/>
+            {{currentShort['numOfViews']}}
             <font-awesome-icon icon="comment"/>
+            {{currentShort['comments'].length}}
             <font-awesome-icon icon="heart"/>
+            {{currentShort['numOfHearts']}}
             <font-awesome-icon icon="volume-up"/>
             <font-awesome-icon icon="volume-mute"/>
         </div>
@@ -30,9 +33,20 @@
                 영상 정보
                 {{currentShort['info']}}
             </div>
-            <TagList :tagList="currentShort['relatedTags']"></TagList>
-            <ProductSlider :productList="currentShort['relatedProducts']"></ProductSlider>
-            <WriteComment v-if="userInfo['isLogined']"></WriteComment>
+            <Tag 
+                v-for="(value,index) in currentShort['relatedTags']" :key="index"
+                :title="value"
+            />
+            <ProductSlider :productList="currentShort['relatedProducts']">
+                <ProductMini
+                    v-for="(value,index) in currentShort['relatedProducts']"
+                    :key="index"
+                    :title="value.title"
+                    :img="value.img"
+                    :productId="value.productId"
+                />
+            </ProductSlider>
+            <WriteComment v-if="userInfo['isLogined']" @write="registComment"></WriteComment>
             <div v-else>
                 댓글을 등록하려면 로그인을 해주세요
                 <Btn @click="openLogin">로그인</Btn>
@@ -42,7 +56,7 @@
                     v-for="(comment,index) in currentShort['comments']"
                     :key="index" 
                     :commentInfo="comment"
-                    @write="registComment"
+                    
                 />
             </div>
 
@@ -51,6 +65,7 @@
 </template>
 
 <script>
+import ProductMini from '@/components/ProductMini.vue'
 import ProductSlider from '@/components/ProductSlider.vue'
 import TagList from '@/components/TagList.vue'
 import WriteComment from '../WriteComment.vue'
@@ -58,7 +73,7 @@ import Comment from '../Comment.vue'
 import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
 export default {
-    components: { TagList, ProductSlider,WriteComment,Comment,Btn },
+    components: { TagList, ProductSlider,ProductMini,WriteComment,Comment,Btn },
     name:'Short',
     computed: {
         ...mapState([
@@ -80,10 +95,11 @@ export default {
             'requestUnsubscribe'
         ]),
         registComment(comment) {
-            this.requestRegistComment({
-                shortId:this.currentShort.shortId,
-                comment
-            })
+            alert('데모 버전에선 댓글을 등록할 수 없습니다.')
+            // this.requestRegistComment({
+            //     shortId:this.currentShort.shortId,
+            //     comment
+            // })
         },
         openLogin(){
             this.setLoginPageOn(true)
@@ -122,7 +138,7 @@ export default {
     height:100%;
 }
 .left {
-
+    backdrop-filter:blur(4px);
     background-color:#333333;
 }
 .right {
