@@ -1,10 +1,10 @@
 <template>
-    <div class="product-slider">
+    <div class="slider">
         <button @click="showLeft">
             <font-awesome-icon icon="angle-left"/>
         </button>
-        <div class="view-box">
-            <span class="contents" :style="{ transform:`translateX(${-100*index}px)`}">
+        <div class="view-box" :style="{ 'width':`${count*elWidth}px`}">
+            <span class="contents" :style="{ transform:`translateX(-${elWidth*index}px)`}">
                 <slot/>
             </span>
         </div>
@@ -17,8 +17,10 @@
 <script>
 
 export default {
-    name:'ProductSlider',
+    name:'Slider',
     props: {
+        'elWidth':Number,
+        'count':Number,
         'maxIndex':Number
     },
     data() {
@@ -33,7 +35,7 @@ export default {
             }
         },
         showRight() {
-            if(this.index<this.maxIndex-3) {
+            if(this.index<this.maxIndex-this.count) {
                 this.index++;
             }
         }
@@ -43,18 +45,18 @@ export default {
 </script>
 
 <style scoped>
-.product-slider {
+.slider {
     display:flex;
     flex-direction:row;
     justify-content: center;
     overflow:hidden;
 }
-.product-slider .view-box {
+.slider .view-box {
     display:block;
     width:300px;
     overflow:hidden;
 }
-.product-slider .view-box .contents {
+.slider .view-box .contents {
     display:flex;
     width:1000px;
     flex-direction:row;

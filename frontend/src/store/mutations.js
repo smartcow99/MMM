@@ -94,6 +94,15 @@ export default {
         state['currentChannel'].dressingTable = payload.dressingTable;
         state['currentChannel'].shortList = payload.shortList;
     },
+    setProductInfo(state,payload) {
+        state['currentProduct'].title = payload.title
+        state['currentProduct'].productId = payload.productId
+        state['currentProduct'].productInfo = payload.productInfo
+        state['currentProduct'].productImages = payload.productImages
+        state['currentProduct'].relatedShorts = payload.relatedShorts
+        state['currentProduct'].productExplainHtml = payload.productExplainHtml
+        state['currentProduct'].reviews = payload.reviews
+    },
     setDressingTable(state,payload) {
         state['currentChannel'].dressingTable = payload;
     },

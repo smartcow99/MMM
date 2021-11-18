@@ -47,7 +47,7 @@ import Search from '@/components/Searchbar.vue'
 import Short from '@/components/widget/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
 import ChannelList from '@/components/ChannelList.vue'
-import TagList from '@/components/TagList.vue'
+import Tag from '@/components/Tag.vue'
 import ShortUpload from '@/components/widget/ShortUpload.vue'
 import LoginCard from '@/components/widget/LoginCard.vue'
 
@@ -66,7 +66,7 @@ export default {
     Short,
     Profile,
     ChannelList,
-    TagList,
+    Tag,
     ShortUpload,
     LoginCard,
     Btn

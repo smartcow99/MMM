@@ -45,15 +45,19 @@
                 v-for="(value,index) in currentShort['relatedTags']" :key="index"
                 :title="value"
             />
-            <ProductSlider :maxIndex="currentShort['relatedProducts'].length">
+            <Slider 
+                :count="4"
+                :elWidth="100"
+                :maxIndex="currentShort['relatedProducts'].length">
                 <ProductMini
                     v-for="(value,index) in currentShort['relatedProducts']"
                     :key="index"
+                    @click.capture="setShortPageOn(false)"
                     :title="value.title"
                     :img="value.img"
                     :productId="value.productId"
                 />
-            </ProductSlider>
+            </Slider>
             <WriteComment v-if="userInfo['isLogined']" @write="registComment"></WriteComment>
             <div v-else>
                 댓글을 등록하려면 로그인을 해주세요
@@ -74,14 +78,14 @@
 
 <script>
 import ProductMini from '@/components/ProductMini.vue'
-import ProductSlider from '@/components/ProductSlider.vue'
+import Slider from '@/components/Slider.vue'
 import TagList from '@/components/TagList.vue'
 import WriteComment from '../WriteComment.vue'
 import Comment from '../Comment.vue'
 import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
 export default {
-    components: { TagList, ProductSlider,ProductMini,WriteComment,Comment,Btn },
+    components: { TagList, Slider,ProductMini,WriteComment,Comment,Btn },
     name:'Short',
     computed: {
         ...mapState([
@@ -91,7 +95,8 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'setLoginPageOn'
+            'setLoginPageOn',
+            'setShortPageOn'
         ]),
         ...mapActions([
             'requestComments',
@@ -100,7 +105,8 @@ export default {
             'requestRelatedTags',
             'requestRegistComment',
             'requestSubscribe',
-            'requestUnsubscribe'
+            'requestUnsubscribe',
+            'requestProductInfo'
         ]),
         registComment(comment) {
             alert('데모 아이디로는 댓글을 등록할 수 없습니다.')
@@ -126,7 +132,7 @@ export default {
         play() {
 
         },
-        
+
     }
 }
 </script>

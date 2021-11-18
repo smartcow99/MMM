@@ -33,10 +33,12 @@ export default {
     },
     currentProduct: {
         title:'',
-        id:'',
-        relatedTags: [],
-        relatedProducts: [],
-        comments: []
+        productId:'',
+        productInfo: {},
+        productImages: [],
+        relatedShorts: [],
+        productExplainHtml:'',
+        reviews: []
     },
     currentChannel: {
         title:'',

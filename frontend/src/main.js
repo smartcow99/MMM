@@ -20,16 +20,15 @@ import {
   faVolumeUp,
   faPlay,
   faPause,
-  faRedo
+  faRedo,
+  faWonSign
 } from "@fortawesome/free-solid-svg-icons";
-
 import {
   faStar as farStar,
   faHeart as farHeart,
   faUserCircle as farUserCircle,
   faEye as farEye,
 } from "@fortawesome/free-regular-svg-icons";
-
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(faUserSecret);
@@ -52,6 +51,8 @@ library.add(farEye);
 library.add(faPlay);
 library.add(faPause);
 library.add(faRedo);
+library.add(faWonSign);
+
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(store).use(router).mount("#app");
