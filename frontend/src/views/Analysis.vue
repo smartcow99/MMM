@@ -16,12 +16,12 @@
             </div>
         </div>
         <h2>추천 화장법</h2>
-        <div class="recommand-makeup"><!--추천화장법 클릭시 검색되도록 수정하세요-->
+        <div class="recommand-makeup">
             <span 
                 v-for="(value,index) in analysisResult['recommandDressing']"
                 :key="index"
             >
-                <router-link :to="{path:'/search/', query:{'type':'short','content':title} }">
+                <router-link :to="{path:'/search/', query:{'type':'short','content':value.title} }">
                     <img :src="value.thumnail"/>
                     <h3>{{value.title}}</h3>
                 </router-link>
