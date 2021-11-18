@@ -13,7 +13,7 @@
             <Btn theme="primary" @click="$emit('openUpload',$event)">업로드</Btn>
         </div>
         <div v-else>
-            <button @click="$emit('openLogin',$event)">로그인</button>
+            <button @click="$store.commit('setLoginPageOn',true)">로그인</button>
         </div>
     </div>
 </template>

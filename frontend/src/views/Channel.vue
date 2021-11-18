@@ -5,6 +5,8 @@
             {{currentChannel['title']}}
             <span>구독자 수 {{currentChannel['numOfSubscribers']}} | shorts {{currentChannel['numOfShorts']}}</span>
             <div>{{currentChannel['introduce']}}</div>
+            <Btn v-if="currentChannel['isSubscribed']" @click="subscribe">구독 취소</Btn>
+            <Btn v-else @click="unsubscribe">구독</Btn>
         </div>
         <Detail v-if="currentChannel['channelId']==userInfo['channelId']">
             <template v-slot:summary>
@@ -82,13 +84,23 @@ export default {
     },
     methods: {
         ...mapActions([
-            'requestChannelInfo'
+            'requestChannelInfo',
+            'requestSubscribe',
+            'requestUnsubscribe'
         ]),
         deleteProduct() {
             alert('데모 아이디로는 상품을 삭제할 수 없습니다.')
         },
         deleteShort() {
             alert('데모 아이디로는 영상을 삭제할 수 없습니다.')
+        },
+        subscribe() {
+            this.requestSubscribe(this.currentChannel['channelId']);
+            this.requestChannelInfo(this.currentChannel['channelId']);
+        },
+        unsubscribe() {
+            this.requestUnsubscribe(this.currentChannel['channelId']);
+            this.requestChannelInfo(this.currentChannel['channelId']);
         }
     },
     mounted() {

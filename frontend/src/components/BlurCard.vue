@@ -42,6 +42,7 @@ export default {
     width:100%;
     height:100%;
     backdrop-filter:blur(4px);
+    z-index:110;
 }
 #blur-card-content {
     position:absolute;

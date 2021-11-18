@@ -15,8 +15,15 @@
                 </div>
             </div>
         </div>
+        <h2>추천 화장법</h2>
         <div class="recommand-makeup">
-            화장법 추천
+            <span 
+                v-for="(value,index) in analysisResult['recommandDressing']"
+                :key="index"
+            >
+                <img :src="value.thumnail"/>
+                <h3>{{value.title}}</h3>
+            </span>
         </div>
     </div>
 </template>
@@ -34,7 +41,7 @@ export default {
             explainText:"사진올려",
         }
     },
-    mounted() {
+    created() {
         this.initAnalysisResult();
     },
     computed: {
@@ -71,5 +78,7 @@ export default {
 }
 .recommand-makeup {
     border: 1px solid black;
+    display:flex;
+    flex-direction:row;
 }
 </style>

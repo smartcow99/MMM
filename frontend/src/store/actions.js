@@ -126,6 +126,7 @@ export default {
             channelId:10
         })
         commit('setIsLogin',true);
+        commit('setLoginPageOn',false);
     },
     //logout 요청
     async requestLogout({commit},payload) {
@@ -258,7 +259,24 @@ export default {
     },
     async requestAnalysis({commit},payload) {
         //이미지 전송 - multer, axios + formData
-        commit('setAnalysisResult',{'img':'#','content':'니얼굴 잘생김'})
+        commit('setAnalysisResult',{
+            img:'#',
+            content:'니얼굴 잘생김',
+            recommandDressing: [
+                {
+                    title:'화장법1',
+                    thumnail: '#',
+                },
+                {
+                    title:'화장법2',
+                    thumnail: '#',
+                },
+                {
+                    title:'화장법3',
+                    thumnail: '#',
+                }
+            ]
+        })
     },
     async requestRelatedProducts({commit},payload) {
         commit('setRelatedProducts',[
@@ -289,6 +307,46 @@ export default {
             {name:'토토로아들',profile:'#',content:'아브라카다브라'},
             {name:'토토로엄마',profile:'#',content:'아브라카다브라'}
         ])
+    },
+    async requestShortInfo({commit},payload) {
+        commit('setShortInfo',{
+            title:'클릭한 short',
+            shortId:999,
+            numOfHearts:230,
+            numOfViews:12000,
+            relatedChannel:{
+                title:'채널10',
+                profile:'',
+                channelId:7,
+                numOfSubscribers: 210000,
+                numOfShorts: 10,
+                isSubscribed:false,
+                introduce:'나는 채널10 이다'
+            },
+            relatedTags: [
+                '관련상품1',
+                '관련상품2',
+                '관련상품3',
+                '관련상품4',
+                '관련상품5',
+                '관련상품6',
+            ],
+            relatedProducts: [
+                {title:'관련상품1',img:'#',productId:'12'},
+                {title:'관련상품2',img:'#',productId:'23'},
+                {title:'관련상품3',img:'#',productId:'34'},
+                {title:'관련상품4',img:'#',productId:'45'},
+                {title:'관련상품5',img:'#',productId:'56'},
+                {title:'관련상품6',img:'#',productId:'67'},
+            ],
+            comments: [
+                {name:'토토로',profile:'#',content:'아브라카다브라'},
+                {name:'토토로아빠',profile:'#',content:'아브라카다브라'},
+                {name:'토토로아들',profile:'#',content:'아브라카다브라'},
+                {name:'토토로엄마',profile:'#',content:'아브라카다브라'}
+            ],
+            info: '영상 정보 주저리주저리'
+        })
     },
     async requestRelatedChannelInfo({commit},payload) {
         //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
@@ -323,6 +381,7 @@ export default {
                 channelId:10,
                 numOfSubscribers: 130,
                 numOfShorts: 3,
+                isSubscribed:false,
                 introduce:'내 채널 설명',
                 dressingTable:{
                     '마스카라':[
@@ -385,6 +444,7 @@ export default {
                 numOfSubscribers: 130,
                 numOfShorts: 3,
                 introduce:'내 채널 설명',
+                isSubscribed:false,
                 dressingTable:{
                     '마스카라':[
                         {title:'마스카라2',img:'#',productId:'11'},
@@ -440,11 +500,11 @@ export default {
         }
     },
     async requestSubscribe({commit},payload) {
-        //params 유저 아이디(또는 session으로 처리)
+        //params 유저 아이디(또는 session으로 처리), channelId
         //구독 하기
     },
     async requestUnsubscribe({commit},payload) {
-        //params 유저 아이디(또는 session으로 처리)
+        //params 유저 아이디(또는 session으로 처리), channelId
         //구독 취소
     }
 }

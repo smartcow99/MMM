@@ -1,4 +1,13 @@
 export default {
+    setLoginPageOn(state,payload) {
+        state['loginPageOn'] = payload;
+    },
+    setUploadShortPageOn(state,payload) {
+        state['uploadShortPageOn'] = payload;
+    },
+    setShortPageOn(state,payload) {
+        state['shortPageOn'] = payload;
+    },
     setUserInfo(state,payload) {
         state['userInfo'].isLogined = payload.isLogined
         state['userInfo'].name = payload.name
@@ -38,22 +47,27 @@ export default {
     setShortList(state,payload) {
         state['shortList'] = payload;
     },
-    openShort(state,payload) {
-        state['currentShort'].title = payload['title'];
-        state['currentShort'].shortId = payload['shortId'];
-        state['currentShort'].channelId = payload['channelId'];
-        state['currentShort'].isOpened = true;
-    },
     setPurchaseList(state,payload) {
         state['purchaseList'] = payload;
     },
     setAnalysisResult(state,payload) {
         state['analysisResult'].img = payload.img;
         state['analysisResult'].content = payload.content;
+        state['analysisResult'].recommandDressing = payload.recommandDressing;
     },
     initAnalysisResult(state,payload) {
         state['analysisResult'].img = '';
         state['analysisResult'].content = '';
+        state['analysisResult'].recommandDressing = [];
+    },
+    setShortInfo(state,payload) {
+        state['currentShort'].title =payload.title;
+        state['currentShort'].shortId =payload.shortId;
+        state['currentShort'].relatedChannel =payload.relatedChannel;
+        state['currentShort'].relatedTags =payload.relatedTags;
+        state['currentShort'].relatedProducts =payload.relatedProducts;
+        state['currentShort'].comments =payload.comments;
+        state['currentShort']. info =payload.info;
     },
     setRelatedProducts(state,payload) {
         state['currentShort'].relatedProducts = payload;

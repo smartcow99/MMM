@@ -24,17 +24,16 @@
     </aside>
     <router-view/>
   </main>
-  <BlurCard v-if="loginClicked" @close="closeLogin">
+  <BlurCard v-if="loginPageOn" @close="closeLogin">
     <LoginCard/>
   </BlurCard>
-  <BlurCard v-if="uploadClicked" @close="closeUpload">
+  <BlurCard v-if="uploadShortPageOn" @close="closeUpload">
       <ShortUpload/>
   </BlurCard>
   <Short 
-    v-if="currentShort['isOpened']"
+    v-if="shortPageOn"
     @close="closeShort"
   />
-  
 </template>
 <script>
 import Btn from './components/Btn.vue'
@@ -53,7 +52,6 @@ import {mapState,mapActions, mapMutations} from 'vuex'
 export default {
   data() {
     return {
-      loginClicked:false,
       uploadClicked:false,
     }
   },
@@ -77,10 +75,18 @@ export default {
       'userInfo',
       'recommandTagList',
       'recommandChannelList',
-      'currentShort'
+      'currentShort',
+      'loginPageOn',
+      'uploadShortPageOn',
+      'shortPageOn'
     ])
   },
   methods: {
+    ...mapMutations([
+      'setLoginPageOn',
+      'setUploadShortPageOn',
+      'setShortPageOn'
+    ]),
     ...mapActions([
       'requestLogout',
       'getRecommandTags',
@@ -88,19 +94,19 @@ export default {
       'requestSearch'
     ]),
     closeLogin() {
-      this.loginClicked = false;
+      this.setLoginPageOn(false);
     },
     openLogin() {
-      this.loginClicked = true;
+      this.setLoginPageOn(true);
     },
     closeUpload() {
-      this.uploadClicked = false;
+      this.setUploadShortPageOn(false);
     },
     openUpload() {
-      this.uploadClicked = true;
+      this.setUploadShortPageOn(true);
     },
     closeShort() {
-      this.currentShort['isOpened'] = false;
+      this.setShortPageOn(false);
     },
     search(content) {
       this.requestSearch(content);

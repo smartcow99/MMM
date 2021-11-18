@@ -5,28 +5,38 @@
                 <font-awesome-icon icon="times"/>
             </button>
             <video></video>
-            영상 조회수
-            영상 하트 개수
-            영상 댓글 개수
             <font-awesome-icon icon="eye"/>
             <font-awesome-icon icon="comment"/>
             <font-awesome-icon icon="heart"/>
+            <font-awesome-icon icon="volume-up"/>
+            <font-awesome-icon icon="volume-mute"/>
         </div>
         <div class="right">
             <h2>{{currentShort['title']}}</h2>
             <div>
                 채널 정보
+                {{currentShort['relatedChannel'].introduce}}
                 채널 프로필
+                <img :src="currentShort['relatedChannel'].profile"/>
                 구독자수
+                {{currentShort['relatedChannel'].numOfSubscribers}}
                 short개수
+                {{currentShort['relatedChannel'].numOfShorts}}
                 구독버튼
+                <Btn v-if="isSubscribed" :theme="gray" @click="unsubscribe">구독 취소</Btn>
+                <Btn v-else :theme="primary" @click="subscribe">구독</Btn>
             </div>
             <div>
                 영상 정보
+                {{currentShort['info']}}
             </div>
             <TagList :tagList="currentShort['relatedTags']"></TagList>
             <ProductSlider :productList="currentShort['relatedProducts']"></ProductSlider>
-            <WriteComment></WriteComment>
+            <WriteComment v-if="userInfo['isLogined']"></WriteComment>
+            <div v-else>
+                댓글을 등록하려면 로그인을 해주세요
+                <Btn @click="openLogin">로그인</Btn>
+            </div>
             <div>
                 <Comment 
                     v-for="(comment,index) in currentShort['comments']"
@@ -45,16 +55,11 @@ import ProductSlider from '@/components/ProductSlider.vue'
 import TagList from '@/components/TagList.vue'
 import WriteComment from '../WriteComment.vue'
 import Comment from '../Comment.vue'
+import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
 export default {
-    components: { TagList, ProductSlider,WriteComment,Comment },
+    components: { TagList, ProductSlider,WriteComment,Comment,Btn },
     name:'Short',
-    created(){
-        this.requestComments(this.currentShort.shortId);
-        this.requestRelatedChannelInfo(this.currentShort.channelId);
-        this.requestRelatedProducts(this.currentShort.shortId);
-        this.requestRelatedTags(this.currentShort.shortId);
-    },
     computed: {
         ...mapState([
             'currentShort',
@@ -62,18 +67,34 @@ export default {
         ])
     },
     methods: {
+        ...mapMutations([
+            'setLoginPageOn'
+        ]),
         ...mapActions([
             'requestComments',
             'requestRelatedChannelInfo',
             'requestRelatedProducts',
             'requestRelatedTags',
-            'requestRegistComment'
+            'requestRegistComment',
+            'requestSubscribe',
+            'requestUnsubscribe'
         ]),
         registComment(comment) {
             this.requestRegistComment({
                 shortId:this.currentShort.shortId,
                 comment
             })
+        },
+        openLogin(){
+            this.setLoginPageOn(true)
+        },
+        subscribe() {
+            this.requestSubscribe(this.currentShort['channelId']);
+            this.requestRelatedChannelInfo(this.currentShort['channelId']);
+        },
+        unsubscribe() {
+            this.requestUnsubscribe(this.currentShort['channelId']);
+            this.requestRelatedChannelInfo(this.currentShort['channelId']);
         }
     }
 }

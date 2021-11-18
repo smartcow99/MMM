@@ -1,4 +1,7 @@
 export default {
+    loginPageOn: false,
+    uploadShortPageOn: false,
+    shortPageOn:false,
     accessToken:'',//새로고침될때마다 로그인이 풀리므로, session을 통해 이를 해결해야함
     userInfo: {
         isLogined: false,
@@ -17,13 +20,15 @@ export default {
     purchaseList: [],
     searchType:'short',
     currentShort: {
-        isOpened: false,
         title:'',
         shortId:'',
+        numOfHearts:0,
+        numOfViews:0,
         relatedChannel:{},
         relatedTags: [],
         relatedProducts: [],
-        comments: []
+        comments: [],
+        info: ''
     },
     currentProduct: {
         title:'',
@@ -38,6 +43,7 @@ export default {
         channelId:0,
         numOfSubscribers: 0,
         numOfShorts: 0,
+        isSubscribed:false,
         introduce:'',
         dressingTable:{},
         shortList:[]
@@ -45,5 +51,6 @@ export default {
     analysisResult: {
         img: '',
         content: '',
+        recommandDressing: []
     }
 }

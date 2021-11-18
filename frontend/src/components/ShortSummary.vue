@@ -11,9 +11,16 @@ export default {
         shortInfo: Object
     },
     methods: {
-        ...mapMutations([
-            'openShort'
+        ...mapActions([
+            'requestShortInfo'
         ]),
+        ...mapMutations([
+            'setShortPageOn'
+        ]),
+        openShort(shortInfo) {
+            this.requestShortInfo(shortInfo);
+            this.setShortPageOn(true);
+        }
     }
 }
 </script>

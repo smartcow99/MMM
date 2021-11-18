@@ -82,9 +82,10 @@ components:{
 </script>
 
 <style scoped>
-*{
+* {
     font-family: 'rubik';
     font-size:14px;
+    z-index:110;
 }
 /* .entire-card{
     display:flex;
