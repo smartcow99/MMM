@@ -17,14 +17,12 @@ const api = {
 	},
 	search_shorts: async (content)=>{
 		let [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, recommend as numOfHearts, numOfSubscribers from mmmservice.video natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a where title like '%${content}%'`);
-		console.log(res);
 		return res;
 	},
 	search_channel: async (content,cid)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, numOfShorts, isSubscribed, introduce \
 		from channel natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a natural join (select chid as channelId, count(*) as numOfShorts from mmmservice.video group by chid)b \
 		natural left outer join (select chid as channelId, cid as isSubscribed from subscribe where cid = ${cid})c where ch_name like '%${content}%';`);
-		console.log(res);
 		return res;
 	},
 	search_product: async (content)=>{

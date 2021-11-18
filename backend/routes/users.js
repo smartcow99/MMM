@@ -51,10 +51,10 @@ router.post('/login', async (req, res)=>{
     console.log(result.cid, ' logined');
     req.session.islogined = true;
     req.session.cid = result.cid;
-    res.status(200).send('성공');
+    res.status(200).send('success');
   }
   else
-    res.status(400).send('실패');
+    res.status(400).send('fail');
 })
 
 router.get('/logout',(req, res)=>{
@@ -66,9 +66,11 @@ router.get('/logout',(req, res)=>{
 })
 
 router.get('/search',async (req, res)=>{
-  console.log(req.query.type, req.query.content, req.session.cid)
   const cid = req.session.cid | 0;
   const result = await db.search(req.query.type, req.query.content, cid);
-  res.send(result);
+  if(result)
+    res.status(200).send(result);
+  else
+    res.status(400).send('fail');
 })
 module.exports = router;
