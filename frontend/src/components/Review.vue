@@ -1,15 +1,17 @@
 <template>
     <div>
-        프로필
-        채널명
-        사용 후기
-        별점
-        사진 첨부시 사진 추가
+        <img :src="reviewInfo['profile']"/>
+        <h3>{{reviewInfo['name']}}</h3>
+        <p>{{reviewInfo['content']}}</p>
+        <star-rating :rate="reviewInfo['rate']"/>
+        <img v-if="reviewInfo['photo']!==''" :src="reviewInfo['photo']"/>
     </div>
 </template>
 
 <script>
+import StarRating from './StarRating.vue'
 export default {
+  components: { StarRating },
     name:'Review',
     props:{
         'reviewInfo':Object
