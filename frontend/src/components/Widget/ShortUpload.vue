@@ -1,17 +1,18 @@
 <template>
    <div class="uploadCard">
        <span class="uploadArea">
-                <div id="uploadShorts">
-                    <UploadBox><!--크기 정정하세요-->
+                <div>
+                <!-- <div id="uploadShorts"> -->
+                    <UploadBox id="uploadShorts"><!--크기 정정하세요-->
                     <p>shorts 드래그하세요</p>
                     <small>(영상 제한 50MB)</small>
                     
                     </UploadBox>
                 </div>
-                <div id="uploadThumbnail">
-                <UploadBox>
-                    썸네일 드래그하세요<br>
-                    (이미지 제한 5MB)
+                <div>
+                <UploadBox id="uploadThumbnail">
+                    <p>썸네일 드래그하세요</p>
+                    <small>(이미지 제한 5MB)</small>
                 </UploadBox>
                 </div>
        </span>
@@ -23,16 +24,19 @@
             </span>
             <span id="explanationBox">
                <span id="explanation">영상 설명</span>
-               <input id="short-explain" type="text" placeholder="영상설명" v-model="inputExplanation"><!--textarea로 고치세요-->
+               <textarea id="short-explain" type="text" placeholder="영상설명" v-model="inputExplanation"/>
             </span>
             <span id="tagBox">
                 <span id="tag">태그</span>
                 <input type="text" placeholder="태그입력(Enter로 추가)" v-model="inputTag" @keyup.enter="addTag">
             </span>
-            <Tag 
+            
+            <Tag id="tag-area"
                 v-for="(value,index) in tagList" :key="index"
                 :title="value"
-            /><!--deletableTag 생성 후 Tag 대체-->
+                @delete="deleteTag"
+            />
+            
        </div>
        <Btn id="upload-button" @click="clickUploadButton">upload</Btn>
    </div>
@@ -40,7 +44,7 @@
 
 <script>
 import Btn from '@/components/Btn.vue';
-import Tag from '@/components/Tag.vue';
+import Tag from '@/components/TagDeletable.vue';
 import UploadBox from '@/components/UploadBox.vue'
 import { mapActions, mapMutations, mapState } from 'vuex';
 export default {
@@ -69,6 +73,9 @@ methods:{
         this.tagList.push(this.inputTag+'');
         this.inputTag="";
     },
+    deleteTag(){
+        this.tagList.pop();
+    },
     clickUploadButton(){
         alert('데모 계정에선 영상을 업로드할 수 없습니다.')
     //    this.requestUpload([this.userInfo.userId, this.inputTitle, this.inputExplanation, this.tagList]); 
@@ -92,10 +99,13 @@ components:{
     font-family: 'rubik';
     font-size : 14px;
 }
+p{
+    margin: 10px 0 0 0;
+}
 .uploadCard{
-    /* display:flex;
-    flex-direction: column; */
-    /* justify-content: space-between; */
+    /* justify-content: 
+    space-between; */
+    /* position:absolute; */
     margin:200px auto;
     width:700px;
     height:750px;
@@ -107,7 +117,7 @@ components:{
 .uploadArea{
     display:flex;
     flex-direction:row;
-    justify-content: space-between;
+    justify-content: space-around;
     margin:0 0 20px 0;
 }
 #uploadShorts{
@@ -115,7 +125,7 @@ components:{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width:48%;
+    width:300px;
     height:300px;
     border:dashed;
 }
@@ -124,22 +134,22 @@ components:{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width:48%;
+    width:300px;
     height:300px;
     border:dashed;
 }
-.shortsInfo{
-    /* display:flex;
+/* .shortsInfo{
+    display:flex;
     flex-direction: column; 
      align-items: center; 
      justify-content: space-between; 
-     margin:50px auto; */
- }
+     margin:50px auto;
+ } */
 
 input{
     width:85%;
     height:40px;
-    margin:20px 0 0 0;
+    margin:20px 0 20px 0;
 }
 #titleBox{
     display:flex;
@@ -157,15 +167,16 @@ input{
     justify-content: space-between;
 }
 div>span>span{
-    margin:10px;
+    margin:30px 0 0 0;
 }
 #short-explain{
+    width:85%;
     height:150px;
 }
 #upload-button{
     width:100%;
     height: 40px;
-    margin: 90px auto;
+    margin: 80px auto;
     cursor:pointer;
 }
 </style>
