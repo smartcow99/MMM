@@ -1,11 +1,13 @@
 <template>
     <div>
         shorts search
+        <div id="shortList">
         <ShortSummary 
             v-for="(value,index) in shortList" 
             :key="index" 
             :shortInfo="value"
         />
+        </div>
     </div>
 </template>
 
@@ -48,6 +50,12 @@ export default {
 </script>
 
 <style>
-
+#shortList{
+    width:120%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 50px auto;
+}
 </style>
 

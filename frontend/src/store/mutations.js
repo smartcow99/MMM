@@ -106,4 +106,7 @@ export default {
         //shorts 업로드 버튼 클릭 하면 추가되었던 태그리스트 초기화해주는 함수
         state.tagList = [];
     },
+    upLikeCount(state) {
+        state["currentShort"].like++;
+    }
 }

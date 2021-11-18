@@ -506,5 +506,24 @@ export default {
     async requestUnsubscribe({commit},payload) {
         //params 유저 아이디(또는 session으로 처리), channelId
         //구독 취소
+    },
+    async requestSubscribe({ commit }, payload) {
+        //params 유저 아이디(또는 session으로 처리)
+        //구독 하기
+    },
+    async requestUnsubscribe({ commit }, payload) {
+        //params 유저 아이디(또는 session으로 처리)
+        //구독 취소
+    },
+
+    async upShortsLikeCount({ commit }) {
+        commit("upLikeCount");
+    },
+    async addTagList({ commit }, payload) {
+        // (payload:shorts 업로드 창에서 추가한 태그)
+        commit("addTagList", [{ payload }]);
+    },
+    async resetTagList({ commit }) {
+        commit("resetTagList");
     }
-}
+};

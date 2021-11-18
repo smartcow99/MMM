@@ -2,11 +2,13 @@
    <div class="uploadCard">
        <span class="uploadArea">
                 <div id="uploadShorts">
+                    <UploadBox/>
                     <font-awesome-icon icon="upload"/>
                     shorts 드래그하세요<br>
                     (영상 제한 50MB)
                 </div>
                 <div id="uploadThumbnail">
+                <UploadBox />
                     <font-awesome-icon icon="upload"/>
                     썸네일 드래그하세요<br>
                     (이미지 제한 5MB)
@@ -14,10 +16,19 @@
        </span>
 
        <div class="shortsInfo">
-           <span id="title">제목<input type="text" placeholder="제목입력" v-model="inputTitle"></span>
-           <span id="explanation">영상 설명<input id="short-explain" type="text" placeholder="영상설명" v-model="inputExplanation"></span>
-           <span id="tag">태그<input type="text" placeholder="태그입력(Enter로 추가)" v-model="inputTag" @keyup.enter="addTag"></span>
-           <TagList v-if="tagOn" :tagList="tagList"/>
+            <span id="titleBox">
+               <span id="title">제목</span>
+               <input type="text" placeholder="제목입력" v-model="inputTitle">
+            </span>
+            <span id="explanationBox">
+               <span id="explanation">영상 설명</span>
+               <input id="short-explain" type="text" placeholder="영상설명" v-model="inputExplanation">
+            </span>
+            <span id="tagBox">
+                <span id="tag">태그</span>
+                <input type="text" placeholder="태그입력(Enter로 추가)" v-model="inputTag" @keyup.enter="addTag">
+            </span>
+            <TagList v-if="tagOn" :tagList="tagList"/>
        </div>
        <Btn id="upload-button" @click="clickUploadButton">upload</Btn>
    </div>
@@ -26,6 +37,7 @@
 <script>
 import Btn from '@/components/Btn.vue';
 import TagList from '@/components/TagList.vue';
+import UploadBox from '@/components/UploadBox.vue'
 import { mapActions, mapMutations, mapState } from 'vuex';
 export default {
     data:{
@@ -67,6 +79,7 @@ methods:{
 components:{
     Btn,
     TagList,
+    UploadBox,
 },
 
 
@@ -94,6 +107,7 @@ components:{
     display:flex;
     flex-direction:row;
     justify-content: space-between;
+    margin:0 0 20px 0;
 }
 #uploadShorts{
     display:flex;
@@ -114,23 +128,35 @@ components:{
     border:dashed;
 }
 .shortsInfo{
-    display:flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: space-between;
-    margin:50px auto;
+    /* display:flex;
+    flex-direction: column; 
+     align-items: center; 
+     justify-content: space-between; 
+     margin:50px auto; */
  }
 
 input{
     width:85%;
     height:40px;
-    margin:10px auto;
+    margin:20px 0 0 0;
 }
-div>span{
+#titleBox{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+}
+#explanationBox{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#tagBox{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+div>span>span{
+    margin:10px;
 }
 #short-explain{
     height:150px;
@@ -138,7 +164,7 @@ div>span{
 #upload-button{
     width:100%;
     height: 40px;
-    /* margin:50px auto; */
+    margin: 90px auto;
     cursor:pointer;
 }
 </style>
