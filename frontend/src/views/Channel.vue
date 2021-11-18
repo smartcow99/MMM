@@ -46,6 +46,7 @@
         </Detail>
         <div v-if="currentChannel['channelId']==userInfo['channelId']">
             쇼츠 가로 3개씩 나오도록 만들것
+            <div id="shortList">
             <DeleteBox @delete="deleteShort"
                 v-for="(short,index) in currentChannel['shortList']"
                 :key="index">
@@ -53,14 +54,17 @@
                     :shortInfo="short">
                 </ShortSummary>
             </DeleteBox>
+            </div>
         </div>
         <div v-else>
             쇼츠 가로 3개씩 나오도록 만들것
+            <div id="shortList">
             <ShortSummary
                 v-for="(short,index) in currentChannel['shortList']"
                 :key="index"
                 :shortInfo="short">
             </ShortSummary>
+            </div>
         </div>
     </div>
 </template>
@@ -108,5 +112,12 @@ export default {
 .product-list {
     display:flex;
     flex-direction:row;
+}
+#shortList{
+    width:120%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 50px auto;
 }
 </style>
