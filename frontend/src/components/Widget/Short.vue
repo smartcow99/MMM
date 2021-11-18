@@ -4,19 +4,28 @@
             <button class="close" @click="$emit('close')">
                 <font-awesome-icon icon="times"/>
             </button>
-            <video></video>
-            <font-awesome-icon icon="eye"/>
-            {{currentShort['numOfViews']}}
-            <font-awesome-icon icon="comment"/>
-            {{currentShort['comments'].length}}
-            <font-awesome-icon icon="heart"/>
-            {{currentShort['numOfHearts']}}
-            <font-awesome-icon icon="volume-up"/>
-            <font-awesome-icon icon="volume-mute"/>
+            <div id="short-video"> 
+                <video/>
+                <font-awesome-icon class="icon" icon="redo"/>
+                <font-awesome-icon class="icon" icon="pause"/>
+                <font-awesome-icon class="icon" icon="play"/>
+                <font-awesome-icon icon="volume-up"/>
+                <font-awesome-icon icon="volume-mute"/>
+            </div>
+            <span class="short-meta-info">
+                <font-awesome-icon class="icon" icon="eye"/>
+                {{currentShort['numOfViews']}}
+                <font-awesome-icon class="icon" icon="comment"/>
+                {{currentShort['comments'].length}}
+                <font-awesome-icon class="icon" icon="heart"/>
+                {{currentShort['numOfHearts']}}
+            </span>
+
+
         </div>
         <div class="right">
             <h2>{{currentShort['title']}}</h2>
-            <div>
+            <div class="channel-info">
                 채널 정보
                 {{currentShort['relatedChannel'].introduce}}
                 채널 프로필
@@ -30,7 +39,6 @@
                 <Btn v-else :theme="primary" @click="subscribe">구독</Btn>
             </div>
             <div>
-                영상 정보
                 {{currentShort['info']}}
             </div>
             <Tag 
@@ -111,37 +119,71 @@ export default {
         unsubscribe() {
             this.requestUnsubscribe(this.currentShort['channelId']);
             this.requestRelatedChannelInfo(this.currentShort['channelId']);
-        }
+        },
+        pause(){
+
+        },
+        play() {
+
+        },
+        
     }
 }
 </script>
+<style lang="scss" scoped>
+    #short {
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        display:flex;
+        flex-direction:row;
+        background-color:#ffffff;
+        z-index:100;
+    }
+    .left,.right {
+        width:50%;
+        height:100%;
+    }
+    .left {
+        position:relative;
+        backdrop-filter:blur(4px);
+        background-color:#333333;
+        .close {
+            position:absolute;
+            left:10px;
+            top:10px;
+        }
+        #short-video {
+            position:absolute;
+            width:100%;
+            max-width:600px;
+            height:100%;
+            max-height:800px;
+            top:50%;
+            left:50%;
+            margin-left:-300px;
+            margin-top:-400px;
+            background-color:green;
+        }
+        .short-meta-info {
+            position:absolute;
+            right:50px;
+            bottom:50px;
+            width:100px;
+            display:flex;
+            flex-direction:column;
+            justify-content: center;
+            color:white;
+            .icon {
+                margin:0 auto;
+                padding:10px;
+            }
+        }
+    }
+    .right {
 
-<style scoped>
-#short {
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    display:flex;
-    flex-direction:row;
-    background-color:#ffffff;
-    z-index:100;
-}
-.left .close {
-    position:absolute;
-    left:10px;
-    top:10px;
-}
-.left,.right {
-    width:50%;
-    height:100%;
-}
-.left {
-    backdrop-filter:blur(4px);
-    background-color:#333333;
-}
-.right {
+    }
 
-}
 </style>
