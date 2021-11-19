@@ -6,7 +6,7 @@ export default {
     userInfo: {
         isLogined: false,
         name: '홍길동',
-        userId:'',
+        ID:'',
         channelId:'',
         birth:'1998-11-02',
         profileImage: '#',
