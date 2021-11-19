@@ -28,12 +28,18 @@ export default {
 <style scoped>
 *{
     cursor:pointer;
+    /* color:white; */
+    border:transparent;
+    border-radius: 4px;
 }
+
 .white {
     background-color: var(--background-color);
+    color:black;
 }
 .primary {
     background-color: var(--primary-color);
+    color:white;
 }
 .gray {
     background-color: var(--placeholder-color)

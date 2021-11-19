@@ -13,7 +13,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .tag {
     border:1px solid var(--placeholder-color);
     color:var(--placeholder-color);
