@@ -69,8 +69,13 @@ module.exports = new Proxy(api,{
 				}
 				if(type == 'product')
 					ret.searchResult =  await target.search_product(content);
-				else if(type == 'channel')
-					ret.searchResult =  await target.search_channel(content, cid);
+				else if(type == 'channel'){
+					const result = await target.search_channel(content, cid);
+					ret.searchResult = result.filter(element => {
+						element.isSubscribed = element.isSubscribed?true:false;
+						return element;
+					})
+				}
 				else if(type == 'short')
 					ret.searchResult =  await target.search_shorts(content);
 				return ret;
@@ -80,8 +85,13 @@ module.exports = new Proxy(api,{
 			return async function(type, cid) {
 				if(type == 'tag')
 					return await target.recommend_tag();
-				else if(type == 'channel')
-					return await target.recommend_channel(cid);
+				else if(type == 'channel'){
+					const result = await target.recommend_channel(cid);
+					return result.filter(element => {
+						element.isSubscribed = element.isSubscribed?true:false;
+						return element;
+					})
+				}
 				else if(type == 'short')
 					return await target.recommend_shorts();
 				return ret;
