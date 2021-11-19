@@ -11,8 +11,8 @@
 <script>
 import StarRating from './StarRating.vue'
 export default {
-  components: { StarRating },
     name:'Review',
+    components: { StarRating },
     props:{
         'reviewInfo':Object
     }
