@@ -27,7 +27,7 @@
         />
       </div>
     </aside>
-    <router-view/>
+    <router-view class="article"/>
   </main>
   <BlurCard v-if="loginPageOn" @close="closeLogin">
     <LoginCard/>
@@ -135,15 +135,32 @@ export default {
   --info-color: #2196F3;
   --success-color: #4CAF50;
 }
+* {
+  box-sizing:border-box;
+}
+body {
+  padding:0;
+  margin:0;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  position:absolute;
+  height:100%;
+  width:100%;
   color: #2c3e50;
 }
 
 header#nav {
+  position:fixed;
+  z-index:50;
+  height:100px;
+  width:100%;
   padding: 20px;
   border-bottom:1px solid #cccccc;
   .logo {
@@ -152,12 +169,23 @@ header#nav {
   }
 }
 main {
-  padding:0 100px;
+  position:relative;
+  padding:100px 0 0 100px;
   display:flex;
   flex-direction:row;
+  height:100%;
+  width:100%;
 }
 aside {
   width:200px;
-  background-color:#CCCCCC;
+  background-color:var(--background-color);
+}
+.article {
+  position:relative;
+  height:100%;
+  padding-bottom:200px;
+  flex-grow:1;
+  overflow-y:scroll;
+  overflow-x:hidden;
 }
 </style>

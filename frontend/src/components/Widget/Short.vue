@@ -14,11 +14,11 @@
             </div>
             <span class="short-meta-info">
                 <font-awesome-icon class="icon" icon="eye"/>
-                {{currentShort['numOfViews']}}
+                <small>{{currentShort['numOfViews']}}</small>
                 <font-awesome-icon class="icon" icon="comment"/>
-                {{currentShort['comments'].length}}
+                <small>{{currentShort['comments'].length}}</small>
                 <font-awesome-icon class="icon" icon="heart"/>
-                {{currentShort['numOfHearts']}}
+                <small>{{currentShort['numOfHearts']}}</small>
             </span>
 
 
@@ -26,6 +26,11 @@
         <div class="right">
             <h2>{{currentShort['title']}}</h2>
             <div class="channel-info">
+                <router-link 
+                    @click.capture="setShortPageOn(false)"
+                    :to="{name: 'Channel', query: { channelId: currentShort['relatedChannel'].channelId }}">
+                    {{currentShort['relatedChannel'].title}}
+                </router-link>
                 채널 정보
                 {{currentShort['relatedChannel'].introduce}}
                 채널 프로필
@@ -184,7 +189,6 @@ export default {
             color:white;
             .icon {
                 margin:0 auto;
-                padding:10px;
             }
         }
     }

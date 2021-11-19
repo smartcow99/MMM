@@ -61,11 +61,11 @@
         <div v-else>
             쇼츠 가로 3개씩 나오도록 만들것
             <div id="shortList">
-            <ShortSummary
-                v-for="(short,index) in currentChannel['shortList']"
-                :key="index"
-                :shortInfo="short">
-            </ShortSummary>
+                <ShortSummary
+                    v-for="(short,index) in currentChannel['shortList']"
+                    :key="index"
+                    :shortInfo="short">
+                </ShortSummary>
             </div>
         </div>
     </div>
@@ -126,10 +126,9 @@ export default {
     flex-direction:row;
 }
 #shortList{
-    width:120%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    flex-wrap:wrap;
     margin: 50px auto;
 }
 </style>
