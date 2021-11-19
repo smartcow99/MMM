@@ -54,7 +54,7 @@ router.post('/login', async (req, res)=>{
     res.status(200).send('success');
   }
   else
-    res.status(400).send('fail');
+    res.status(401).send('fail');
 })
 
 router.get('/logout',(req, res)=>{
@@ -68,6 +68,15 @@ router.get('/logout',(req, res)=>{
 router.get('/search',async (req, res)=>{
   const cid = req.session.cid | 0;
   const result = await db.search(req.query.type, req.query.content, cid);
+  if(result)
+    res.status(200).send(result);
+  else
+    res.status(400).send('fail');
+})
+
+router.get('/recommend', async (req, res)=>{
+  const cid = req.session.cid | 0;
+  const result = await db.recommend(req.query.type, cid);
   if(result)
     res.status(200).send(result);
   else

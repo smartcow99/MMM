@@ -7,6 +7,10 @@
                 <span>상품명</span>
                 <span>{{currentProduct['productInfo'].title}}</span>
             </div>
+            <button @click="openPurchasePage">구매</button>
+            <BlurCard v-if="purchasePageOn" @close="closePurchase">
+                <Purchase/>
+            </BlurCard>
             <div>
                 <span>제조사</span>
                 <span>{{currentProduct['productInfo'].manufacturer}}</span>
@@ -47,9 +51,14 @@
                 v-for="(review,index) in currentProduct['reviews']"
                 :key="index"
                 :reviewInfo="review"/>
+                <button @click="addComment">댓글 쓰기</button>
+            <BlurCard v-if="addCommentPageOn" @close="closeAddComment">
+                <WriteReview/>
+            </BlurCard>
         </div>
     </div>
 </template>
+
 
 <script>
 import { mapActions, mapState } from 'vuex'
@@ -59,6 +68,9 @@ import Slider from '../components/Slider.vue';
 import ShortSummary from '../components/ShortSummary.vue';
 import ImageViewer from '../components/ImageViewer.vue';
 import StarRating from '../components/StarRating.vue';
+import BlurCard from '@/components/BlurCard.vue'
+import Purchase from '@/components/widget/Purchase.vue'
+import WriteReview from '@/components/widget/WriteReview.vue'
 export default {
     components: { Detail, Slider,Review, ShortSummary, ImageViewer, StarRating },
     name:'Product',
@@ -70,7 +82,19 @@ export default {
     methods: {
         ...mapActions([
             'requestProductInfo'
-        ])
+        ]),
+        openPurchasePage(){
+            this.purchasePageOn=true;
+        },
+        addComment(){
+            this.addCommentPageOn=true;
+        },
+        closePurchase(){
+            this.purchasePageOn=false;
+        },
+        closeAddComment(){
+            this.addCommentPageOn=false;
+        }
     },
     mounted(){
         if(!!this.$route.query['productId']) {
@@ -87,6 +111,18 @@ export default {
     //         }
     //     }
     // }
+    data(){
+        return{
+            purchasePageOn:false,
+            addCommentPageOn:false,
+        }
+    },
+    
+    components:{
+        BlurCard,
+        Purchase,
+        WriteReview,
+    }
 }
 </script>
 
