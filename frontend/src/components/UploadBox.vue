@@ -77,7 +77,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .upload-box {
     border:1px dashed var(--placeholder-color);
 }

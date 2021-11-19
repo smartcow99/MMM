@@ -11,13 +11,14 @@ export default {
         birth:'1998-11-02',
         profileImage: '#',
     },
-    tagList: [],
-    shortList: [],
-    productList: [],
+    shortList: [],    // shorts 내역(검색 결과)
+    productList: [],  // product 내역(검색 결과)
+    channelList: [],  // 채널 내역(검색 결과)
+    purchaseList: [], // 구매 내역
     recommandTagList: [],
     recommandChannelList: [],
-    channelList: [],
-    purchaseList: [],
+    recommandShortList: [],
+    
     searchType:'short',
     currentShort: {
         title:'',
@@ -32,10 +33,12 @@ export default {
     },
     currentProduct: {
         title:'',
-        id:'',
-        relatedTags: [],
-        relatedProducts: [],
-        comments: []
+        productId:'',
+        productInfo: {},
+        productImages: [],
+        relatedShorts: [],
+        productExplainHtml:'',
+        reviews: []
     },
     currentChannel: {
         title:'',

@@ -30,7 +30,6 @@ export default {
     },
     methods: {
         ...mapActions([
-            'getRecommandShorts',
             'requestSearch'
         ])
     },
@@ -38,15 +37,10 @@ export default {
         '$route': {
             immediate: true,
             handler(to,from) {
-                if(!!to.query['content']) {
-                    this.requestSearch({
-                        'type':'short',
-                        'content':this.$route.query
-                    });
-                }
-                else {
-                    this.getRecommandShorts();
-                }
+                this.requestSearch({
+                    'type':'short',
+                    'content':this.$route.query
+                });
             }
         }
     }

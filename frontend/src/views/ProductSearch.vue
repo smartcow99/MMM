@@ -15,17 +15,6 @@ import {mapState,mapActions} from 'vuex'
 export default {
     name: 'ProductSearch',
     components: { ProductSummary },
-    mounted() {
-        if(!!this.$route.query['content']) {
-            this.requestSearch({
-                'type':'product',
-                'content':this.$route.query
-            });
-        }
-        else {
-            this.getRecommandProducts();
-        }
-    },
     computed: {
         ...mapState([
             'productList'
@@ -33,10 +22,19 @@ export default {
     },
     methods: {
         ...mapActions([
-            'getRecommandProducts',
-            'requestProductList',
             'requestSearch',
         ])
+    },
+    watch: {
+        '$route': {
+            immediate: true,
+            handler(to,from) {
+                this.requestSearch({
+                    'type':'product',
+                    'content':this.$route.query
+                });
+            }
+        }
     }
 }
 </script>

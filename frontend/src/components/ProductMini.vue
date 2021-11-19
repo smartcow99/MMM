@@ -1,5 +1,6 @@
 <template>
     <router-link 
+        class="product-mini"
         :to="{ path:'/product', query:{'productId':productId}}"
     >
         <img :src="img">
@@ -17,6 +18,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.product-mini {
+    display:inline-block;
+    width:100px;
+    height:100px;
+}
+.product-mini p {
+    margin:0;
+}
 </style>

@@ -54,7 +54,7 @@ export default {
     // 추천 shorts
     async getRecommandShorts({commit},payload) {
         //필요 정보: 제목, 썸네일,shortId, channelId
-        commit('setShortList',[
+        commit('setRecommandShortList',[
             {
                 title:'쇼츠1',
                 thumnail:'#',
@@ -515,7 +515,57 @@ export default {
         //params 유저 아이디(또는 session으로 처리)
         //구독 취소
     },
-
+    async requestProductInfo({commit},payload) {
+        //상품정보요청
+        commit('setProductInfo',{
+            productId:'130',
+            productImages: ['#1','#2','#3','#4','#5'],
+            productInfo: {
+                title:'상품명123',
+                manufacturer:'아모레퍼시픽림',
+                rate:3.3,
+                price:9000,
+                views:34850
+            },
+            relatedShorts: [
+                {
+                    title:'관련 쇼츠1',
+                    thumnail:'#',
+                    shortId:1111,
+                    channelId:20,
+                    numOfSubscribers:12345,
+                    numOfHearts:54321,
+                    numOfViews:12321
+                },
+                {
+                    title:'관련 쇼츠2',
+                    thumnail:'#',
+                    shortId:2224,
+                    channelId:20,
+                    numOfSubscribers:12345,
+                    numOfHearts:54321,
+                    numOfViews:12321
+                },
+            ],
+            productExplainHtml:`<html><body><div>hi i am product</div></body></html>`,
+            reviews: [
+                {
+                    profile:'#',
+                    name:'abc',
+                    content:'그게정말사실인가요?',
+                    rate:4.4,
+                    photo:''
+                },
+                {
+                    profile:'#',
+                    name:'abc',
+                    content:'그게정말사실인가요?',
+                    rate:2.4,
+                    photo:'#'
+                }
+            ]
+        })
+    },
     async upShortsLikeCount({ commit }) {
         commit("upLikeCount");
     },

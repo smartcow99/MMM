@@ -2,7 +2,7 @@
     <div>
         channel search
         <ChannelSummary 
-            v-for="(value,index) in recommandChannelList" 
+            v-for="(value,index) in channelList" 
             :key="index"
             :channelInfo="value"
         />
@@ -15,28 +15,26 @@ import {mapState,mapActions} from 'vuex'
 export default {
     name: 'ChannelSearch',
     components: { ChannelSummary },
-    mounted() {
-        if(!!this.$route.query['content']) {
-            this.requestSearch({
-                'type':'channel',
-                'content':this.$route.query
-            });
-        }//recommandChannel 말고 검색 결과도 쓸 수 있게 수정하세요 ( route에 대한 v-if 사용)
-        else {
-            this.getRecommandChannels();
-        }
-    },
     computed: {
         ...mapState([
-            'recommandChannelList'
+            'channelList'
         ])
     },
     methods: {
         ...mapActions([
-            'requestChannelList',
-            'getRecommandChannels',
             'requestSearch'
         ])
+    },
+    watch: {
+        '$route': {
+            immediate: true,
+            handler(to,from) {
+                this.requestSearch({
+                    'type':'channel',
+                    'content':this.$route.query
+                });
+            }
+        }
     }
 }
 </script>
