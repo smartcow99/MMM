@@ -34,6 +34,7 @@ export default {
 }
 
 .white {
+    border:1px solid black;
     background-color: var(--background-color);
     color:black;
 }
