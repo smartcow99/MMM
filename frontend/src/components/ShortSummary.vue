@@ -10,20 +10,18 @@
        </div>
        <div class="shorts-stat">
             <div id="subscriber-count">
-                <font-awesome-icon :icon="['far','user-circle']" />
+                <font-awesome-icon id="fa-icon" :icon="['far','user-circle']" />
                 {{subscriber}}
             </div>
             <div id="like-count">
-                    <font-awesome-icon :icon="['far','heart']" @click="upLike"/>
+                    <font-awesome-icon id="fa-icon" :icon="['far','heart']" @click="upLike"/>
                     {{like}}
             </div>
             <div id="view-count">
-                <font-awesome-icon :icon="['far','eye']"/>
+                <font-awesome-icon id="fa-icon" :icon="['far','eye']"/>
                 {{view}}
             </div>
        </div>
-       
-        <!-- {{shortInfo['title']}} -->
     </div>
 </template>
 
@@ -35,9 +33,6 @@ export default {
             subscriber:'150k',
             like:'2.5k',
             view:'1m',
-            // subscriber:currentChannel.subscriber,
-            // like:currentShort.like,
-            // view:currentShort.view,
             hoverOn:false,
         }
     },
@@ -70,7 +65,6 @@ export default {
         },
         upLike(){
             console.log('test')
-            // this.upShortLikeCount();
         }
 
     }
@@ -84,41 +78,47 @@ export default {
 }
 .short-summary {
     border:1px solid #cccccc;
+    width:280px;
+    height: 448px;
     border-radius: 4px;
 }
 .shorts{
     position:relative;
-    width:200px;
-    height: 300px;
+    height: 370px; 
     background-color: white;
     border-radius: 4px;
     cursor:pointer;
 
 }
 #hover{
-    position:relative;
     width:100%;
     height: 100%;
     cursor:pointer;
-    background-color:black;
-    opacity: 0.7;
 }
 #shorts-title{
-    position:absolute;
-    
+    color:white;
+    position:relative;
+    font-size:28px;
+    top:-99%;    
 }
 img{
     width:100%;
     height:100%;
+    transition: all 0.35s ease;
 }
-font-awesome-icon{
-    width:50px;
-    height:50px;
+img:hover{
+    filter:brightness(50%);
+}
+#fa-icon{
+    width:40px;
+    height:40px;
 }
 .shorts-stat{
+    height:75px;
     display:flex;
     flex-direction:row;
-    justify-content: space-around;   
+    justify-content: space-around; 
+    align-items: center;  
 }
 #subscriber-count{
     display:flex;
