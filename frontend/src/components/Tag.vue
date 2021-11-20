@@ -15,11 +15,17 @@ export default {
 
 <style scoped>
 .tag {
+    height:26px;
     border:1px solid var(--placeholder-color);
     color:var(--placeholder-color);
     background-color:var(--background-color);
+    border-radius: 13px;
+    margin:0 5px 0 5px;
+    cursor: pointer ;
 }
 .tag:hover {
-    background-color: var(--background-color-darken);
+    border:1px solid var(--primary-color);
+    color: var(--primary-color);
+    /* background-color: var(--background-color-darken); */
 }
 </style>
