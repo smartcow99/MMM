@@ -1,5 +1,4 @@
 <template>
-<!-- <div class="entire-card"> -->
 <div class="loginCard">
     <span id="welcome-message">welcome to</span>
     <div class="logo">
@@ -7,14 +6,13 @@
         <div id="sub-logo">makeup maketh man</div>
     </div>
     
-    <!-- <form @submit="onSubmit" class="login-form"> -->
     <div class="login-form" >
         <div id="input-id">
-            <font-awesome-icon :icon="faUser"/>
+            <font-awesome-icon id="user-icon" :icon="faUser"/>
             <input type="text" name="userId"/>
         </div>
         <div id="input-password">
-            <font-awesome-icon :icon="faLock"/>
+            <font-awesome-icon id="lock-icon" :icon="faLock"/>
             <input type="password" name="userPassword"/>
         </div>
         <Btn type="submit" id="submit-button" @click="requestLogin">Log in</Btn>      
@@ -25,8 +23,6 @@
         </div>
     </div>
 </div>
-<!-- <button id="close-button" @click="closeCard"><font-awesome-icon :icon="faTimes"/></button> -->
-<!-- </div> -->
 </template>
 
 <script>
@@ -35,7 +31,6 @@ import Btn from '@/components/Btn.vue';
 
 import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {faLock} from '@fortawesome/free-solid-svg-icons'
-// import {faTimes} from '@fortawesome/free-solid-svg-icons'
 
 export default {
 name:'Login',
@@ -43,7 +38,6 @@ data(){
     return{
         faUser,
         faLock,
-        // faTimes,
     }
 },
 computed: {
@@ -56,14 +50,11 @@ methods:{
         this.$store.dispatch('requestLogin');
     },
     
-    // closeCard(){
-    //     console.log("close card")
-    // },
     goToSignUp(){
-        console.log("go to sign up")
+       alert("데모 버전에선 안돼요")
     },
     goToFindPassword(){
-        console.log("go to find pwd")
+       alert("데모 버전에선 안돼요")
     }
     
 },
@@ -87,19 +78,9 @@ components:{
     font-size:14px;
     z-index:110;
 }
-/* .entire-card{
-    display:flex;
-    flex-direction: row;
-    align-items: flex-start;
-}
-#close-button{
-    font-size:40px;
-    margin:200px 0 0 0;
-} */
 .loginCard{
     display:flex;
     flex-direction:column;
-    /* align-items: center; */
     margin:200px auto;
     width:500px;
     height:600px;
@@ -115,41 +96,65 @@ components:{
 }
 #welcome-message{
     text-align: center;
-    margin:60px 0 0 0;
     padding:0;
 }
 #main-logo{
-    font-size:100px;
-    position:relative;
-    
+    font-size:80px;
+    position:relative;    
 }
 #sub-logo{
     font-size:14px;
-    /* position:absolute;
-    top:450px; */
 }
 .login-form{
+    margin:30px 0 30px 0;
     display: flex;
     flex-direction:column;
     align-items: center;
+    
 }
 input{  
-        width:400px;
-        height:40px;
-        border: 1px solid #CCCCCC;
-        border-left-width: 0;
-        border-right-width: 0;
-        border-top-width: 0;
-        margin:10px;
+        width:340px;
+        height:30px;
+        border:0;
 }
-/* #input-id{
+input:focus{
+    outline: none;
+}
+#input-id{
+    width:400px;
+    height:40px;
+    border: 1px solid #CCCCCC;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
     display:flex;
     flex-direction:row;
+    align-items: center;
+    justify-content: space-around;
+    margin:70px 0 10px 0;
+}
+#user-icon{
+    width:20px;
+    height:20px;
 }
 #input-password{ 
+    width:400px;
+    height:40px;
+    border: 1px solid #CCCCCC;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
     display:flex;
     flex-direction:row;
-} */
+    align-items: center;
+    justify-content: space-around;
+    margin:10px 0 10px 0;
+
+}
+#lock-icon{
+   width:20px;
+   height:20px;
+}
 #submit-button{
     width:400px;
     height:40px;
@@ -162,19 +167,18 @@ input{
 }
 
 .other-button{
+    width:400px;
     display:flex;
     flex-direction: row;
     justify-content: space-between;
     margin:5px;
 }
 #sign-up{
-    margin-left:50px;
     border:transparent;
     background-color: transparent;
     cursor:pointer;
 }
 #find-password{
-    margin-right:50px;
     border:transparent;
     background-color: transparent;
     cursor:pointer;
