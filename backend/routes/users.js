@@ -96,4 +96,14 @@ router.get('/purchaseList', islogined, async (req, res)=>{
   else
     res.status(400).send('fail');
 })
+
+router.get('/short', async (req, res)=>{
+  const cid = req.session.cid | 0;
+  const result = await db.short_info(req.query.vid, cid)
+  
+  if(result)
+    res.status(200).send(result);
+  else
+    res.status(400).send('fail');
+})
 module.exports = router;
