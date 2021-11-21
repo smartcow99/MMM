@@ -1,5 +1,6 @@
 <template>
     <div id="home">
+      <h1>추천 영상</h1>
       <div class="short-list">
         <ShortSummary 
             v-for="(value,index) in recommandShortList" 
@@ -47,6 +48,9 @@ export default {
 }
 </script>
 <style scoped>
+#home h1 {
+  text-align:left;
+}
 #home .short-list {
   display:flex;
   flex-direction:row;

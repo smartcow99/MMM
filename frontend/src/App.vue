@@ -17,6 +17,7 @@
   <main>
     <aside>
       <Profile 
+        class="profile"
         @openLogin="openLogin"
         @openUpload="openUpload"
       />
@@ -210,7 +211,7 @@ header#nav {
 }
 main {
   position:relative;
-  padding:100px 0 0 100px;
+  padding:100px 0 0 200px;
   display:flex;
   flex-direction:row;
   height:100%;
@@ -225,6 +226,7 @@ aside {
   position:relative;
   height:100%;
   padding-bottom:200px;
+  padding-left:40px;
   flex-grow:1;
   overflow-y:scroll;
   overflow-x:hidden;
@@ -244,5 +246,8 @@ a {
   display:flex;
   flex-direction:row;
   flex-wrap:wrap;
+}
+.profile {
+  margin-top:40px;
 }
 </style>
