@@ -71,11 +71,21 @@ const api = {
 	get_comments: async (vid) => {
         const [res] = await pool.query(`select distinct cu.c_name as name, ch.ch_profile as profile, re.r_comment as content from customer as cu natural join(channel as ch natural join reply as re) where re.vid = ${vid}`)
         return res;
-    },
-    get_related_product: async (vid) => {
+	},
+  get_related_product: async (vid) => {
         const [res] = await pool.query(`select distinct p_name as title, img, pid as productId from tag natural join (product_img natural join product) where tag.vid = ${vid}`)
         return res;
+  },
+	like_up: async (cid, vid) => {
+				console.log(vid)
+        const [res] = await pool.query(`insert into recommend (cid, vid) values(${cid}, ${vid})`)
+        return res;
     },
+  like_down: async (cid, vid) => {
+        const [res] = await pool.query(`delete from recommend where cid = ${cid} and vid = ${vid}`)
+        return res;
+  },
+
 }
 
 module.exports = new Proxy(api,{
@@ -135,7 +145,7 @@ module.exports = new Proxy(api,{
 				res.comments = await target.get_comments(vid)
 				if(res.relatedChannel.isSubscribed != null)
 					res.relatedChannel.isSubscribed = true;
-				else 
+				else
 					res.relatedChannel.isSubscribed = false
 				return res;
 			}
