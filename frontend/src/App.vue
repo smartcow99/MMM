@@ -44,7 +44,7 @@
         </div>
       </div>
     </aside>
-    <router-view class="article"/>
+    <router-view/>
   </main>
   <BlurCard v-if="loginPageOn" @close="closeLogin">
     <LoginCard/>
@@ -243,7 +243,7 @@ header#nav {
 }
 main {
   position:relative;
-  margin:auto 100px auto 0;
+  margin:100px auto 0 auto;
   display:flex;
   flex-direction:row;
   height:100%;
@@ -251,16 +251,16 @@ main {
 }
 aside {
   width:240px;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color:var(--background-color);
 }
-.article {
+article {
   position:relative;
   height:100%;
   padding-bottom:200px;
   padding-left:40px;
   flex-grow:1;
-  overflow-y:scroll;
+  overflow-y:auto;
   overflow-x:hidden;
 }
 h3 {

@@ -1,5 +1,5 @@
 <template>
-    <div id="home">
+    <article id="home">
       <h1>추천 영상</h1>
       <div class="short-list">
         <ShortSummary 
@@ -8,7 +8,7 @@
             :shortInfo="value"
         />
       </div>
-    </div>
+    </article>
 </template>
 
 <script>

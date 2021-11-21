@@ -46,7 +46,7 @@ export default {
         font-size:1.5rem;
         font-weight: 400;
         text-align:center;
-        margin:0 10px;
+        margin:0 15px;
         padding:5px;
         color: var(--text-color);
         &.selected {

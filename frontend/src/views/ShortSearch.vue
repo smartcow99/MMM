@@ -1,11 +1,11 @@
 <template>
     <div>
         <div id="shortList">
-        <ShortSummary 
-            v-for="(value,index) in shortList" 
-            :key="index" 
-            :shortInfo="value"
-        />
+            <ShortSummary 
+                v-for="(value,index) in shortList" 
+                :key="index" 
+                :shortInfo="value"
+            />
         </div>
     </div>
 </template>
@@ -48,11 +48,10 @@ export default {
 
 <style>
 #shortList{
-    width:120%;
+    margin-top:20px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    margin: 50px auto;
+    flex-wrap:wrap;
 }
 </style>
 
