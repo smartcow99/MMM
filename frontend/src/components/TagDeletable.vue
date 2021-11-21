@@ -28,10 +28,18 @@ p{
     font-size:18px;
 }
 .tag {
+    font-size:16px;
+    height:26px;
+    border-radius: 13px;
     border:1px solid var(--placeholder-color);
     color:var(--placeholder-color);
     background-color:var(--background-color);
     margin:0 10px 0 0;
+}
+.tag:hover {
+    border:1px solid var(--primary-color);
+    color: var(--primary-color);
+    cursor:pointer;
 }
 #delete-tag{
     background-color: transparent;
@@ -39,6 +47,6 @@ p{
     margin: 0 0 0 15px;
 }
 #delete-tag:hover{
-    color:black;
+    font-weight: bold;
 }
 </style>
