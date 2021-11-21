@@ -19,7 +19,7 @@
       <h3>추천 채널</h3>
       <ChannelList :channelList="recommandChannelList"/>
       <h3>추천 태그</h3>
-      <div>
+      <div class="tag-list">
         <Tag 
           v-for="(value,index) in recommandTagList" :key="index"
           :title="value"
@@ -193,5 +193,10 @@ h3 {
 }
 a {
   text-decoration:none;
+}
+.tag-list {
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
 }
 </style>
