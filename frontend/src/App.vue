@@ -16,7 +16,6 @@
         @openLogin="openLogin"
         @openUpload="openUpload"
       />
-
       <h3>추천 채널</h3>
       <ChannelList :channelList="recommandChannelList"/>
       <h3>추천 태그</h3>
@@ -177,7 +176,8 @@ main {
   width:100%;
 }
 aside {
-  width:200px;
+  width:240px;
+  overflow-y: scroll;
   background-color:var(--background-color);
 }
 .article {

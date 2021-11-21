@@ -40,6 +40,7 @@ button {
 }
 .primary {
     background-color: var(--primary-color);
+    border:1px solid var(--primary-color);
     color:white;
 }
 .gray {
