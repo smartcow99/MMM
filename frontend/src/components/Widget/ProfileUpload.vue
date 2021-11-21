@@ -41,7 +41,6 @@ h1{
     display:flex;
     flex-direction: column;
     align-items: center;
-    margin:200px auto;
     width: 600px;
     height:600px;
     border-radius:4px;
@@ -54,9 +53,6 @@ h1{
     align-items: flex-start;
 }
 #upload-box{
-    /* margin: 200px; */
-    /* width:80%;
-    height:20%; */
     display:flex;
     flex-direction: column;
     align-items: center;
