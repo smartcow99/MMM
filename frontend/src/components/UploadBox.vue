@@ -79,7 +79,8 @@ export default {
 
 <style scoped>
 .upload-box {
-    border:1px dashed var(--placeholder-color);
+    border:4px dashed var(--placeholder-color);
+    border-radius:4px;
 }
 .overing {
     background-color:var(--primary-color);
@@ -87,8 +88,8 @@ export default {
     color:var(--white-text-color);
 }
 .preview {
-    width:300px;
-    height:400px;
+    width:100%;
+    height:100%;
 }
 input[type='file'] {
     display:none;

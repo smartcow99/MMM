@@ -1,9 +1,8 @@
 <template>
-   <div class="uploadCard">
-       <span class="uploadArea">
+    <div class="uploadCard">
+        <span class="uploadArea">
                 <div>
-                <!-- <div id="uploadShorts"> -->
-                    <UploadBox id="uploadShorts"><!--크기 정정하세요-->
+                    <UploadBox id="uploadShorts">
                     <p>shorts 드래그하세요</p>
                     <small>(영상 제한 50MB)</small>
                     
@@ -15,16 +14,16 @@
                     <small>(이미지 제한 5MB)</small>
                 </UploadBox>
                 </div>
-       </span>
+        </span>
 
-       <div class="shortsInfo">
+        <div class="shortsInfo">
             <span id="titleBox">
-               <span id="title">제목</span>
-               <input type="text" placeholder="제목입력" v-model="inputTitle">
+                <span id="title">제목</span>
+                <input type="text" placeholder="제목입력" v-model="inputTitle">
             </span>
             <span id="explanationBox">
-               <span id="explanation">영상 설명</span>
-               <textarea id="short-explain" type="text" placeholder="영상설명" v-model="inputExplanation"/>
+                <span id="explanation">영상 설명</span>
+                <textarea id="short-explain" type="text" placeholder="영상설명" v-model="inputExplanation"/>
             </span>
             <span id="tagBox">
                 <span id="tag">태그</span>
@@ -37,9 +36,9 @@
                 @delete="deleteTag"
             />
             
-       </div>
-       <Btn id="upload-button" @click="clickUploadButton">upload</Btn>
-   </div>
+        </div>
+        <Btn id="upload-button" @click="clickUploadButton">upload</Btn>
+    </div>
 </template>
 
 <script>
@@ -78,9 +77,6 @@ methods:{
     },
     clickUploadButton(){
         alert('데모 계정에선 영상을 업로드할 수 없습니다.')
-    //    this.requestUpload([this.userInfo.userId, this.inputTitle, this.inputExplanation, this.tagList]); 
-    //    this.resetTagList();
-    //    this.$parent.$emit('close',true);
     }
 },
 
@@ -120,23 +116,13 @@ p{
     justify-content: space-around;
     margin:0 0 20px 0;
 }
-#uploadShorts{
+#uploadShorts,#uploadThumbnail{
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width:300px;
-    height:300px;
-    border:dashed;
-}
-#uploadThumbnail{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width:300px;
-    height:300px;
-    border:dashed;
+    width:280px;
+    height:280px;
 }
 /* .shortsInfo{
     display:flex;
