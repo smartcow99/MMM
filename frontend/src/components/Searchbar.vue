@@ -44,13 +44,12 @@ export default {
 
 <style lang="scss" scoped>
 #search-bar {
-    margin:10px;
     .search-input {
-        height:40px;
+        line-height:24px;
         width:300px;
         font-size:1rem;
         border-radius:20px;
-        padding:0 20px;
+        padding:7px 20px;
         margin-right:10px;
         border: 1px solid var(--placeholder-color);
         &:focus {

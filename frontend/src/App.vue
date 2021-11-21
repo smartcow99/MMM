@@ -1,14 +1,18 @@
 <template>
   <header id="nav">
-    <router-link to="/">
-      <img class="logo" src="@/assets/images/logo.png"/>
-    </router-link>
-    <Search id="search-bar" @search="search"/>
-    <Btn v-if="userInfo['isLogined']" @click="logout" theme="primary">로그아웃</Btn>
-    <Btn v-else @click="openLogin" theme="primary">로그인</Btn> |
-    <router-link class="primary" to="/analysis">
-      <Btn theme="white">AI 얼굴 분석</Btn>
-    </router-link>
+    <span class="menus">
+      <router-link to="/" class="logo">
+        <img src="@/assets/images/logo.png"/>
+      </router-link>
+      <Search id="search-bar" @search="search"/>
+      <span class="button-zone">
+        <Btn v-if="userInfo['isLogined']" class="button" @click="logout" theme="primary">로그아웃</Btn>
+        <Btn v-else class="button" @click="openLogin" theme="primary">로그인</Btn>
+        <router-link class="button" to="/analysis">
+          <Btn theme="white">AI 얼굴 분석</Btn>
+        </router-link>
+      </span> 
+    </span>
   </header>
   <main>
     <aside>
@@ -159,14 +163,49 @@ body {
 
 header#nav {
   position:fixed;
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
   z-index:50;
   height:100px;
   width:100%;
   padding: 20px;
   border-bottom:1px solid #cccccc;
-  .logo {
-    width:40px;
-    height:40px;
+  .menus {
+    position:relative;
+    width:900px;
+    height:60px;
+    a.logo {
+      position:absolute;
+      height:40px;
+      top:50%;
+      margin-top:-20px;
+      left:0;
+      img {
+        width:40px;
+        height:40px;
+      }
+    }
+    #search-bar {
+      position:absolute;
+      height:40px;
+      top:50%;
+      margin-top:-20px;
+      left:100px;
+      width:400px;
+    }
+    .button-zone {
+      position:absolute;
+      height:40px;
+      top:50%;
+      margin-top:-20px;
+      right:0;
+      .button {
+        position:relative;
+        right:0;
+        margin-right:10px;
+      }
+    }
   }
 }
 main {
