@@ -17,8 +17,10 @@
         @openUpload="openUpload"
       />
       <h3>추천 채널</h3>
+      <hr/>
       <ChannelList :channelList="recommandChannelList"/>
       <h3>추천 태그</h3>
+      <hr/>
       <div class="tag-list">
         <Tag 
           v-for="(value,index) in recommandTagList" :key="index"
@@ -190,6 +192,11 @@ aside {
 }
 h3 {
   text-align:left;
+}
+hr {
+  border:0;
+  border-top:1px solid var(--placeholder-color);
+  margin-bottom:20px;
 }
 a {
   text-decoration:none;
