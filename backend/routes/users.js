@@ -100,9 +100,28 @@ router.get('/purchaseList', islogined, async (req, res)=>{
 router.get('/short', async (req, res)=>{
   const cid = req.session.cid | 0;
   const result = await db.short_info(req.query.vid, cid)
-  
+
   if(result)
     res.status(200).send(result);
+  else
+    res.status(400).send('fail');
+})
+
+router.get('/likeUp', islogined, async (req, res)=> {
+  console.log(req.query.vid)
+  const result = await db.like_up(req.session.cid, req.query.vid)
+
+  if(result)
+    res.status(200).send('success');
+  else
+    res.status(400).send('fail');
+})
+
+router.get('/likeDown', islogined, async (req, res)=> {
+  const result = await db.like_down(req.session.cid, req.query.vid)
+
+  if(result)
+    res.status(200).send('success');
   else
     res.status(400).send('fail');
 })
