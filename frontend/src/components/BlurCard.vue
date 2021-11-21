@@ -26,7 +26,7 @@ export default {
         this.width = el.clientWidth;
         this.height = el.clientHeight;
         el.style.marginLeft = `-${this.width/2}px`
-        el.style.marginTop = `-${this.height/2}px`
+        // el.style.marginTop = `-${this.height/2}px`
     },
 }
 </script>
@@ -50,11 +50,10 @@ export default {
     flex-direction:row;
     align-items:flex-start;
     left:50%;
-    top:50%;
+    /* top:50%; */
 }
 .close {
     position:relative;
-    margin:200px 0 0 0;
     float:right;
     font-size:40px;
     width:50px;

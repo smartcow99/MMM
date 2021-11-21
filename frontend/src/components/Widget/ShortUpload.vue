@@ -29,15 +29,16 @@
                 <span id="tag">태그</span>
                 <input type="text" placeholder="태그입력(Enter로 추가)" v-model="inputTag" @keyup.enter="addTag">
             </span>
-            
-            <Tag id="tag-area"
-                v-for="(value,index) in tagList" :key="index"
-                :title="value"
-                @delete="deleteTag"
-            />
-            
+            <div id="tag-area">
+                <Tag 
+                    v-for="(value,index) in tagList" :key="index"
+                    :title="value"
+                    @delete="deleteTag"
+                />
+            </div>
+            <Btn id="upload-button" @click="clickUploadButton">upload</Btn>
         </div>
-        <Btn id="upload-button" @click="clickUploadButton">upload</Btn>
+        
     </div>
 </template>
 
@@ -99,12 +100,8 @@ p{
     margin: 10px 0 0 0;
 }
 .uploadCard{
-    /* justify-content: 
-    space-between; */
-    /* position:absolute; */
-    margin:200px auto;
     width:700px;
-    height:750px;
+    height:800px;
     padding:50px;
     border-radius:4px;
     box-shadow: 10px 10px 30px rgba(0,0,0,0.1);
@@ -113,7 +110,7 @@ p{
 .uploadArea{
     display:flex;
     flex-direction:row;
-    justify-content: space-around;
+    justify-content: space-between;
     margin:0 0 20px 0;
 }
 #uploadShorts,#uploadThumbnail{
@@ -131,11 +128,9 @@ p{
      justify-content: space-between; 
      margin:50px auto;
  } */
-
-input{
-    width:85%;
-    height:40px;
-    margin:20px 0 20px 0;
+.shortsInfo {
+    position:relative;
+    height:430px;
 }
 #titleBox{
     display:flex;
@@ -152,17 +147,45 @@ input{
     flex-direction: row;
     justify-content: space-between;
 }
-div>span>span{
-    margin:30px 0 0 0;
+input{
+    width:500px;
+    height:40px;
+    padding:10px;
+    border: 2px solid var(--placeholder-color);
+    border-radius:4px;
 }
-#short-explain{
-    width:85%;
+textarea#short-explain{
+    padding:10px;
+    width:500px;
     height:150px;
+    resize:none;
+    border: 2px solid var(--placeholder-color);
+    border-radius:4px;
+}
+input:focus,textarea#short-explain:focus {
+    transition:0.3s;
+    outline: none;
+    border:2px solid var(--primary-color);
+}
+#titleBox,#explanationBox,#tagBox {
+    margin-top:20px;
+}
+#tag-area {
+    margin-top:10px;
+    margin-left:100px;
+    width:500px;
+    max-height:100px;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
 }
 #upload-button{
+    position:absolute;
+    left:0;
+    bottom:0;
     width:100%;
     height: 40px;
-    margin: 80px auto;
     cursor:pointer;
 }
 </style>

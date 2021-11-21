@@ -1,8 +1,13 @@
 <template>
-<span>
-        <button class="tag"># {{title}}<p id="delete-tag" @click="$emit('delete', $events)">x</p>
+    <span @click="$emit('delete', $events)">
+        <button class="tag">
+            <small id="delete-tag" >
+                #
+                {{title}}
+                <font-awesome-icon class="delete icon" icon="times"/>
+            </small>
         </button>
-        </span>
+    </span>
 </template>
 
 <script>
@@ -22,11 +27,6 @@ export default {
 </script>
 
 <style scoped>
-p{
-    display:inline;
-    cursor:pointer;
-    font-size:18px;
-}
 .tag {
     font-size:16px;
     height:26px;
@@ -34,7 +34,9 @@ p{
     border:1px solid var(--placeholder-color);
     color:var(--placeholder-color);
     background-color:var(--background-color);
-    margin:0 10px 0 0;
+    margin:3px;
+    padding:0px 12px 0px 12px;
+    cursor: pointer ;
 }
 .tag:hover {
     border:1px solid var(--primary-color);
@@ -44,9 +46,8 @@ p{
 #delete-tag{
     background-color: transparent;
     border:transparent;
-    margin: 0 0 0 15px;
 }
-#delete-tag:hover{
-    font-weight: bold;
+.delete {
+    margin-left:5px;
 }
 </style>
