@@ -11,7 +11,7 @@ export default {
     setUserInfo(state,payload) {
         state['userInfo'].isLogined = payload.isLogined
         state['userInfo'].name = payload.name
-        state['userInfo'].userId = payload.userId
+        state['userInfo'].ID = payload.ID
         state['userInfo'].channelId = payload.channelId
         state['userInfo'].birth = payload.birth
         state['userInfo'].profileImage = payload.profileImage
@@ -19,7 +19,7 @@ export default {
     initUserInfo(state,payload) {
         state['userInfo'].isLogined = false
         state['userInfo'].name = ''
-        state['userInfo'].userId = 0
+        state['userInfo'].ID = 0
         state['userInfo'].channelId = 0
         state['userInfo'].birth = null
         state['userInfo'].profileImage = ''

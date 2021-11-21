@@ -84,13 +84,12 @@
 <script>
 import ProductMini from '@/components/ProductMini.vue'
 import Slider from '@/components/Slider.vue'
-import TagList from '@/components/TagList.vue'
 import WriteComment from '../WriteComment.vue'
 import Comment from '../Comment.vue'
 import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
 export default {
-    components: { TagList, Slider,ProductMini,WriteComment,Comment,Btn },
+    components: { Slider,ProductMini,WriteComment,Comment,Btn },
     name:'Short',
     computed: {
         ...mapState([

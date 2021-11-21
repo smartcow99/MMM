@@ -1,14 +1,18 @@
 <template>
   <header id="nav">
-    <router-link to="/">
-      <img class="logo" src="@/assets/images/logo.png"/>
-    </router-link>
-    <Search id="search-bar" @search="search"/>
-    <Btn v-if="userInfo['isLogined']" @click="logout" theme="primary">로그아웃</Btn>
-    <Btn v-else @click="openLogin" theme="primary">로그인</Btn> |
-    <router-link class="primary" to="/analysis">
-      <Btn theme="white">AI 얼굴 분석</Btn>
-    </router-link>
+    <span class="menus">
+      <router-link to="/" class="logo">
+        <img src="@/assets/images/logo.png"/>
+      </router-link>
+      <Search id="search-bar" @search="search"/>
+      <span class="button-zone">
+        <Btn v-if="userInfo['isLogined']" class="button" @click="logout" theme="primary">로그아웃</Btn>
+        <Btn v-else class="button" @click="openLogin" theme="primary">로그인</Btn>
+        <router-link class="button" to="/analysis">
+          <Btn theme="white">AI 얼굴 분석</Btn>
+        </router-link>
+      </span> 
+    </span>
   </header>
   <main>
     <aside>
@@ -16,11 +20,12 @@
         @openLogin="openLogin"
         @openUpload="openUpload"
       />
-
       <h3>추천 채널</h3>
+      <hr/>
       <ChannelList :channelList="recommandChannelList"/>
       <h3>추천 태그</h3>
-      <div>
+      <hr/>
+      <div class="tag-list">
         <Tag 
           v-for="(value,index) in recommandTagList" :key="index"
           :title="value"
@@ -43,7 +48,7 @@
 <script>
 import Btn from './components/Btn.vue'
 import Profile from '@/components/Profile.vue'
-import Search from '@/components/Searchbar.vue'
+import Search from '@/components/SearchBar.vue'
 import Short from '@/components/widget/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
 import ChannelList from '@/components/ChannelList.vue'
@@ -158,14 +163,49 @@ body {
 
 header#nav {
   position:fixed;
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
   z-index:50;
   height:100px;
   width:100%;
   padding: 20px;
   border-bottom:1px solid #cccccc;
-  .logo {
-    width:40px;
-    height:40px;
+  .menus {
+    position:relative;
+    width:900px;
+    height:60px;
+    a.logo {
+      position:absolute;
+      height:40px;
+      top:50%;
+      margin-top:-20px;
+      left:0;
+      img {
+        width:40px;
+        height:40px;
+      }
+    }
+    #search-bar {
+      position:absolute;
+      height:40px;
+      top:50%;
+      margin-top:-20px;
+      left:100px;
+      width:400px;
+    }
+    .button-zone {
+      position:absolute;
+      height:40px;
+      top:50%;
+      margin-top:-20px;
+      right:0;
+      .button {
+        position:relative;
+        right:0;
+        margin-right:10px;
+      }
+    }
   }
 }
 main {
@@ -177,7 +217,8 @@ main {
   width:100%;
 }
 aside {
-  width:200px;
+  width:240px;
+  overflow-y: scroll;
   background-color:var(--background-color);
 }
 .article {
@@ -187,5 +228,21 @@ aside {
   flex-grow:1;
   overflow-y:scroll;
   overflow-x:hidden;
+}
+h3 {
+  text-align:left;
+}
+hr {
+  border:0;
+  border-top:1px solid var(--placeholder-color);
+  margin-bottom:20px;
+}
+a {
+  text-decoration:none;
+}
+.tag-list {
+  display:flex;
+  flex-direction:row;
+  flex-wrap:wrap;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
     <div>
-        channel search
         <ChannelSummary 
             v-for="(value,index) in channelList" 
             :key="index"

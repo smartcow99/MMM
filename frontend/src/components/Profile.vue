@@ -4,16 +4,18 @@
         <img v-else src="@/assets/images/defaultProfile.png"/>
         <div v-if="userInfo['isLogined']" class="user-info">
             <h2>{{userInfo['name']}}</h2>
-            <router-link to='/mypage'>
-                <Btn theme="white">마이페이지</Btn>
-            </router-link>
-            <router-link :to="{ path:'/channel', query:{'channelId':userInfo['channelId']}}">
-                <Btn theme="primary">내 채널</Btn>
-            </router-link>
-            <Btn theme="primary" @click="$emit('openUpload',$event)">업로드</Btn>
+            <div class="button-zone">
+                <router-link class="link" to='/mypage'>
+                    <Btn class="button" theme="white">마이페이지</Btn>
+                </router-link>
+                <router-link class="link" :to="{ path:'/channel', query:{'channelId':userInfo['channelId']}}">
+                    <Btn class="button" theme="primary">내 채널</Btn>
+                </router-link>
+            </div>
+            <Btn class="button" theme="primary" @click="$emit('openUpload',$event)">업로드</Btn>
         </div>
         <div v-else>
-            <button @click="$store.commit('setLoginPageOn',true)">로그인</button>
+            <Btn class="button" theme="primary" @click="$store.commit('setLoginPageOn',true)">로그인</Btn>
         </div>
     </div>
 </template>
@@ -31,6 +33,27 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+img {
+    width:240px;
+    height:240px;
+}
+.user-info {
+    h2 {
+        text-align:left;
+    }
+    .button-zone {
+        width:100%;
+        display:flex;
+        flex-direction:row;
+        justify-content: space-between;
+        margin-bottom:10px;
+        .link {
+            width:110px;
+        }
+    }
+}
+.button {
+        width:100%;
+}
 </style>

@@ -1,6 +1,5 @@
 <template>
     <div id="home">
-      home
       <div class="short-list">
         <ShortSummary 
             v-for="(value,index) in recommandShortList" 

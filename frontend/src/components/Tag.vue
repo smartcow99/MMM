@@ -20,7 +20,8 @@ export default {
     color:var(--placeholder-color);
     background-color:var(--background-color);
     border-radius: 13px;
-    margin:0 5px 0 5px;
+    margin:3px;
+    padding:1px 12px 0px 12px;
     cursor: pointer ;
 }
 .tag:hover {

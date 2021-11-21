@@ -1,8 +1,8 @@
 <template>
-    <div class="channel-summary">
+    <div class="channel-mini">
         <img v-if="!!profile" class="profile-image" :src="profile"/>
         <img v-else class="profile-image" src="@/assets/images/defaultProfile.png"/>
-        <span>{{name}}</span>
+        <span class="channel-name">{{name}}</span>
     </div>
 </template>
 
@@ -16,8 +16,18 @@ export default {
 </script>
 
 <style scoped>
+.channel-mini {
+    display:flex;
+    flex-direction:row;
+    height:30px;
+}
 .profile-image {
     width:30px;
     height:30px;
+}
+.channel-name {
+    font-size:1.1rem;
+    margin:auto 0;
+    margin-left:5px;
 }
 </style>

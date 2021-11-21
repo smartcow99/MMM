@@ -51,6 +51,7 @@ export default {
             }    
         ]);
     },
+
     // 추천 shorts
     async getRecommandShorts({commit},payload) {
         //필요 정보: 제목, 썸네일,shortId, channelId
@@ -115,12 +116,12 @@ export default {
     },
     //login 요청
     async requestLogin({commit},payload) {
-        //로그인 요청
+        //로그인 요청 후 성공 시
         //유저 정보 요청
         commit('setUserInfo',{
             isLogined: false,
             name: '홍길동',
-            userId:'',
+            ID:'',
             birth:'1998-11-02',
             profileImage: '#',
             channelId:10
@@ -134,13 +135,13 @@ export default {
         commit('initUserInfo');
         commit('setIsLogin',false);
     },
-    // shorts 요청
+    // shorts 요청(검색에 대한 결과)
     async requestShortList({commit},payload) {
         // shorts 요청
         commit('setShortList',[{title:'1'},{title:'2'},{title:'3'}]);
     },
     async requestProductList({commit},payload) {
-        //상품리스트 요청
+        //상품리스트 요청(검색에 대한 결과)
         commit('setProductList',[
             {
                 title:'상품1',
@@ -169,7 +170,7 @@ export default {
         ]);
     },
     async requestChannelList({commit},payload) {
-        //채널리스트 요청
+        //채널리스트 요청(검색에 대한 결과)
         commit('setChannelList',[
             {
                 title:'채널1',
@@ -240,8 +241,7 @@ export default {
                     thumnail:'#',
                     productId:1,
                     rate:3.4,
-                    price:12000,
-                    //아직 더 추가해야함
+                    price:12000
                 }
             ]);
         }
@@ -312,6 +312,7 @@ export default {
         commit('setShortInfo',{
             title:'클릭한 short',
             shortId:999,
+            info: '영상 정보 주저리주저리',
             numOfHearts:230,
             numOfViews:12000,
             relatedChannel:{
@@ -344,8 +345,7 @@ export default {
                 {name:'토토로아빠',profile:'#',content:'아브라카다브라'},
                 {name:'토토로아들',profile:'#',content:'아브라카다브라'},
                 {name:'토토로엄마',profile:'#',content:'아브라카다브라'}
-            ],
-            info: '영상 정보 주저리주저리'
+            ]
         })
     },
     async requestRelatedChannelInfo({commit},payload) {
@@ -376,6 +376,7 @@ export default {
         //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
         if(payload==10) {
             commit('setChannelInfo',{
+                isMyChannel:true,
                 title:'내 채널',
                 profile:'#',
                 channelId:10,
@@ -438,6 +439,7 @@ export default {
         }
         else {
             commit('setChannelInfo',{
+                isMyChannel:false,
                 title:`남의 채널${payload}`,
                 profile:'#',
                 channelId:20,
@@ -507,14 +509,6 @@ export default {
         //params 유저 아이디(또는 session으로 처리), channelId
         //구독 취소
     },
-    async requestSubscribe({ commit }, payload) {
-        //params 유저 아이디(또는 session으로 처리)
-        //구독 하기
-    },
-    async requestUnsubscribe({ commit }, payload) {
-        //params 유저 아이디(또는 session으로 처리)
-        //구독 취소
-    },
     async requestProductInfo({commit},payload) {
         //상품정보요청
         commit('setProductInfo',{
@@ -547,7 +541,7 @@ export default {
                     numOfViews:12321
                 },
             ],
-            productExplainHtml:`<html><body><div>hi i am product</div></body></html>`,
+            productExplainHtml:`<div>hi i am product</div>`,
             reviews: [
                 {
                     profile:'#',
@@ -569,11 +563,4 @@ export default {
     async upShortsLikeCount({ commit }) {
         commit("upLikeCount");
     },
-    async addTagList({ commit }, payload) {
-        // (payload:shorts 업로드 창에서 추가한 태그)
-        commit("addTagList", [{ payload }]);
-    },
-    async resetTagList({ commit }) {
-        commit("resetTagList");
-    }
 };

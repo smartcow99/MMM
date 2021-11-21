@@ -26,20 +26,21 @@ export default {
 </script>
 
 <style scoped>
-*{
+button {
     cursor:pointer;
     /* color:white; */
     border:transparent;
     border-radius: 4px;
+    padding:10px 20px;
 }
 
 .white {
-    border:1px solid black;
+    border:1px solid var(--placeholder-color);;
     background-color: var(--background-color);
-    color:black;
 }
 .primary {
     background-color: var(--primary-color);
+    border:1px solid var(--primary-color);
     color:white;
 }
 .gray {

@@ -1,14 +1,17 @@
 <template>
-    <span class="search-bar">
-        <input v-model="content"/>
-        <button @click="search">
-            <font-awesome-icon icon="search"/>
-        </button>
+    <span id="search-bar">
+        <input class="search-input" v-model="content" @keyup.enter="search"/>
+        <Btn class="search-button" theme="primary" @click="search">
+            <font-awesome-icon class="icon" icon="search"/>
+        </Btn>
     </span>
 </template>
 
 <script>
+import Btn from './Btn.vue';
 export default {
+    name: 'SearchBar',
+    components : {Btn},
     data() {
         return {
             content:'',
@@ -39,6 +42,27 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+#search-bar {
+    .search-input {
+        line-height:24px;
+        width:300px;
+        font-size:1rem;
+        border-radius:20px;
+        padding:7px 20px;
+        margin-right:10px;
+        border: 1px solid var(--placeholder-color);
+        &:focus {
+            outline: none;
+        }   
+    }
+    .search-button {
+        width:80px;
+        height:40px;
+        border-radius:20px;
+        & > .icon {
+            font-size:1rem;
+        }
+    }
+}
 </style>
