@@ -75,7 +75,7 @@ h1{
     display:flex;
     flex-direction: column;
     align-items: center;
-     margin:200px auto;
+     /* margin:200px auto; */
     width:500px;
     height:600px;
     padding:50px;
