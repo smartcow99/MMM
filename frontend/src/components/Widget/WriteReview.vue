@@ -163,17 +163,12 @@ h1{
     display:flex;
     flex-direction: column;
     align-items: center;
-    margin:200px auto;
     width:500px;
     height:700px;
-    /* padding:50px; */
     border-radius:4px;
     box-shadow: 10px 10px 30px rgba(0,0,0,0.1);
     background-color:#FFFFFF;
 }
-/* .star-point-area{
-
-} */
 .write-review-area{
     display:flex;
     flex-direction: column;
