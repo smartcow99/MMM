@@ -243,11 +243,11 @@ header#nav {
 }
 main {
   position:relative;
-  padding:100px 0 0 200px;
+  margin:auto 100px auto 0;
   display:flex;
   flex-direction:row;
   height:100%;
-  width:100%;
+  width:1200px;
 }
 aside {
   width:240px;
