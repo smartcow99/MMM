@@ -26,11 +26,12 @@ export default {
 </script>
 
 <style scoped>
-*{
+button {
     cursor:pointer;
     /* color:white; */
     border:transparent;
     border-radius: 4px;
+    padding:10px 20px;
 }
 
 .white {
