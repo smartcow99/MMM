@@ -43,7 +43,7 @@
 <script>
 import Btn from './components/Btn.vue'
 import Profile from '@/components/Profile.vue'
-import Search from '@/components/Searchbar.vue'
+import Search from '@/components/SearchBar.vue'
 import Short from '@/components/widget/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
 import ChannelList from '@/components/ChannelList.vue'
