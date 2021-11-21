@@ -46,6 +46,12 @@ const api = {
 		from channel natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a natural join (select chid as channelId, count(*) as numOfShorts from mmmservice.video group by chid)b \
 		natural left outer join (select chid as channelId, cid as isSubscribed from subscribe where cid = ${cid})c order by numOfSubscribers desc limit 5`)
 		return res;
+	},
+	get_purchare_list: async (cid, reqNum) => {
+		console.log(reqNum);
+		const [res] = await pool.query(`select distinct pid, p_date as date, price, p_num as purchaseNum, thumnail, p_name as productName
+from product natural join purchase limit ${reqNum*6}, 6`)
+		return res;
 	}
 }
 

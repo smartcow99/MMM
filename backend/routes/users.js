@@ -3,6 +3,7 @@ var router = express.Router();
 const db = require('../my_modules/db');
 const multer = require('multer');
 const { PythonShell } = require("python-shell");
+const islogined = require('../my_modules/logincheck')
 
 // const upload = multer({ dest: 'uploads/', limits: { fileSize: 5 * 1024 * 1024 } });
 // // const upload = multer({
@@ -59,7 +60,7 @@ router.post('/login', async (req, res)=>{
 
 router.get('/logout',(req, res)=>{
   if(req.session.islogined){
-    req.session.destroy(function(){ 
+    req.session.destroy(function(){
       req.session;
     });
   }
@@ -80,6 +81,15 @@ router.get('/recommend', async (req, res)=>{
   const cid = req.session.cid | 0;
   const result = await db.recommend(req.query.type, cid, req.query.requestNum);
 
+  if(result)
+    res.status(200).send(result);
+  else
+    res.status(400).send('fail');
+})
+
+router.get('/purchaseList', islogined, async (req, res)=>{
+  console.log(req.query.requestNum);
+  const result = await db.get_purchare_list(req.session.cid, req.query.requestNum);
 
   if(result)
     res.status(200).send(result);
