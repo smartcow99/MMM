@@ -1,17 +1,38 @@
 <template>
-    <div>
-        <div class="channel-info">
+    <article>
+        <div v-if="currentChannel['isMyChannel']" class="channel-summary">
             <img :src="currentChannel['profile']" alt="채널 프로필"/>
-            {{currentChannel['title']}}
-            <span>구독자 수 {{currentChannel['numOfSubscribers']}} | shorts {{currentChannel['numOfShorts']}}</span>
-            <div>{{currentChannel['introduce']}}</div>
-            <Btn v-if="currentChannel['isSubscribed']" @click="subscribe">구독 취소</Btn>
-            <Btn v-else @click="unsubscribe">구독</Btn>
+            <div class="channel-info">
+                <div class="channel-title">
+                    <input type="text" class="modify-title" v-if="isModifyOn" v-model="modifyTitle"/>
+                    <h2 v-else>{{currentChannel['title']}}</h2>
+                    <Btn class="subscribe-button" theme="white" v-if="isModifyOn" @click="saveModify">저장하기</Btn>
+                    <Btn class="subscribe-button" theme="white" v-else @click="modifyOn()">수정하기</Btn>
+
+                </div>
+                <small class="channel-meta">
+                    <span>구독자 수 {{currentChannel['numOfSubscribers']}} | shorts {{currentChannel['numOfShorts']}}</span>
+                </small>
+                <textarea v-if="isModifyOn" class="modify-intro" v-model="modifyIntro" ></textarea>
+                <small v-else class="channel-intro">{{currentChannel['introduce']}}</small>
+            </div>
         </div>
-        <Detail v-if="currentChannel['channelId']==userInfo['channelId']">
-            <template v-slot:summary>
-                <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
-            </template>
+        <div v-else class="channel-summary">
+            <img :src="currentChannel['profile']" alt="채널 프로필"/>
+            <div class="channel-info">
+                <div class="channel-title">
+                    <h2>{{currentChannel['title']}}</h2>
+                    <Btn class="subscribe-button" theme="gray" v-if="currentChannel['isSubscribed']" @click="subscribe">구독 취소</Btn>
+                    <Btn class="subscribe-button" v-else @click="unsubscribe">구독</Btn>
+                </div>
+                <small class="channel-meta">
+                    <span>구독자 수 {{currentChannel['numOfSubscribers']}} | shorts {{currentChannel['numOfShorts']}}</span>
+                </small>
+                <small class="channel-intro">{{currentChannel['introduce']}}</small>
+            </div>
+        </div>
+        <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
+        <Detail v-if="currentChannel['isMyChannel']">
             <div class="product-list"
                 v-for="(productList,key) of currentChannel['dressingTable']"
                 :key="key"
@@ -29,9 +50,6 @@
             </div>
         </Detail>
         <Detail v-else>
-            <template v-slot:summary>
-                <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
-            </template>
             <div class="product-list"
                 v-for="(productList,key) of currentChannel['dressingTable']"
                 :key="key"
@@ -47,7 +65,6 @@
             </div>
         </Detail>
         <div v-if="currentChannel['channelId']==userInfo['channelId']">
-            쇼츠 가로 3개씩 나오도록 만들것
             <div id="shortList">
             <DeleteBox @delete="deleteShort"
                 v-for="(short,index) in currentChannel['shortList']"
@@ -59,7 +76,6 @@
             </div>
         </div>
         <div v-else>
-            쇼츠 가로 3개씩 나오도록 만들것
             <div id="shortList">
                 <ShortSummary
                     v-for="(short,index) in currentChannel['shortList']"
@@ -68,18 +84,27 @@
                 </ShortSummary>
             </div>
         </div>
-    </div>
+    </article>
 </template>
 
 <script>
+import Btn from '../components/Btn.vue';
 import Detail from '../components/Detail.vue'
 import { mapActions, mapState } from 'vuex';
 import ShortSummary from '../components/ShortSummary.vue';
 import ProductMini from '../components/ProductMini.vue';
 import DeleteBox from '../components/DeleteBox.vue';
+import ChannelSummary from '../components/ChannelSummary.vue';
 export default {
     name:'Channel',
-    components: { Detail, ShortSummary, ProductMini, DeleteBox },
+    components: { Btn, Detail, ShortSummary, ProductMini, DeleteBox, ChannelSummary },
+    data() {
+        return {
+            isModifyOn:false,
+            modifyTitle:'',
+            modifyIntro:'',
+        }
+    },
     computed: {
         ...mapState([
             'userInfo',
@@ -105,13 +130,21 @@ export default {
         unsubscribe() {
             this.requestUnsubscribe(this.currentChannel['channelId']);
             this.requestChannelInfo(this.currentChannel['channelId']);
-        }
+        },
+        modifyOn() {
+            this.isModifyOn = true;
+            this.modifyTitle = this.currentChannel['title'];
+            this.modifyIntro = this.currentChannel['introduce'];
+        },
+        saveModify() {
+            this.isModifyOn = false;
+        },
     },
     mounted() {
         this.requestChannelInfo(this.$route.query['channelId']);
     },
     watch: {
-        '$route' () {
+        '$route.query' () {
             if(!!this.$route.query['channelId']) {
                 this.requestChannelInfo(this.$route.query['channelId']);
             }
@@ -120,7 +153,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .product-list {
     display:flex;
     flex-direction:row;
@@ -130,5 +163,48 @@ export default {
     flex-direction: row;
     flex-wrap:wrap;
     margin: 50px auto;
+}
+div.channel-summary {
+    display:flex;
+    flex-direction:row;
+    img {
+        width:160px;
+        height:160px;
+        padding:20px;
+        border-radius:50%;
+    }
+    div.channel-info {
+        flex-grow:1;
+        display:flex;
+        flex-direction:column;
+        div.channel-title {
+            margin-top:20px;
+            display:flex;
+            flex-direction:row;
+            justify-content: space-between;
+            h2 { 
+                text-align:left;
+                margin: 0;
+                flex-grow:1;
+            }
+            input.modify-title {
+                width:400px;
+            }
+            .subscribe-button {
+                width:100px;
+            }
+        }
+        small.channel-meta {
+            text-align:left;
+            margin-bottom:10px;
+        }
+        small.channel-intro {
+            text-align:left;
+        }
+        textarea.modify-intro {
+            height:150px;
+            width:600px;
+        }
+    }
 }
 </style>

@@ -273,6 +273,29 @@ hr {
 }
 a {
   text-decoration:none;
+  color:var(--primary-color);
+}
+input {
+  border-radius:4px;
+  padding:10px;
+  border: 2px solid var(--placeholder-color);
+}
+input:focus {
+  transition:0.3s;
+  outline:none;
+  border: 2px solid var(--primary-color);
+}
+textarea {
+  border-radius:4px;
+  padding:10px;
+  border:2px solid var(--placeholder-color);
+  resize:none;
+}
+textarea:focus {
+  transition:0.3s;
+  outline:none;
+  border:2px solid var(--primary-color);
+    
 }
 .tag-list {
   display:flex;

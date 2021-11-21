@@ -84,8 +84,9 @@ export default {
         state['currentShort'].comments = payload;
     },
     setChannelInfo(state,payload) {
-        state['currentChannel'] = payload;
+        state['currentChannel'].isMyChannel = payload.isMyChannel;
         state['currentChannel'].title = payload.title;
+        state['currentChannel'].isSubscribed = payload.isSubscribed;
         state['currentChannel'].profile = payload.profile;
         state['currentChannel'].channelId = payload.channelId;
         state['currentChannel'].numOfSubscribers = payload.numOfSubscribers;

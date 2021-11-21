@@ -1,7 +1,7 @@
 <template>
     <span class="delete-box">
         <slot/>
-        <button class="delete-button" @click="$emit('delete')">x</button>
+        <img class="delete-button" src="@/assets/images/delete.png" @click="$emit('delete')"/>
     </span>
 
 </template>
@@ -15,8 +15,11 @@ export default {
 <style>
 .delete-box {
     position:relative;
+    border:1px solid var(--placeholder-color);
+    border-radius:8px;
 }
 .delete-button {
+    border:none;
     position:absolute;
     top:0;
     height:20px;
@@ -26,5 +29,29 @@ export default {
     margin-left:-10px;
     margin-top:-10px;
     z-index:10;
+    cursor:pointer;
+}
+.delete-button:hover {
+    animation:shake 1s infinite;
+}
+@keyframes shake {
+    0% {
+        transform:rotate(0deg);
+    }
+    5% {
+        transform:rotate(10deg);
+    }
+    10% {
+        transform:rotate(0deg);
+    }
+    15% {
+        transform:rotate(-10deg);
+    }
+    20% {
+        transform:rotate(0deg);
+    }
+    100% {
+        transform:rotate(0deg);
+    }
 }
 </style>
