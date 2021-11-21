@@ -59,15 +59,17 @@ router.post('/login', async (req, res)=>{
 
 router.get('/logout',(req, res)=>{
   if(req.session.islogined){
-    req.session.islogined = false;
-    req.session.cid = null;
+    req.session.destroy(function(){ 
+      req.session;
+    });
   }
   res.status(200).send('success')
 })
 
 router.get('/search',async (req, res)=>{
   const cid = req.session.cid | 0;
-  const result = await db.search(req.query.type, req.query.content, cid);
+  const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum);
+
   if(result)
     res.status(200).send(result);
   else
@@ -76,7 +78,9 @@ router.get('/search',async (req, res)=>{
 
 router.get('/recommend', async (req, res)=>{
   const cid = req.session.cid | 0;
-  const result = await db.recommend(req.query.type, cid);
+  const result = await db.recommend(req.query.type, cid, req.query.requestNum);
+
+
   if(result)
     res.status(200).send(result);
   else

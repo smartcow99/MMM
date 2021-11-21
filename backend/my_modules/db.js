@@ -16,9 +16,9 @@ const api = {
 		return res;
 	},
 
-	search_shorts: async (content)=>{
+	search_shorts: async (content, reqNum)=>{
 		let [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, recommend as numOfHearts, numOfSubscribers from mmmservice.video \
-		natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a where title like '%${content}%'`);
+		natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a where title like '%${content}%' limit ${reqNum*6}, 6`);
 		return res;
 	},
 	search_channel: async (content,cid)=>{
@@ -33,18 +33,18 @@ const api = {
 	},
 
 	recommend_tag: async ()=>{
-		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc`)
+		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc limit 10`)
 		return res;
 	},
-	recommend_shorts: async ()=>{
+	recommend_shorts: async (reqNum)=>{
 		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, recommend as numOfHearts, numOfSubscribers \
-		from mmmservice.video natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a order by recommend desc`)
+		from mmmservice.video natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a order by recommend desc limit ${reqNum*6}, 6`)
 		return res;
 	},
 	recommend_channel: async (cid)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, numOfShorts, isSubscribed, introduce \
 		from channel natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a natural join (select chid as channelId, count(*) as numOfShorts from mmmservice.video group by chid)b \
-		natural left outer join (select chid as channelId, cid as isSubscribed from subscribe where cid = ${cid})c order by numOfSubscribers desc;`)
+		natural left outer join (select chid as channelId, cid as isSubscribed from subscribe where cid = ${cid})c order by numOfSubscribers desc limit 5`)
 		return res;
 	}
 }
@@ -60,7 +60,7 @@ module.exports = new Proxy(api,{
 			}
 		}
 		else if(apiName == 'search'){
-			return async function(type, content, cid) {
+			return async function(type, content, cid, reqNum) {
 				if(!content)
 					return null;
 
@@ -77,12 +77,12 @@ module.exports = new Proxy(api,{
 					})
 				}
 				else if(type == 'short')
-					ret.searchResult =  await target.search_shorts(content);
+					ret.searchResult =  await target.search_shorts(content, reqNum);
 				return ret;
 			}
 		}
 		else if(apiName == 'recommend'){
-			return async function(type, cid) {
+			return async function(type, cid, reqNum) {
 				if(type == 'tag')
 					return await target.recommend_tag();
 				else if(type == 'channel'){
@@ -93,7 +93,7 @@ module.exports = new Proxy(api,{
 					})
 				}
 				else if(type == 'short')
-					return await target.recommend_shorts();
+					return await target.recommend_shorts(reqNum);
 				return ret;
 			}
 		}
