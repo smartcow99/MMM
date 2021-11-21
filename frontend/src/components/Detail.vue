@@ -31,12 +31,10 @@ export default {
 </script>
 
 <style scoped>
-.detail {
-    padding:50px 0;
-    
-}
 .detail .view-box {
-    background-color:green;
+    border:1px solid var(--placeholder-color);
+    border-radius:4px;
+    padding:20px;
     overflow:hidden;
     position: relative;
     height:fit-content;

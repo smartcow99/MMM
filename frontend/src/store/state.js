@@ -4,7 +4,7 @@ export default {
     shortPageOn:false,
     accessToken:'',//새로고침될때마다 로그인이 풀리므로, session을 통해 이를 해결해야함
     userInfo: {
-        isLogined: true,
+        isLogined: false,
         name: '홍길동',
         ID:'',
         channelId:'',
@@ -43,6 +43,7 @@ export default {
         reviews: []
     },
     currentChannel: {
+        isMyChannel:false,
         title:'',
         profile:'',
         channelId:0,

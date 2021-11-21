@@ -150,21 +150,12 @@ p{
 input{
     width:500px;
     height:40px;
-    padding:10px;
-    border: 2px solid var(--placeholder-color);
-    border-radius:4px;
 }
 textarea#short-explain{
-    padding:10px;
     width:500px;
     height:150px;
-    resize:none;
-    border: 2px solid var(--placeholder-color);
-    border-radius:4px;
 }
 input:focus,textarea#short-explain:focus {
-    transition:0.3s;
-    outline: none;
     border:2px solid var(--primary-color);
 }
 #titleBox,#explanationBox,#tagBox {

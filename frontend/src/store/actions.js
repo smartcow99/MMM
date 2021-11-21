@@ -444,7 +444,7 @@ export default {
                 channelId:20,
                 numOfSubscribers: 130,
                 numOfShorts: 3,
-                introduce:'내 채널 설명',
+                introduce:'남의 채널 설명',
                 isSubscribed:false,
                 dressingTable:{
                     '마스카라':[
