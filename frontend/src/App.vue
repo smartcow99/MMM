@@ -188,4 +188,10 @@ aside {
   overflow-y:scroll;
   overflow-x:hidden;
 }
+h3 {
+  text-align:left;
+}
+a {
+  text-decoration:none;
+}
 </style>
