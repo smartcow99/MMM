@@ -35,9 +35,8 @@ button {
 }
 
 .white {
-    border:1px solid black;
+    border:1px solid var(--placeholder-color);;
     background-color: var(--background-color);
-    color:black;
 }
 .primary {
     background-color: var(--primary-color);
