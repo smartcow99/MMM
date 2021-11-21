@@ -79,6 +79,8 @@ export default {
 .short-summary {
     width:280px;
     height: 448px;
+    border:1px solid #CCCCCC;
+    border-radius: 4px;
 }
 .shorts{
     position:relative;
