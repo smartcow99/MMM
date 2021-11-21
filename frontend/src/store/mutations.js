@@ -123,4 +123,34 @@ export default {
     setSubscribeChannelList(state,payload) {
         state['subscribeChannelList'] = payload;
     },
+    sortProductList(state,{type}) {
+        //payload: rate, view,  high-price, low-price
+        const sortByRate = (a,b) => {
+            if(a.rate < b.rate) return 1;
+            else if(a.rate < b.rate) return 0;
+            else return -1;
+        }
+        const sortByView = (a,b) => {
+            if(a.view < b.view) return 1;
+            else if(a.view < b.view) return 0;
+            else return -1;
+        }
+        const sortByHighPrice = (a,b) => {
+            if(a.price < b.price) return 1;
+            else if(a.price < b.price) return 0;
+            else return -1;
+        }
+        const sortByLowPrice = (a,b) => {
+            if(a.price < b.price) return -1;
+            else if(a.price < b.price) return 0;
+            else return 1;
+        }
+        switch(type) {
+            case 'rate': state['productList'].sort(sortByRate); break;
+            case 'view': state['productList'].sort(sortByView); break;
+            case 'high-price': state['productList'].sort(sortByHighPrice); break;
+            case 'low-price': state['productList'].sort(sortByLowPrice); break;
+        } 
+        
+    }
 }

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div id="shortList">
+    <div id="short-search">
+        <div class="short-list">
             <ShortSummary 
                 v-for="(value,index) in shortList" 
                 :key="index" 
@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style>
-#shortList{
+div.short-list{
     margin-top:20px;
     display: flex;
     flex-direction: row;

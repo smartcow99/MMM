@@ -1,12 +1,18 @@
 <template>
     <div class="product-summary">
         <router-link :to="{name: 'Product', query: { productId: productInfo['productId'] }}">
-            <img :src="productInfo.thumnail" alt="상품사진"/>
-            <h2>{{productInfo.title}}</h2>
-            <h3>{{productInfo.price}}</h3>
-            {{productInfo.rate}}
-            <StarRating :rate="productInfo.rate"></StarRating>
+            <img class="product-image" :src="productInfo.thumnail" alt="상품사진"/>
         </router-link>
+        <div class="product-info">
+            <router-link :to="{name: 'Product', query: { productId: productInfo['productId'] }}">
+                <h2 class="product-name">{{productInfo.title}}</h2>
+            </router-link>
+            <h3 class="product-price">{{productInfo.price}} 원</h3>
+            <div class="product-rate">
+                <StarRating :rate="productInfo.rate"></StarRating>
+                <small>({{productInfo.rate}})</small>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -21,8 +27,32 @@ export default {
 }
 </script>
 
-<style>
-.product-summary {
-    border:1px solid #cccccc;
+<style lang="scss" scoped>
+div.product-summary {
+    border:1px solid var(--placeholder-color);
+    border-radius:4px;
+    & > a {
+        img.product-image {
+            display:inline-block;
+            width:280px;
+            height:280px;
+        }
+    }
+}
+div.product-info {
+    padding:10px 20px;
+    a {
+        color:var(--primary-color);
+        h2.product-name {
+            text-align:left;
+        }
+    }
+    div.product-rate {
+        display:flex;
+        flex-direction:row;
+        small {
+            margin-left:5px;
+        }
+    }
 }
 </style>

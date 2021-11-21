@@ -94,7 +94,7 @@ export default {
                 productId:1,
                 rate:3.4,
                 price:20000,
-                //아직 더 추가해야함
+                view:12345
             },
             {
                 title:'상품2',
@@ -102,7 +102,6 @@ export default {
                 productId:2,
                 rate:3,
                 price:30000,
-                //아직 더 추가해야함
             },
             {
                 title:'상품3',
@@ -110,7 +109,6 @@ export default {
                 productId:3,
                 rate:4.6,
                 price:15000,
-                //아직 더 추가해야함
             },
         ]);
     },

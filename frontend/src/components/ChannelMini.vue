@@ -26,7 +26,6 @@ export default {
     height:30px;
 }
 .channel-name {
-    font-size:1.1rem;
     margin:auto 0;
     margin-left:5px;
 }

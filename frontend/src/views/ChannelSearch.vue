@@ -1,10 +1,12 @@
 <template>
-    <div>
-        <ChannelSummary 
-            v-for="(value,index) in channelList" 
-            :key="index"
-            :channelInfo="value"
-        />
+    <div id="channel-search">
+        <div id="short-list">
+            <ChannelSummary 
+                v-for="(value,index) in channelList" 
+                :key="index"
+                :channelInfo="value"
+            />
+        </div>
     </div>
 </template>
 
