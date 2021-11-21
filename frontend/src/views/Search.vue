@@ -1,6 +1,5 @@
 <template>
     <div>
-        search
         <Menubar/>
         <router-view/>
     </div>

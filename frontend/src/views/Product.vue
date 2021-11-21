@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!--image viewer-->
         <ImageViewer :imageList="currentProduct['productImages']"></ImageViewer>
         <div class="product-info">
             <div>

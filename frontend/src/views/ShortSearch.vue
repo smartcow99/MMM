@@ -1,6 +1,5 @@
 <template>
     <div>
-        shorts search {{$route.query}}
         <div id="shortList">
         <ShortSummary 
             v-for="(value,index) in shortList" 

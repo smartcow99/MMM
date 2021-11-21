@@ -1,6 +1,5 @@
 <template>
     <div>
-        product search result
         <ProductSummary 
             v-for="(value,index) in productList" 
             :key="index" 
