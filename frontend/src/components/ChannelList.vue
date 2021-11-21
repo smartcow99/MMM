@@ -1,9 +1,9 @@
 <template>
-    <div class="recommend-tags">
+    <div class="channel-list">
         <router-link
             v-for="(value,index) in channelList.slice(0,5)" 
             :key="index"
-            :to="{ path:'/channel', query:{'channelId':value.channelId}}"
+            :to="{ path: path, query:{'channelId':value.channelId}}"
         >
             <ChannelMini 
                 :profile="value.profile"
@@ -19,6 +19,7 @@ import ChannelMini from '@/components/ChannelMini.vue'
 export default {
     name: 'ChannelList',
     props: {
+        path:String,
         channelList: Array
     },
     components: {

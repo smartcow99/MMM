@@ -18,6 +18,8 @@ export default {
     recommandTagList: [],
     recommandChannelList: [],
     recommandShortList: [],
+    subscribeChannelList: [],
+    channelShortList: [],
     
     searchType:'short',
     currentShort: {

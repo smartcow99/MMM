@@ -119,5 +119,8 @@ export default {
     },
     upLikeCount(state) {
         state["currentShort"].like++;
-    }
+    },
+    setSubscribeChannelList(state,payload) {
+        state['subscribeChannelList'] = payload;
+    },
 }

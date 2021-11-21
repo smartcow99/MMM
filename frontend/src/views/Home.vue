@@ -54,5 +54,9 @@ export default {
 #home .short-list {
   display:flex;
   flex-direction:row;
+  justify-content: space-around;
+  max-width:1000px;
+  width:100%;
+  flex-wrap:wrap;
 }
 </style>

@@ -21,16 +21,27 @@
         @openLogin="openLogin"
         @openUpload="openUpload"
       />
-      <h3>추천 채널</h3>
-      <hr/>
-      <ChannelList :channelList="recommandChannelList"/>
-      <h3>추천 태그</h3>
-      <hr/>
-      <div class="tag-list">
-        <Tag 
-          v-for="(value,index) in recommandTagList" :key="index"
-          :title="value"
-        />
+      <div v-if="userInfo['isLogined']" class="recommand-channels">
+        <h3>구독한 채널</h3>
+        <hr/>
+        <ChannelList path="/channelshort" :channelList="defaultChannels"/>
+        <ChannelList path="/channelshort" :channelList="subscribeChannelList"/>
+      </div>
+      <div v-else class="recommand-channels">
+        <h3>추천 채널</h3>
+        <hr/>
+        <ChannelList path="/channelshort" :channelList="recommandChannelList"/>
+      </div>
+      
+      <div class="recommand-tags">
+        <h3>추천 태그</h3>
+        <hr/>
+        <div class="tag-list">
+          <Tag 
+            v-for="(value,index) in recommandTagList" :key="index"
+            :title="value"
+          />
+        </div>
       </div>
     </aside>
     <router-view class="article"/>
@@ -57,6 +68,8 @@ import Tag from '@/components/Tag.vue'
 import ShortUpload from '@/components/widget/ShortUpload.vue'
 import LoginCard from '@/components/widget/LoginCard.vue'
 
+import HotShortImg from '@/assets/images/hot-short.png';
+import AllSubscribeImg from '@/assets/images/all-subscribe.png';
 import {mapState,mapActions, mapMutations} from 'vuex'
 
 
@@ -64,6 +77,16 @@ export default {
   data() {
     return {
       uploadClicked:false,
+      defaultChannels: [
+        {
+            title:'핫 채널',
+            profile:HotShortImg
+        },
+        {
+            title:'구독한 모든 채널',
+            profile:AllSubscribeImg
+        }
+      ]
     }
   },
   components: {
@@ -86,6 +109,7 @@ export default {
       'userInfo',
       'recommandTagList',
       'recommandChannelList',
+      'subscribeChannelList',
       'currentShort',
       'loginPageOn',
       'uploadShortPageOn',
@@ -102,6 +126,7 @@ export default {
       'requestLogout',
       'getRecommandTags',
       'getRecommandChannels',
+      'requestSubscribeChannels',
       'requestSearch'
     ]),
     closeLogin() {
@@ -124,6 +149,13 @@ export default {
     },
     logout() {
       this.requestLogout();
+    }
+  },
+  watch: {
+    'userInfo.isLogined': {
+      handler() {
+        this.requestSubscribeChannels();
+      }
     }
   }
 }

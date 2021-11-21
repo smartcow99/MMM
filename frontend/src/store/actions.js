@@ -372,6 +372,7 @@ export default {
         ])
     },
     async requestChannelInfo({commit},payload) {
+        //hot: 핫쇼츠, *: 구독한 모든 채널의 short, ID: 특정 채널의 info
         //channelId에 해당하는 채널 정보 요청
         //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
         if(payload==10) {
@@ -509,6 +510,29 @@ export default {
         //params 유저 아이디(또는 session으로 처리), channelId
         //구독 취소
     },
+    async requestSubscribeChannels({commit},payload) {
+        //구독한 채널 리스트
+        commit('setSubscribeChannelList',[
+            {
+                title:'채널1',
+                profile:'#',
+                channelId:4,
+                numOfSubscribers: 10000,
+                numOfShorts: 20,
+                isSubscribed:true,
+                introduce:'나는 채널1 이다'
+            },
+            {
+                title:'채널2',
+                profile:'#',
+                channelId:5,
+                numOfSubscribers: 20000,
+                numOfShorts: 24,
+                isSubscribed:true,
+                introduce:'나는 채널2 이다'
+            },
+        ])
+    },
     async requestProductInfo({commit},payload) {
         //상품정보요청
         commit('setProductInfo',{
@@ -562,5 +586,5 @@ export default {
     },
     async upShortsLikeCount({ commit }) {
         commit("upLikeCount");
-    },
+    }
 };

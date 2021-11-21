@@ -56,6 +56,11 @@ const routes = [
     name: "Product",
     component: () => import("../views/Product.vue"),
   },
+  {
+    path: "/channelshort",
+    name: "ChannelShort",
+    component: () => import("../views/ChannelShort.vue"),
+  },
 ];
 
 const router = createRouter({

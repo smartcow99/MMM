@@ -13,8 +13,8 @@
 <script>
 import StarRating from './StarRating.vue'
 export default {
-  components: { StarRating },
     name:'ProductSummary',
+    components: { StarRating },
     props: {
         'productInfo': Object
     }
