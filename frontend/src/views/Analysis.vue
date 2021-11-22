@@ -1,5 +1,5 @@
 <template>
-    <div class="analysis-area">
+    <div class="analysis-area page">
         <div class="analysis">
             <UploadBox 
                 class="upload-box"

@@ -1,5 +1,5 @@
 <template>
-<div class="bill-box">
+<div class="bill-box page">
     <Bill
         v-for="(value,index) in purchaseList" 
         :key="index"

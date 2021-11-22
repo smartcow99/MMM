@@ -1,5 +1,5 @@
 <template>
-    <article id="home">
+    <article id="home" class="page">
       <h1>추천 영상</h1>
       <div class="short-list">
         <ShortSummary 

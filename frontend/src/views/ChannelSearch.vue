@@ -1,5 +1,5 @@
 <template>
-    <div id="channel-search">
+    <div id="channel-search" class="page">
         <div id="short-list">
             <ChannelSummary 
                 v-for="(value,index) in channelList" 

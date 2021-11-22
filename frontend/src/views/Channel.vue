@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <div id="channel" class="page">
         <div v-if="currentChannel['isMyChannel']" class="channel-summary">
             <img :src="currentChannel['profile']" alt="채널 프로필"/>
             <div class="channel-info">
@@ -83,7 +83,7 @@
                 :shortInfo="short">
             </ShortSummary>
         </div>
-    </article>
+    </div>
 </template>
 
 <script>
