@@ -16,27 +16,27 @@ const api = {
 		return res;
 	},
 	search_shorts: async (content, reqNum)=>{
-		let [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers from mmmservice.video \
-		natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b where title like '%${content}%' limit ${reqNum*6}, 6`);
+		let [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers from mmmservice.video 
+		join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using(chid) natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b where title like '%${content}%' limit ${reqNum*6}, 6`);
 		return res;
 	},
 	search_channel: async (content,cid)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed
-		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) natural left outer join (select chid, case when cid = ${cid} then 'true' else 'false' end as isSubscribed from mmmservice.subscribe)c where ch_name like '%${content}%';`);
+		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) \
+		natural left outer join (select chid, case when cid = ${cid} then 'true' else 'false' end as isSubscribed from mmmservice.subscribe where cid = ${cid})c where ch_name like '%${content}%';`);
 		return res;
 	},
 	search_product: async (content)=>{
 		const [res] = await pool.query(`select p_name as title, thumnail, pid as productId, avg_rate as rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where p_name like '%${content}%'`);
 		return res;
 	},
-
 	recommend_tag: async ()=>{
 		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc limit 10`)
 		return res;
 	},
 	recommend_shorts: async (reqNum)=>{
-		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers \
-		from mmmservice.video natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b order by recommend desc limit ${reqNum*6}, 6`)
+		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers from mmmservice.video 
+		join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using(chid) natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b order by numOfHearts desc limit ${reqNum*6}, 6`)
 		return res;
 	},
 	recommend_channel: async (cid)=>{
@@ -48,7 +48,7 @@ const api = {
 	get_purchare_list: async (cid, reqNum) => {
 		console.log(reqNum);
 		const [res] = await pool.query(`select distinct pid, p_date as date, price, p_num as purchaseNum, thumnail, p_name as productName\
-		from product natural join purchase limit ${reqNum*6}, 6`)
+		from product natural join purchase where cid = ${cid} limit ${reqNum*6}, 6`)
 		return res;
 	},
 
@@ -57,11 +57,11 @@ const api = {
 		from mmmservice.video natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b where vid = ${vid};`)
 		return res;
 	},
-	get_channel_info: async (vid, cid)=>{
+	get_channel_info: async (chid, cid)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed
 		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) \
 		natural left outer join (select chid, case when cid = ${cid} then 'true' else 'false' end as isSubscribed from mmmservice.subscribe)c
-		natural join (select vid, chid from mmmservice.video where vid = ${vid})d`);
+		natural join (select vid, chid from mmmservice.video where chid = ${chid})d`);
 		return res;
 	},
 	get_tag: async (vid)=>{
@@ -89,7 +89,8 @@ const api = {
 		return res;
 	},
 	get_related_short_info : async (pid) => {
-		const [res] = await pool.query(`select title, thumnail, vid as shortId, chid as channelId, numOfSubscribers, numOfHearts, hits as numOfViews from channel natural join (video natural join tag) left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using (chid) left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid) where tag.pid = ${pid}`)
+		const [res] = await pool.query(`select title, thumnail, vid as shortId, chid as channelId, numOfSubscribers, numOfHearts, hits as numOfViews from channel natural join (video natural join tag) 
+		left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using (chid) left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid) where tag.pid = ${pid}`)
 		return res;
 	},
 	get_product_review: async (pid) => {
@@ -141,7 +142,7 @@ module.exports = new Proxy(api,{
 					})
 				}
 				else if(type == 'short')
-					ret.searchResult =  await target.search_shorts(content, reqNum);
+					ret.searchResult = await target.search_shorts(content, reqNum);
 				return ret;
 			}
 		}
@@ -158,7 +159,6 @@ module.exports = new Proxy(api,{
 				}
 				else if(type == 'short')
 					return await target.recommend_shorts(reqNum);
-				return ret;
 			}
 		}
 		else if(apiName == 'short_info'){
@@ -177,8 +177,8 @@ module.exports = new Proxy(api,{
 		}
 
 	else if(apiName =='channel_info') {
-		return async function(vid, cid) {
-			let [res] = await target.get_channel_info(vid, cid);
+		return async function(chid, cid) {
+			let [res] = await target.get_channel_info(chid, cid);
 			res.dressingTable = await target.get_dressing_talbe(cid);
 
 			return res;
