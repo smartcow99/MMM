@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="recommendation-area">
-            <h2>추천 화장법</h2>
-            <div class="recommnd-makeup">
+            <h2 id="recommendation-title">추천 화장법</h2>
+            <div class="recommend-makeup">
                 <span 
                     v-for="(value,index) in analysisResult['recommendDressing']"
                     :key="index"
@@ -114,7 +114,12 @@ h3{
     border-radius: 4px;
     
 }
+#recommendation-title{
+    width:300px;
+}
 .recommend-makeup {
+    width:1000px;
+    margin-left:30px;
     border: 1px solid black;
     display:flex;
     flex-direction:row;
