@@ -137,5 +137,11 @@ router.get('/channel', islogined, async (req, res) => {
 
 router.get('/productInfo', async (req, res) => {
   const result = await db.product_info(req.query.pid)
+
+  if(result)
+    res.status(200).send(result);
+  else
+    res.status(400).send('fail');
+
 })
 module.exports = router;

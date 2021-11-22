@@ -31,12 +31,12 @@ const api = {
 	},
 
 	recommend_tag: async ()=>{
-		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc limit 10`)
+		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc limit 5`)
 		return res;
 	},
 	recommend_shorts: async (reqNum)=>{
 		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers \
-		from mmmservice.video natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b order by recommend desc limit ${reqNum*6}, 6`)
+		from mmmservice.video natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b order by numOfHearts desc limit ${reqNum*6}, 6`)
 		return res;
 	},
 	recommend_channel: async (cid)=>{
@@ -158,7 +158,6 @@ module.exports = new Proxy(api,{
 				}
 				else if(type == 'short')
 					return await target.recommend_shorts(reqNum);
-				return ret;
 			}
 		}
 		else if(apiName == 'short_info'){
@@ -191,7 +190,7 @@ module.exports = new Proxy(api,{
 			res.relatedShorts = await target.get_related_short_info(pid);
 			res.reviews = await target.get_product_review(pid);
 
-
+			return res;
 		}
 	}
 		else
