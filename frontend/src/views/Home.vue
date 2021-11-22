@@ -3,7 +3,7 @@
       <h1>추천 영상</h1>
       <div class="short-list">
         <ShortSummary 
-            v-for="(value,index) in recommandShortList" 
+            v-for="(value,index) in recommendShortList" 
             :key="index" 
             :shortInfo="value"
         />
@@ -28,12 +28,12 @@ export default {
   },
   computed: {
         ...mapState([
-            'recommandShortList'
+            'recommendShortList'
         ])
     },
     methods: {
         ...mapActions([
-            'getRecommandShorts',
+            'getrecommendShorts',
             'requestSearch'
         ])
     },
@@ -41,7 +41,7 @@ export default {
     '$route': {
       immediate: true,
       handler(to,from) {
-          this.getRecommandShorts();
+          this.getrecommendShorts();
       }
     }
   }

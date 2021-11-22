@@ -15,9 +15,9 @@ export default {
   productList: [], // product 내역(검색 결과)
   channelList: [], // 채널 내역(검색 결과)
   purchaseList: [], // 구매 내역
-  recommandTagList: [],
-  recommandChannelList: [],
-  recommandShortList: [],
+  recommendTagList: [],
+  recommendChannelList: [],
+  recommendShortList: [],
   subscribeChannelList: [],
   channelShortList: [],
 
@@ -57,6 +57,6 @@ export default {
   analysisResult: {
     img: "",
     content: "",
-    recommandDressing: [],
+    recommendDressing: [],
   },
 };

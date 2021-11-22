@@ -1,5 +1,5 @@
 <template>
-    <div id="analysis">
+    <div class="analysis-area">
         <div class="analysis">
             <UploadBox 
                 class="upload-box"
@@ -16,17 +16,19 @@
                 </div>
             </div>
         </div>
-        <h2>추천 화장법</h2>
-        <div class="recommand-makeup">
-            <span 
-                v-for="(value,index) in analysisResult['recommandDressing']"
-                :key="index"
-            >
-                <router-link :to="{path:'/search/', query:{'type':'short','content':value.title} }">
-                    <img :src="value.thumnail"/>
-                    <h3>{{value.title}}</h3>
-                </router-link>
-            </span>
+        <div class="recommendation-area">
+            <h2>추천 화장법</h2>
+            <div class="recommnd-makeup">
+                <span 
+                    v-for="(value,index) in analysisResult['recommendDressing']"
+                    :key="index"
+                >
+                    <router-link :to="{path:'/search/', query:{'type':'short','content':value.title} }">
+                        <img :src="value.thumnail"/>
+                        <h3>{{value.title}}</h3>
+                    </router-link>
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -112,7 +114,7 @@ h3{
     border-radius: 4px;
     
 }
-.recommand-makeup {
+.recommend-makeup {
     border: 1px solid black;
     display:flex;
     flex-direction:row;

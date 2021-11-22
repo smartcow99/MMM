@@ -22,24 +22,24 @@
           @openLogin="openLogin"
           @openUpload="openUpload"
         />
-        <div v-if="userInfo['isLogined']" class="recommand-channels">
+        <div v-if="userInfo['isLogined']" class="recommend-channels">
           <h3>구독한 채널</h3>
           <hr/>
           <ChannelList path="/channelshort" :channelList="defaultChannels"/>
           <ChannelList path="/channelshort" :channelList="subscribeChannelList"/>
         </div>
-        <div v-else class="recommand-channels">
+        <div v-else class="recommend-channels">
           <h3>추천 채널</h3>
           <hr/>
-          <ChannelList path="/channelshort" :channelList="recommandChannelList"/>
+          <ChannelList path="/channelshort" :channelList="recommendChannelList"/>
         </div>
         
-        <div class="recommand-tags">
+        <div class="recommend-tags">
           <h3>추천 태그</h3>
           <hr/>
           <div class="tag-list">
             <Tag 
-              v-for="(value,index) in recommandTagList" :key="index"
+              v-for="(value,index) in recommendTagList" :key="index"
               :title="value"
             />
           </div>
@@ -64,7 +64,7 @@
 <script>
 import Btn from './components/Btn.vue'
 import Profile from '@/components/Profile.vue'
-import Search from '@/components/Searchbar.vue'
+import Search from '@/components/SearchBar.vue'
 import Short from '@/components/widget/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
 import ChannelList from '@/components/ChannelList.vue'
@@ -105,14 +105,14 @@ export default {
     Btn
   },
   mounted() {
-    this.getRecommandTags();
-    this.getRecommandChannels();
+    this.getrecommendTags();
+    this.getrecommendChannels();
   },
   computed: {
     ...mapState([
       'userInfo',
-      'recommandTagList',
-      'recommandChannelList',
+      'recommendTagList',
+      'recommendChannelList',
       'subscribeChannelList',
       'currentShort',
       'loginPageOn',
@@ -128,8 +128,8 @@ export default {
     ]),
     ...mapActions([
       'requestLogout',
-      'getRecommandTags',
-      'getRecommandChannels',
+      'getrecommendTags',
+      'getrecommendChannels',
       'requestSubscribeChannels',
       'requestSearch'
     ]),
