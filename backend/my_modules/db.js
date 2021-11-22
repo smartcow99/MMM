@@ -93,7 +93,8 @@ const api = {
 		return res;
 	},
 	get_product_review: async (pid) => {
-		const [res] = await pool.query()
+		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, rate, photo
+		from channel join customer using(cid) join review using(cid) join product using(pid) where pid = ${pid};`)
 		return res;
 	},
 	like_up: async (cid, vid) => {
@@ -185,14 +186,12 @@ module.exports = new Proxy(api,{
 		}
 	}
 	else if(apiName == 'productInfo') {
-		return async fuction(pid) {
+		return async function(params) {
 			let [res] = await target.get_product_info(pid);
-			res.productImages = await target.get_product_img_info(pid);
-			res.relatedShorts = await target.get_related_short_info(pid);
-			res.productExplainHtml = '<html><body><div>hi i am product</div></body></html>';
-			res.reviews = await target.get_product_review(pid);
-
-
+				res.productImages = await target.get_product_img_info(pid);
+				res.relatedShorts = await target.get_related_short_info(pid);
+				res.productExplainHtml = '<html><body><div>hi i am product</div></body></html>';
+				res.reviews = await target.get_product_review(pid);
 		}
 	}
 		else
