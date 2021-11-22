@@ -15,12 +15,12 @@
         <div class="price-area">
         <div class="original-price-area">
             <p>최종 결제 금액</p>
-            <p>{{originalPrice}}원</p>
+            <p id="original-price">{{originalPrice}}원</p>
             <small v-if="mileageOn">-{{usingMileage}}</small>
         </div>
         <div class="final-price-area">
-            <p v-if="mileageOn">{{finalPrice}}원</p>
-            <p v-else>{{originalPrice}}원</p>
+            <p id="final-price" v-if="mileageOn">{{finalPrice}}원</p>
+            <p id="final-price" v-else>{{originalPrice}}원</p>
             
         </div>
         </div>
@@ -68,9 +68,20 @@ components:{
     font-size:14px;
 }
 h1{
-    font-size: 50px;
-    margin:10px auto;
+    font-size: 40px;
+    margin:5px 0 10px 0;
 }
+p{
+    font-weight: bold;
+}
+small{
+    font-weight: bold;
+}
+#original-price{
+    font-size:28px;
+    margin:0;
+}
+
 .purchase-card{
     display:flex;
     flex-direction: column;
@@ -84,6 +95,7 @@ h1{
     background-color:#FFFFFF;
 }
 .mileage-area{
+    font-weight: bold;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -96,11 +108,12 @@ h1{
 }
 #mileage-input-box{
     width:330px;
-    height:35px;
+    height:40px;
 }
 #use-mileage-button{
-    width: 50px;
+    width: 60px;
     height:40px;
+    padding:0;
 }
 .price-area{
 width:400px;
@@ -121,10 +134,14 @@ height:300px;
     width:400px;
     height: 50px;
 }
+#final-price{
+    font-size:28px;
+    margin:0;
+}
 #purchase-button{
     width:400px;
     height:40px;
-    margin:20px 0 0 0;
+    margin:30px 0 0 0;
     
 }
 </style>
