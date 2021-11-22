@@ -11,17 +11,17 @@
 
         <div class="box" id="second-box">
             <div >
-            <span>이름</span><input type="text" :value="userInfo['name']"/>
+            <span>이름</span><input type="text" :value="userInfo['name']" disabled/>
             </div>
             <div>
-            <span>생년월일</span><input type="date" :value="userInfo['birth']"/>
+            <span>생년월일</span><input type="date" :value="userInfo['birth']" disabled/>
             </div>
         </div>
 
         <div class="box" id="third-box">
             로그인 정보
             <div>
-            <span>아이디</span><input type="text" :value="userInfo['userId']"/>
+            <span>아이디</span><input type="text" :value="userInfo['userId']" disabled/>
             </div>
             <div>
             <span>비밀번호</span><Btn theme="gray" @click="changePassword">비밀번호 변경</Btn>
@@ -77,14 +77,10 @@ export default {
 </script>
 
 <style scoped>
-*{
-    font-weight: bold;
-}
 .my-profile-box{
     width:600px;
     height:700px;
-    border:1px solid var(--placeholder-color);
-    border-radius: 4px;
+    margin-top:40px;
 }
 img{
     width:130px;
@@ -100,8 +96,9 @@ input{
     width:550px;
     height:180px;
     border:1px solid var(--placeholder-color);
-    margin-top: 40px;
-    margin-left: 25px;
+    margin-bottom:40px;
+    background-color:var(--background-color);
+    border-radius:4px;
 }
 #first-box{
     display:flex;
@@ -117,8 +114,8 @@ input{
 #second-box, #third-box{
     display: flex;
     flex-direction: column;
-   justify-content: center;
-   align-items: center;
+    justify-content: center;
+    align-items: center;
 }
 .box div{
     width:400px;

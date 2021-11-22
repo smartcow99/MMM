@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 img{
     width:170px;
     height:170px;
@@ -36,18 +36,22 @@ h2{
     height:180px;
     border :1px solid var(--placeholder-color);
     border-radius: 4px;
-    margin-left: 25px;
-    margin-top: 20px;
+    margin-bottom:30px;
     display:flex;
     flex-direction: row;
 }
 .purchase-info{
+    flex-grow:1;
+    padding:10px 20px;
     height:180px;
     display:flex;
     flex-direction: column;
     align-items: flex-start;
-}
-.purchase-date{
-    margin-top: 90px;
+    h2 {
+        margin-bottom:10px;
+    }
+    .purchase-date {
+        margin-top:50px;
+    }
 }
 </style>

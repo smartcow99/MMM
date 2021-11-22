@@ -1,5 +1,5 @@
 <template>
-<div class="bill-box page">
+<div class="bill-box">
     <Bill
         v-for="(value,index) in purchaseList" 
         :key="index"
@@ -34,9 +34,8 @@ export default { // 스크롤 내림에 따라 추가 list 요청도 만드세�
 
 .bill-box{
     width:600px;
-    height:100%;
-    border:1px solid var(--placeholder-color);
     border-radius: 4px;
+    margin-top:40px;
     padding:0 0 20px 0;
 }
 </style>

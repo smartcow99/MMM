@@ -194,7 +194,6 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   position:absolute;
   height:100%;
   width:100%;
@@ -274,8 +273,8 @@ main {
     div.page {
       position:absolute;
       left:0;
-      margin-left:60px;
-      width:960px;
+      padding-left:40px;
+      width:1020px;
       padding-bottom:200px;
     }
   }
