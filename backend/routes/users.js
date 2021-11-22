@@ -125,4 +125,7 @@ router.get('/likeDown', islogined, async (req, res)=> {
   else
     res.status(400).send('fail');
 })
+router.get('/channel', async (req, res)=>{
+  
+})
 module.exports = router;
