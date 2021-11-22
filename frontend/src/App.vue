@@ -46,7 +46,7 @@
         </div>
       </div>
     </aside>
-    <article>
+    <article ref="article" @scroll="scrollHandler($event)">
       <router-view/>
     </article>
   </main>
@@ -133,7 +133,12 @@ export default {
       'getRecommendTags',
       'getRecommendChannels',
       'requestSubscribeChannels',
-      'requestSearch'
+      'requestSearch',
+      'moreChannelSearch',
+      'moreShortSearch',
+      'moreProductSearch',
+      'morePurchaseHistory',
+      'moreShortRecommand'
     ]),
     closeLogin() {
       this.setLoginPageOn(false);
@@ -155,6 +160,32 @@ export default {
     },
     logout() {
       this.requestLogout();
+    },
+    scrollHandler(event) {
+      const articleEl = this.$refs['article'];
+      if(event.target.scrollTop+articleEl.clientHeight+100 > articleEl.scrollHeight) {
+        console.log('tick')
+        switch(this.$route.path) {
+          case '/': {
+            this.moreShortRecommand(); break;
+          }
+          case '/channelshort': {
+            //!!! 여기 해야함!!!
+          }
+          case '/search/channels': {
+            this.moreChannelSearch(); break; 
+          }
+          case '/search/products': {
+            this.moreProductSearch(); break; 
+          }
+          case '/search': {
+            this.moreShortSearch(); break; 
+          }
+          case '/mypage/purchase-history': {
+            this.morePurchaseHistory(); break; 
+          }
+        }
+      }
     }
   },
   watch: {

@@ -9,6 +9,7 @@
             :shortInfo="value"
         />
       </div>
+      
     </div>
 </template>
 
@@ -28,16 +29,16 @@ export default {
     }
   },
   computed: {
-        ...mapState([
-            'RecommendShortList'
-        ])
-    },
-    methods: {
-        ...mapActions([
-            'getRecommendShorts',
-            'requestSearch'
-        ])
-    },
+      ...mapState([
+          'RecommendShortList'
+      ]),
+  },
+  methods: {
+      ...mapActions([
+          'getRecommendShorts',
+          'requestSearch'
+      ]),
+  },
   watch: {
     '$route': {
       immediate: true,
