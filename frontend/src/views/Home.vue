@@ -1,5 +1,5 @@
 <template>
-    <div id="home" class="page">
+    <article id="home">
       <h1>추천 영상</h1>
       <div class="short-list">
         <ShortSummary 
@@ -9,7 +9,7 @@
             :shortInfo="value"
         />
       </div>
-    </div>
+    </article>
 </template>
 
 <script>
@@ -29,12 +29,12 @@ export default {
   },
   computed: {
         ...mapState([
-            'recommandShortList'
+            'recommendShortList'
         ])
     },
     methods: {
         ...mapActions([
-            'getRecommandShorts',
+            'getrecommendShorts',
             'requestSearch'
         ])
     },
@@ -42,7 +42,7 @@ export default {
     '$route': {
       immediate: true,
       handler(to,from) {
-          this.getRecommandShorts();
+          this.getrecommendShorts();
       }
     }
   }

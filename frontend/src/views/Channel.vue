@@ -1,5 +1,5 @@
 <template>
-    <div id="channel" class="page">
+    <article>
         <div v-if="currentChannel['isMyChannel']" class="channel-summary">
             <img :src="currentChannel['profile']" alt="채널 프로필"/>
             <div class="channel-info">
@@ -31,51 +31,37 @@
                 <small class="channel-intro">{{currentChannel['introduce']}}</small>
             </div>
         </div>
-        <div class="dress-table">
-            <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
-            <Btn theme="white" @click="modifyDressTable">수정하기</Btn>
-        </div>
+        <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
         <Detail v-if="currentChannel['isMyChannel']">
-            <div class="product-box">
-                <div class="product-list"
-                    v-for="(productList,key) of currentChannel['dressingTable']"
-                    :key="key"
-                >
-                    <div class="product-category">{{key}}</div>
-                    <div class="product-items">
-                        <DeleteBox 
-                            class="item"
-                            @delete="deleteProduct"
-                            v-for="(product,index) in productList"
-                            :key="index">
-                            <ProductMini
-                                :img="product.img"
-                                :productId="product.productId"
-                                :title="product.title"
-                            />
-                        </DeleteBox>
-                    </div>
-                </div>
+            <div class="product-list"
+                v-for="(productList,key) of currentChannel['dressingTable']"
+                :key="key"
+            >
+                {{key}}
+                <DeleteBox @delete="deleteProduct"
+                    v-for="(product,index) in productList"
+                    :key="index">
+                    <ProductMini
+                        :img="product.img"
+                        :productId="product.productId"
+                        :title="product.title"
+                    />
+                </DeleteBox>
             </div>
         </Detail>
         <Detail v-else>
-            <div class="product-box">
-                <div class="product-list"
-                    v-for="(productList,key) of currentChannel['dressingTable']"
-                    :key="key"
-                >
-                    <div class="product-category">{{key}}</div>
-                    <div class="product-items">
-                        <ProductMini
-                            class="item"
-                            v-for="(product,index) in productList"
-                            :key="index"
-                            :img="product.img"
-                            :productId="product.productId"
-                            :title="product.title"
-                        />
-                    </div>
-                </div>
+            <div class="product-list"
+                v-for="(productList,key) of currentChannel['dressingTable']"
+                :key="key"
+            >
+                {{key}}
+                <ProductMini
+                    v-for="(product,index) in productList"
+                    :key="index"
+                    :img="product.img"
+                    :productId="product.productId"
+                    :title="product.title"
+                />
             </div>
         </Detail>
         <div id="shortList" v-if="currentChannel['isMyChannel']">
@@ -97,7 +83,7 @@
                 :shortInfo="short">
             </ShortSummary>
         </div>
-    </div>
+    </article>
 </template>
 
 <script>
@@ -145,18 +131,13 @@ export default {
             this.requestChannelInfo(this.currentChannel['channelId']);
         },
         modifyOn() {
-            alert('데모 계정에선 채널을 수정할 수 없습니다.')
-            // this.isModifyOn = true;
-            // this.modifyTitle = this.currentChannel['title'];
-            // this.modifyIntro = this.currentChannel['introduce'];
+            this.isModifyOn = true;
+            this.modifyTitle = this.currentChannel['title'];
+            this.modifyIntro = this.currentChannel['introduce'];
         },
         saveModify() {
-            
             this.isModifyOn = false;
         },
-        modifyDressTable() {
-            alert('데모 계정에선 화장대를 수정할 수 없습니다.')
-        }
     },
     mounted() {
         this.requestChannelInfo(this.$route.query['channelId']);
@@ -172,7 +153,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.product-list {
+    display:flex;
+    flex-direction:row;
+}
+#shortList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    margin: 50px auto;
+}
 div.channel-summary {
     display:flex;
     flex-direction:row;

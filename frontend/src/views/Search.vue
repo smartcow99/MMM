@@ -1,9 +1,9 @@
 <template>
-    <div class="page">
+    <article>
         <Menubar/>
         <h2 class="search-text">'{{$route.query['content']}}' 검색 결과</h2>
         <router-view/>
-    </div>
+    </article>
 </template>
 
 <script>
