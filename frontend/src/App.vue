@@ -16,35 +16,39 @@
   </header>
   <main>
     <aside>
-      <Profile 
-        class="profile"
-        @openLogin="openLogin"
-        @openUpload="openUpload"
-      />
-      <div v-if="userInfo['isLogined']" class="recommand-channels">
-        <h3>구독한 채널</h3>
-        <hr/>
-        <ChannelList path="/channelshort" :channelList="defaultChannels"/>
-        <ChannelList path="/channelshort" :channelList="subscribeChannelList"/>
-      </div>
-      <div v-else class="recommand-channels">
-        <h3>추천 채널</h3>
-        <hr/>
-        <ChannelList path="/channelshort" :channelList="recommandChannelList"/>
-      </div>
-      
-      <div class="recommand-tags">
-        <h3>추천 태그</h3>
-        <hr/>
-        <div class="tag-list">
-          <Tag 
-            v-for="(value,index) in recommandTagList" :key="index"
-            :title="value"
-          />
+      <div class="aside-content">
+        <Profile 
+          class="profile"
+          @openLogin="openLogin"
+          @openUpload="openUpload"
+        />
+        <div v-if="userInfo['isLogined']" class="recommand-channels">
+          <h3>구독한 채널</h3>
+          <hr/>
+          <ChannelList path="/channelshort" :channelList="defaultChannels"/>
+          <ChannelList path="/channelshort" :channelList="subscribeChannelList"/>
+        </div>
+        <div v-else class="recommand-channels">
+          <h3>추천 채널</h3>
+          <hr/>
+          <ChannelList path="/channelshort" :channelList="recommandChannelList"/>
+        </div>
+        
+        <div class="recommand-tags">
+          <h3>추천 태그</h3>
+          <hr/>
+          <div class="tag-list">
+            <Tag 
+              v-for="(value,index) in recommandTagList" :key="index"
+              :title="value"
+            />
+          </div>
         </div>
       </div>
     </aside>
-    <router-view/>
+    <article>
+      <router-view/>
+    </article>
   </main>
   <BlurCard v-if="loginPageOn" @close="closeLogin">
     <LoginCard/>
@@ -60,7 +64,7 @@
 <script>
 import Btn from './components/Btn.vue'
 import Profile from '@/components/Profile.vue'
-import Search from '@/components/Searchbar.vue'
+import Search from '@/components/SearchBar.vue'
 import Short from '@/components/widget/Short.vue'
 import BlurCard from '@/components/BlurCard.vue'
 import ChannelList from '@/components/ChannelList.vue'
@@ -207,32 +211,28 @@ header#nav {
   border-bottom:1px solid #cccccc;
   .menus {
     position:relative;
-    width:900px;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    max-width:1100px;
+    width:100%;
     height:60px;
     a.logo {
-      position:absolute;
+      margin:auto 0;
       height:40px;
-      top:50%;
-      margin-top:-20px;
-      left:0;
       img {
         width:40px;
         height:40px;
       }
     }
     #search-bar {
-      position:absolute;
+      margin:auto 0;
       height:40px;
-      top:50%;
-      margin-top:-20px;
-      left:100px;
       width:400px;
     }
     .button-zone {
-      position:absolute;
+      margin:auto 0;
       height:40px;
-      top:50%;
-      margin-top:-20px;
       right:0;
       .button {
         position:relative;
@@ -244,25 +244,36 @@ header#nav {
 }
 main {
   position:relative;
-  margin:100px auto 0 auto;
+  margin-top:100px;
   display:flex;
   flex-direction:row;
   height:100%;
-  width:1200px;
 }
 aside {
-  width:240px;
+  position:relative;
+  flex-grow:2;
   overflow-y: auto;
   background-color:var(--background-color);
+  .aside-content {
+    position:absolute;
+    right:0;
+    width:240px;
+    height:100%;
+  }
 }
 article {
   position:relative;
   height:100%;
-  padding-bottom:200px;
-  padding-left:40px;
-  flex-grow:1;
+  flex-grow:5;
   overflow-y:auto;
   overflow-x:hidden;
+  div.page {
+    position:absolute;
+    left:0;
+    margin-left:60px;
+    width:900px;
+    padding-bottom:200px;
+  }
 }
 h3 {
   text-align:left;
