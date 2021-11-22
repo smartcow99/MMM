@@ -161,4 +161,26 @@ export default {
         break;
     }
   },
+  initRequestNum(state) {
+    state['requestNum'] = 0;
+  },
+  pushChannelSearch(state,payload) {
+    state['channelList'].push(payload)
+  },
+  pushShortSearch(state,payload) {
+    state['shortList'].push(payload)
+  },
+  pushProductSearch(state,payload) {
+    state['productList'].push(payload)
+  },
+  pushPurchaseHistory(state,payload) {
+    state['purchaseList'].push(payload)
+  },
+  pushShortRecommand(state,payload) {
+    state['RecommendShortList'].push(payload)
+  }
 };
+
+
+
+

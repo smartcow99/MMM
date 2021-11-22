@@ -12,13 +12,14 @@ export default {
     },
     
     // 추천 채널 GET
-    async getRecommendChannels({commit},payload) {
+    async getRecommendChannels({state,commit},payload) {
         const response = await axios.get('http://34.64.76.43:3000/users/recommend', {
             params:{
                 type:'channel',
                 requestNum:0,
             }
         });
+        console.log(response.data)
         if(response.data) {
             commit('setRecommendChannelList',response.data);
         }
@@ -621,5 +622,21 @@ export default {
     },
     async upShortsLikeCount({ commit }) {
         commit("upLikeCount");
-    }
+    },
+    async moreChannelSearch({state,commit}){
+        //request axios get
+        commit('pushChannelSearch',[])
+    },
+    async moreShortSearch(){
+        commit('pushShortSearch',[])
+    },
+    async moreProductSearch(){
+        commit('pushProductSearch',[])
+    },
+    async morePurchaseHistory(){
+        commit('pushPurchaseHistory',[])
+    },
+    async moreShortRecommand(){
+        commit('pushShortRecommand',[])
+    },
 };
