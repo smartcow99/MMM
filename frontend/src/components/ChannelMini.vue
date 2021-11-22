@@ -20,6 +20,7 @@ export default {
     display:flex;
     flex-direction:row;
     height:30px;
+    margin:10px 0;
 }
 .profile-image {
     width:30px;
