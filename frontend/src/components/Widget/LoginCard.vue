@@ -81,7 +81,6 @@ components:{
 .loginCard{
     display:flex;
     flex-direction:column;
-    /* margin:200px auto; */
     width:500px;
     height:600px;
     padding:50px;
