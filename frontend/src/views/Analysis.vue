@@ -1,5 +1,5 @@
 <template>
-    <div id="analytic">
+    <div id="analytic" class="page">
         <div class="analytics">
             <UploadBox 
                 class="upload-box"
