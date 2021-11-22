@@ -82,9 +82,7 @@
 </template>
 
 <script>
-import About from '../views/About.vue'
 export default {
-    components: { About },
     name:'StarRating',
     props: {
         'rate': Number
