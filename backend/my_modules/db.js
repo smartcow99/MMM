@@ -81,7 +81,7 @@ const api = {
 		return res;
 	},
 	get_product_info: async (pid) => {
-		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, rate, price, access as views from product where pid = ${pid}`)
+		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, rate, price, access as views, detail as productExplainHtml from product where pid = ${pid}`)
 		return res;
 	},
 	get_product_img_info : async (pid) => {
@@ -89,7 +89,7 @@ const api = {
 		return res;
 	},
 	get_related_short_info : async (pid) => {
-		const [res] = await pool.query()
+		const [res] = await pool.query(`select title, thumnail, vid as shortId, chid as channelId, numOfSubscribers, numOfHearts, hits as numOfViews from channel natural join (video natural join tag) left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using (chid) left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid) where tag.pid = ${pid}`)
 		return res;
 	},
 	get_product_review: async (pid) => {
@@ -188,10 +188,11 @@ module.exports = new Proxy(api,{
 	else if(apiName == 'productInfo') {
 		return async function(params) {
 			let [res] = await target.get_product_info(pid);
-				res.productImages = await target.get_product_img_info(pid);
-				res.relatedShorts = await target.get_related_short_info(pid);
-				res.productExplainHtml = '<html><body><div>hi i am product</div></body></html>';
-				res.reviews = await target.get_product_review(pid);
+			res.productImages = await target.get_product_img_info(pid);
+			res.relatedShorts = await target.get_related_short_info(pid);
+			res.reviews = await target.get_product_review(pid);
+
+
 		}
 	}
 		else
