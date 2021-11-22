@@ -85,9 +85,14 @@ export default {
     width:280px;
     height: 448px;
     background-color: white;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor:pointer;
     overflow:hidden;
+    box-shadow:2px 2px 6px #999999;
+}
+.shorts:hover {
+    transition:0.3s;
+    box-shadow:4px 4px 6px #999999;
 }
 #hover{
     width:100%;
@@ -95,10 +100,11 @@ export default {
     cursor:pointer;
 }
 #shorts-title{
+    margin-top:20px;
     color:white;
     position:relative;
-    font-size:28px;
-    top:-99%;    
+    font-size:2em;
+    top:-90%;    
 }
 img{
     width:100%;
@@ -113,6 +119,7 @@ img:hover{
     height:40px;
 }
 .shorts-stat{
+    margin-top:10px;
     height:75px;
     display:flex;
     flex-direction:row;

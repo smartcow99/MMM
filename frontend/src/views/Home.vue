@@ -3,8 +3,8 @@
       <h1>추천 영상</h1>
       <div class="short-list">
         <ShortSummary 
-            id="temp"
-            v-for="(value,index) in recommandShortList" 
+            class="item"
+            v-for="(value,index) in RecommendShortList" 
             :key="index" 
             :shortInfo="value"
         />
@@ -29,12 +29,12 @@ export default {
   },
   computed: {
         ...mapState([
-            'recommandShortList'
+            'RecommendShortList'
         ])
     },
     methods: {
         ...mapActions([
-            'getRecommandShorts',
+            'getRecommendShorts',
             'requestSearch'
         ])
     },
@@ -42,7 +42,7 @@ export default {
     '$route': {
       immediate: true,
       handler(to,from) {
-          this.getRecommandShorts();
+          this.getRecommendShorts();
       }
     }
   }
@@ -55,11 +55,12 @@ export default {
 #home .short-list {
   display:flex;
   flex-direction:row;
-  justify-content: space-between;
+  justify-content: flex-start;
   width:100%;
   flex-wrap:wrap;
 }
-#temp {
+.item {
   margin-bottom:100px;
+  margin-right:40px;
 }
 </style>

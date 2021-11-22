@@ -2,8 +2,9 @@ import axios from "axios";
 
 export default {
     // 추천 태그 GET
-    async getRecommandTags({commit},payload) {
-        commit('setRecommandTagList',[
+    async getRecommendTags({commit},payload) {
+        // axios.get('')
+        commit('setRecommendTagList',[
             '012',
             '01234',
             '0123456789'
@@ -11,51 +12,60 @@ export default {
     },
     
     // 추천 채널 GET
-    async getRecommandChannels({commit},payload) {
-        commit('setRecommandChannelList',[
-            {
-                title:'추천채널1',
-                profile:'#',
-                channelId:1,
-                numOfSubscribers: 105000,
-                numOfShorts: 10,
-                isSubscribed:false,
-                introduce:'나는 채널1 이다'
-            },
-            {
-                title:'추천채널2',
-                profile:'#',
-                channelId:2,
-                numOfSubscribers: 25000,
-                numOfShorts: 24,
-                isSubscribed:false,
-                introduce:'나는 채널2 이다'
-            },
-            {
-                title:'추천채널3',
-                profile:'#',
-                channelId:3,
-                numOfSubscribers: 35000,
-                numOfShorts: 27,
-                isSubscribed:false,
-                introduce:'나는 채널3 이다'
-            },
-            {
-                title:'추천채널4',
-                profile:'',
-                channelId:4,
-                numOfSubscribers: 45000,
-                numOfShorts: 30,
-                isSubscribed:false,
-                introduce:'나는 채널4 이다'
-            }    
-        ]);
+    async getRecommendChannels({commit},payload) {
+        const response = await axios.get('http://34.64.76.43:3000/users/recommend', {
+            params:{
+                type:'channel',
+                requestNum:0,
+            }
+        });
+        if(response.data) {
+            commit('setRecommendChannelList',response.data);
+        }
+        // commit('setRecommendChannelList',[
+        //     {
+        //         title:'추천채널1',
+        //         profile:'#',
+        //         channelId:1,
+        //         numOfSubscribers: 105000,
+        //         numOfShorts: 10,
+        //         isSubscribed:false,
+        //         introduce:'나는 채널1 이다'
+        //     },
+        //     {
+        //         title:'추천채널2',
+        //         profile:'#',
+        //         channelId:2,
+        //         numOfSubscribers: 25000,
+        //         numOfShorts: 24,
+        //         isSubscribed:false,
+        //         introduce:'나는 채널2 이다'
+        //     },
+        //     {
+        //         title:'추천채널3',
+        //         profile:'#',
+        //         channelId:3,
+        //         numOfSubscribers: 35000,
+        //         numOfShorts: 27,
+        //         isSubscribed:false,
+        //         introduce:'나는 채널3 이다'
+        //     },
+        //     {
+        //         title:'추천채널4',
+        //         profile:'',
+        //         channelId:4,
+        //         numOfSubscribers: 45000,
+        //         numOfShorts: 30,
+        //         isSubscribed:false,
+        //         introduce:'나는 채널4 이다'
+        //     }    
+        // ]);
     },
 
     // 추천 shorts
-    async getRecommandShorts({commit},payload) {
+    async getRecommendShorts({commit},payload) {
         //필요 정보: 제목, 썸네일,shortId, channelId
-        commit('setRecommandShortList',[
+        commit('setRecommendShortList',[
             {
                 title:'쇼츠1',
                 thumnail:'#',
@@ -95,7 +105,7 @@ export default {
         ]);
     },
     // 추천 상품 리스트
-    async getRecommandProducts({commit},payload) {
+    async getRecommendProducts({commit},payload) {
         commit('setProductList',[
             {
                 title:'상품1',
@@ -269,7 +279,7 @@ export default {
         commit('setAnalysisResult',{
             img:'#',
             content:'니얼굴 잘생김',
-            recommandDressing: [
+            RecommendDressing: [
                 {
                     title:'화장법1',
                     thumnail: '#',

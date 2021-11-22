@@ -2,6 +2,7 @@ export default {
     loginPageOn: false,
     uploadShortPageOn: false,
     shortPageOn: false,
+    requestNum:0,
     accessToken: "", //새로고침될때마다 로그인이 풀리므로, session을 통해 이를 해결해야함
     userInfo: {
         isLogined: false,
@@ -15,9 +16,9 @@ export default {
     productList: [], // product 내역(검색 결과)
     channelList: [], // 채널 내역(검색 결과)
     purchaseList: [], // 구매 내역
-    recommandTagList: [],
-    recommandChannelList: [],
-    recommandShortList: [],
+    RecommendTagList: [],
+    RecommendChannelList: [],
+    RecommendShortList: [],
     subscribeChannelList: [],
     channelShortList: [],
 
@@ -57,6 +58,6 @@ export default {
     analysisResult: {
         img: "",
         content: "",
-        recommandDressing: [],
+        RecommendDressing: [],
     },
 };

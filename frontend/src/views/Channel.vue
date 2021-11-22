@@ -33,35 +33,43 @@
         </div>
         <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
         <Detail v-if="currentChannel['isMyChannel']">
-            <div class="product-list"
-                v-for="(productList,key) of currentChannel['dressingTable']"
-                :key="key"
-            >
-                {{key}}
-                <DeleteBox @delete="deleteProduct"
-                    v-for="(product,index) in productList"
-                    :key="index">
-                    <ProductMini
-                        :img="product.img"
-                        :productId="product.productId"
-                        :title="product.title"
-                    />
-                </DeleteBox>
+            <div class="product-box">
+                <div class="product-list"
+                    v-for="(productList,key) of currentChannel['dressingTable']"
+                    :key="key"
+                >
+                    <div class="product-category">{{key}}</div>
+                    <div class="product-items">
+                        <DeleteBox @delete="deleteProduct"
+                            v-for="(product,index) in productList"
+                            :key="index">
+                            <ProductMini
+                                :img="product.img"
+                                :productId="product.productId"
+                                :title="product.title"
+                            />
+                        </DeleteBox>
+                    </div>
+                </div>
             </div>
         </Detail>
         <Detail v-else>
-            <div class="product-list"
-                v-for="(productList,key) of currentChannel['dressingTable']"
-                :key="key"
-            >
-                {{key}}
-                <ProductMini
-                    v-for="(product,index) in productList"
-                    :key="index"
-                    :img="product.img"
-                    :productId="product.productId"
-                    :title="product.title"
-                />
+            <div class="product-box">
+                <div class="product-list"
+                    v-for="(productList,key) of currentChannel['dressingTable']"
+                    :key="key"
+                >
+                    <div class="product-category">{{key}}</div>
+                    <div class="product-items">
+                        <ProductMini
+                            v-for="(product,index) in productList"
+                            :key="index"
+                            :img="product.img"
+                            :productId="product.productId"
+                            :title="product.title"
+                        />
+                    </div>
+                </div>
             </div>
         </Detail>
         <div id="shortList" v-if="currentChannel['isMyChannel']">
@@ -131,9 +139,10 @@ export default {
             this.requestChannelInfo(this.currentChannel['channelId']);
         },
         modifyOn() {
-            this.isModifyOn = true;
-            this.modifyTitle = this.currentChannel['title'];
-            this.modifyIntro = this.currentChannel['introduce'];
+            alert('데모버전에선 이용 불가능')
+            // this.isModifyOn = true;
+            // this.modifyTitle = this.currentChannel['title'];
+            // this.modifyIntro = this.currentChannel['introduce'];
         },
         saveModify() {
             this.isModifyOn = false;
@@ -249,8 +258,8 @@ div#shortList {
     margin: 50px 0;
     width:100%;
     .item {
-        margin-right:20px;
-        margin-bottom:30px;
+        margin-right:40px;
+        margin-bottom:60px;
     }
 }
 </style>

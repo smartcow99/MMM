@@ -1,5 +1,5 @@
 <template>
-    <div class="my-profile-box page">
+    <div class="my-profile-box">
         <div class="box" id="first-box">
             <!-- <img src='@/assets/images/defaultProfile.png' alt="내 프로필"/> -->
             <img :src="userInfo['profile']" alt="내 프로필"/>

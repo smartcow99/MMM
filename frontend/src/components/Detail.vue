@@ -38,7 +38,7 @@ export default {
     overflow:hidden;
     position: relative;
     height:fit-content;
-    margin-bottom:50px;
+    margin-bottom:20px;
 }
 .detail .fade-transparent {
     position:absolute;
@@ -48,7 +48,9 @@ export default {
     background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
 }
 .detail .view-box.folded {
-    
     height:300px;
+}
+button {
+    width:100%;
 }
 </style>

@@ -20,8 +20,6 @@
                 <font-awesome-icon class="icon" icon="heart"/>
                 <small>{{currentShort['numOfHearts']}}</small>
             </span>
-
-
         </div>
         <div class="right">
             <h2>{{currentShort['title']}}</h2>

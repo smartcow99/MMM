@@ -1,5 +1,5 @@
 <template>
-    <div id="short-search" class="page">
+    <div id="short-search">
         <div class="short-list">
             <ShortSummary 
                 v-for="(value,index) in shortList" 

@@ -79,6 +79,7 @@ export default {
 
 <style scoped>
 .upload-box {
+    cursor:pointer;
     border:4px dashed var(--placeholder-color);
     border-radius:4px;
 }
@@ -93,5 +94,8 @@ export default {
 }
 input[type='file'] {
     display:none;
+}
+label {
+    cursor:pointer;
 }
 </style>

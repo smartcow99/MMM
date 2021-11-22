@@ -7,7 +7,7 @@
         <div class="mileage-area">
             <span>보유 마일리지 : {{ownMileage}}</span>
             <span class="mileage-input-area">
-                <input id="mileage-input-box" type="text" placeholder="사용할 마일리지를 입력하세요" @keyup.enter="useMileage" v-model="usingMileage">
+                <input id="mileage-input-box" type="number" placeholder="사용할 마일리지를 입력하세요" @keyup.enter="useMileage" v-model.number="usingMileage">
                 <Btn id="use-mileage-button" @click="useMileage">사용</Btn>
             </span>
         </div>
@@ -144,4 +144,10 @@ height:300px;
     margin:30px 0 0 0;
     
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 </style>

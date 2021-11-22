@@ -2,7 +2,6 @@
     <div class="profile-change-card">
         <h1>프로필 사진 변경</h1>
         <div id="upload-area">
-        사진 첨부
         <UploadBox id="upload-box">
             <p>사진 등록하기</p>
         </UploadBox>

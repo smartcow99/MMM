@@ -22,24 +22,24 @@
           @openLogin="openLogin"
           @openUpload="openUpload"
         />
-        <div v-if="userInfo['isLogined']" class="recommand-channels">
+        <div v-if="userInfo['isLogined']" class="Recommend-channels">
           <h3>구독한 채널</h3>
           <hr/>
           <ChannelList path="/channelshort" :channelList="defaultChannels"/>
           <ChannelList path="/channelshort" :channelList="subscribeChannelList"/>
         </div>
-        <div v-else class="recommand-channels">
+        <div v-else class="Recommend-channels">
           <h3>추천 채널</h3>
           <hr/>
-          <ChannelList path="/channelshort" :channelList="recommandChannelList"/>
+          <ChannelList path="/channelshort" :channelList="RecommendChannelList"/>
         </div>
         
-        <div class="recommand-tags">
+        <div class="Recommend-tags">
           <h3>추천 태그</h3>
           <hr/>
           <div class="tag-list">
             <Tag 
-              v-for="(value,index) in recommandTagList" :key="index"
+              v-for="(value,index) in RecommendTagList" :key="index"
               :title="value"
             />
           </div>
@@ -107,14 +107,14 @@ export default {
     Btn
   },
   mounted() {
-    this.getRecommandTags();
-    this.getRecommandChannels();
+    this.getRecommendTags();
+    this.getRecommendChannels();
   },
   computed: {
     ...mapState([
       'userInfo',
-      'recommandTagList',
-      'recommandChannelList',
+      'RecommendTagList',
+      'RecommendChannelList',
       'subscribeChannelList',
       'currentShort',
       'loginPageOn',
@@ -130,8 +130,8 @@ export default {
     ]),
     ...mapActions([
       'requestLogout',
-      'getRecommandTags',
-      'getRecommandChannels',
+      'getRecommendTags',
+      'getRecommendChannels',
       'requestSubscribeChannels',
       'requestSearch'
     ]),
@@ -216,7 +216,7 @@ header#nav {
     display:flex;
     flex-direction:row;
     justify-content: space-between;
-    max-width:1160px;
+    max-width:1210px;
     width:100%;
     height:60px;
     a.logo {
@@ -275,7 +275,7 @@ main {
       position:absolute;
       left:0;
       margin-left:60px;
-      width:920px;
+      width:960px;
       padding-bottom:200px;
     }
   }
