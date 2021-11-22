@@ -105,6 +105,7 @@ small{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 5px;
 }
 #mileage-input-box{
     width:330px;

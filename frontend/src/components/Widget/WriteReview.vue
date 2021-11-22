@@ -183,6 +183,9 @@ p{
     align-items: flex-start;
 
 }
+#write-review-box{
+    margin-top: 5px;
+}
 textarea{
     width:400px;
     height:150px;
@@ -198,11 +201,12 @@ textarea{
     justify-content: center;
     width:400px;
     height:150px;
+    margin-top:5px;
 }
 #register-review-button{
     width:400px;
     height:40px;
-    margin:40px 0 0 0;
+    margin:30px 0 0 0;
 }
 #star{
     font-size:40px;
