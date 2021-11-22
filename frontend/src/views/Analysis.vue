@@ -1,17 +1,18 @@
 <template>
-    <div id="analytic">
-        <div class="analytics">
+    <div id="analysis">
+        <div class="analysis">
             <UploadBox 
                 class="upload-box"
-                
                 @upload="uploadFile"
             >{{explainText}}</UploadBox>
-            <div class="analytics-result">
+            <div class="analysis-result">
                 <h2>AI 얼굴 분석</h2>
-                <h3>분석 결과</h3>
-                <img :src="analysisResult.img"/>
-                <div>
-                    {{analysisResult.content}}
+                <div class="analysis-result-content">
+                    <h3>분석 결과</h3>
+                    <img :src="analysisResult.img"/>
+                    <div class="analysis-result-box">
+                        {{analysisResult.content}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,7 +41,7 @@ export default {
     },
     data() {
         return {
-            explainText:"사진올려",
+            explainText:"얼굴 정면 사진을 올려주세요",
         }
     },
     created() {
@@ -66,17 +67,50 @@ export default {
 </script>
 
 <style scoped>
+h2{
+    margin-top:0;
+}
+h3{
+    margin:0;
+}
 .upload-box {
-    width:300px;
-    height:400px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:400px;
+    height:500px;
+    margin-right: 50px;
+    margin-bottom: 30px;
 }
 .uploaded-img {
-    width:300px;
-    height:400px;
+    width:400px;
+    height:500px;
 }
-.analytics {
+.analysis {
     display:flex;
     flex-direction:row;
+    margin-top: 40px;
+    margin-left: 30px;
+}
+.analysis-result{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height:500px;
+}
+.analysis-result-content{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.analysis-result-box{
+    width:400px;
+    height:400px;
+    border:1px solid var(--placeholder-color);
+    border-radius: 4px;
+    
 }
 .recommand-makeup {
     border: 1px solid black;
