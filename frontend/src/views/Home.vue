@@ -29,12 +29,12 @@ export default {
   },
   computed: {
         ...mapState([
-            'recommendShortList'
+            'recommandShortList'
         ])
     },
     methods: {
         ...mapActions([
-            'getrecommendShorts',
+            'getRecommandShorts',
             'requestSearch'
         ])
     },
@@ -42,7 +42,7 @@ export default {
     '$route': {
       immediate: true,
       handler(to,from) {
-          this.getrecommendShorts();
+          this.getRecommandShorts();
       }
     }
   }

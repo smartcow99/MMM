@@ -22,24 +22,24 @@
           @openLogin="openLogin"
           @openUpload="openUpload"
         />
-        <div v-if="userInfo['isLogined']" class="recommend-channels">
+        <div v-if="userInfo['isLogined']" class="recommand-channels">
           <h3>구독한 채널</h3>
           <hr/>
           <ChannelList path="/channelshort" :channelList="defaultChannels"/>
           <ChannelList path="/channelshort" :channelList="subscribeChannelList"/>
         </div>
-        <div v-else class="recommend-channels">
+        <div v-else class="recommand-channels">
           <h3>추천 채널</h3>
           <hr/>
-          <ChannelList path="/channelshort" :channelList="recommendChannelList"/>
+          <ChannelList path="/channelshort" :channelList="recommandChannelList"/>
         </div>
         
-        <div class="recommend-tags">
+        <div class="recommand-tags">
           <h3>추천 태그</h3>
           <hr/>
           <div class="tag-list">
             <Tag 
-              v-for="(value,index) in recommendTagList" :key="index"
+              v-for="(value,index) in recommandTagList" :key="index"
               :title="value"
             />
           </div>
@@ -107,14 +107,14 @@ export default {
     Btn
   },
   mounted() {
-    this.getrecommendTags();
-    this.getrecommendChannels();
+    this.getRecommandTags();
+    this.getRecommandChannels();
   },
   computed: {
     ...mapState([
       'userInfo',
-      'recommendTagList',
-      'recommendChannelList',
+      'recommandTagList',
+      'recommandChannelList',
       'subscribeChannelList',
       'currentShort',
       'loginPageOn',
@@ -130,8 +130,8 @@ export default {
     ]),
     ...mapActions([
       'requestLogout',
-      'getrecommendTags',
-      'getrecommendChannels',
+      'getRecommandTags',
+      'getRecommandChannels',
       'requestSubscribeChannels',
       'requestSearch'
     ]),

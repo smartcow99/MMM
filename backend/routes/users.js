@@ -77,9 +77,9 @@ router.get('/search',async (req, res)=>{
     return res.status(400).send('fail');
 })
 
-router.get('/recommend', async (req, res)=>{
+router.get('/recommand', async (req, res)=>{
   const cid = req.session.cid | 0;
-  const result = await db.recommend(req.query.type, cid, req.query.requestNum);
+  const result = await db.recommand(req.query.type, cid, req.query.requestNum);
 
   if(result)
     return res.status(200).send(result);

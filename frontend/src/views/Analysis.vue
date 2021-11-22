@@ -16,11 +16,11 @@
                 </div>
             </div>
         </div>
-        <div class="recommendation-area">
-            <h2 id="recommendation-title">추천 화장법</h2>
-            <div class="recommend-makeup">
+        <div class="recommandation-area">
+            <h2 id="recommandation-title">추천 화장법</h2>
+            <div class="recommand-makeup">
                 <span 
-                    v-for="(value,index) in analysisResult['recommendDressing']"
+                    v-for="(value,index) in analysisResult['recommandDressing']"
                     :key="index"
                 >
                     <router-link :to="{path:'/search/', query:{'type':'short','content':value.title} }">
@@ -114,10 +114,10 @@ h3{
     border-radius: 4px;
     
 }
-#recommendation-title{
+#recommandation-title{
     width:300px;
 }
-.recommend-makeup {
+.recommand-makeup {
     width:1000px;
     margin-left:30px;
     border: 1px solid black;

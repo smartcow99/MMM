@@ -29,14 +29,14 @@ export default {
     state["userInfo"].isLogined = payload;
   },
   // 추천태그를 받아 설정하는 함수
-  setrecommendTagList(state, payload) {
-    state["recommendTagList"] = payload;
+  setRecommandTagList(state, payload) {
+    state["recommandTagList"] = payload;
   },
-  setrecommendChannelList(state, payload) {
-    state["recommendChannelList"] = payload;
+  setRecommandChannelList(state, payload) {
+    state["recommandChannelList"] = payload;
   },
-  setrecommendShortList(state, payload) {
-    state["recommendShortList"] = payload;
+  setRecommandShortList(state, payload) {
+    state["recommandShortList"] = payload;
   },
   setChannelList(state, payload) {
     state["channelList"] = payload;
@@ -53,12 +53,12 @@ export default {
   setAnalysisResult(state, payload) {
     state["analysisResult"].img = payload.img;
     state["analysisResult"].content = payload.content;
-    state["analysisResult"].recommendDressing = payload.recommendDressing;
+    state["analysisResult"].recommandDressing = payload.recommandDressing;
   },
   initAnalysisResult(state, payload) {
     state["analysisResult"].img = "";
     state["analysisResult"].content = "";
-    state["analysisResult"].recommendDressing = [];
+    state["analysisResult"].recommandDressing = [];
   },
   setShortInfo(state, payload) {
     state["currentShort"].numOfHearts = payload.numOfHearts;
