@@ -157,7 +157,15 @@ export default {
     font-size:14px;
 }
 h1{
-    font-size:50px;
+    font-size:40px;
+    margin-bottom:50px;
+}
+p{
+    font-weight: bold;
+    margin: 20px 0 0 0;
+}
+.star-point-area{
+    margin-bottom: 50px;
 }
 .write-review-card{
     display:flex;
@@ -194,7 +202,7 @@ textarea{
 #register-review-button{
     width:400px;
     height:40px;
-    margin:60px 0 0 0;
+    margin:40px 0 0 0;
 }
 #star{
     font-size:40px;
