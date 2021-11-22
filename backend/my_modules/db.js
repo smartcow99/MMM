@@ -76,6 +76,26 @@ const api = {
         const [res] = await pool.query(`select distinct p_name as title, img, pid as productId from tag natural join (product_img natural join product) where tag.vid = ${vid}`)
         return res;
   },
+	get_dressing_talbe: async (cid) => {
+		const [res] = await pool.query(`select distinct category, p_name as title, thumnail as img, pid as productId from customer natural join (dressing_table natural join product) where cid = ${cid}`)
+		return res;
+	},
+	get_product_info: async (pid) => {
+		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, rate, price, access as views from product where pid = ${pid}`)
+		return res;
+	},
+	get_product_img_info : async (pid) => {
+		const [res] = await pool.query(`select img as productImages from product_img where pid = ${pid}`)
+		return res;
+	},
+	get_related_short_info : async (pid) => {
+		const [res] = await pool.query()
+		return res;
+	},
+	get_product_review: async (pid) => {
+		const [res] = await pool.query()
+		return res;
+	},
 	like_up: async (cid, vid) => {
 				console.log(vid)
         const [res] = await pool.query(`insert into recommend (cid, vid) values(${cid}, ${vid})`)
@@ -155,14 +175,26 @@ module.exports = new Proxy(api,{
 				return res;
 			}
 		}
-		else if(apiName == 'channel_info'){
-			return async function(chid, cid) {
-				let result = res.shortList = await target.get_my_shorts(chid);
-				res = await target.get_channel_info(vid,cid);
-				// res.dressingTable = await target.;
-				res.shortList = await target.get_my_shorts(chid)
-			}
+
+	else if(apiName =='channel_info') {
+		return async function(vid, cid) {
+			let [res] = await target.get_channel_info(vid, cid);
+			res.dressingTable = await target.get_dressing_talbe(cid);
+
+			return res;
 		}
+	}
+	else if(apiName == 'productInfo') {
+		return async fuction(pid) {
+			let [res] = await target.get_product_info(pid);
+			res.productImages = await target.get_product_img_info(pid);
+			res.relatedShorts = await target.get_related_short_info(pid);
+			res.productExplainHtml = '<html><body><div>hi i am product</div></body></html>';
+			res.reviews = await target.get_product_review(pid);
+
+
+		}
+	}
 		else
 			return target[apiName];
 	}

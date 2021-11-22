@@ -125,7 +125,17 @@ router.get('/likeDown', islogined, async (req, res)=> {
   else
     res.status(400).send('fail');
 })
-router.get('/channel', async (req, res)=>{
-  
+
+router.get('/channel', islogined, async (req, res) => {
+  const result = await db.channel_info(req.query.vid, req.session.cid)
+
+  if(result)
+    res.status(200).send(result);
+  else
+    res.status(400).send('fail');
+})
+
+router.get('/productInfo', async (req, res) => {
+  const result = await db.product_info(req.query.pid)
 })
 module.exports = router;
