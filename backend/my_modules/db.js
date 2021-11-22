@@ -186,10 +186,9 @@ module.exports = new Proxy(api,{
 	else if(apiName == 'product_info') {
 		return async function(pid) {
 			let [res] = await target.get_product_info(pid);
-			res.productImages = await target.get_product_img_info(pid);
-			res.relatedShorts = await target.get_related_short_info(pid);
-			res.reviews = await target.get_product_review(pid);
-
+				res.productImages = await target.get_product_img_info(pid);
+				res.relatedShorts = await target.get_related_short_info(pid);
+				res.reviews = await target.get_product_review(pid);
 			return res;
 		}
 	}

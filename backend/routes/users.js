@@ -58,7 +58,7 @@ router.post('/login', async (req, res)=>{
     res.status(401).send('fail');
 })
 
-router.get('/logout',(req, res)=>{
+router.get('/logout',islogined,(req, res)=>{
   if(req.session.islogined){
     req.session.destroy(function(){
       req.session;
@@ -137,11 +137,17 @@ router.get('/channel', islogined, async (req, res) => {
 
 router.get('/productInfo', async (req, res) => {
   const result = await db.product_info(req.query.pid)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 87bb707f04fee841772c12a9b1d6737ca2bda708
   if(result)
     res.status(200).send(result);
   else
     res.status(400).send('fail');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 87bb707f04fee841772c12a9b1d6737ca2bda708
 })
 module.exports = router;
