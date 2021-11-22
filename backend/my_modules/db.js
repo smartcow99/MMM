@@ -26,7 +26,7 @@ const api = {
 		return res;
 	},
 	search_product: async (content)=>{
-		const [res] = await pool.query(`select p_name as title, thumnail, pid as productId, rate, price from mmmservice.product where p_name like '%${content}%'`);
+		const [res] = await pool.query(`select p_name as title, thumnail, pid as productId, avg_rate as rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where p_name like '%${content}%'`);
 		return res;
 	},
 
@@ -81,7 +81,7 @@ const api = {
 		return res;
 	},
 	get_product_info: async (pid) => {
-		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, rate, price, access as views, detail as productExplainHtml from product where pid = ${pid}`)
+		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, avg_rate as rate, price, access as views, detail as productExplainHtml from product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = 1;`)
 		return res;
 	},
 	get_product_img_info : async (pid) => {
@@ -93,8 +93,7 @@ const api = {
 		return res;
 	},
 	get_product_review: async (pid) => {
-		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, rate, photo
-		from channel join customer using(cid) join review using(cid) join product using(pid) where pid = ${pid};`)
+		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, avg_rate as rate, photo from channel join customer using(cid) join review using(cid) join product using(pid) left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = ${pid}`)
 		return res;
 	},
 	like_up: async (cid, vid) => {
@@ -185,8 +184,8 @@ module.exports = new Proxy(api,{
 			return res;
 		}
 	}
-	else if(apiName == 'productInfo') {
-		return async function(params) {
+	else if(apiName == 'product_info') {
+		return async function(pid) {
 			let [res] = await target.get_product_info(pid);
 			res.productImages = await target.get_product_img_info(pid);
 			res.relatedShorts = await target.get_related_short_info(pid);
