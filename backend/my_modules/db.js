@@ -31,12 +31,17 @@ const api = {
 		return res;
 	},
 	recommend_tag: async ()=>{
-		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc limit 10`)
+		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc limit 5`)
 		return res;
 	},
 	recommend_shorts: async (reqNum)=>{
+<<<<<<< HEAD
 		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers from mmmservice.video 
 		join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using(chid) natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b order by numOfHearts desc limit ${reqNum*6}, 6`)
+=======
+		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers \
+		from mmmservice.video natural join (select chid as channelId, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b order by numOfHearts desc limit ${reqNum*6}, 6`)
+>>>>>>> 38ca005e94be6b48776fa50c8e90e9142a38285a
 		return res;
 	},
 	recommend_channel: async (cid)=>{
