@@ -31,7 +31,10 @@
                 <small class="channel-intro">{{currentChannel['introduce']}}</small>
             </div>
         </div>
-        <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
+        <div class="dress-table">
+            <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
+            <Btn theme="white" @click="modifyDressTable">수정하기</Btn>
+        </div>
         <Detail v-if="currentChannel['isMyChannel']">
             <div class="product-box">
                 <div class="product-list"
@@ -40,7 +43,9 @@
                 >
                     <div class="product-category">{{key}}</div>
                     <div class="product-items">
-                        <DeleteBox @delete="deleteProduct"
+                        <DeleteBox 
+                            class="item"
+                            @delete="deleteProduct"
                             v-for="(product,index) in productList"
                             :key="index">
                             <ProductMini
@@ -63,6 +68,7 @@
                     <div class="product-category">{{key}}</div>
                     <div class="product-items">
                         <ProductMini
+                            class="item"
                             v-for="(product,index) in productList"
                             :key="index"
                             :img="product.img"
@@ -75,7 +81,9 @@
         </Detail>
         <div v-if="currentChannel['channelId']==userInfo['channelId']">
             <div id="shortList">
-            <DeleteBox @delete="deleteShort"
+            <DeleteBox 
+                class="item"
+                @delete="deleteShort"
                 v-for="(short,index) in currentChannel['shortList']"
                 :key="index">
                 <ShortSummary
@@ -87,6 +95,7 @@
         <div v-else>
             <div id="shortList">
                 <ShortSummary
+                    class="item"
                     v-for="(short,index) in currentChannel['shortList']"
                     :key="index"
                     :shortInfo="short">
@@ -150,6 +159,9 @@ export default {
             
             this.isModifyOn = false;
         },
+        modifyDressTable() {
+            alert('데모 계정에선 화장대를 수정할 수 없습니다.')
+        }
     },
     mounted() {
         this.requestChannelInfo(this.$route.query['channelId']);
@@ -209,6 +221,21 @@ div.channel-summary {
         }
     }
 }
+div.dress-table {
+    display:flex;
+    flex-direction:row;
+    height:40px;
+    margin-bottom:20px;
+    & > * {
+        margin:auto 0;
+    }
+    h3 {
+        flex-grow:1;
+    }
+    button {
+        width:100px;
+    }
+}
 div.product-box {
     display:flex;
     flex-direction:column;
@@ -224,6 +251,9 @@ div.product-box {
             display:flex;
             flex-direction:row;
             flex-wrap:wrap;
+            .item {
+                margin-right:20px;
+            }
         }
     }
 }
@@ -234,5 +264,9 @@ div.product-box {
     flex-direction: row;
     flex-wrap:wrap;
     margin: 50px auto;
+    .item {
+        margin-right:20px;
+        margin-bottom:30px;
+    }
 }
 </style>

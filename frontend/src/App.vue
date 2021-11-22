@@ -250,7 +250,7 @@ main {
 }
 aside {
   position:relative;
-  flex-grow:1;
+  flex-grow:2;
   overflow-y: auto;
   background-color:var(--background-color);
   .aside-content {
@@ -263,15 +263,15 @@ aside {
 article {
   position:relative;
   height:100%;
-  flex-grow:2;
+  flex-grow:5;
   overflow-y:auto;
   overflow-x:hidden;
   div.page {
     position:absolute;
     left:0;
+    margin-left:60px;
     width:900px;
     padding-bottom:200px;
-    padding-left:40px;
   }
 }
 h3 {

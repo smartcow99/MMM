@@ -16,7 +16,6 @@ export default {
 .delete-box {
     position:relative;
     border:1px solid var(--placeholder-color);
-    border-radius:8px;
 }
 .delete-button {
     border:none;
