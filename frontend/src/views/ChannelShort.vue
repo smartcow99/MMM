@@ -1,8 +1,9 @@
 <template>
-    <div id="channel-short">
-        <h1>'{{currentChannel.title}}'채널의 영상</h1>
+    <div id="channel-short" class="page">
+        <h1>'{{currentChannel.title}}' 채널의 영상</h1>
         <div class="short-list">
             <ShortSummary 
+                class="item"
                 v-for="(value,index) in currentChannel.shortList" 
                 :key="index" 
                 :shortInfo="value"
@@ -50,9 +51,11 @@ h1 {
 .short-list {
     display:flex;
     flex-direction:row;
-    justify-content: space-around;
-    max-width:1000px;
     width:100%;
     flex-wrap:wrap;
+}
+.short-list .item {
+    margin-right:20px;
+    margin-bottom:30px;
 }
 </style>

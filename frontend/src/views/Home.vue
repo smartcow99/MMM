@@ -3,6 +3,7 @@
       <h1>추천 영상</h1>
       <div class="short-list">
         <ShortSummary 
+            id="temp"
             v-for="(value,index) in recommandShortList" 
             :key="index" 
             :shortInfo="value"
@@ -58,5 +59,8 @@ export default {
   max-width:1000px;
   width:100%;
   flex-wrap:wrap;
+}
+#temp {
+  margin-bottom:100px;
 }
 </style>

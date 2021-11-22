@@ -16,7 +16,7 @@
   </header>
   <main>
     <aside>
-      <div class="aside-content">
+      <div class="guide">
         <Profile 
           class="profile"
           @openLogin="openLogin"
@@ -84,11 +84,13 @@ export default {
       defaultChannels: [
         {
             title:'핫 채널',
-            profile:HotShortImg
+            profile:HotShortImg,
+            channelId: 'hot'
         },
         {
             title:'구독한 모든 채널',
-            profile:AllSubscribeImg
+            profile:AllSubscribeImg,
+            channelId: '*'
         }
       ]
     }
@@ -179,7 +181,7 @@ export default {
 }
 * {
   box-sizing:border-box;
-  font-weight: bold;
+  font-weight: 400;
 }
 body {
   padding:0;
@@ -214,7 +216,7 @@ header#nav {
     display:flex;
     flex-direction:row;
     justify-content: space-between;
-    max-width:1100px;
+    max-width:1160px;
     width:100%;
     height:60px;
     a.logo {
@@ -246,35 +248,39 @@ main {
   position:relative;
   margin-top:100px;
   display:flex;
+  flex-grow:1;
   flex-direction:row;
-  height:100%;
-}
-aside {
-  position:relative;
-  flex-grow:2;
-  overflow-y: auto;
-  background-color:var(--background-color);
-  .aside-content {
-    position:absolute;
-    right:0;
-    width:240px;
-    height:100%;
+  height:calc(100vh - 100px);
+  aside {
+    position:relative;
+    flex-grow:2;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    background-color:var(--background-color);
+    .guide {
+      position:absolute;
+      right:0;
+      width:250px;
+      padding-right:10px;
+      padding-bottom:100px;
+    }
+  }
+  article {
+    padding-right:5px;
+    position:relative;
+    flex-grow:5;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    div.page {
+      position:absolute;
+      left:0;
+      margin-left:60px;
+      width:920px;
+      padding-bottom:200px;
+    }
   }
 }
-article {
-  position:relative;
-  height:100%;
-  flex-grow:5;
-  overflow-y:auto;
-  overflow-x:hidden;
-  div.page {
-    position:absolute;
-    left:0;
-    margin-left:60px;
-    width:900px;
-    padding-bottom:200px;
-  }
-}
+
 h3 {
   text-align:left;
 }
@@ -316,5 +322,22 @@ textarea:focus {
 }
 .profile {
   margin-top:40px;
+}
+aside::-webkit-scrollbar {
+  background-color:white;
+  width:12px;
+}
+aside::-webkit-scrollbar-thumb {
+  background-color:white;
+}
+aside:hover::-webkit-scrollbar-thumb {
+  background-color:var(--placeholder-color);
+}
+article::-webkit-scrollbar {
+  background-color:white;
+  width:12px;
+}
+article::-webkit-scrollbar-thumb {
+  background-color:var(--placeholder-color);
 }
 </style>

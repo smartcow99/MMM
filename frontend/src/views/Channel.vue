@@ -57,7 +57,6 @@
                     </div>
                 </div>
             </div>
-        
         </Detail>
         <Detail v-else>
             <div class="product-box">
@@ -79,8 +78,7 @@
                 </div>
             </div>
         </Detail>
-        <div v-if="currentChannel['channelId']==userInfo['channelId']">
-            <div id="shortList">
+        <div id="shortList" v-if="currentChannel['isMyChannel']">
             <DeleteBox 
                 class="item"
                 @delete="deleteShort"
@@ -90,17 +88,14 @@
                     :shortInfo="short">
                 </ShortSummary>
             </DeleteBox>
-            </div>
         </div>
-        <div v-else>
-            <div id="shortList">
-                <ShortSummary
-                    class="item"
-                    v-for="(short,index) in currentChannel['shortList']"
-                    :key="index"
-                    :shortInfo="short">
-                </ShortSummary>
-            </div>
+        <div id="shortList" v-else>
+            <ShortSummary
+                class="item"
+                v-for="(short,index) in currentChannel['shortList']"
+                :key="index"
+                :shortInfo="short">
+            </ShortSummary>
         </div>
     </div>
 </template>
@@ -257,13 +252,12 @@ div.product-box {
         }
     }
 }
-
-
-#shortList{
+div#shortList {
     display: flex;
     flex-direction: row;
     flex-wrap:wrap;
-    margin: 50px auto;
+    margin: 50px 0;
+    width:100%;
     .item {
         margin-right:20px;
         margin-bottom:30px;

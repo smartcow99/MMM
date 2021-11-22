@@ -86,7 +86,7 @@ export default {
     position:relative;
     height: 370px; 
     background-color: white;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor:pointer;
     overflow:hidden;
 }

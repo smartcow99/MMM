@@ -1,5 +1,5 @@
 <template>
-    <div class="entire-box">
+    <div class="entire-box page">
         <div class="info-box">
             <div class="tab">
                 <router-link to="/mypage/">마이페이지</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -19,8 +19,6 @@ export default {
 
 <style scoped>
 div.entire-box{
-    width:960px;
-    position:flex;
     flex-direction: column;
 }
 div.tab{

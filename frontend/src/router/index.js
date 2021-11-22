@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-
+import store from '../store';
 const routes = [
   {
     path: "/",
@@ -68,4 +68,22 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to,from,next)=>{
+  if(store.state['loginPageOn']==true) {
+    store.commit('setLoginPageOn',false);
+    next(from);
+  }
+  else if(store.state['uploadShortPageOn']==true) {
+    store.commit('setUploadShortPageOn',false);
+    next(from);
+  }
+  else if(store.state['shortPageOn']==true) {
+    store.commit('setShortPageOn',false);
+    next(from);
+  }
+  else {
+    next();
+  }
+
+})
 export default router;

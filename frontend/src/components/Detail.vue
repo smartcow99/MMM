@@ -35,7 +35,7 @@ export default {
 .detail .view-box {
     border:1px solid var(--placeholder-color);
     border-radius:4px;
-    padding:20px;
+    padding:30px 20px;
     overflow:hidden;
     position: relative;
     height:fit-content;
