@@ -83,6 +83,15 @@ export default {
                 numOfHearts:54321,
                 numOfViews:12321
             },
+            {
+                title:'내 쇼츠1',
+                thumnail:'#',
+                shortId:123,
+                channelId:10,
+                numOfSubscribers:12345,
+                numOfHearts:54321,
+                numOfViews:12321
+            },
         ]);
     },
     // 추천 상품 리스트

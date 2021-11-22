@@ -77,14 +77,13 @@ export default {
     font-size:14px;
 }
 .short-summary {
-    width:280px;
-    height: 448px;
-    border:1px solid #CCCCCC;
+    /* border:1px solid #CCCCCC; */
     border-radius: 4px;
 }
 .shorts{
     position:relative;
-    height: 370px; 
+    width:280px;
+    height: 448px;
     background-color: white;
     border-radius: 4px;
     cursor:pointer;
