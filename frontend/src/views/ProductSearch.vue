@@ -1,5 +1,5 @@
 <template>
-    <div id="product-search">
+    <div id="product-search" class="page">
         <div class="sort-option">
             <label v-for="(value,index) in sortType" :key="index">
                 <input type="checkbox" :checked="sortType[index].isChecked" @change="sorting(index,value.type)"/>
