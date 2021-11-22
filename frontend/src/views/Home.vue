@@ -1,5 +1,5 @@
 <template>
-    <article id="home" class="page">
+    <div id="home" class="page">
       <h1>추천 영상</h1>
       <div class="short-list">
         <ShortSummary 
@@ -9,7 +9,7 @@
             :shortInfo="value"
         />
       </div>
-    </article>
+    </div>
 </template>
 
 <script>
@@ -56,7 +56,6 @@ export default {
   display:flex;
   flex-direction:row;
   justify-content: space-between;
-  max-width:1000px;
   width:100%;
   flex-wrap:wrap;
 }
