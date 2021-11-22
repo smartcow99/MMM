@@ -1,8 +1,13 @@
 <template>
-    <div>
-        <router-link to="/mypage/">마이페이지</router-link> |
-        <router-link to="/mypage/purchase-history">구매 내역</router-link> |
-        <router-view/>
+    <div class="entire-box">
+        <div class="info-box">
+            <div class="tab">
+                <router-link to="/mypage/">마이페이지</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
+                <router-link to="/mypage/purchase-history">구매 내역</router-link> 
+            </div>
+            
+            <router-view/>
+        </div>
     </div>
 </template>
 
@@ -12,6 +17,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+div.entire-box{
+    width:960px;
+    position:flex;
+    flex-direction: column;
+}
+div.tab{
+    display:flex;
+    flex-direction: row;
+    justify-items: flex-start;
+    font-size:28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+div.info-box{
+    position: absolute;
+    margin-top:70px;
+    margin-left:70px;
+}
 
 </style>
