@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <div id="channel" class="page">
         <div v-if="currentChannel['isMyChannel']" class="channel-summary">
             <img :src="currentChannel['profile']" alt="채널 프로필"/>
             <div class="channel-info">
@@ -33,35 +33,44 @@
         </div>
         <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
         <Detail v-if="currentChannel['isMyChannel']">
-            <div class="product-list"
-                v-for="(productList,key) of currentChannel['dressingTable']"
-                :key="key"
-            >
-                {{key}}
-                <DeleteBox @delete="deleteProduct"
-                    v-for="(product,index) in productList"
-                    :key="index">
-                    <ProductMini
-                        :img="product.img"
-                        :productId="product.productId"
-                        :title="product.title"
-                    />
-                </DeleteBox>
+            <div class="product-box">
+                <div class="product-list"
+                    v-for="(productList,key) of currentChannel['dressingTable']"
+                    :key="key"
+                >
+                    <div class="product-category">{{key}}</div>
+                    <div class="product-items">
+                        <DeleteBox @delete="deleteProduct"
+                            v-for="(product,index) in productList"
+                            :key="index">
+                            <ProductMini
+                                :img="product.img"
+                                :productId="product.productId"
+                                :title="product.title"
+                            />
+                        </DeleteBox>
+                    </div>
+                </div>
             </div>
+        
         </Detail>
         <Detail v-else>
-            <div class="product-list"
-                v-for="(productList,key) of currentChannel['dressingTable']"
-                :key="key"
-            >
-                {{key}}
-                <ProductMini
-                    v-for="(product,index) in productList"
-                    :key="index"
-                    :img="product.img"
-                    :productId="product.productId"
-                    :title="product.title"
-                />
+            <div class="product-box">
+                <div class="product-list"
+                    v-for="(productList,key) of currentChannel['dressingTable']"
+                    :key="key"
+                >
+                    <div class="product-category">{{key}}</div>
+                    <div class="product-items">
+                        <ProductMini
+                            v-for="(product,index) in productList"
+                            :key="index"
+                            :img="product.img"
+                            :productId="product.productId"
+                            :title="product.title"
+                        />
+                    </div>
+                </div>
             </div>
         </Detail>
         <div v-if="currentChannel['channelId']==userInfo['channelId']">
@@ -84,7 +93,7 @@
                 </ShortSummary>
             </div>
         </div>
-    </article>
+    </div>
 </template>
 
 <script>
@@ -132,11 +141,13 @@ export default {
             this.requestChannelInfo(this.currentChannel['channelId']);
         },
         modifyOn() {
-            this.isModifyOn = true;
-            this.modifyTitle = this.currentChannel['title'];
-            this.modifyIntro = this.currentChannel['introduce'];
+            alert('데모 계정에선 채널을 수정할 수 없습니다.')
+            // this.isModifyOn = true;
+            // this.modifyTitle = this.currentChannel['title'];
+            // this.modifyIntro = this.currentChannel['introduce'];
         },
         saveModify() {
+            
             this.isModifyOn = false;
         },
     },
@@ -154,16 +165,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.product-list {
-    display:flex;
-    flex-direction:row;
-}
-#shortList{
-    display: flex;
-    flex-direction: row;
-    flex-wrap:wrap;
-    margin: 50px auto;
-}
+
 div.channel-summary {
     display:flex;
     flex-direction:row;
@@ -206,5 +208,31 @@ div.channel-summary {
             width:600px;
         }
     }
+}
+div.product-box {
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    div.product-list {
+        display:flex;
+        flex-direction:row;
+        margin-bottom:40px;
+        div.product-category {
+            width:100px;
+        }
+        div.product-items {
+            display:flex;
+            flex-direction:row;
+            flex-wrap:wrap;
+        }
+    }
+}
+
+
+#shortList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    margin: 50px auto;
 }
 </style>
