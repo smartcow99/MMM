@@ -102,14 +102,18 @@ const api = {
         const [res] = await pool.query(`insert into recommend (cid, vid) values(${cid}, ${vid})`)
         return res;
     },
-  like_down: async (cid, vid) => {
-        const [res] = await pool.query(`delete from recommend where cid = ${cid} and vid = ${vid}`)
-        return res;
-  },
+	like_down: async (cid, vid) => {
+			const [res] = await pool.query(`delete from recommend where cid = ${cid} and vid = ${vid}`)
+			return res;
+	},
 
 	get_my_shorts: async (chid) =>{
 		const [res] = await pool.query(`select distinct title, vid as shortId, v_comment as info, numOfHearts, hits as numOfViews , thumnail, chid as channelId \
 		from mmmservice.video natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b where chid = ${chid};`)
+		return res;
+	},
+	is_purchase: async (pid, cid) =>{
+		const [res] = await pool.query(`select * from purchase where pid = ${pid} and cid = ${cid}`)
 		return res;
 	}
 }

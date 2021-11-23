@@ -1,15 +1,15 @@
 <template>
     <div id="dropzone"
         :class="{'overing':overing}"
-        @dragenter="dragenterHandler($event)" 
-        @dragleave="dragleaveHandler($event)" 
-        @dragover.prevent
-        @drop.prevent="dropHandler($event)"
         class="dropzone upload-box">
-        <label for="file-upload">
-            <img v-if="!!src"  class="preview" :src="src"/>
+        <label for="file-upload"
+            @dragenter="dragenterHandler($event)" 
+            @dragleave="dragleaveHandler($event)" 
+            @dragover.prevent
+            @drop.prevent="dropHandler($event)">
+            <img v-if="!!src" class="preview" :src="src"/>
             <span v-else class="guide">
-                <font-awesome-icon icon="upload"/>
+                <font-awesome-icon class="icon" icon="upload"/>
                 <div><slot/></div>
             </span>
         </label>
@@ -35,9 +35,11 @@ export default {
     methods: {
         dragenterHandler(evt) {
             this.overing = true;
+            console.log('enter')
         },
         dragleaveHandler(evt) {
             this.overing = false;
+            console.log('leave')
         },
         dropHandler(evt) {
             this.overing = false;
@@ -83,6 +85,11 @@ export default {
     border:4px dashed var(--placeholder-color);
     border-radius:4px;
 }
+.dropzone:hover {
+    background-color:var(--primary-color);
+    opacity:0.7;
+    color:var(--white-text-color);
+}
 .overing {
     background-color:var(--primary-color);
     opacity:0.7;
@@ -96,6 +103,21 @@ input[type='file'] {
     display:none;
 }
 label {
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
     cursor:pointer;
+}
+span.guide {
+    pointer-events: none;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+}
+span.guide .icon {
+    font-size:2rem;
+    margin:0 auto;
 }
 </style>

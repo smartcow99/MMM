@@ -39,7 +39,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu-bar {
-    margin-top:10px;
+    margin-top:40px;
     display:flex;
     flex-direction:row;
     a {
@@ -47,7 +47,7 @@ export default {
         font-weight: 400;
         text-align:center;
         margin:0 15px;
-        padding:5px;
+        padding:5px 0;
         color: var(--text-color);
         &.selected {
             border-bottom:5px solid var(--primary-color);

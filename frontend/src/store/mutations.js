@@ -61,6 +61,8 @@ export default {
     state["analysisResult"].RecommendDressing = [];
   },
   setShortInfo(state, payload) {
+    state["currentShort"].url = payload.url;
+    state["currentShort"].isMyShort = payload.isMyShort;
     state["currentShort"].numOfHearts = payload.numOfHearts;
     state["currentShort"].numOfViews = payload.numOfViews;
     state["currentShort"].title = payload.title;
@@ -161,4 +163,56 @@ export default {
         break;
     }
   },
+  sortReviewList(state, { type }) {
+    const sortByHighRate = (a, b) => {
+      if (a.rate < b.rate) return 1;
+      else if (a.rate < b.rate) return 0;
+      else return -1;
+    };
+    const sortByLowRate = (a, b) => {
+      if (a.rate < b.rate) return -1;
+      else if (a.rate < b.rate) return 0;
+      else return 1;
+    };
+    switch (type) {
+      case "high-rate":
+        state["currentProduct"].reviews.sort(sortByHighRate);
+        break;
+      case "low-rate":
+        state["currentProduct"].reviews.sort(sortByLowRate);
+        break;
+    }
+  },
+  initRequestNum(state) {
+    state['requestNum'] = 0;
+  },
+  pushChannelSearch(state,payload) {
+    state['channelList'].push(payload)
+  },
+  pushShortSearch(state,payload) {
+    state['shortList'].push(payload)
+  },
+  pushProductSearch(state,payload) {
+    state['productList'].push(payload)
+  },
+  pushPurchaseHistory(state,payload) {
+    state['purchaseList'].push(payload)
+  },
+  pushShortRecommand(state,payload) {
+    state['RecommendShortList'].push(payload)
+  },
+  pushChannelShort(state,payload) {
+    state['currentChannel'].shortList.push(payload)
+  },
+  pushComment(state,payload) {
+    state['currentShort'].comments.push(payload)
+  },
+  pushReview(state,payload) {
+    state['currentProduct'].reviews.push(payload)
+  }
 };
+
+
+
+
+

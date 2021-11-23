@@ -31,7 +31,10 @@
                 <small class="channel-intro">{{currentChannel['introduce']}}</small>
             </div>
         </div>
-        <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
+        <div class="dress-table">
+            <h3>{{`'${currentChannel['title']}' 님의 화장대`}}</h3>
+            <Btn v-if="currentChannel['isMyChannel']" @click="modifyDressingTable" theme="white">수정하기</Btn>
+        </div>
         <Detail v-if="currentChannel['isMyChannel']">
             <div class="product-box">
                 <div class="product-list"
@@ -40,7 +43,9 @@
                 >
                     <div class="product-category">{{key}}</div>
                     <div class="product-items">
-                        <DeleteBox @delete="deleteProduct"
+                        <DeleteBox 
+                            class="item"
+                            @delete="deleteProduct"
                             v-for="(product,index) in productList"
                             :key="index">
                             <ProductMini
@@ -62,6 +67,7 @@
                     <div class="product-category">{{key}}</div>
                     <div class="product-items">
                         <ProductMini
+                            class="item"
                             v-for="(product,index) in productList"
                             :key="index"
                             :img="product.img"
@@ -131,12 +137,14 @@ export default {
             alert('데모 아이디로는 영상을 삭제할 수 없습니다.')
         },
         subscribe() {
-            this.requestSubscribe(this.currentChannel['channelId']);
-            this.requestChannelInfo(this.currentChannel['channelId']);
+            alert('데모버전에선 이용 불가능')
+            // this.requestSubscribe(this.currentChannel['channelId']);
+            // this.requestChannelInfo(this.currentChannel['channelId']);
         },
         unsubscribe() {
-            this.requestUnsubscribe(this.currentChannel['channelId']);
-            this.requestChannelInfo(this.currentChannel['channelId']);
+            alert('데모버전에선 이용 불가능')
+            // this.requestUnsubscribe(this.currentChannel['channelId']);
+            // this.requestChannelInfo(this.currentChannel['channelId']);
         },
         modifyOn() {
             alert('데모버전에선 이용 불가능')
@@ -147,9 +155,14 @@ export default {
         saveModify() {
             this.isModifyOn = false;
         },
+        modifyDressingTable() {
+            alert('데모버전에선 이용 불가능')
+        }
     },
     mounted() {
-        this.requestChannelInfo(this.$route.query['channelId']);
+        if(!!this.$route.query['channelId']) {
+            this.requestChannelInfo(this.$route.query['channelId']);
+        }
     },
     watch: {
         '$route.query' () {
@@ -247,6 +260,9 @@ div.product-box {
             flex-wrap:wrap;
             .item {
                 margin-right:20px;
+                &:hover {
+                    background-color: var(--background-color-darken);
+                }
             }
         }
     }

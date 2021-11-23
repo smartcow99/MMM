@@ -4,8 +4,8 @@
             <slot/>
             <div class="fade-transparent"></div>
         </div>
-        <Btn v-if="isFold" @click="spread">자세히보기</Btn>
-        <Btn v-else @click="fold">접기</Btn>
+        <Btn v-if="isFold" theme="primary" @click="spread">자세히보기</Btn>
+        <Btn v-else theme="gray" @click="fold">접기</Btn>
     </div>
 
 </template>
@@ -31,10 +31,12 @@ export default {
 </script>
 
 <style scoped>
-.detail .view-box {
+.detail {
     border:1px solid var(--placeholder-color);
     border-radius:4px;
-    padding:30px 20px;
+    padding:30px 20px 10px 20px;
+}
+.detail .view-box {
     overflow:hidden;
     position: relative;
     height:fit-content;

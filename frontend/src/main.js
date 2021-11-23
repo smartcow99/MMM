@@ -21,7 +21,9 @@ import {
   faPlay,
   faPause,
   faRedo,
-  faWonSign
+  faWonSign,
+  faArrowUp,
+  faArrowDown
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faStar as farStar,
@@ -52,6 +54,8 @@ library.add(faPlay);
 library.add(faPause);
 library.add(faRedo);
 library.add(faWonSign);
+library.add(faArrowUp);
+library.add(faArrowDown);
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);

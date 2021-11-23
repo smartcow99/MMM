@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h1 {
     text-align:left;
 }
@@ -55,7 +55,7 @@ h1 {
     flex-wrap:wrap;
 }
 .short-list .item {
-    margin-right:20px;
+    margin-right:40px;
     margin-bottom:30px;
 }
 </style>

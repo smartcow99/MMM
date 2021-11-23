@@ -46,7 +46,7 @@
         </div>
       </div>
     </aside>
-    <article>
+    <article ref="article" @scroll="scrollHandler($event)">
       <router-view/>
     </article>
   </main>
@@ -133,7 +133,13 @@ export default {
       'getRecommendTags',
       'getRecommendChannels',
       'requestSubscribeChannels',
-      'requestSearch'
+      'requestSearch',
+      'moreChannelSearch',
+      'moreShortSearch',
+      'moreProductSearch',
+      'morePurchaseHistory',
+      'moreShortRecommand',
+      'moreChannelShorts'
     ]),
     closeLogin() {
       this.setLoginPageOn(false);
@@ -155,6 +161,35 @@ export default {
     },
     logout() {
       this.requestLogout();
+    },
+    scrollHandler(event) {
+      const articleEl = this.$refs['article'];
+      if(event.target.scrollTop+articleEl.clientHeight+100 > articleEl.scrollHeight) {
+        // console.log('tick')
+        switch(this.$route.path) {
+          case '/': {
+            this.moreShortRecommand(); break;
+          }
+          case '/channelshort': {
+            this.moreChannelShorts(); break; 
+          }
+          case '/channel': {
+            this.moreChannelShorts(); break; 
+          }
+          case '/search/channels': {
+            this.moreChannelSearch(); break; 
+          }
+          case '/search/products': {
+            this.moreProductSearch(); break; 
+          }
+          case '/search': {
+            this.moreShortSearch(); break; 
+          }
+          case '/mypage/purchase-history': {
+            this.morePurchaseHistory(); break; 
+          }
+        }
+      }
     }
   },
   watch: {
@@ -170,10 +205,13 @@ export default {
 :root {
   --white-text-color: #FEFEFE;
   --placeholder-color: #CCCCCC;
+  --placeholder-color-darken: #BBBBBB;
   --text-color:#000000;
   --background-color: #FEFEFE;
   --background-color-darken: #EEEEEE;
   --primary-color: #3D3D78;
+  --primary-color-lighten:#494991;
+  --primary-color-darken: #2c2c57;
   --error-color: #FF5252;
   --warning-color: #FB8C00;
   --info-color: #2196F3;
@@ -194,7 +232,6 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   position:absolute;
   height:100%;
   width:100%;
@@ -274,8 +311,8 @@ main {
     div.page {
       position:absolute;
       left:0;
-      margin-left:60px;
-      width:960px;
+      padding-left:40px;
+      width:1020px;
       padding-bottom:200px;
     }
   }

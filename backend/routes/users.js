@@ -143,4 +143,15 @@ router.get('/productInfo', async (req, res) => {
   else
     return res.status(400).send('fail');
 })
+router.get('/isPurchase', islogined, async(req, res)=>{
+  const result = await db.is_purchase(req.query.pid,req.session.cid);
+  if(result){
+    if(result[0])
+      return res.status(200).send(true)
+    else
+      return res.status(200).send(false)
+  }
+  else
+    return res.status(400).send('fail')
+})
 module.exports = router;

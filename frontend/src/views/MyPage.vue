@@ -2,8 +2,13 @@
     <div class="entire-box page">
         <div class="info-box">
             <div class="tab">
-                <router-link to="/mypage/">마이페이지</router-link> &nbsp;&nbsp;|&nbsp;&nbsp;
-                <router-link to="/mypage/purchase-history">구매 내역</router-link> 
+                <router-link to="/mypage/" :class="{selected:$route.path==='/mypage' || $route.path==='/mypage/'}">
+                    <span>마이페이지</span>
+                </router-link>
+                <span class="divider"></span>
+                <router-link to="/mypage/purchase-history" :class="{selected:$route.path==='/mypage/purchase-history'}">
+                    <span>구매 내역</span>
+                </router-link> 
             </div>
             
             <router-view/>
@@ -20,19 +25,32 @@ export default {
 <style scoped>
 div.entire-box{
     flex-direction: column;
+    /* background-image:url('../assets/images/oriental-tiles.png'); */
+    /* background-color:var(--primary-color); */
+    background-repeat:repeat;
 }
 div.tab{
-    display:flex;
+    display:inline-flex;
     flex-direction: row;
     justify-items: flex-start;
-    font-size:28px;
+    font-size:1.5em;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    background-color:var(--background-color);
 }
-div.info-box{
-    position: absolute;
-    margin-top:70px;
-    margin-left:70px;
+div.tab a {
+    padding:10px;
 }
-
+div.tab a span{
+    padding:10px 0;
+}
+.selected span{
+    border-bottom:5px solid var(--primary-color);
+}
+span.divider {
+    width:1px;
+    height:20px;
+    background-color:var(--text-color);
+    margin:auto 0;
+}
 </style>

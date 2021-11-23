@@ -89,6 +89,7 @@ export default {
     cursor:pointer;
     overflow:hidden;
     box-shadow:2px 2px 6px #999999;
+    text-align:center;
 }
 .shorts:hover {
     transition:0.3s;
@@ -103,7 +104,7 @@ export default {
     margin-top:20px;
     color:white;
     position:relative;
-    font-size:2em;
+    font-size:1.5em;
     top:-90%;    
 }
 img{

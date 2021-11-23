@@ -4,7 +4,7 @@
             <UploadBox 
                 class="upload-box"
                 @upload="uploadFile"
-            >{{explainText}}</UploadBox>
+            ><p>{{explainText}}</p></UploadBox>
             <div class="analysis-result">
                 <h2>AI 얼굴 분석</h2>
                 <div class="analysis-result-content">
