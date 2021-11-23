@@ -5,19 +5,19 @@ const multer = require('multer');
 const { PythonShell } = require("python-shell");
 const islogined = require('../my_modules/logincheck')
 
-// const upload = multer({ dest: 'uploads/', limits: { fileSize: 5 * 1024 * 1024 } });
-// // const upload = multer({
-// //   storage: multer.diskStorage({
-// //     // set a localstorage destination
-// //     destination: (req, file, cb) => {
-// //       cb(null, 'uploads/');
-// //     },
-// //     // convert a file name
-// //     filename: (req, file, cb) => {
-// //       cb(null, new Date().valueOf() + path.extname(file.originalname));
-// //     },
-// //   }),
-// // });
+// const upload = multer({ dest: 'public/image', limits: { fileSize: 5 * 1024 * 1024 } });
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     // set a localstorage destination
+//     destination: (req, file, cb) => {
+//       cb(null, 'uploads/');
+//     },
+//     // convert a file name
+//     filename: (req, file, cb) => {
+//       cb(null, new Date().valueOf() + path.extname(file.originalname));
+//     },
+//   }),
+// });
 // /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
@@ -32,9 +32,10 @@ const islogined = require('../my_modules/logincheck')
 //   console.log(req.file);
 //   res.send('ok');
 // })
+const upload = multer({ dest: 'uploads/' })
 
-
-router.get('/pytest',(req, res)=>{
+router.post('/pytest',upload.single('img'),(req, res)=>{
+  console.log(req.file)
   let options = {
     scriptPath: "my_modules",
     args: ['helloworld', 'value2']
@@ -68,6 +69,7 @@ router.get('/logout',islogined,(req, res)=>{
 })
 
 router.get('/search',async (req, res)=>{
+  console.log(req.query.content, req.query.type)
   const cid = req.session.cid | 0;
   const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum);
 
@@ -88,7 +90,6 @@ router.get('/recommend', async (req, res)=>{
 })
 
 router.get('/purchaseList', islogined, async (req, res)=>{
-  console.log(req.query.requestNum);
   const result = await db.get_purchare_list(req.session.cid, req.query.requestNum);
 
   if(result)
@@ -153,5 +154,15 @@ router.get('/isPurchase', islogined, async(req, res)=>{
   }
   else
     return res.status(400).send('fail')
+})
+
+router.get('/addRequest', async (req, res)=>{
+  const id = req.query.chid | req.query.pid | req.query.vid | 0;
+  const result = await db.add_request(req.query.type, id, req.query.requestNum)
+  
+  if(result)
+    return res.status(200).send(result);
+  else
+    return res.status(400).send('fail');
 })
 module.exports = router;
