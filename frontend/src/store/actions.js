@@ -102,13 +102,18 @@ export default {
     async requestSearch({ commit }, payload) {
         //검색 요청 ( payload: 검색 string )
         //검색 타입에 따라 다른 commit 실행(short,channel,product)
+        console.log(payload)
+        if(!payload['content']) {
+            alert('내용이 비어있습니다.');
+            return;
+        }
         commit("initRequestNum");
         if (payload["type"] === "channel") {
             const response = await axios.get("http://34.64.76.43:3000/users/search", {
                 params: {
-                type: "channel",
-                content: payload["content"],
-                requestNum: 0,
+                    type: "channel",
+                    content: payload["content"],
+                    requestNum: 0,
                 },
             });
             if ((response.status = 200)) {
@@ -117,16 +122,15 @@ export default {
         } else if (payload["type"] === "product") {
             const response = await axios.get("http://34.64.76.43:3000/users/search", {
                 params: {
-                type: "product",
-                content: payload["content"],
-                requestNum: 0,
+                    type: "product",
+                    content: payload["content"],
+                    requestNum: 0,
                 },
             });
             if ((response.status = 200)) {
                 commit("setProductList", response.data.searchResult);
             }
         } else {
-            console.log(payload)
             const response = await axios.get("http://34.64.76.43:3000/users/search", {
                 params: {
                     type: "short",
@@ -134,7 +138,6 @@ export default {
                     requestNum: 0,
                 },
             });
-            console.log(response)
             if ((response.status = 200)) {
                 commit("setShortList", response.data.searchResult);
             }
@@ -268,6 +271,7 @@ export default {
             },
         });
         if ((response.status = 200)) {
+            console.log(response.data)
             commit("setProductInfo", response.data);
         }
         // commit("setProductInfo", {

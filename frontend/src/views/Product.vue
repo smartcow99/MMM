@@ -1,37 +1,37 @@
 <template>
     <div id="product" class="page">
-        <ImageViewer class="image-viewer" :imageList="currentProduct['productImages']"></ImageViewer>
+        <ImageViewer class="image-viewer" :imageList="currentProduct['productImages'] || []"></ImageViewer>
         <table class="product-info">
             <tr>
                 <td>상품명</td>
-                <td>{{currentProduct['productInfo'].title}}</td>
+                <td>{{currentProduct['productInfo'].title || ''}}</td>
             </tr>
             
             <tr>
                 <td>제조사</td>
-                <td>{{currentProduct['productInfo'].manufacturer}}</td>
+                <td>{{currentProduct['productInfo'].manufacturer || ''}}</td>
             </tr>
             <tr>
                 <td>평점</td>
                 <td>
-                    <StarRating :rate="currentProduct['productInfo'].rate"/>
-                    <small>({{currentProduct['productInfo'].rate}})</small>
+                    <StarRating :rate="currentProduct['productInfo'].rate || 0"/>
+                    <small>({{currentProduct['productInfo'].rate || 0}})</small>
                 </td>
             </tr>
             <tr>
                 <td>가격</td>
                 <td>
-                    {{currentProduct['productInfo'].price}} 원
+                    {{currentProduct['productInfo'].price ||0}} 원
                 </td>
             </tr>
             <tr>
                 <td>조회수</td>
-                <td>{{currentProduct['productInfo'].views}}</td>
+                <td>{{currentProduct['productInfo'].views || 0}}</td>
             </tr>
         </table>
         <Detail class="product-explain">
             상품상세설명
-            <div v-html="currentProduct['productExplainHtml']"></div>
+            <div v-html="currentProduct['productExplainHtml'] || ''"></div>
         </Detail>
         <h2 class="related-shorts-title">shorts</h2>
         <Slider 
