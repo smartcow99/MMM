@@ -5,7 +5,7 @@
                 <font-awesome-icon icon="times"/>
             </button>
             <div id="short-video"> 
-                <video/>
+                <video :src="currentShort['url']"/>
                 <font-awesome-icon class="icon" icon="redo"/>
                 <font-awesome-icon class="icon" icon="pause"/>
                 <font-awesome-icon class="icon" icon="play"/>
