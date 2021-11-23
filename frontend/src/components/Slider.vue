@@ -49,7 +49,7 @@ export default {
     display:flex;
     flex-direction:row;
     justify-content: center;
-    overflow:hidden;
+    /* overflow:hidden; */
 }
 .slider button {
     width:50px;

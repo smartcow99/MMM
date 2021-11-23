@@ -22,7 +22,7 @@
             </span>
         </div>
         <div class="right">
-            <h2>{{currentShort['title']}}</h2>
+            <h2 id="short-title">{{currentShort['title']}}</h2>
             <div class="channel">
                 <div class="channel-info">
                     <!-- 채널 프로필 -->
@@ -58,7 +58,7 @@
                 v-for="(value,index) in currentShort['relatedTags']" :key="index"
                 :title="value"
             />
-            <Slider 
+            <Slider class="slider"
                 :count="4"
                 :elWidth="100"
                 :maxIndex="currentShort['relatedProducts'].length">
@@ -72,7 +72,7 @@
                 />
             </Slider>
             <WriteComment v-if="userInfo['isLogined']" @write="registComment"></WriteComment>
-            <div v-else>
+            <div class="unlogined-comment" v-else>
                 댓글을 등록하려면 로그인을 해주세요
                 <Btn @click="openLogin">로그인</Btn>
             </div>
@@ -81,6 +81,7 @@
                     v-for="(comment,index) in currentShort['comments']"
                     :key="index" 
                     :commentInfo="comment"
+                    
                     
                 />
             </div>
@@ -98,6 +99,11 @@ import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
 export default {
     components: { Slider,ProductMini,WriteComment,Comment,Btn },
+    data(){
+        return{
+            comment:"test",
+        }
+    },
     name:'Short',
     computed: {
         ...mapState([
@@ -200,10 +206,13 @@ export default {
     display:flex;
     flex-direction: column;
     /* justify-content: center; */
+    align-items: center;
     align-items: flex-start;
     margin-left: 50px;
 }
-
+#short-title{
+    font-weight: bold;
+}
 img.channel-profile-image{
     width:40px;
     height: 40px;
@@ -218,15 +227,16 @@ img.channel-profile-image{
     text-align: left;
 }
 .channel-info{
+    width: 700px;
     display:flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 #channel-meta-data{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-right: 400px;
-    margin-left: 10px;
+    margin-right: 360px;
 }
 #channel-data{
     display:flex;
@@ -245,5 +255,11 @@ img.channel-profile-image{
     margin-top: 10px;
     margin-bottom: 30px;
     text-align: left;
+}
+.unlogined-comment{
+    margin:10px 0 10px 0;
+}
+.slider{
+   margin-left:100px;
 }
 </style>
