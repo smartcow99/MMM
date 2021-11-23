@@ -4,6 +4,8 @@ const db = require('../my_modules/db');
 const multer = require('multer');
 const { PythonShell } = require("python-shell");
 const islogined = require('../my_modules/logincheck')
+const fs = require('fs');
+const path = require('path');
 
 // const upload = multer({ dest: 'public/image', limits: { fileSize: 5 * 1024 * 1024 } });
 // const upload = multer({
@@ -32,25 +34,27 @@ const islogined = require('../my_modules/logincheck')
 //   console.log(req.file);
 //   res.send('ok');
 // })
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: 'public/testimg' })
 
 router.post('/pytest',upload.single('img'),(req, res)=>{
-  console.log(req.file)
   let options = {
     scriptPath: "my_modules",
-    args: ['helloworld', 'value2']
+    args: [`public/testimg/${req.file.filename}`]
   };
   PythonShell.run("test.py", options, function(err, data) {
-    if (err) throw err;
-    console.log(data);
-    res.send('ok')
+    if (err) return res.status(400).send('fail');
+    fs.unlink(path.join(__dirname,'../public/testimg/',req.file.filename), err => {
+      if(err && err.code == 'ENOENT'){
+          console.log("파일 삭제 Error 발생");
+      }
+    });
+    return res.send('ok')
   });
 })
 
 router.post('/login', async (req, res)=>{
   const [result] = await db.login(req.body.id, req.body.password);
   if(result && result.cid){
-    console.log(result.cid, ' logined');
     req.session.islogined = true;
     req.session.cid = result.cid;
     res.status(200).send('success');
@@ -69,7 +73,6 @@ router.get('/logout',islogined,(req, res)=>{
 })
 
 router.get('/search',async (req, res)=>{
-  console.log(req.query.content, req.query.type)
   const cid = req.session.cid | 0;
   const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum);
 
@@ -82,7 +85,6 @@ router.get('/search',async (req, res)=>{
 router.get('/recommend', async (req, res)=>{
   const cid = req.session.cid | 0;
   const result = await db.recommend(req.query.type, cid, req.query.requestNum);
-
   if(result)
     return res.status(200).send(result);
   else
@@ -159,7 +161,16 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 router.get('/addRequest', async (req, res)=>{
   const id = req.query.chid | req.query.pid | req.query.vid | 0;
   const result = await db.add_request(req.query.type, id, req.query.requestNum)
-  
+
+  if(result)
+    return res.status(200).send(result);
+  else
+    return res.status(400).send('fail');
+})
+
+router.get('/info', islogined, async (req, res) => {
+  const result = await db.get_user_info(req.session.cid);
+
   if(result)
     return res.status(200).send(result);
   else

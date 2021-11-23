@@ -4,29 +4,29 @@
         <table class="product-info">
             <tr>
                 <td>상품명</td>
-                <td>{{currentProduct['productInfo'].title || ''}}</td>
+                <td>{{currentProduct['title'] || ''}}</td>
             </tr>
             
             <tr>
                 <td>제조사</td>
-                <td>{{currentProduct['productInfo'].manufacturer || ''}}</td>
+                <td>{{currentProduct['manufacturer'] || ''}}</td>
             </tr>
             <tr>
                 <td>평점</td>
                 <td>
-                    <StarRating :rate="currentProduct['productInfo'].rate || 0"/>
-                    <small>({{currentProduct['productInfo'].rate || 0}})</small>
+                    <StarRating :rate="currentProduct['rate'] || 0"/>
+                    <small>({{currentProduct['rate'] || 0}})</small>
                 </td>
             </tr>
             <tr>
                 <td>가격</td>
                 <td>
-                    {{currentProduct['productInfo'].price ||0}} 원
+                    {{currentProduct['price'] ||0}} 원
                 </td>
             </tr>
             <tr>
                 <td>조회수</td>
-                <td>{{currentProduct['productInfo'].views || 0}}</td>
+                <td>{{currentProduct['views'] || 0}}</td>
             </tr>
         </table>
         <Detail class="product-explain">
@@ -71,13 +71,13 @@
     </BlurCard>
     <div class="purchase-guide" :class="{hidden:guideHide}" ref="guide">
         <button class="guide-control" @click="hideGuide">
-                <font-awesome-icon v-if="guideHide" icon="arrow-up"/>
-                <font-awesome-icon v-else icon="arrow-down"/>
+            <font-awesome-icon v-if="guideHide" icon="arrow-up"/>
+            <font-awesome-icon v-else icon="arrow-down"/>
         </button>
         <img class="product-image" :src="currentProduct['productImages'][0]"/>
         <div class="product-info">
-            <h2>{{currentProduct['productInfo'].title}}</h2>
-            <p>{{currentProduct['productInfo'].price}} 원</p>
+            <h2>{{currentProduct['title']}}</h2>
+            <p>{{currentProduct['price']}} 원</p>
         </div>
         <Btn class="purchase-button" @click="openPurchasePage">구매</Btn>
     </div>
@@ -142,7 +142,7 @@ export default {
             }
         },
         addComment(){
-            if(this.userInfo['isLogined']===true) {
+            if(this.userInfo['isLogined']!==true) {
                 //해당 유저가 이 물품을 구매한적 있는지 먼저 확인할 것
                 this.addCommentPageOn=true;
             }

@@ -9,11 +9,11 @@
     <div class="login-form" >
         <div id="input-id">
             <font-awesome-icon id="user-icon" :icon="faUser"/>
-            <input type="text" name="userId"/>
+            <input type="text" v-model="id" name="userId"/>
         </div>
         <div id="input-password">
             <font-awesome-icon id="lock-icon" :icon="faLock"/>
-            <input type="password" name="userPassword"/>
+            <input type="password" v-model="password" name="userPassword"/>
         </div>
         <Btn type="submit" id="submit-button" @click="requestLogin">Log in</Btn>      
 
@@ -38,6 +38,8 @@ data(){
     return{
         faUser,
         faLock,
+        id:'',
+        password:''
     }
 },
 computed: {
@@ -47,14 +49,17 @@ computed: {
 },
 methods:{
     requestLogin(){
-        this.$store.dispatch('requestLogin');
+        this.$store.dispatch('requestLogin',{
+            id:this.id,
+            password:this.password
+        });
     },
     
     goToSignUp(){
-       alert("데모 버전에선 안돼요")
+        alert("데모 버전에선 안돼요")
     },
     goToFindPassword(){
-       alert("데모 버전에선 안돼요")
+        alert("데모 버전에선 안돼요")
     }
     
 },
@@ -112,9 +117,9 @@ components:{
     
 }
 input{  
-        width:340px;
-        height:30px;
-        border:0;
+    width:340px;
+    height:30px;
+    border:0;
 }
 input:focus{
     outline: none;
@@ -151,8 +156,8 @@ input:focus{
 
 }
 #lock-icon{
-   width:20px;
-   height:20px;
+    width:20px;
+    height:20px;
 }
 #submit-button{
     width:400px;
