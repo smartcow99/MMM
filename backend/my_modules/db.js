@@ -53,7 +53,7 @@ const api = {
 	},
 
 	get_short_info: async (vid, cid) =>{
-		const [res] = await pool.query(`select distinct  title, vid as shortId, v_comment as info, numOfHearts, hits as numOfViews, url, case when cid = ${cid} then 'true' else 'false' end as isMyShort from mmmservice.video natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b natural join channel where vid = ${vid}`)
+		const [res] = await pool.query(`select distinct  title, vid as shortId, v_comment as info, numOfHearts, hits as numOfViews, url, numOfShorts, case when cid = ${cid} then 'true' else 'false' end as isMyShort from video natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid) as recommendCounts natural join channel left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where vid = ${vid}`)
 		return res;
 	},
 	get_channel_info: async (chid, cid)=>{
@@ -114,9 +114,18 @@ const api = {
 		const [res] = await pool.query(`select * from purchase where pid = ${pid} and cid = ${cid} `)
 		return res;
 	},
+	get_user_info: async (cid) =>{
+		const [res] = await pool.query(`select c_name as name, id as ID, chid as channelId, birth, channel.ch_profile as profileImage, case when ${cid} is not null then 'true' else 'false' end as isLogined from customer natural join channel`)
+		return res;
+	}
 
 }
-
+const to_string_arr = (arr, name)=>{
+	let newarr = [];
+	for(idx in arr)
+		newarr[idx] = arr[idx][name];
+	return newarr;
+}
 module.exports = new Proxy(api,{
 	get: (target, apiName, receiver)=>{
 		if(apiName == 'login'){ // 로그인 신청시
@@ -151,8 +160,10 @@ module.exports = new Proxy(api,{
 		}
 		else if(apiName == 'recommend'){
 			return async function(type, cid, reqNum) {
-				if(type == 'tag')
-					return await target.recommend_tag();
+				if(type == 'tag'){
+					let tag = await target.recommend_tag();
+					return to_string_arr(tag, 'tag')
+				}
 				else if(type == 'channel'){
 					const result = await target.recommend_channel(cid);
 					return result.filter(element => {
@@ -200,7 +211,7 @@ module.exports = new Proxy(api,{
 		else if(apiName == 'product_info') {
 			return async function(pid) {
 				let [res] = await target.get_product_info(pid);
-					res.productImages = await target.get_product_img_info(pid);
+					res.productImages = to_string_arr( await target.get_product_img_info(pid), 'productImages');
 					res.relatedShorts = await target.get_related_short_info(pid,0);
 					res.reviews = await target.get_product_review(pid,0);
 				return res;
@@ -212,8 +223,3 @@ module.exports = new Proxy(api,{
 })
 
 
-// module.exports.account = async () =>{
-// 	let [a] = await pool.query(`select * from ${table}`);
-// 	console.log(a);
-// 	return a;
-// }
