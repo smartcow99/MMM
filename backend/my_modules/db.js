@@ -116,6 +116,7 @@ const api = {
 		const [res] = await pool.query(`select c_name as name, id as ID, chid as channelId, birth, channel.ch_profile as profileImage, case when ${cid} is not null then 'true' else 'false' end as isLogined from customer natural join channel`)
 		return res;
 	},
+	// subscribe_list need to repare
 	get_subscribe_list: async (cid) =>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when ${cid} not in(select cid from subscribe) then 'false' else 'true' end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where cid = ${cid}`)
 		return res;
@@ -231,5 +232,3 @@ module.exports = new Proxy(api,{
 			return target[apiName];
 	}
 })
-
-
