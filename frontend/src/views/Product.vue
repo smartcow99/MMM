@@ -46,9 +46,9 @@
                 :shortInfo="short"
             />
         </Slider>
-        <h2 class="reviews-title">shorts</h2>
+        <h2 class="reviews-title">사용 후기</h2>
         <div class="reviews">
-            <Btn @click="addComment">댓글 쓰기</Btn>
+            <Btn class="write-review-button" @click="addComment">리뷰 쓰기</Btn>
             <Review 
                 class="review"
                 v-for="(review,index) in currentProduct['reviews']"
@@ -63,9 +63,9 @@
     <BlurCard v-if="purchasePageOn" @close="closePurchase">
         <Purchase/>
     </BlurCard>
-    <div class="purchase-guide" :class="{show:guideShow}" ref="guide">
+    <div class="purchase-guide" :class="{hidden:guideHide}" ref="guide">
         <button class="guide-control" @click="hideGuide">
-                <font-awesome-icon v-if="guideShow" icon="arrow-up"/>
+                <font-awesome-icon v-if="guideHide" icon="arrow-up"/>
                 <font-awesome-icon v-else icon="arrow-down"/>
         </button>
         <img class="product-image" :src="currentProduct['productImages'][0]"/>
@@ -79,7 +79,7 @@
 
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import Btn from '../components/Btn.vue';
 import Detail from '../components/Detail.vue'
 import Review from '../components/Review.vue';
@@ -97,23 +97,40 @@ export default {
         return{
             purchasePageOn:false,
             addCommentPageOn:false,
-            guideShow:true,
+            guideHide:false,
         }
     },
     computed: {
         ...mapState([
-            'currentProduct'
+            'currentProduct',
+            'userInfo'
         ])
     },
     methods: {
+        ...mapMutations([
+            'setLoginPageOn'
+        ]),
         ...mapActions([
             'requestProductInfo'
         ]),
         openPurchasePage(){
-            this.purchasePageOn=true;
+            if(this.userInfo['isLogined']===true) {
+                this.purchasePageOn=true;
+            }
+            else {
+                alert('로그인을 해야 서비스를 이용할 수 있습니다.');
+                this.setLoginPageOn(true);
+            }
         },
         addComment(){
-            this.addCommentPageOn=true;
+            if(this.userInfo['isLogined']===true) {
+                //해당 유저가 이 물품을 구매한적 있는지 먼저 확인할 것
+                this.addCommentPageOn=true;
+            }
+            else {
+                alert('로그인을 해야 서비스를 이용할 수 있습니다.');
+                this.setLoginPageOn(true);
+            }
         },
         closePurchase(){
             this.purchasePageOn=false;
@@ -122,11 +139,11 @@ export default {
             this.addCommentPageOn=false;
         },
         hideGuide() {
-            if(this.guideShow){
-                this.guideShow=false;
+            if(this.guideHide){
+                this.guideHide=false;
             }
             else {
-                this.guideShow=true;
+                this.guideHide=true;
             }
         }
     },
@@ -189,6 +206,9 @@ h2.reviews-title {
     margin-top:100px;
 }
 div.reviews {
+    .write-review-button{
+        margin-bottom:20px;
+    }
     .review {
         margin-bottom:20px;
     }
@@ -237,7 +257,7 @@ div.purchase-guide {
         height:40px;
         width:100px;
     }
-    &.show {
+    &.hidden {
         transform:translateY(100px);
     }
 }

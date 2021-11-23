@@ -160,15 +160,17 @@ export default {
         }
     },
     mounted() {
-        this.requestChannelInfo(this.$route.query['channelId']);
+        if(!!this.$route.query['channelId']) {
+            this.requestChannelInfo(this.$route.query['channelId']);
+        }
     },
-    watch: {
-        '$route.query' () {
-            if(!!this.$route.query['channelId']) {
-                this.requestChannelInfo(this.$route.query['channelId']);
-            }
-        },
-    }
+    // watch: {
+    //     '$route.query' () {
+    //         if(!!this.$route.query['channelId']) {
+    //             this.requestChannelInfo(this.$route.query['channelId']);
+    //         }
+    //     },
+    // }
 }
 </script>
 
