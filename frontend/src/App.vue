@@ -201,10 +201,13 @@ export default {
 :root {
   --white-text-color: #FEFEFE;
   --placeholder-color: #CCCCCC;
+  --placeholder-color-darken: #BBBBBB;
   --text-color:#000000;
   --background-color: #FEFEFE;
   --background-color-darken: #EEEEEE;
   --primary-color: #3D3D78;
+  --primary-color-lighten:#494991;
+  --primary-color-darken: #2c2c57;
   --error-color: #FF5252;
   --warning-color: #FB8C00;
   --info-color: #2196F3;
