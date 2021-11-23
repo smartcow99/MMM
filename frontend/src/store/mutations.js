@@ -161,6 +161,26 @@ export default {
         break;
     }
   },
+  sortReviewList(state, { type }) {
+    const sortByHighRate = (a, b) => {
+      if (a.rate < b.rate) return 1;
+      else if (a.rate < b.rate) return 0;
+      else return -1;
+    };
+    const sortByLowRate = (a, b) => {
+      if (a.rate < b.rate) return -1;
+      else if (a.rate < b.rate) return 0;
+      else return 1;
+    };
+    switch (type) {
+      case "high-rate":
+        state["currentProduct"].reviews.sort(sortByHighRate);
+        break;
+      case "low-rate":
+        state["currentProduct"].reviews.sort(sortByLowRate);
+        break;
+    }
+  },
   initRequestNum(state) {
     state['requestNum'] = 0;
   },
@@ -178,6 +198,9 @@ export default {
   },
   pushShortRecommand(state,payload) {
     state['RecommendShortList'].push(payload)
+  },
+  pushChannelShort(state,payload) {
+    state['currentChannel'].shortList.push(payload)
   },
   pushComment(state,payload) {
     state['currentShort'].comments.push(payload)

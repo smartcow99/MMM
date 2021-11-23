@@ -639,6 +639,9 @@ export default {
     async moreShortRecommand(){
         commit('pushShortRecommand',[])
     },
+    async moreChannelShorts(){
+        commit('pushChannelShort',[])
+    },
     async moreComment(){
         commit('pushComment',[])
     },
