@@ -26,7 +26,7 @@
           <h3>구독한 채널</h3>
           <hr/>
           <ChannelList path="/channelshort" :channelList="defaultChannels"/>
-          <ChannelList path="/channelshort" :channelList="userInfo['subscribeChannelList']"/>
+          <!-- <ChannelList path="/channelshort" :channelList="userInfo['subscribeChannelList']"/> -->
         </div>
         <div v-else class="Recommend-channels">
           <h3>추천 채널</h3>
@@ -162,8 +162,9 @@ export default {
     },
     scrollHandler(event) {
       const articleEl = this.$refs['article'];
-      if(event.target.scrollTop+articleEl.clientHeight+100 > articleEl.scrollHeight) {
-        // console.log('tick')
+      const scrollPosition = (event.target.scrollTop+articleEl.clientHeight)/300
+      console.log(articleEl.scrollHeight/300)
+      if(event.target.scrollTop+articleEl.clientHeight+10 > articleEl.scrollHeight) {
         switch(this.$route.path) {
           case '/': {
             this.moreShortRecommend(); break;

@@ -1,7 +1,7 @@
 <template>
     <div class="channel-list">
         <router-link
-            v-for="(value,index) in channelList.slice(0,5)" 
+            v-for="(value,index) in channelList" 
             :key="index"
             :to="{ path: path, query:{'channelId':value.channelId}}"
         >

@@ -30,6 +30,7 @@ export default {
             }
         );
         if (response.data) {
+            console.log(response.data)
             commit("setRecommendChannelList", response.data);
         }
     },
@@ -60,7 +61,7 @@ export default {
         });
         // console.log(response.status);
         if ((loginResponse.status = 200)) {
-            const userInfoResponse = await axios.post("http://34.64.76.43:3000/users/info");//유저 정보 요청
+            // const userInfoResponse = await axios.post("http://34.64.76.43:3000/users/info");//유저 정보 요청
             commit("setUserInfo", {
                 isLogined: false,
                 name: "홍길동",
