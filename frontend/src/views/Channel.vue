@@ -31,7 +31,10 @@
                 <small class="channel-intro">{{currentChannel['introduce']}}</small>
             </div>
         </div>
-        <h3>{{`'${currentChannel['title']}'님의 화장대`}}</h3>
+        <div class="dress-table">
+            <h3>{{`'${currentChannel['title']}' 님의 화장대`}}</h3>
+            <Btn theme="white">수정하기</Btn>
+        </div>
         <Detail v-if="currentChannel['isMyChannel']">
             <div class="product-box">
                 <div class="product-list"
@@ -40,7 +43,9 @@
                 >
                     <div class="product-category">{{key}}</div>
                     <div class="product-items">
-                        <DeleteBox @delete="deleteProduct"
+                        <DeleteBox 
+                            class="item"
+                            @delete="deleteProduct"
                             v-for="(product,index) in productList"
                             :key="index">
                             <ProductMini
@@ -62,6 +67,7 @@
                     <div class="product-category">{{key}}</div>
                     <div class="product-items">
                         <ProductMini
+                            class="item"
                             v-for="(product,index) in productList"
                             :key="index"
                             :img="product.img"
@@ -247,6 +253,9 @@ div.product-box {
             flex-wrap:wrap;
             .item {
                 margin-right:20px;
+                &:hover {
+                    background-color: var(--background-color-darken);
+                }
             }
         }
     }

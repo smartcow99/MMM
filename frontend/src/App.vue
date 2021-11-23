@@ -164,7 +164,7 @@ export default {
     scrollHandler(event) {
       const articleEl = this.$refs['article'];
       if(event.target.scrollTop+articleEl.clientHeight+100 > articleEl.scrollHeight) {
-        console.log('tick')
+        // console.log('tick')
         switch(this.$route.path) {
           case '/': {
             this.moreShortRecommand(); break;
