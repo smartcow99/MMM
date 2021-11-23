@@ -639,4 +639,10 @@ export default {
     async moreShortRecommand(){
         commit('pushShortRecommand',[])
     },
+    async moreComment(){
+        commit('pushComment',[])
+    },
+    async moreReview(){
+        commit('pushReview',[])
+    },
 };

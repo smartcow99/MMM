@@ -178,8 +178,15 @@ export default {
   },
   pushShortRecommand(state,payload) {
     state['RecommendShortList'].push(payload)
+  },
+  pushComment(state,payload) {
+    state['currentShort'].comments.push(payload)
+  },
+  pushReview(state,payload) {
+    state['currentProduct'].reviews.push(payload)
   }
 };
+
 
 
 
