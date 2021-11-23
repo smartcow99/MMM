@@ -38,7 +38,7 @@
                 short개수
                 {{currentShort['relatedChannel'].numOfShorts}}
                 구독버튼
-                <Btn v-if="currentShort['isMyShort']" :theme="white" @click="unsubscribe">수정하기</Btn>
+                <Btn v-if="currentShort['isMyShort']" :theme="white" @click="modifyShort">수정하기</Btn>
                 <Btn v-if="isSubscribed" :theme="gray" @click="unsubscribe">구독 취소</Btn>
                 <Btn v-else :theme="primary" @click="subscribe">구독</Btn>
             </div>
@@ -122,12 +122,17 @@ export default {
             this.setLoginPageOn(true)
         },
         subscribe() {
-            this.requestSubscribe(this.currentShort['channelId']);
-            this.requestRelatedChannelInfo(this.currentShort['channelId']);
+            alert('데모버전에선 구독요청이 불가능합니다.');
+            // this.requestSubscribe(this.currentShort['channelId']);
+            // this.requestRelatedChannelInfo(this.currentShort['channelId']);
         },
         unsubscribe() {
-            this.requestUnsubscribe(this.currentShort['channelId']);
-            this.requestRelatedChannelInfo(this.currentShort['channelId']);
+            alert('데모버전에선 구독취소가 불가능합니다.');
+            // this.requestUnsubscribe(this.currentShort['channelId']);
+            // this.requestRelatedChannelInfo(this.currentShort['channelId']);
+        },
+        modifyShort() {
+            alert('데모버전에선 수정 불가능합니다.');
         },
         pause(){
 
