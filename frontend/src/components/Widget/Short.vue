@@ -38,6 +38,7 @@
                 short개수
                 {{currentShort['relatedChannel'].numOfShorts}}
                 구독버튼
+                <Btn v-if="currentShort['isMyShort']" :theme="white" @click="unsubscribe">수정하기</Btn>
                 <Btn v-if="isSubscribed" :theme="gray" @click="unsubscribe">구독 취소</Btn>
                 <Btn v-else :theme="primary" @click="subscribe">구독</Btn>
             </div>

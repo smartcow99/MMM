@@ -61,6 +61,7 @@ export default {
     state["analysisResult"].RecommendDressing = [];
   },
   setShortInfo(state, payload) {
+    state["currentShort"].isMyShort = payload.isMyShort;
     state["currentShort"].numOfHearts = payload.numOfHearts;
     state["currentShort"].numOfViews = payload.numOfViews;
     state["currentShort"].title = payload.title;

@@ -24,6 +24,7 @@ export default {
 
     searchType: "short",
     currentShort: {
+        isMyShort: false,
         title: "",
         shortId: "",
         numOfHearts: 0,
