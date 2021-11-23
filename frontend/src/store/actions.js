@@ -328,6 +328,8 @@ export default {
     },
     async requestShortInfo({commit},payload) {
         commit('setShortInfo',{
+            isMyShort:true,
+            url:'',
             title:'클릭한 short',
             shortId:999,
             info: '영상 정보 주저리주저리',
