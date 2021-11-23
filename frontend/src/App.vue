@@ -138,7 +138,8 @@ export default {
       'moreShortSearch',
       'moreProductSearch',
       'morePurchaseHistory',
-      'moreShortRecommand'
+      'moreShortRecommand',
+      'moreChannelShorts'
     ]),
     closeLogin() {
       this.setLoginPageOn(false);
@@ -170,7 +171,10 @@ export default {
             this.moreShortRecommand(); break;
           }
           case '/channelshort': {
-            //!!! 여기 해야함!!!
+            this.moreChannelShorts(); break; 
+          }
+          case '/channel': {
+            this.moreChannelShorts(); break; 
           }
           case '/search/channels': {
             this.moreChannelSearch(); break; 
