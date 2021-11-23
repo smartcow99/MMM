@@ -39,7 +39,7 @@ export default {
             handler(to,from) {
                 this.requestSearch({
                     'type':'short',
-                    'content':this.$route.query
+                    'content':this.$route.query['content']
                 });
             }
         }

@@ -33,7 +33,7 @@ export default {
             handler(to,from) {
                 this.requestSearch({
                     'type':'channel',
-                    'content':this.$route.query
+                    'content':this.$route.query['content']
                 });
             }
         }

@@ -73,7 +73,7 @@ export default {
             handler(to,from) {
                 this.requestSearch({
                     'type':'product',
-                    'content':this.$route.query
+                    'content':this.$route.query['content']
                 });
             }
         }

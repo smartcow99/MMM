@@ -126,13 +126,15 @@ export default {
                 commit("setProductList", response.data.searchResult);
             }
         } else {
+            console.log(payload)
             const response = await axios.get("http://34.64.76.43:3000/users/search", {
                 params: {
-                type: "short",
-                content: payload["content"],
-                requestNum: 0,
+                    type: "short",
+                    content: payload["content"],
+                    requestNum: 0,
                 },
             });
+            console.log(response)
             if ((response.status = 200)) {
                 commit("setShortList", response.data.searchResult);
             }
