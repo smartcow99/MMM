@@ -1,5 +1,6 @@
 <template>
     <div id="short-search">
+        <h2 class="search-text">'{{$route.query['content']}}' 검색 결과</h2>
         <div class="short-list">
             <ShortSummary 
                 v-for="(value,index) in shortList" 

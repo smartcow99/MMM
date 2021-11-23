@@ -1,5 +1,6 @@
 <template>
     <div id="product-search">
+        <h2 class="search-text">'{{$route.query['content']}}' 검색 결과</h2>
         <div class="sort-option">
             <label v-for="(value,index) in sortType" :key="index">
                 <input type="checkbox" :checked="sortType[index].isChecked" @change="sorting(index,value.type)"/>

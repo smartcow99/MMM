@@ -1,5 +1,6 @@
 <template>
     <div id="channel-search">
+        <h2 class="search-text">'{{$route.query['content']}}' 검색 결과</h2>
         <div id="short-list">
             <ChannelSummary 
                 v-for="(value,index) in channelList" 

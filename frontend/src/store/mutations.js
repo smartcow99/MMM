@@ -9,6 +9,7 @@ export default {
     state["shortPageOn"] = payload;
   },
   setUserInfo(state, payload) {
+    state["userInfo"].subscribeChannelList = payload.subscribeChannelList;
     state["userInfo"].isLogined = payload.isLogined;
     state["userInfo"].name = payload.name;
     state["userInfo"].ID = payload.ID;
@@ -123,9 +124,6 @@ export default {
   upLikeCount(state) {
     state["currentShort"].like++;
   },
-  setSubscribeChannelList(state, payload) {
-    state["subscribeChannelList"] = payload;
-  },
   sortProductList(state, { type }) {
     //payload: rate, view,  high-price, low-price
     const sortByRate = (a, b) => {
@@ -198,7 +196,7 @@ export default {
   pushPurchaseHistory(state,payload) {
     state['purchaseList'].push(payload)
   },
-  pushShortRecommand(state,payload) {
+  pushShortRecommend(state,payload) {
     state['RecommendShortList'].push(payload)
   },
   pushChannelShort(state,payload) {

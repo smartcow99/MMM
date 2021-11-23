@@ -11,6 +11,7 @@ export default {
         channelId: "",
         birth: "1998-11-02",
         profileImage: "#",
+        subscribeChannelList: [],
     },
     shortList: [], // shorts 내역(검색 결과)
     productList: [], // product 내역(검색 결과)
@@ -19,7 +20,6 @@ export default {
     RecommendTagList: [],
     RecommendChannelList: [],
     RecommendShortList: [],
-    subscribeChannelList: [],
     channelShortList: [],
 
     searchType: "short",

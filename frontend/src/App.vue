@@ -26,7 +26,7 @@
           <h3>구독한 채널</h3>
           <hr/>
           <ChannelList path="/channelshort" :channelList="defaultChannels"/>
-          <ChannelList path="/channelshort" :channelList="subscribeChannelList"/>
+          <ChannelList path="/channelshort" :channelList="userInfo['subscribeChannelList']"/>
         </div>
         <div v-else class="Recommend-channels">
           <h3>추천 채널</h3>
@@ -115,7 +115,6 @@ export default {
       'userInfo',
       'RecommendTagList',
       'RecommendChannelList',
-      'subscribeChannelList',
       'currentShort',
       'loginPageOn',
       'uploadShortPageOn',
@@ -132,13 +131,12 @@ export default {
       'requestLogout',
       'getRecommendTags',
       'getRecommendChannels',
-      'requestSubscribeChannels',
       'requestSearch',
       'moreChannelSearch',
       'moreShortSearch',
       'moreProductSearch',
       'morePurchaseHistory',
-      'moreShortRecommand',
+      'moreShortRecommend',
       'moreChannelShorts'
     ]),
     closeLogin() {
@@ -168,7 +166,7 @@ export default {
         // console.log('tick')
         switch(this.$route.path) {
           case '/': {
-            this.moreShortRecommand(); break;
+            this.moreShortRecommend(); break;
           }
           case '/channelshort': {
             this.moreChannelShorts(); break; 
@@ -192,13 +190,6 @@ export default {
       }
     }
   },
-  watch: {
-    'userInfo.isLogined': {
-      handler() {
-        this.requestSubscribeChannels();
-      }
-    }
-  }
 }
 </script>
 <style lang="scss">

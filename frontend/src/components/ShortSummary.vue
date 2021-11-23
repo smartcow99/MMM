@@ -54,7 +54,7 @@ export default {
             'setShortPageOn'
         ]),
         openShort(shortInfo) {
-            this.requestShortInfo(shortInfo);
+            this.requestShortInfo(shortInfo.shortId);
             this.setShortPageOn(true);
         },
         onHover(){

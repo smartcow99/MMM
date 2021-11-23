@@ -111,21 +111,13 @@ export default {
             'setShortPageOn'
         ]),
         ...mapActions([
-            'requestComments',
-            'requestRelatedChannelInfo',
-            'requestRelatedProducts',
-            'requestRelatedTags',
-            'requestRegistComment',
+            // 'requestRelatedChannelInfo',
             'requestSubscribe',
             'requestUnsubscribe',
             'requestProductInfo'
         ]),
         registComment(comment) {
             alert('데모 아이디로는 댓글을 등록할 수 없습니다.')
-            // this.requestRegistComment({
-            //     shortId:this.currentShort.shortId,
-            //     comment
-            // })
         },
         openLogin(){
             this.setLoginPageOn(true)
