@@ -174,7 +174,7 @@ router.get('/addRequest', async (req, res)=>{
 })
 
 router.get('/info', islogined, async (req, res) => {
-  count result = await db.user_info(req.session.cid);
+  const result = await db.user_info(req.session.cid);
 
   if(result)
     return res.status(200).send(result);
