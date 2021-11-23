@@ -164,13 +164,13 @@ export default {
             this.requestChannelInfo(this.$route.query['channelId']);
         }
     },
-    // watch: {
-    //     '$route.query' () {
-    //         if(!!this.$route.query['channelId']) {
-    //             this.requestChannelInfo(this.$route.query['channelId']);
-    //         }
-    //     },
-    // }
+    watch: {
+        '$route.query' () {
+            if(!!this.$route.query['channelId']) {
+                this.requestChannelInfo(this.$route.query['channelId']);
+            }
+        },
+    }
 }
 </script>
 
