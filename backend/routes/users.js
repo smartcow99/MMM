@@ -4,6 +4,8 @@ const db = require('../my_modules/db');
 const multer = require('multer');
 const { PythonShell } = require("python-shell");
 const islogined = require('../my_modules/logincheck')
+const fs = require('fs');
+const path = require('path');
 
 // const upload = multer({ dest: 'public/image', limits: { fileSize: 5 * 1024 * 1024 } });
 // const upload = multer({
@@ -32,18 +34,24 @@ const islogined = require('../my_modules/logincheck')
 //   console.log(req.file);
 //   res.send('ok');
 // })
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ dest: 'public/shorts' })
 
 router.post('/pytest',upload.single('img'),(req, res)=>{
   console.log(req.file)
   let options = {
     scriptPath: "my_modules",
-    args: ['helloworld', 'value2']
+    args: [`public/shorts/${req.file.filename}`]
   };
   PythonShell.run("test.py", options, function(err, data) {
-    if (err) throw err;
+    if (err) return res.status(400).send('fail');
     console.log(data);
-    res.send('ok')
+    console.log(path.join(__dirname,'../public/shorts/',req.file.filename))
+    fs.unlink(path.join(__dirname,'../public/shorts/',req.file.filename), err => {
+      if(err && err.code == 'ENOENT'){
+          console.log("파일 삭제 Error 발생");
+      }
+    });
+    return res.send('ok')
   });
 })
 
