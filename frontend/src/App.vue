@@ -169,8 +169,7 @@ export default {
         return;
       }
       this.scrollHistory = scrollPosition.toFixed(0);
-      console.log(this.scrollHistory,scrollEnd)
-      if(this.scrollHistory > scrollEnd-2) {
+      if(this.scrollHistory > scrollEnd-1) {
         switch(this.$route.path) {
           case '/': {
             this.moreShortRecommend(); break;
