@@ -167,7 +167,16 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 router.get('/addRequest', async (req, res)=>{
   const id = req.query.chid | req.query.pid | req.query.vid | 0;
   const result = await db.add_request(req.query.type, id, req.query.requestNum)
-  
+
+  if(result)
+    return res.status(200).send(result);
+  else
+    return res.status(400).send('fail');
+})
+
+router.get('/info', islogined, async (req, res) => {
+  count result = await db.get_user_info(req.session.cid);
+
   if(result)
     return res.status(200).send(result);
   else

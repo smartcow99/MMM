@@ -114,6 +114,10 @@ const api = {
 		const [res] = await pool.query(`select * from purchase where pid = ${pid} and cid = ${cid} `)
 		return res;
 	},
+	get_user_info: async (cid) =>{
+		const [res] = await pool.query(`select c_name as name, id as ID, chid as channelId, birth, channel.ch_profile as profileImage, case when ${cid} is not null then 'true' else 'false' end as isLogined from customer natural join channel`)
+		return res;
+	}
 
 }
 
