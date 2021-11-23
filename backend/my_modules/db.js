@@ -115,7 +115,11 @@ const api = {
 	get_user_info: async (cid) =>{
 		const [res] = await pool.query(`select c_name as name, id as ID, chid as channelId, birth, channel.ch_profile as profileImage, case when ${cid} is not null then 'true' else 'false' end as isLogined from customer natural join channel`)
 		return res;
-	}
+	},
+	get_subscribe_list: async (cid) =>{
+		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when ${cid} not in(select cid from subscribe) then 'false' else 'true' end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where cid = ${cid}`)
+		return res;
+	},
 
 }
 const to_string_arr = (arr, name)=>{
@@ -212,6 +216,14 @@ module.exports = new Proxy(api,{
 					res.productImages = to_string_arr( await target.get_product_img_info(pid), 'productImages');
 					res.relatedShorts = await target.get_related_short_info(pid,0);
 					res.reviews = await target.get_product_review(pid,0);
+				return res;
+			}
+		}
+		else if(apiName == 'user_info') {
+			return async function(pid) {
+				let [res] = await target.get_user_info(cid);
+				res.subscribeChannelList = await target.get_subscribe_list(cid);
+
 				return res;
 			}
 		}

@@ -62,7 +62,7 @@ router.post('/login', async (req, res)=>{
       if(err) return res.status(400).send('fail');
       res.status(200).send('success');
     })
-    
+
   }
   else
     res.status(401).send('fail');
@@ -174,7 +174,7 @@ router.get('/addRequest', async (req, res)=>{
 })
 
 router.get('/info', islogined, async (req, res) => {
-  const result = await db.get_user_info(req.session.cid);
+  count result = await db.user_info(req.session.cid);
 
   if(result)
     return res.status(200).send(result);
