@@ -1,6 +1,6 @@
 <template>
     <span id="search-bar">
-        <input class="search-input" v-model="content" @keyup.enter="search"/>
+        <input class="search-input" v-model="content" placeholder="검색" @keyup.enter="search"/>
         <Btn class="search-button" theme="primary" @click="search">
             <font-awesome-icon class="icon" icon="search"/>
         </Btn>
