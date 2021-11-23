@@ -1,16 +1,53 @@
 <template>
-    <div>
-        프로필 채널명
-        댓글내용
+<div class="comment-box">
+    <div class="channel-info">
+        <!-- 채널 프로필 -->
+        <img @click="test" class="channel-profile-image" src='@/assets/images/defaultProfile.png' alt="내 프로필"/>
+        <!-- <img :src="currentShort['relatedChannel'].profile" alt="채널 프로필"/> -->
+        {{this.commentInfo.name}}
     </div>
+    <p class="comment-content">{{this.commentInfo.content}}</p>
+</div>
 </template>
 
 <script>
 export default {
+    props:{
+        commentInfo:String,
 
+    },
+    methods:{
+        test(){
+            console.log(this.commentInfo);
+        }
+    }
+   
 }
 </script>
 
-<style>
-
+<style scoped>
+img{
+    width:40px;
+    height:40px;
+    margin-right: 10px;
+}
+.comment-box{
+    width:700px;
+    height: 150px;
+    border:1px solid var(--placeholder-color);
+    border-radius: 4px;
+    margin:10px 0 10px 0;
+}
+.channel-info{  
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+    margin-left:10px;
+    font-size:20px;
+}
+.comment-content{
+    margin-left: 10px;
+   color:var(--placeholder-color)
+}
 </style>
