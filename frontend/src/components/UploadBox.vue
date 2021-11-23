@@ -7,7 +7,7 @@
             @dragleave="dragleaveHandler($event)" 
             @dragover.prevent
             @drop.prevent="dropHandler($event)">
-            <img v-if="!!src" class="preview" :src="src"/>
+            <img v-if="!!src" class="preview" :src="src" ref="preview"/>
             <span v-else class="guide">
                 <font-awesome-icon class="icon" icon="upload"/>
                 <div><slot/></div>
@@ -97,7 +97,9 @@ export default {
 }
 .preview {
     width:100%;
-    height:100%;
+    max-width:100%;
+    margin:0 auto;
+    height:auto;
 }
 input[type='file'] {
     display:none;

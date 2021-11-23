@@ -1,39 +1,17 @@
 <template>
     <div class="write-review-card">
         <h1>나의 사용 후기</h1>
-        
-        <div v-if="ratedOn" class="star-point-area">
-            <div>
-                <spna class="hover-zone" @click="halfStar"></spna>
-                <spna class="hover-zone" @click="oneStar"></spna>
-                <spna class="hover-zone" @click="oneHalfStar"></spna>
-                <spna class="hover-zone" @click="twoStar"></spna>
-                <spna class="hover-zone" @click="twoHalfStar"></spna>
-                <spna class="hover-zone" @click="threeStar"></spna>
-                <spna class="hover-zone" @click="threeHalfStar"></spna>
-                <spna class="hover-zone" @click="fourStar"></spna>
-                <spna class="hover-zone" @click="fourHalfStar"></spna>
-                <spna class="hover-zone" @click="fiveStar"></spna>
-            </div>
-            <span v-if="rate<0.5">
-                <font-awesome-icon id="inner-star" @click="halfStar" :icon="['far','star-half']"/>
-                <font-awesome-icon id="outer-star" @click="oneStar" :icon="['far','star']"/>
-                <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['far','star-half']"/>
-                <font-awesome-icon id="outer-star" @click="twoStar" :icon="['far','star']"/>
-                <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['far','star-half']"/>
-                <font-awesome-icon id="outer-star" @click="threeStar" :icon="['far','star']"/>
-                <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['far','star-half']"/>
-                <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
-                <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
-                <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
-            </span>
+        <div class="star-point-area">
+            <font-awesome-icon class="icon" @click="oneStar" @mouseenter="oneStarHover" :icon="[this.tempRate>0?'fas':'far','star']"/>
+            <font-awesome-icon class="icon" @click="twoStar" @mouseenter="twoStarHover" :icon="[this.tempRate>1?'fas':'far','star']"/>
+            <font-awesome-icon class="icon" @click="threeStar" @mouseenter="threeStarHover" :icon="[this.tempRate>2?'fas':'far','star']"/>
+            <font-awesome-icon class="icon" @click="fourStar" @mouseenter="fourStarHover" :icon="[this.tempRate>3?'fas':'far','star']"/>
+            <font-awesome-icon class="icon" @click="fiveStar" @mouseenter="fiveStarHover" :icon="[this.tempRate>4?'fas':'far','star']"/>
         </div>
-
         <div class="write-review-area">
             <p>사용해본 경험은 어떠셨나요?</p>
             <textarea id="write-review-box" placeholder="사용경험을 자세히 알려주세요. (발림성, 색조 등등. 300자 제한)" />
         </div>
-
         <div class="upload-picture-area">
             <p>사진 첨부</p>
             <UploadBox id="upload-box">
@@ -50,54 +28,54 @@ import UploadBox from '@/components/UploadBox.vue';
 export default {
     data(){
         return{
-        'rate':Number,
-        ratedOn:false,
+            rate:-1,
+            tempRate:0,
         }
     },
     methods:{
         registerReview(){
             alert("데모 버전에선 안돼용~")
         },
-        halfStar(){
-            this.rate=0.5;
-            this.ratedOn=true;
-        },
         oneStar(){
             this.rate=1;
-            this.ratedOn=true;
-        },
-        oneHalfStar(){
-            this.rate=1.5;
-            this.ratedOn=true;
+            this.tempRate=1;
         },
         twoStar(){
             this.rate=2;
-            this.ratedOn=true;
-        },
-        twoHalfStar(){
-            this.rate=2.5;
-            this.ratedOn=true;
+            this.tempRate=2;
         },
         threeStar(){
             this.rate=3;
-            this.ratedOn=true;
-        },
-        threeHalfStar(){
-            this.rate=3.5;
-            this.ratedOn=true;
+            this.tempRate=3;
         },
         fourStar(){
             this.rate=4;
-            this.ratedOn=true;
-        },
-        fourHalfStar(){
-            this.rate=4.5;
-            this.ratedOn=true;
+            this.tempRate=4;
         },
         fiveStar(){
             this.rate=5;
-            this.ratedOn=true;
+            this.tempRate=5;
         },
+        oneStarHover() {
+            if(this.rate===-1)
+                this.tempRate=1;
+        },
+        twoStarHover() {
+            if(this.rate===-1)
+                this.tempRate=2;
+        },
+        threeStarHover() {
+            if(this.rate===-1)
+                this.tempRate=3;
+        },
+        fourStarHover() {
+            if(this.rate===-1)
+                this.tempRate=4;
+        },
+        fiveStarHover() {
+            if(this.rate===-1)
+                this.tempRate=5;
+        }
 
     },
     components:{
@@ -169,27 +147,29 @@ textarea{
 #register-review-button{
     width:400px;
     height:40px;
-    margin:30px 0 0 0;
+    margin:20px 0 0 0;
 }
-#outer-star{
+div.star-point-area {
     position:relative;
-    font-size:40px;
-    color:gold;
-    margin:0 10px 0 10px;
-    cursor:pointer;
-    z-index:0;
 }
-#inner-star{
+div.star-hover {
     position:absolute;
-    font-size:40px;
-    color:gold;
-    margin:0 10px 0 10px;
-    cursor:pointer;
-    z-index:1;
-    pointer-events: none;
+    display:flex;
+    flex-direction:row;
+    width:200px;
 }
-.hover-zone {
-    width:40px;
+div.stars {
+    display:flex;
+    flex-direction:row;
+    width:210px;
+}
+div.star-point-area .icon {
+    font-size:3rem;
+    color:gold;
+    cursor:pointer;
+}
+div.hover-zone {
+    width:21px;
     height:40px;
 }
 </style>

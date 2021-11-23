@@ -13,7 +13,7 @@ export default {
             }
         );
         if (response.data) {
-            commit("setRecommendTagList", response.data.map(el=>el.tag));
+            commit("setRecommendTagList", response.data);
         }
     },
 
@@ -54,20 +54,14 @@ export default {
         //로그인 요청 후 성공 시
         //유저 정보 요청
         const loginResponse = await axios.post("http://34.64.76.43:3000/users/login", {
-            id: "dopa",
-            password: "1121",
+            id: payload.id,
+            password: payload.password,
         });
         // console.log(response.status);
         if ((loginResponse.status = 200)) {
-            // const userInfoResponse = await axios.post("http://34.64.76.43:3000/users/info");//유저 정보 요청
-            commit("setUserInfo", {
-                isLogined: false,
-                name: "홍길동",
-                ID: "",
-                birth: "1998-11-02",
-                profileImage: "#",
-                channelId: 10,
-            });
+            const userInfoResponse = await axios.post("http://34.64.76.43:3000/users/info");//유저 정보 요청
+            console.log(userInfoResponse)
+            commit("setUserInfo", userInfoResponse.data);
             commit("setIsLogin", true);
             commit("setLoginPageOn", false);
         }
@@ -150,31 +144,12 @@ export default {
         };
         formData.append('file', payload);
 
-        const response = await axios.post('#', formData, config);
+        const response = await axios.post('http://34.64.76.43:3000/users/pytest', formData, config);
         if (response.status = 200) {
             commit("setAnalysisResult", response.data);
         } else {
             alert('파일을 저장하는데 실패했습니다.');
         }
-        
-        // {
-        //     img: "#",
-        //     content: "니얼굴 잘생김",
-        //     RecommendDressing: [
-        //         {
-        //         title: "화장법1",
-        //         thumnail: "#",
-        //         },
-        //         {
-        //         title: "화장법2",
-        //         thumnail: "#",
-        //         },
-        //         {
-        //         title: "화장법3",
-        //         thumnail: "#",
-        //         },
-        //     ],
-        // }
     },
     async requestShortInfo({ commit }, shortId) {
         commit("initRequestNum");

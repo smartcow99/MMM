@@ -42,7 +42,7 @@ export default {
         productInfo: {},
         productImages: [],
         relatedShorts: [],
-        productExplainHtml: "",
+        productExplainImg: "",
         reviews: [],
     },
     currentChannel: {

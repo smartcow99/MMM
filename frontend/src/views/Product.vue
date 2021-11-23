@@ -71,8 +71,8 @@
     </BlurCard>
     <div class="purchase-guide" :class="{hidden:guideHide}" ref="guide">
         <button class="guide-control" @click="hideGuide">
-                <font-awesome-icon v-if="guideHide" icon="arrow-up"/>
-                <font-awesome-icon v-else icon="arrow-down"/>
+            <font-awesome-icon v-if="guideHide" icon="arrow-up"/>
+            <font-awesome-icon v-else icon="arrow-down"/>
         </button>
         <img class="product-image" :src="currentProduct['productImages'][0]"/>
         <div class="product-info">
@@ -142,7 +142,7 @@ export default {
             }
         },
         addComment(){
-            if(this.userInfo['isLogined']===true) {
+            if(this.userInfo['isLogined']!==true) {
                 //해당 유저가 이 물품을 구매한적 있는지 먼저 확인할 것
                 this.addCommentPageOn=true;
             }
