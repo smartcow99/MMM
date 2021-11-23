@@ -147,13 +147,12 @@ export default {
         };
         formData.append('file', payload);
 
-        axios.post('#', formData, config).then((response) => {//api url 채워야함
-            if (response.data.success) {
-                commit("setAnalysisResult", response.data);
-            } else {
-                alert('파일을 저장하는데 실패했습니다.');
-            }
-        });
+        const response = await axios.post('#', formData, config);
+        if (response.status = 200) {
+            commit("setAnalysisResult", response.data);
+        } else {
+            alert('파일을 저장하는데 실패했습니다.');
+        }
         
         // {
         //     img: "#",
@@ -370,6 +369,7 @@ export default {
             },
         });
         if ((response.status = 200)) {
+            console.log(response.data)
             commit("pushShortRecommend", response.data);
         }
     },

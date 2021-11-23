@@ -92,7 +92,8 @@ export default {
             profile:AllSubscribeImg,
             channelId: '*'
         }
-      ]
+      ],
+      scrollHistory:0
     }
   },
   components: {
@@ -162,9 +163,14 @@ export default {
     },
     scrollHandler(event) {
       const articleEl = this.$refs['article'];
-      const scrollPosition = (event.target.scrollTop+articleEl.clientHeight)/300
-      console.log(articleEl.scrollHeight/300)
-      if(event.target.scrollTop+articleEl.clientHeight+10 > articleEl.scrollHeight) {
+      const scrollPosition = (event.target.scrollTop+articleEl.clientHeight)/300;
+      const scrollEnd = (articleEl.scrollHeight/300).toFixed(0);
+      if(this.scrollHistory >= scrollPosition.toFixed(0)) {
+        return;
+      }
+      this.scrollHistory = scrollPosition.toFixed(0);
+      console.log(this.scrollHistory,scrollEnd)
+      if(this.scrollHistory > scrollEnd-2) {
         switch(this.$route.path) {
           case '/': {
             this.moreShortRecommend(); break;
