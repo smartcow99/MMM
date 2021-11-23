@@ -53,7 +53,7 @@ const api = {
 	},
 
 	get_short_info: async (vid, cid) =>{
-		const [res] = await pool.query(`select distinct  title, vid as shortId, v_comment as info, numOfHearts, hits as numOfViews, url, case when cid = ${cid} then 'true' else 'false' end as isMyShort from mmmservice.video natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b natural join channel where vid = ${vid}`)
+		const [res] = await pool.query(`select distinct  title, vid as shortId, v_comment as info, numOfHearts, hits as numOfViews, url, numOfShorts, case when cid = ${cid} then 'true' else 'false' end as isMyShort from video natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid) as recommendCounts natural join channel left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where vid = ${vid}`)
 		return res;
 	},
 	get_channel_info: async (chid, cid)=>{
