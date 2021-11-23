@@ -15,6 +15,7 @@ import {
   faComment,
   faHeart,
   faStar,
+  faStarHalf,
   faStarHalfAlt,
   faVolumeMute,
   faVolumeUp,
@@ -23,10 +24,11 @@ import {
   faRedo,
   faWonSign,
   faArrowUp,
-  faArrowDown
+  faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faStar as farStar,
+  faStarHalf as farStarHalf,
   faHeart as farHeart,
   faUserCircle as farUserCircle,
   faEye as farEye,
@@ -45,6 +47,8 @@ library.add(faHeart);
 library.add(farHeart);
 library.add(faStar);
 library.add(farStar);
+library.add(farStarHalf);
+library.add(faStarHalf);
 library.add(faStarHalfAlt);
 library.add(faVolumeMute);
 library.add(faVolumeUp);
