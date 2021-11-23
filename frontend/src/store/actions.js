@@ -13,7 +13,6 @@ export default {
             }
         );
         if (response.data) {
-            console.log(response.data)
             commit("setRecommendTagList", response.data.map(el=>el.tag));
         }
     },
@@ -30,7 +29,6 @@ export default {
             }
         );
         if (response.data) {
-            console.log(response.data)
             commit("setRecommendChannelList", response.data);
         }
     },

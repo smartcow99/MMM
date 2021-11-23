@@ -178,7 +178,6 @@ export default {
     },
     watch: {
         '$route.query' () {
-            console.log(this.$route)
             if(!!this.$route.query['productId']) {
                 this.requestProductInfo(this.$route.query['productId']);
             }
