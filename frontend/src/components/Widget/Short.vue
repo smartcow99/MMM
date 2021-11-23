@@ -23,26 +23,35 @@
         </div>
         <div class="right">
             <h2>{{currentShort['title']}}</h2>
-            <div class="channel-info">
-                <router-link 
-                    @click.capture="setShortPageOn(false)"
-                    :to="{name: 'Channel', query: { channelId: currentShort['relatedChannel'].channelId }}">
-                    {{currentShort['relatedChannel'].title}}
-                </router-link>
-                채널 정보
-                {{currentShort['relatedChannel'].introduce}}
-                채널 프로필
-                <img :src="currentShort['relatedChannel'].profile"/>
-                구독자수
-                {{currentShort['relatedChannel'].numOfSubscribers}}
-                short개수
-                {{currentShort['relatedChannel'].numOfShorts}}
-                구독버튼
-                <Btn v-if="currentShort['isMyShort']" :theme="white" @click="modifyShort">수정하기</Btn>
-                <Btn v-if="isSubscribed" :theme="gray" @click="unsubscribe">구독 취소</Btn>
-                <Btn v-else :theme="primary" @click="subscribe">구독</Btn>
+            <div class="channel">
+                <div class="channel-info">
+                    <!-- 채널 프로필 -->
+                    <img class="channel-profile-image" src='@/assets/images/defaultProfile.png' alt="내 프로필"/>
+                    <!-- <img :src="currentShort['relatedChannel'].profile" alt="채널 프로필"/> -->
+                    <div id="channel-meta-data">
+                        <router-link id="channel-name"
+                            @click.capture="setShortPageOn(false)"
+                            :to="{name: 'Channel', query: { channelId: currentShort['relatedChannel'].channelId }}">
+                            {{currentShort['relatedChannel'].title}}
+                        </router-link>
+                        <div id="channel-data">
+                            구독자수
+                            {{currentShort['relatedChannel'].numOfSubscribers}} &nbsp;| &nbsp;
+                            short개수
+                            {{currentShort['relatedChannel'].numOfShorts}}
+                        </div>
+                    </div>
+                    <!-- 구독버튼 -->
+                    <Btn id="subscribe-button" v-if="isSubscribed" :theme="gray" @click="unsubscribe">구독 취소</Btn>
+                    <Btn id="subscribe-button" v-else :theme="primary" @click="subscribe">구독</Btn>
+                </div>
+                <div id="channel-explanation">
+                    <!-- 채널 정보 -->
+                    {{currentShort['relatedChannel'].introduce}}
+                </div>
             </div>
-            <div>
+           
+            <div id="short-explanation">   <!--영상정보-->
                 {{currentShort['info']}}
             </div>
             <Tag 
@@ -195,8 +204,54 @@ export default {
             }
         }
     }
-    .right {
+.right {
+    display:flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: flex-start;
+    margin-left: 50px;
+}
 
-    }
-
+img.channel-profile-image{
+    width:40px;
+    height: 40px;
+}
+.channel{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+#channel-name{
+    width:100%;
+    text-align: left;
+}
+.channel-info{
+    display:flex;
+    flex-direction: row;
+}
+#channel-meta-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 400px;
+    margin-left: 10px;
+}
+#channel-data{
+    display:flex;
+    flex-direction: row;
+}
+#channel-explanation{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+/* #subscribe-button{
+    float:right;
+} */
+#short-explanation{
+    width:750px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-align: left;
+}
 </style>

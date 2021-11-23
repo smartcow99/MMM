@@ -3,92 +3,151 @@
         <h1>나의 사용 후기</h1>
         
         <div v-if="ratedOn" class="star-point-area">
-             <span v-if="rate<0.5">
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
+            <span v-if="rate<0.5">
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </span>
         <span v-else-if="rate<1">
-            <font-awesome-icon id="star" :icon="['fas','star-half-alt']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </span>
         <span v-else-if="rate<1.5">
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </span>
         <span v-else-if="rate<2">
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" :icon="['fas','star-half-alt']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </span>
         <span v-else-if="rate<2.5">
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </span>
         <span v-else-if="rate<3">
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" :icon="['fas','star-half-alt']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </span>
         <span v-else-if="rate<3.5">
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </span>
         <span v-else-if="rate<4">
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" :icon="['fas','star-half-alt']"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
 
         </span>
         <span v-else-if="rate<4.5">
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </span>
         <span v-else-if="rate<5">
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" :icon="['fas','star-half-alt']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </span>
-        <span v-else>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
-            <font-awesome-icon id="star" icon="star"/>
+        <span v-else>   <!--rate=5;-->
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['fas','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['fas','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['fas','star']"/>
         </span>
         </div>
         <div v-else class="star-point-area">
-            <font-awesome-icon id="star" @click="oneStar" :icon="['far','star']"/>
-            <font-awesome-icon id="star" @click="twoStar" :icon="['far','star']"/>
-            <font-awesome-icon id="star" @click="threeStar" :icon="['far','star']"/>
-            <font-awesome-icon id="star" @click="fourStar" :icon="['far','star']"/>
-            <font-awesome-icon id="star" @click="fiveStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="halfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="oneStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="oneHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="twoStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="twoHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="threeStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="threeHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fourStar" :icon="['far','star']"/>
+            <font-awesome-icon id="inner-star" @click="fourHalfStar" :icon="['far','star-half']"/>
+            <font-awesome-icon id="outer-star" @click="fiveStar" :icon="['far','star']"/>
         </div>
 
         <div class="write-review-area">
@@ -120,27 +179,45 @@ export default {
         registerReview(){
             alert("데모 버전에선 안돼용~")
         },
+        halfStar(){
+            this.rate=0.5;
+            this.ratedOn=true;
+        },
         oneStar(){
             this.rate=1;
+            this.ratedOn=true;
+        },
+        oneHalfStar(){
+            this.rate=1.5;
             this.ratedOn=true;
         },
         twoStar(){
             this.rate=2;
             this.ratedOn=true;
         },
+        twoHalfStar(){
+            this.rate=2.5;
+            this.ratedOn=true;
+        },
         threeStar(){
             this.rate=3;
+            this.ratedOn=true;
+        },
+        threeHalfStar(){
+            this.rate=3.5;
             this.ratedOn=true;
         },
         fourStar(){
             this.rate=4;
             this.ratedOn=true;
         },
+        fourHalfStar(){
+            this.rate=4.5;
+            this.ratedOn=true;
+        },
         fiveStar(){
             this.rate=5;
             this.ratedOn=true;
-            // this.$set(this.rate, 5);
-            // console.log(this.rate)
         },
 
     },
@@ -167,6 +244,13 @@ p{
 .star-point-area{
     margin-bottom: 50px;
 }
+.star-point-area div{
+    /* display:inline; */
+    border:1px solid black;
+    width:20px;
+    height: 40px;
+}
+
 .write-review-card{
     display:flex;
     flex-direction: column;
@@ -208,9 +292,22 @@ textarea{
     height:40px;
     margin:30px 0 0 0;
 }
-#star{
+#outer-star{
+    position:relative;
     font-size:40px;
+    color:gold;
     margin:0 10px 0 10px;
     cursor:pointer;
+    z-index:0;
 }
+#inner-star{
+    position:absolute;
+    font-size:40px;
+    color:gold;
+    margin:0 10px 0 10px;
+    cursor:pointer;
+    z-index:1;
+    pointer-events: none;
+}
+
 </style>
