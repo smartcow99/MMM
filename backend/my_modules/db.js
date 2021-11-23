@@ -120,7 +120,12 @@ const api = {
 	}
 
 }
-
+const to_string_arr = (arr, name)=>{
+	let newarr = [];
+	for(idx in arr)
+		newarr[idx] = arr[idx][name];
+	return newarr;
+}
 module.exports = new Proxy(api,{
 	get: (target, apiName, receiver)=>{
 		if(apiName == 'login'){ // 로그인 신청시
@@ -155,8 +160,10 @@ module.exports = new Proxy(api,{
 		}
 		else if(apiName == 'recommend'){
 			return async function(type, cid, reqNum) {
-				if(type == 'tag')
-					return await target.recommend_tag();
+				if(type == 'tag'){
+					let tag = await target.recommend_tag();
+					return to_string_arr(tag, 'tag')
+				}
 				else if(type == 'channel'){
 					const result = await target.recommend_channel(cid);
 					return result.filter(element => {
@@ -204,7 +211,7 @@ module.exports = new Proxy(api,{
 		else if(apiName == 'product_info') {
 			return async function(pid) {
 				let [res] = await target.get_product_info(pid);
-					res.productImages = await target.get_product_img_info(pid);
+					res.productImages = to_string_arr( await target.get_product_img_info(pid), 'productImages');
 					res.relatedShorts = await target.get_related_short_info(pid,0);
 					res.reviews = await target.get_product_review(pid,0);
 				return res;
@@ -216,8 +223,3 @@ module.exports = new Proxy(api,{
 })
 
 
-// module.exports.account = async () =>{
-// 	let [a] = await pool.query(`select * from ${table}`);
-// 	console.log(a);
-// 	return a;
-// }

@@ -90,7 +90,7 @@ router.get('/search',async (req, res)=>{
 router.get('/recommend', async (req, res)=>{
   const cid = req.session.cid | 0;
   const result = await db.recommend(req.query.type, cid, req.query.requestNum);
-
+  console.log(result)
   if(result)
     return res.status(200).send(result);
   else
@@ -175,7 +175,7 @@ router.get('/addRequest', async (req, res)=>{
 })
 
 router.get('/info', islogined, async (req, res) => {
-  count result = await db.get_user_info(req.session.cid);
+  const result = await db.get_user_info(req.session.cid);
 
   if(result)
     return res.status(200).send(result);
