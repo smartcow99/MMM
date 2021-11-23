@@ -55,9 +55,14 @@ router.post('/pytest',upload.single('img'),(req, res)=>{
 router.post('/login', async (req, res)=>{
   const [result] = await db.login(req.body.id, req.body.password);
   if(result && result.cid){
+    // session.setAttribute(String name, Object value);
     req.session.islogined = true;
     req.session.cid = result.cid;
-    res.status(200).send('success');
+    req.session.save((err)=>{
+      if(err) return res.status(400).send('fail');
+      res.status(200).send('success');
+    })
+    
   }
   else
     res.status(401).send('fail');
@@ -176,4 +181,6 @@ router.get('/info', islogined, async (req, res) => {
   else
     return res.status(400).send('fail');
 })
+
+
 module.exports = router;
