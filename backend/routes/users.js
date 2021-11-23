@@ -109,7 +109,7 @@ router.get('/short', async (req, res)=>{
 })
 
 router.get('/likeUp', islogined, async (req, res)=> {
-  
+
   const result = await db.like_up(req.session.cid, req.query.vid)
 
   if(result)
