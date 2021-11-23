@@ -49,18 +49,6 @@ export default {
       commit("setRecommendShortList", response.data);
     }
   },
-  // 추천 상품 리스트
-  //   async getRecommendProducts({ commit }, payload) {
-  //     const response = axios.get("http://34.64.76.43:3000/users/recommend", {
-  //       params: {
-  //         type: "product",
-  //         requestNum: 0,
-  //       },
-  //     });
-  //     if (response.data) {
-  //       commit("setProductList", response.data);
-  //     }
-  //   },
   //login 요청
   async requestLogin({ commit }, payload) {
     //로그인 요청 후 성공 시
