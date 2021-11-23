@@ -9,7 +9,7 @@
         <label for="file-upload">
             <img v-if="!!src"  class="preview" :src="src"/>
             <span v-else class="guide">
-                <font-awesome-icon icon="upload"/>
+                <font-awesome-icon class="icon" icon="upload"/>
                 <div><slot/></div>
             </span>
         </label>
@@ -97,5 +97,15 @@ input[type='file'] {
 }
 label {
     cursor:pointer;
+}
+span.guide {
+    /* font-size:2rem; */
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+}
+span.guide .icon {
+    font-size:2rem;
+    margin:0 auto;
 }
 </style>

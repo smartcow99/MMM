@@ -33,7 +33,7 @@
         </div>
         <div class="dress-table">
             <h3>{{`'${currentChannel['title']}' 님의 화장대`}}</h3>
-            <Btn theme="white">수정하기</Btn>
+            <Btn v-if="currentChannel['isMyChannel']" @click="modifyDressingTable" theme="white">수정하기</Btn>
         </div>
         <Detail v-if="currentChannel['isMyChannel']">
             <div class="product-box">
@@ -137,12 +137,14 @@ export default {
             alert('데모 아이디로는 영상을 삭제할 수 없습니다.')
         },
         subscribe() {
-            this.requestSubscribe(this.currentChannel['channelId']);
-            this.requestChannelInfo(this.currentChannel['channelId']);
+            alert('데모버전에선 이용 불가능')
+            // this.requestSubscribe(this.currentChannel['channelId']);
+            // this.requestChannelInfo(this.currentChannel['channelId']);
         },
         unsubscribe() {
-            this.requestUnsubscribe(this.currentChannel['channelId']);
-            this.requestChannelInfo(this.currentChannel['channelId']);
+            alert('데모버전에선 이용 불가능')
+            // this.requestUnsubscribe(this.currentChannel['channelId']);
+            // this.requestChannelInfo(this.currentChannel['channelId']);
         },
         modifyOn() {
             alert('데모버전에선 이용 불가능')
@@ -153,6 +155,9 @@ export default {
         saveModify() {
             this.isModifyOn = false;
         },
+        modifyDressingTable() {
+            alert('데모버전에선 이용 불가능')
+        }
     },
     mounted() {
         this.requestChannelInfo(this.$route.query['channelId']);
