@@ -629,25 +629,25 @@ export default {
         //request axios get
         commit('pushChannelSearch',[])
     },
-    async moreShortSearch(){
+    async moreShortSearch({state,commit}){
         commit('pushShortSearch',[])
     },
-    async moreProductSearch(){
+    async moreProductSearch({state,commit}){
         commit('pushProductSearch',[])
     },
-    async morePurchaseHistory(){
+    async morePurchaseHistory({state,commit}){
         commit('pushPurchaseHistory',[])
     },
-    async moreShortRecommand(){
+    async moreShortRecommand({state,commit}){
         commit('pushShortRecommand',[])
     },
-    async moreChannelShorts(){
+    async moreChannelShorts({state,commit}){
         commit('pushChannelShort',[])
     },
-    async moreComment(){
+    async moreComment({state,commit}){
         commit('pushComment',[])
     },
-    async moreReview(){
+    async moreReview({state,commit}){
         commit('pushReview',[])
     },
 };
