@@ -46,7 +46,6 @@ const api = {
 		return res;
 	},
 	get_purchare_list: async (cid, reqNum) => {
-		console.log(reqNum);
 		const [res] = await pool.query(`select distinct pid, p_date as date, price, p_num as purchaseNum, thumnail, p_name as productName\
 		from product natural join purchase where cid = ${cid} limit ${reqNum*6}, 6`)
 		return res;
@@ -96,7 +95,6 @@ const api = {
 		return res;
 	},
 	like_up: async (cid, vid) => {
-				console.log(vid)
         const [res] = await pool.query(`insert into recommend (cid, vid) values(${cid}, ${vid})`)
         return res;
     },

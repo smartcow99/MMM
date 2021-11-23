@@ -34,19 +34,16 @@ const path = require('path');
 //   console.log(req.file);
 //   res.send('ok');
 // })
-const upload = multer({ dest: 'public/shorts' })
+const upload = multer({ dest: 'public/testimg' })
 
 router.post('/pytest',upload.single('img'),(req, res)=>{
-  console.log(req.file)
   let options = {
     scriptPath: "my_modules",
-    args: [`public/shorts/${req.file.filename}`]
+    args: [`public/testimg/${req.file.filename}`]
   };
   PythonShell.run("test.py", options, function(err, data) {
     if (err) return res.status(400).send('fail');
-    console.log(data);
-    console.log(path.join(__dirname,'../public/shorts/',req.file.filename))
-    fs.unlink(path.join(__dirname,'../public/shorts/',req.file.filename), err => {
+    fs.unlink(path.join(__dirname,'../public/testimg/',req.file.filename), err => {
       if(err && err.code == 'ENOENT'){
           console.log("파일 삭제 Error 발생");
       }
@@ -58,7 +55,6 @@ router.post('/pytest',upload.single('img'),(req, res)=>{
 router.post('/login', async (req, res)=>{
   const [result] = await db.login(req.body.id, req.body.password);
   if(result && result.cid){
-    console.log(result.cid, ' logined');
     req.session.islogined = true;
     req.session.cid = result.cid;
     res.status(200).send('success');
@@ -77,7 +73,6 @@ router.get('/logout',islogined,(req, res)=>{
 })
 
 router.get('/search',async (req, res)=>{
-  console.log(req.query.content, req.query.type)
   const cid = req.session.cid | 0;
   const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum);
 
@@ -90,7 +85,6 @@ router.get('/search',async (req, res)=>{
 router.get('/recommend', async (req, res)=>{
   const cid = req.session.cid | 0;
   const result = await db.recommend(req.query.type, cid, req.query.requestNum);
-  console.log(result)
   if(result)
     return res.status(200).send(result);
   else
