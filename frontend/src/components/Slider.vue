@@ -1,15 +1,15 @@
 <template>
     <div class="slider">
-        <button @click="showLeft">
-            <font-awesome-icon icon="angle-left"/>
+        <button class="button left" @click="showLeft">
+            <font-awesome-icon class="icon" icon="angle-left"/>
         </button>
         <div class="view-box" :style="{ 'width':`${count*elWidth}px`}">
             <span class="contents" :style="{ transform:`translateX(-${elWidth*index}px)`}">
                 <slot/>
             </span>
         </div>
-        <button @click="showRight">
-            <font-awesome-icon icon="angle-right"/>
+        <button class="button right" @click="showRight">
+            <font-awesome-icon class="icon" icon="angle-right"/>
         </button>
     </div>
 </template>
@@ -51,14 +51,33 @@ export default {
     justify-content: center;
     overflow:hidden;
 }
+.slider button {
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:none;
+    background-color: var(--primary-color);
+    margin:auto 0;
+    color:var(--background-color);
+    font-size:1.5rem;
+    cursor:pointer;
+}
+.left .icon{
+    margin-right: 2px;
+    margin-top:2px;
+}
+.right .icon{
+    margin-left: 2px;
+    margin-top:2px;
+}
 .slider .view-box {
+    padding:0 10px;
     display:block;
-    width:300px;
+    flex-grow:1;
     overflow:hidden;
 }
 .slider .view-box .contents {
     display:flex;
-    width:1000px;
     flex-direction:row;
 }
 </style>
