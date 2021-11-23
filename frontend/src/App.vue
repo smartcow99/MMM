@@ -26,7 +26,7 @@
           <h3>구독한 채널</h3>
           <hr/>
           <ChannelList path="/channelshort" :channelList="defaultChannels"/>
-          <ChannelList path="/channelshort" :channelList="userInfo['subscribeChannelList']"/>
+          <!-- <ChannelList path="/channelshort" :channelList="userInfo['subscribeChannelList']"/> -->
         </div>
         <div v-else class="Recommend-channels">
           <h3>추천 채널</h3>
@@ -92,7 +92,8 @@ export default {
             profile:AllSubscribeImg,
             channelId: '*'
         }
-      ]
+      ],
+      scrollHistory:0
     }
   },
   components: {
@@ -162,8 +163,13 @@ export default {
     },
     scrollHandler(event) {
       const articleEl = this.$refs['article'];
-      if(event.target.scrollTop+articleEl.clientHeight+100 > articleEl.scrollHeight) {
-        // console.log('tick')
+      const scrollPosition = (event.target.scrollTop+articleEl.clientHeight)/300;
+      const scrollEnd = (articleEl.scrollHeight/300).toFixed(0);
+      if(this.scrollHistory >= scrollPosition.toFixed(0)) {
+        return;
+      }
+      this.scrollHistory = scrollPosition.toFixed(0);
+      if(this.scrollHistory > scrollEnd-1) {
         switch(this.$route.path) {
           case '/': {
             this.moreShortRecommend(); break;

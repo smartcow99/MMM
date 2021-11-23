@@ -37,7 +37,7 @@ export default {
     state["RecommendChannelList"] = payload;
   },
   setRecommendShortList(state, payload) {
-    state["RecommendShortList"] = payload;
+    state["RecommendShortList"] = [...payload];
   },
   setChannelList(state, payload) {
     state["channelList"] = payload;
@@ -185,28 +185,28 @@ export default {
     state['requestNum'] = 0;
   },
   pushChannelSearch(state,payload) {
-    state['channelList'].push(payload)
+    state['channelList'] = [...state['channelList'],...payload]
   },
   pushShortSearch(state,payload) {
-    state['shortList'].push(payload)
+    state['shortList'] = [...state['shortList'],...payload]
   },
   pushProductSearch(state,payload) {
-    state['productList'].push(payload)
+    state['productList'] = [...state['productList'],...payload]
   },
   pushPurchaseHistory(state,payload) {
-    state['purchaseList'].push(payload)
+    state['purchaseList'] = [...state['purchaseList'],...payload]
   },
   pushShortRecommend(state,payload) {
-    state['RecommendShortList'].push(payload)
+    state['RecommendShortList'] = [...state['RecommendShortList'],...payload]
   },
   pushChannelShort(state,payload) {
-    state['currentChannel'].shortList.push(payload)
+    state['currentChannel'].shortList = [...state['currentChannel'].shortList, ...payload];
   },
   pushComment(state,payload) {
-    state['currentShort'].comments.push(payload)
+    state['currentShort'].comments = [...state['currentShort'].comments, ...payload];
   },
   pushReview(state,payload) {
-    state['currentProduct'].reviews.push(payload)
+    state['currentProduct'].reviews = [...state['currentProduct'].reviews, ...payload];
   }
 };
 
