@@ -48,6 +48,12 @@
         </Slider>
         <h2 class="reviews-title">사용 후기</h2>
         <div class="reviews">
+            <div class="sort-option">
+                <label v-for="(value,index) in sortType" :key="index">
+                    <input type="checkbox" :checked="sortType[index].isChecked" @change="sorting(index,value.type)"/>
+                    {{value.title}}
+                </label>
+            </div>
             <Btn class="write-review-button" @click="addComment">리뷰 쓰기</Btn>
             <Review 
                 class="review"
@@ -98,6 +104,18 @@ export default {
             purchasePageOn:false,
             addCommentPageOn:false,
             guideHide:false,
+            sortType:[
+                {
+                    title:'높은 별점 순',
+                    type:'high-rate',
+                    isChecked:true
+                },
+                {
+                    title:'낮은 별점 순',
+                    type:'low-rate',
+                    isChecked:false
+                },
+            ],
         }
     },
     computed: {
@@ -108,7 +126,8 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'setLoginPageOn'
+            'setLoginPageOn',
+            'sortReviewList'
         ]),
         ...mapActions([
             'requestProductInfo'
@@ -145,6 +164,11 @@ export default {
             else {
                 this.guideHide=true;
             }
+        },
+        sorting(index,type) {
+            this.sortType.forEach(el=>el.isChecked=false);
+            this.sortType[index].isChecked = true;
+            this.sortReviewList({type});
         }
     },
     mounted() {
@@ -152,14 +176,14 @@ export default {
             this.requestProductInfo(this.$route.query['productId']);
         }
     },
-    // watch: {
-    //     '$route.query' () {
-    //         console.log(this.$route)
-    //         if(!!this.$route.query['productId']) {
-    //             this.requestProductInfo(this.$route.query['productId']);
-    //         }
-    //     },
-    // },
+    watch: {
+        '$route.query' () {
+            console.log(this.$route)
+            if(!!this.$route.query['productId']) {
+                this.requestProductInfo(this.$route.query['productId']);
+            }
+        },
+    },
     // watch: {
     //     '$route':{
     //         handler(to,from){
@@ -206,6 +230,9 @@ h2.reviews-title {
     margin-top:100px;
 }
 div.reviews {
+    .sort-option {
+        margin-bottom:20px;
+    }
     .write-review-button{
         margin-bottom:20px;
     }
@@ -219,7 +246,7 @@ div.purchase-guide {
     border-top-left-radius:16px;
     border-top-right-radius:16px;
     padding:20px;
-    box-shadow:0px 0px 4px #333333;
+    box-shadow:0px 0px 4px #999999;
     bottom:0;
     margin-left:40px;
     height:140px;
@@ -237,7 +264,7 @@ div.purchase-guide {
         border:none;
         background-color:var(--background-color);
         border-radius:50%;
-        box-shadow:0px 0px 4px #333333;
+        box-shadow:0px 0px 4px #999999;
         font-size:1.2rem;
     }
     img {
