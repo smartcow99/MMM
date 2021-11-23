@@ -18,6 +18,7 @@ export default {
     state["userInfo"].profileImage = payload.profileImage;
   },
   initUserInfo(state, payload) {
+    state["userInfo"].subscribeChannelList = [];
     state["userInfo"].isLogined = false;
     state["userInfo"].name = "";
     state["userInfo"].ID = 0;
