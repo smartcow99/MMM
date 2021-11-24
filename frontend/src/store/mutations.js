@@ -102,10 +102,13 @@ export default {
   setProductInfo(state, payload) {
     state["currentProduct"].title = payload.title;
     state["currentProduct"].productId = payload.productId;
-    state["currentProduct"].productInfo = payload.productInfo;
+    state["currentProduct"].rate = payload.rate;
+    state["currentProduct"].price = payload.price;
+    state["currentProduct"].views = payload.views;
+    state["currentProduct"].manufacturer = payload.manufacturer;
     state["currentProduct"].productImages = payload.productImages;
     state["currentProduct"].relatedShorts = payload.relatedShorts;
-    state["currentProduct"].productExplainHtml = payload.productExplainHtml;
+    state["currentProduct"].productExplainImg = payload.productExplainImg;
     state["currentProduct"].reviews = payload.reviews;
   },
   setDressingTable(state, payload) {
