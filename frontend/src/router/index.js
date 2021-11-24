@@ -61,6 +61,15 @@ const routes = [
     name: "ChannelShort",
     component: () => import("../views/ChannelShort.vue"),
   },
+  {
+    path:'/404',
+    name: "NotFound",
+    component: () => import("../views/NotFound.vue"),
+  },
+  {
+    path:'/:pathMatch(.*)*',
+    redirect:'/404'
+  }
 ];
 
 const router = createRouter({
