@@ -32,7 +32,7 @@ const api = {
 	},
 	recommend_tag: async ()=>{
 		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc limit 5`)
-		return res.map(el=>el.tag);
+		return res;
 	},
 	recommend_shorts: async (reqNum)=>{
 		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid) left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid) left outer join (select chid, ch_profile as profile from channel )c using (chid) order by numOfSubscribers desc limit ${reqNum*6}, 6`)
@@ -61,7 +61,7 @@ const api = {
 	},
 	get_tag: async (vid)=>{
 		const [res] = await pool.query(`select tag from mmmservice.tag where vid = ${vid}`);
-		return res.map(el=>el.tag);
+		return res;
 	},
 	get_comments: async (vid, reqNum) => {
         const [res] = await pool.query(`select distinct cu.c_name as name, ch.ch_profile as profile, re.r_comment as content from customer as cu natural join(channel as ch natural join reply as re) where re.vid = ${vid} limit ${reqNum*6},6`)
@@ -81,7 +81,7 @@ const api = {
 	},
 	get_product_img_info : async (pid) => {
 		const [res] = await pool.query(`select img as productImages from product_img where pid = ${pid}`)
-		return res.map(el=>el.tag);
+		return res;
 	},
 	get_related_short_info : async (pid, reqNum) => {
 		const [res] = await pool.query(`select title, thumnail, vid as shortId, chid as channelId, numOfSubscribers, numOfHearts, hits as numOfViews from channel natural join (video natural join tag)
@@ -213,7 +213,7 @@ module.exports = new Proxy(api,{
 		else if(apiName == 'product_info') {
 			return async function(pid) {
 				let [res] = await target.get_product_info(pid);
-					res.productImages = await target.get_product_img_info(pid);
+					res.productImages = to_string_arr(await target.get_product_img_info(pid), 'productImages');
 					res.relatedShorts = await target.get_related_short_info(pid,0);
 					res.reviews = await target.get_product_review(pid,0);
 				return res;
