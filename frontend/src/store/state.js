@@ -39,7 +39,10 @@ export default {
     currentProduct: {
         title: "",
         productId: "",
-        productInfo: {},
+        rate:0,
+        price:0,
+        views:0,
+        manufacturer:'',
         productImages: [],
         relatedShorts: [],
         productExplainImg: "",

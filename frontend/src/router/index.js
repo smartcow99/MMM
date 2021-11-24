@@ -95,6 +95,12 @@ router.beforeEach((to,from,next)=>{
       case '/': {
         break;
       }
+      case '/channelshort': {
+        if(!!to.query['channelId']) {
+          store.dispatch('requestChannelInfo',to.query['channelId']);
+        }
+        break;
+      }
       case '/search/':{
         if(!!to.query['content']) {
           store.dispatch('requestSearch',{
@@ -123,7 +129,6 @@ router.beforeEach((to,from,next)=>{
         break;
       }
       case '/channel': {
-        console.log(to.query)
         if(!!to.query['channelId']) {
           store.dispatch('requestChannelInfo',to.query['channelId']);
         }
