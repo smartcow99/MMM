@@ -181,8 +181,15 @@ def face_model(myImg,model):
             
        
 ''' 메인 함수 '''
-img_name = sys.argv[1] 
-# img_name = 'test1.jpg'      
+img_name = 'test.png'
+# img_name = 'test1.jpg'
+
+# png 이미지 -> jpg 이미지 변환
+if img_name[-4:] == '.png' :
+    im = Image.open(img_name).convert('RGB')
+    img_name = img_name[:-4]+'.jpg'
+    im.save(img_name, 'jpeg')
+
 myImg=getImg(img_name)
 myImg=do_cropImg_v1(myImg)
 if myImg != 'error' :
