@@ -15,7 +15,7 @@
             </div>
             <div id="like-count">
                     <font-awesome-icon id="fa-icon" :icon="['far','heart']" @click="upLike"/>
-                    {{like}}
+                {{like}}
             </div>
             <div id="view-count">
                 <font-awesome-icon id="fa-icon" :icon="['far','eye']"/>
@@ -30,20 +30,21 @@ import {mapState,mapActions,mapMutations} from 'vuex';
 export default {
     data(){
         return{
-            subscriber:'150k',
-            like:'2.5k',
-            view:'1m',
+            like:this.shortInfo.numOfHearts==null?0:this.shortInfo.numOfHearts,
+            view:this.shortInfo.numOfViews==null?0:this.shortInfo.numOfViews,
+            subscriber:this.shortInfo.numOfSubscribers==null?0:this.shortInfo.numOfSubscribers,
             hoverOn:false,
         }
     },
     computed:{
         ...mapState([
             'currentChannel',
-            'currentShort'
+            'currentShort',
+            'recommendShortList'
         ])
     },
     props:{
-        shortInfo: Object
+        shortInfo: Object,
     },
     methods: {
         ...mapActions([
@@ -63,11 +64,7 @@ export default {
         offHover(){
             this.hoverOn=false;
         },
-        upLike(){
-            console.log('test')
-        }
-
-    }
+    },
 }
 </script>
 

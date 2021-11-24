@@ -5,20 +5,32 @@
                 <font-awesome-icon icon="times"/>
             </button>
             <div id="short-video"> 
-                <video :src="currentShort['url']"/>
-                <font-awesome-icon class="icon" icon="redo"/>
-                <font-awesome-icon class="icon" icon="pause"/>
-                <font-awesome-icon class="icon" icon="play"/>
-                <font-awesome-icon icon="volume-up"/>
-                <font-awesome-icon icon="volume-mute"/>
+                <!-- <video id="video-element" :src="currentShort['url']" autoplay muted/> -->
+                <video id="video-element" src="@/assets/video/sample.mp4" autoplay muted/>
+                <div class="video-control">
+                    <font-awesome-icon class="icon" icon="replay" @click="replay"/>
+                    <font-awesome-icon v-if="isPlayed" class="icon" icon="pause" @click="pause"/>
+                    <font-awesome-icon v-else class="icon" icon="play" @click="play"/>
+                    <font-awesome-icon v-if="isMuted" class="icon" icon="volume-up" @click="unmute"/>
+                    <font-awesome-icon v-else class="icon" icon="volume-mute" @click="mute" />
+                </div>
             </div>
             <span class="short-meta-info">
-                <font-awesome-icon class="icon" icon="eye"/>
-                <small>{{currentShort['numOfViews']}}</small>
-                <font-awesome-icon class="icon" icon="comment"/>
-                <small>{{currentShort['comments'].length}}</small>
-                <font-awesome-icon class="icon" icon="heart"/>
-                <small>{{currentShort['numOfHearts']}}</small>
+                <div class="like">
+                    <font-awesome-icon class="heart-icon" icon="heart" @click="likeUp"/>
+                    <small>{{this.currentShort['numOfHearts']}}</small>
+                </div>
+
+                <div class="comment">
+                    <font-awesome-icon class="icon" icon="comment"/>
+                    <small>{{this.currentShort['comments'].length}}</small>
+                </div>
+                
+                <div class="view">
+                    <font-awesome-icon class="icon" icon="eye"/>
+                    <small>{{this.currentShort['numOfViews']}}</small>
+                </div>
+
             </span>
         </div>
         <div id="right">
@@ -115,6 +127,9 @@ export default {
     data(){
         return{
             comment:"test",
+            isMuted:true,
+            isPlayed:true,
+            isEnd:false,
         }
     },
     name:'Short',
@@ -154,12 +169,29 @@ export default {
         modifyShort() {
             alert('데모버전에선 수정 불가능합니다.');
         },
+        likeUp(){
+            alert('데모 버전에선 \'좋아요\' 불가능합니다.');
+        },
         pause(){
-
+            console.log(this.isPlayed)
+            $("#video-element").get(0).pause();
+            // $("video-elemnt").stop();
+            this.isPlayed=false
+            console.log(this.isPlayed)
         },
         play() {
-
+            this.$("#video-element").play();
+            this.isPlayed=true
         },
+        replay(){
+            this.isEnd=false
+        },
+        mute(){
+            this.isMuted=true
+        },
+        unmute(){
+            this.isMuted=false
+        }
 
     }
 }
@@ -186,8 +218,15 @@ export default {
     background-color:#333333;
     .close {
         position:absolute;
+        font-size: 28px;
         left:10px;
         top:10px;
+        border:transparent;
+        background-color: transparent;
+        cursor:pointer;
+    }
+    .close:hover{
+        color:white;
     }
     #short-video {
         position:absolute;
@@ -200,18 +239,37 @@ export default {
         margin-left:-300px;
         margin-top:-400px;
         background-color:green;
+        
     }
+    #video-element{
+        
+    }
+    .video-control{
+        top:100%;
+        width:120px;
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+        .icon{
+            cursor:pointer;
+        }
+    }
+    
     .short-meta-info {
         position:absolute;
-        right:50px;
-        bottom:50px;
+        right:10px;
+        bottom:30px;
         width:100px;
         display:flex;
         flex-direction:column;
         justify-content: center;
         color:white;
-        .icon {
+        /* .icon {
             margin:0 auto;
+        } */
+        .heart-icon{
+            cursor:pointer;
         }
     }
 }
@@ -317,4 +375,32 @@ export default {
         background-color:var(--placeholder-color);
     }
 }
+div{
+    .like{
+        margin: 10px 0 10px 0;
+        font-size: 28px;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .comment{
+        margin: 10px 0 10px 0;
+        font-size: 28px;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .view{
+        margin: 10px 0 10px 0;
+        font-size: 28px;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
 </style>
