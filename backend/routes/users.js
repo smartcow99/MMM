@@ -42,6 +42,8 @@ router.post('/pytest',upload.single('img'),(req, res)=>{
     args: [`public/testimg/${req.file.filename}`]
   };
   PythonShell.run("test.py", options, function(err, data) {
+    console.log('hi')
+    console.log('|'+err+'|')
     if (err) return res.status(400).send('fail');
     fs.unlink(path.join(__dirname,'../public/testimg/',req.file.filename), err => {
       if(err && err.code == 'ENOENT'){
