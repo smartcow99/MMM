@@ -32,7 +32,7 @@ const api = {
 	},
 	recommend_tag: async ()=>{
 		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc limit 5`)
-		return res;
+		return res.map(el=>el.tag);
 	},
 	recommend_shorts: async (reqNum)=>{
 		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid) left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid) left outer join (select chid, ch_profile as profile from channel )c using (chid) order by numOfSubscribers desc limit ${reqNum*6}, 6`)
@@ -61,7 +61,7 @@ const api = {
 	},
 	get_tag: async (vid)=>{
 		const [res] = await pool.query(`select tag from mmmservice.tag where vid = ${vid}`);
-		return res;
+		return res.map(el=>el.tag);
 	},
 	get_comments: async (vid, reqNum) => {
         const [res] = await pool.query(`select distinct cu.c_name as name, ch.ch_profile as profile, re.r_comment as content from customer as cu natural join(channel as ch natural join reply as re) where re.vid = ${vid} limit ${reqNum*6},6`)
@@ -71,8 +71,8 @@ const api = {
         const [res] = await pool.query(`select distinct p_name as title, img, pid as productId from tag natural join (product_img natural join product) where tag.vid = ${vid}`)
         return res;
   },
-	get_dressing_talbe: async (cid) => {
-		const [res] = await pool.query(`select distinct category, p_name as title, thumnail as img, pid as productId from customer natural join (dressing_table natural join product) where cid = ${cid}`)
+	get_dressing_talbe: async (chid) => {
+		const [res] = await pool.query(`select distinct category, p_name as title, thumnail as img, pid as productId from customer natural join (dressing_table natural join product) where chid = ${chid}`)
 		return res;
 	},
 	get_product_info: async (pid) => {
@@ -81,7 +81,7 @@ const api = {
 	},
 	get_product_img_info : async (pid) => {
 		const [res] = await pool.query(`select img as productImages from product_img where pid = ${pid}`)
-		return res;
+		return res.map(el=>el.tag);
 	},
 	get_related_short_info : async (pid, reqNum) => {
 		const [res] = await pool.query(`select title, thumnail, vid as shortId, chid as channelId, numOfSubscribers, numOfHearts, hits as numOfViews from channel natural join (video natural join tag)
@@ -205,7 +205,7 @@ module.exports = new Proxy(api,{
 		else if(apiName =='channel_info') {
 			return async function(chid, cid) {
 				let [res] = await target.get_channel_info(chid, cid);
-				res.dressingTable = await target.get_dressing_talbe(cid);
+				res.dressingTable = await target.get_dressing_talbe(chid);
 				res.shortList = await target.get_my_shorts(chid,0);
 				return res;
 			}
