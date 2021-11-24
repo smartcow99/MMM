@@ -5,6 +5,7 @@
     검출한 사진의 정확도를 올리기 위해 사진의 눈 정보를 확인해 작업 진행 판별
 '''
 import os
+import sys
 import cv2
 import numpy as np
 
@@ -198,7 +199,8 @@ def checkEye(image) :
     
 
 ''' 메인 함수 '''
-img_name='../AI/testimg.jpg'       
+img_name = sys.argv[1] 
+# img_name='../AI/testimg.jpg'       
 myImg=getImg(img_name)
 
 if checkEye(myImg) :
