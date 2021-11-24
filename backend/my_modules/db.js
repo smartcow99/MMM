@@ -123,7 +123,13 @@ const api = {
 	},
 
 }
-
+const to_string_arr  = (arr, name)=>{
+	let newarr = [];
+	for(idx in arr){
+		newarr[idx] = arr[idx][name];
+	}
+	return newarr;
+}
 module.exports = new Proxy(api,{
 	get: (target, apiName, receiver)=>{
 		if(apiName == 'login'){ // 로그인 신청시
