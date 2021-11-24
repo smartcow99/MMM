@@ -159,44 +159,6 @@ export default {
         if ((response.status = 200)) {
             commit("setShortInfo", response.data);
         }
-        // commit("setShortInfo", {
-        //     title: "클릭한 short",
-        //     shortId: 999,
-        //     info: "영상 정보 주저리주저리",
-        //     numOfHearts: 230,
-        //     numOfViews: 12000,
-        //     relatedChannel: {
-        //         title: "채널10",
-        //         profile: "",
-        //         channelId: 7,
-        //         numOfSubscribers: 210000,
-        //         numOfShorts: 10,
-        //         isSubscribed: false,
-        //         introduce: "나는 채널10 이다",
-        //     },
-        //     relatedTags: [
-        //         "관련상품1",
-        //         "관련상품2",
-        //         "관련상품3",
-        //         "관련상품4",
-        //         "관련상품5",
-        //         "관련상품6",
-        //     ],
-        //     relatedProducts: [
-        //         { title: "관련상품1", img: "#", productId: "12" },
-        //         { title: "관련상품2", img: "#", productId: "23" },
-        //         { title: "관련상품3", img: "#", productId: "34" },
-        //         { title: "관련상품4", img: "#", productId: "45" },
-        //         { title: "관련상품5", img: "#", productId: "56" },
-        //         { title: "관련상품6", img: "#", productId: "67" },
-        //     ],
-        //     comments: [
-        //         { name: "토토로", profile: "#", content: "아브라카다브라" },
-        //         { name: "토토로아빠", profile: "#", content: "아브라카다브라" },
-        //         { name: "토토로아들", profile: "#", content: "아브라카다브라" },
-        //         { name: "토토로엄마", profile: "#", content: "아브라카다브라" },
-        //     ],
-        // });
     },
     // async requestRelatedChannelInfo({ commit }, payload) {
     //     //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
@@ -229,9 +191,7 @@ export default {
                 chid: payload
             },
         });
-        console.log(response)
         if ((response.status = 200)) {
-            console.log(response.data)
             commit("setChannelInfo", response.data);
         }
     },
