@@ -46,6 +46,7 @@ const api = {
 		return res;
 	},
 	get_purchare_list: async (cid, reqNum) => {
+		console.log(reqNum);
 		const [res] = await pool.query(`select distinct pid, p_date as date, price, p_num as purchaseNum, thumnail, p_name as productName\
 		from product natural join purchase where cid = ${cid} limit ${reqNum*6}, 6`)
 		return res;
@@ -95,6 +96,7 @@ const api = {
 		return res;
 	},
 	like_up: async (cid, vid) => {
+				console.log(vid)
         const [res] = await pool.query(`insert into recommend (cid, vid) values(${cid}, ${vid})`)
         return res;
     },
@@ -116,19 +118,13 @@ const api = {
 		const [res] = await pool.query(`select c_name as name, id as ID, chid as channelId, birth, channel.ch_profile as profileImage, case when ${cid} is not null then 'true' else 'false' end as isLogined from customer natural join channel`)
 		return res;
 	},
-	// subscribe_list need to repare
 	get_subscribe_list: async (cid) =>{
-		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when ${cid} not in(select cid from subscribe) then 'false' else 'true' end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where cid = ${cid}`)
+		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when cid = ${cid} then 'true' else 'false' end as isMyChannel, case when ${cid} not in(select cid from subscribe where chid in (select chid from subscribe where cid = ${cid})) then 'false' else 'true' end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid in (select chid from subscribe where cid = ${cid})`)
 		return res;
 	},
 
 }
-const to_string_arr = (arr, name)=>{
-	let newarr = [];
-	for(idx in arr)
-		newarr[idx] = arr[idx][name];
-	return newarr;
-}
+
 module.exports = new Proxy(api,{
 	get: (target, apiName, receiver)=>{
 		if(apiName == 'login'){ // 로그인 신청시
@@ -163,10 +159,8 @@ module.exports = new Proxy(api,{
 		}
 		else if(apiName == 'recommend'){
 			return async function(type, cid, reqNum) {
-				if(type == 'tag'){
-					let tag = await target.recommend_tag();
-					return to_string_arr(tag, 'tag')
-				}
+				if(type == 'tag')
+					return await target.recommend_tag();
 				else if(type == 'channel'){
 					const result = await target.recommend_channel(cid);
 					return result.filter(element => {
@@ -214,7 +208,7 @@ module.exports = new Proxy(api,{
 		else if(apiName == 'product_info') {
 			return async function(pid) {
 				let [res] = await target.get_product_info(pid);
-					res.productImages = to_string_arr( await target.get_product_img_info(pid), 'productImages');
+					res.productImages = await target.get_product_img_info(pid);
 					res.relatedShorts = await target.get_related_short_info(pid,0);
 					res.reviews = await target.get_product_review(pid,0);
 				return res;
@@ -232,3 +226,10 @@ module.exports = new Proxy(api,{
 			return target[apiName];
 	}
 })
+
+
+// module.exports.account = async () =>{
+// 	let [a] = await pool.query(`select * from ${table}`);
+// 	console.log(a);
+// 	return a;
+// }
