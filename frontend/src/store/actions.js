@@ -159,44 +159,6 @@ export default {
         if ((response.status = 200)) {
             commit("setShortInfo", response.data);
         }
-        // commit("setShortInfo", {
-        //     title: "클릭한 short",
-        //     shortId: 999,
-        //     info: "영상 정보 주저리주저리",
-        //     numOfHearts: 230,
-        //     numOfViews: 12000,
-        //     relatedChannel: {
-        //         title: "채널10",
-        //         profile: "",
-        //         channelId: 7,
-        //         numOfSubscribers: 210000,
-        //         numOfShorts: 10,
-        //         isSubscribed: false,
-        //         introduce: "나는 채널10 이다",
-        //     },
-        //     relatedTags: [
-        //         "관련상품1",
-        //         "관련상품2",
-        //         "관련상품3",
-        //         "관련상품4",
-        //         "관련상품5",
-        //         "관련상품6",
-        //     ],
-        //     relatedProducts: [
-        //         { title: "관련상품1", img: "#", productId: "12" },
-        //         { title: "관련상품2", img: "#", productId: "23" },
-        //         { title: "관련상품3", img: "#", productId: "34" },
-        //         { title: "관련상품4", img: "#", productId: "45" },
-        //         { title: "관련상품5", img: "#", productId: "56" },
-        //         { title: "관련상품6", img: "#", productId: "67" },
-        //     ],
-        //     comments: [
-        //         { name: "토토로", profile: "#", content: "아브라카다브라" },
-        //         { name: "토토로아빠", profile: "#", content: "아브라카다브라" },
-        //         { name: "토토로아들", profile: "#", content: "아브라카다브라" },
-        //         { name: "토토로엄마", profile: "#", content: "아브라카다브라" },
-        //     ],
-        // });
     },
     // async requestRelatedChannelInfo({ commit }, payload) {
     //     //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
@@ -223,7 +185,6 @@ export default {
         //hot: 핫쇼츠, *: 구독한 모든 채널의 short, ID: 특정 채널의 info
         //channelId에 해당하는 채널 정보 요청
         //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
-        console.log('?')
         commit("initRequestNum");
         const response = await axios.get("http://34.64.76.43:3000/users/channel", {
             params: {
@@ -246,54 +207,6 @@ export default {
             console.log(response.data)
             commit("setProductInfo", response.data);
         }
-        // commit("setProductInfo", {
-        // productId: "130",
-        // productImages: ["#1", "#2", "#3", "#4", "#5"],
-        // productInfo: {
-        //     title: "상품명123",
-        //     manufacturer: "아모레퍼시픽림",
-        //     rate: 3.3,
-        //     price: 9000,
-        //     views: 34850,
-        // },
-        // relatedShorts: [
-        //     {
-        //     title: "관련 쇼츠1",
-        //     thumnail: "#",
-        //     shortId: 1111,
-        //     channelId: 20,
-        //     numOfSubscribers: 12345,
-        //     numOfHearts: 54321,
-        //     numOfViews: 12321,
-        //     },
-        //     {
-        //     title: "관련 쇼츠2",
-        //     thumnail: "#",
-        //     shortId: 2224,
-        //     channelId: 20,
-        //     numOfSubscribers: 12345,
-        //     numOfHearts: 54321,
-        //     numOfViews: 12321,
-        //     },
-        // ],
-        // productExplainHtml: `<div>hi i am product</div>`,
-        // reviews: [
-        //     {
-        //     profile: "#",
-        //     name: "abc",
-        //     content: "그게정말사실인가요?",
-        //     rate: 4.4,
-        //     photo: "",
-        //     },
-        //     {
-        //     profile: "#",
-        //     name: "abc",
-        //     content: "그게정말사실인가요?",
-        //     rate: 2.4,
-        //     photo: "#",
-        //     },
-        // ],
-        // });
     },
     async moreChannelSearch({state,commit}){
         //request axios get

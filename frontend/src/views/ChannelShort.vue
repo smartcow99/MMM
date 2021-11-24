@@ -27,19 +27,6 @@ export default {
         ...mapState([
             'currentChannel'
         ])
-    },
-    methods: {
-        ...mapActions([
-            'requestChannelInfo'
-        ])
-    },
-    watch: {
-        '$route': {
-            immediate: true,
-            handler(to,from) {
-                this.requestChannelInfo(this.$route.query['channelId']);
-            }
-        }
     }
 }
 </script>
