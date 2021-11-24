@@ -98,6 +98,8 @@ def do_cropImg_v1(img):
         elif y - int(h / 10)>=0 and x - int(w / 10)>=0:
             cropped = img[y - int(h / 10):y + h + int(h / 10), x - int(w / 10):x + w + int(w / 10)]
             
+    print(cropped)
+            
     return cropped
 
 # 피부색 분석을 위한 사진 자르기
@@ -199,9 +201,13 @@ def checkImg(image) :
     
 
 ''' 메인 함수 '''
-# img_name='testImg.jpg'
-img_name = sys.argv[1]        
+img_name='test1.jpg'
+# img_name = sys.argv[1]        
 myImg=getImg(img_name)
+
+cv2.imshow('result',myImg)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 if checkImg(myImg) :
     myImg=do_cropImg_v1(myImg)
