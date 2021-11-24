@@ -80,7 +80,8 @@ def check_RGB(faceColor):
 
 # 얼굴형 분석을 위한 사진 자르기
 def do_cropImg_v1(img):
-
+    cropped = 'error'   # default
+    
     if len(img.shape)==2 :
         faces = face_cascade.detectMultiScale(img, 1.3,5)
     else :
@@ -96,6 +97,8 @@ def do_cropImg_v1(img):
             cropped = img[y - int(h / 8):y + h + int(h / 8), x - int(w / 8):x + w + int(w / 8)]
         elif y - int(h / 10)>=0 and x - int(w / 10)>=0:
             cropped = img[y - int(h / 10):y + h + int(h / 10), x - int(w / 10):x + w + int(w / 10)]
+        else :
+            cropped = 'error'
             
     return cropped
 
@@ -178,26 +181,27 @@ def face_model(myImg,model):
             
        
 ''' 메인 함수 '''
-# print("hello world")
 img_name = sys.argv[1] 
-# img_name = '../AI/testimg.jpg'      
+# img_name = 'test1.jpg'      
 myImg=getImg(img_name)
 myImg=do_cropImg_v1(myImg)
+if myImg != 'error' :
+    # 얼굴형 분석
+    face,face_rate=face_model(myImg,'keras_model_16.h5')
 
-# 얼굴형 분석
-face,face_rate=face_model(myImg,'keras_model_16.h5')
+    # 얼굴 피부 색상 분석
+    faceColor=get_image_YCBCR(myImg)
 
-# 얼굴 피부 색상 분석
-faceColor=get_image_YCBCR(myImg)
-
-# 전달 인자 : face (얼굴형), faceColor (피부톤 호수)
-if faceColor =='error':
-    print(face)
-    print('피부 색상은 확인 하지 못했습니다.')
+    # 전달 인자 : face (얼굴형), faceColor (피부톤 호수)
+    if faceColor =='error':
+        print(face)
+        print('피부 색상은 확인 하지 못했습니다.')
+    else :
+        print(face)
+        print(faceColor)
+        
+    # cv2.imshow('result',myImg)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 else :
-    print(face)
-    print(faceColor)
-    
-# cv2.imshow('result',myImg)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+    print('Fault')
