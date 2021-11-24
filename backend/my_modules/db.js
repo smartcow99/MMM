@@ -76,7 +76,7 @@ const api = {
 		return res;
 	},
 	get_product_info: async (pid) => {
-		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, avg_rate as rate, price, access as views, detail as productExplainHtml from product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = 1;`)
+		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, avg_rate as rate, price, access as views, detail as productExplainHtml from product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = ${pid};`)
 		return res;
 	},
 	get_product_img_info : async (pid) => {
@@ -91,7 +91,7 @@ const api = {
 	},
 	get_product_review: async (pid,reqNum) => {
 		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, avg_rate as rate, photo from channel join customer using(cid) join review using(cid) join product using(pid) left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = ${pid}
-		limit ${reqNum*6}, 6`)
+		 limit ${reqNum*6}, 6`)
 		return res;
 	},
 	like_up: async (cid, vid) => {
