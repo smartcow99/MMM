@@ -34,7 +34,7 @@ answer=('Heart','Oblong','Oval','Round','Square')
 scaling_factor=0.1
 
 modelDir='model/'
-imgDir='public/testimg/'
+# imgDir='../public/testimg/'
 
 # 원본 이미지
 def getImg(imgLink):
@@ -178,7 +178,7 @@ def face_model(myImg,model):
             
        
 ''' 메인 함수 '''
-img_name = imgDir + sys.argv[1]       
+img_name = sys.argv[1]       
 
 myImg=getImg(img_name)
 myImg=do_cropImg_v1(myImg)
