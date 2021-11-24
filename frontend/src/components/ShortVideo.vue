@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <video :src="url" autoplay muted/>
-        <div class="video-control">
-            <font-awesome-icon class="icon" icon="replay" @click="replay"/>
-            <font-awesome-icon v-if="isPlayed" class="icon" icon="pause" @click="pause"/>
-            <font-awesome-icon v-else class="icon" icon="play" @click="play"/>
-            <font-awesome-icon v-if="isMuted" class="icon" icon="volume-up" @click="unmute"/>
-            <font-awesome-icon v-else class="icon" icon="volume-mute" @click="mute" />
-        </div>
+    <div class="short-video">
+        <video autoplay muted controls loop ref="video" >
+            <source :src="src" type="video/mp4"/>
+            지원하지 않는 태그 입니다.
+        </video>
+        <font-awesome-icon v-show="playState==='play'" class="icon" icon="pause"/>
+        <font-awesome-icon v-show="playState==='pause'" class="icon" icon="play"/>
     </div>
     
 </template>
@@ -16,11 +14,66 @@
 export default {
     name:'ShortVideo',
     props: {
-        url:String
+        src:String
+    },
+    data() {
+        return {
+            playState:'play' // play, pause, end
+        }
+    },
+    mounted() {
+        this.$refs['video'].addEventListener('playing',()=>{
+            this.playState = 'play'
+        },false);
+        
+        this.$refs['video'].addEventListener('pause',()=>{
+            this.playState = 'pause'
+        },false);
+    },
+    methods: {
+        videoHandler() {
+            switch(this.playState) {
+                case 'play': {
+                    this.pause();
+                }
+                case 'pause': {
+                    this.play();
+                }
+            }
+        },
+        play() {
+            this.$refs['video'].play();
+        },
+        pause() {
+            this.$refs['video'].pause();
+        }
     }
 }
 </script>
 
-<style>
-
+<style scoped>
+.short-video {
+    background-color:black;
+}
+video {
+    width:100%;
+    height:100%;
+}
+.video-control {
+    position:absolute;
+}
+.icon {
+    color:var(--background-color);
+    font-size:2rem;
+    position:absolute;
+    top:50%;
+    margin-top:-1rem;
+    transition:0.3s;
+}
+video::-webkit-media-controls-play-button {
+    display:none;
+}
+video::-webkit-media-controls-fullscreen-button { 
+    display: none !important; 
+}
 </style>

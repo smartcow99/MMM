@@ -21,7 +21,7 @@ export default {
     background-color:var(--background-color);
     border-radius: 13px;
     margin:3px;
-    padding:1px 12px 0px 12px;
+    padding:0 12px;
     cursor: pointer ;
 }
 .tag:hover {

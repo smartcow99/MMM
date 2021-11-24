@@ -32,6 +32,7 @@ import {
   faHeart as farHeart,
   faUserCircle as farUserCircle,
   faEye as farEye,
+  faCommentDots as farCommentDots
 } from "@fortawesome/free-regular-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -60,6 +61,7 @@ library.add(faRedo);
 library.add(faWonSign);
 library.add(faArrowUp);
 library.add(faArrowDown);
+library.add(farCommentDots);
 
 const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);

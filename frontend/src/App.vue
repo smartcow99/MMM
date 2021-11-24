@@ -323,6 +323,9 @@ hr {
   border-top:1px solid var(--placeholder-color);
   margin-bottom:20px;
 }
+p {
+  margin:10px 0;
+}
 a {
   text-decoration:none;
   color:var(--primary-color);

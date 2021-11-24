@@ -1,32 +1,33 @@
 <template>
     <div id="short">
         <div id="left">
-            <button class="close" @click="$emit('close')">
-                <font-awesome-icon icon="times"/>
-            </button>
-            <div id="short-video"> 
-                <ShortVideo :src="currentShort['url']"/>
-            </div>
-            <span class="short-meta-info">
+            <div class="short-meta-info">
                 <div class="like">
-                    <font-awesome-icon class="heart-icon" icon="heart" @click="likeUp"/>
+                    <font-awesome-icon class="icon" :icon="['far','heart']" @click="likeUp"/>
                     <small>{{this.currentShort['numOfHearts']}}</small>
                 </div>
-
                 <div class="comment">
-                    <font-awesome-icon class="icon" icon="comment"/>
+                    <font-awesome-icon class="icon" :icon="['far','comment-dots']"/>
                     <small>{{this.currentShort['comments'].length}}</small>
                 </div>
-                
                 <div class="view">
-                    <font-awesome-icon class="icon" icon="eye"/>
+                    <font-awesome-icon class="icon" :icon="['far','eye']"/>
                     <small>{{this.currentShort['numOfViews']}}</small>
                 </div>
-
-            </span>
+            </div>
+            <button class="close" @click="$emit('close')">
+                <img src="@/assets/images/times.png"/>
+            </button>
+            <div class="video-zone">
+                <!-- <ShortVideo id="short-video" :src="currentShort['url']"/> -->
+                <ShortVideo id="short-video" :src="`http://34.64.76.43:3000/shorts/Oval_23%20(2).mp4`"/>
+                <!-- <ShortVideo id="short-video" :src="`https://s0.2mdn.net/4253510/google_ddm_animation_480P.mp4`"/> -->
+            </div>
         </div>
         <div id="right">
-            <h2 id="short-title">{{currentShort['title']}}</h2>
+            <h2 id="short-title">
+                {{currentShort['title']}}
+            </h2>
             <div class="channel">
                 <div class="channel-info">
                     <!-- 채널 프로필 -->
@@ -55,13 +56,9 @@
                     <Btn id="subscribe-button" v-else-if="isSubscribed" :theme="gray" @click="unsubscribe">구독 취소</Btn>
                     <Btn id="subscribe-button" v-else :theme="primary" @click="subscribe">구독</Btn>
                 </div>
-                <div id="channel-explanation">
-                    <!-- 채널 정보 -->
-                    <!-- {{currentShort['relatedChannel'].introduce}} -->
-                </div>
             </div>
             <div id="short-explanation">   <!--영상정보-->
-                {{currentShort['info']}}
+                <p>{{currentShort['info']}}</p>
             </div>
             <div class="tag-area">
                 <div class="tag-list">
@@ -87,7 +84,7 @@
             <div class="comment-area">
                 <WriteComment v-if="userInfo['isLogined']" @write="registComment"></WriteComment>
                 <div class="unlogined-comment" v-else>
-                    댓글을 등록하려면 로그인을 해주세요
+                    <p>댓글을 등록하려면 로그인을 해주세요</p>
                     <Btn class="login-button" @click="openLogin">로그인</Btn>
                 </div>
                 <div class="no-comment" v-if="currentShort['comments'].length===0">
@@ -207,27 +204,44 @@ export default {
 #left {
     flex-grow:1;
     position:relative;
-    backdrop-filter:blur(4px);
-    background-color:#333333;
+    background-color:#000000;
     .close {
+        z-index:100;
+        img {
+            width:32px;
+            height:32px;
+        }
         position:absolute;
-        font-size: 28px;
         left:10px;
-        top:10px;
+        top:20px;
         border:transparent;
         background-color: transparent;
         cursor:pointer;
     }
-    .close:hover{
-        color:white;
+    .short-meta-info {
+        z-index:100;
+        position:absolute;
+        right:10px;
+        top:20px;
+        font-size:0.5rem;
+        display:inline-flex;
+        flex-direction:row;
+        margin-bottom:20px;
     }
     #short-video {
         display:flex;
         flex-direction:row;
         justify-content: center;
     }
-    #video-element{
-        
+    .video-zone {
+        display:flex;
+        flex-direction:row;
+        justify-content: center;
+        height:100%;
+    }
+    #short-video{
+        width:100%;
+        height:100%;
     }
     .video-control{
         top:100%;
@@ -235,25 +249,7 @@ export default {
         display:flex;
         flex-direction: row;
         justify-content: space-between;
-        
         .icon{
-            cursor:pointer;
-        }
-    }
-    
-    .short-meta-info {
-        position:absolute;
-        right:10px;
-        bottom:30px;
-        width:100px;
-        display:flex;
-        flex-direction:column;
-        justify-content: center;
-        color:white;
-        /* .icon {
-            margin:0 auto;
-        } */
-        .heart-icon{
             cursor:pointer;
         }
     }
@@ -263,7 +259,8 @@ export default {
     flex-direction: column;
     align-items: center;
     align-items: flex-start;
-    width:740px;
+    padding:0 40px;
+    width:800px;
     & > * {
         width:700px;
         margin:0 auto;
@@ -272,15 +269,17 @@ export default {
         font-weight: bold;
         margin-top:30px;
         margin-bottom:30px;
+        padding-right:10px;
     }
     .channel{
         display:flex;
         flex-direction: column;
         justify-content: flex-start;
+        padding-right:10px;
+        margin-bottom:20px;
         .channel-info{
             display:flex;
             flex-direction: row;
-            margin-bottom:40px;
             img.channel-profile-image{
                 width:40px;
                 height: 40px;
@@ -316,10 +315,12 @@ export default {
     #short-explanation{
         margin-bottom: 20px;
         text-align: left;
+
     }
     .tag-area {
         height:80px;
         margin-bottom:20px;
+        padding-right:10px;
         .tag-list {
             display:flex;
             flex-direction:row;
@@ -329,6 +330,7 @@ export default {
     .slider {
         margin:0 auto;
         margin-bottom:20px;
+        padding-right:10px;
     }
 
 }
@@ -362,30 +364,70 @@ export default {
 }
 div{
     .like{
-        margin: 10px 0 10px 0;
-        font-size: 28px;
+        height:36px;
+        font-size: 20px;
+        border:1px solid var(--background-color);
+        border-radius:20px;
+        padding:4px 16px;
+        margin-right:10px;
         display:flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
+        cursor:pointer;
+        background-color:var(--background-color);
+        & > * {
+            margin:auto 0;
+        }
+        .icon {
+            color:var(--error-color);
+            margin-right:10px;
+        }
+        small {
+            margin:auto 0;
+        }
     }
     .comment{
-        margin: 10px 0 10px 0;
-        font-size: 28px;
+        height:36px;
+        font-size: 20px;
+        border-radius:20px;
+        border:1px solid var(--background-color);
+        padding:4px 16px;
+        margin-right:10px;
         display:flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
+        background-color:var(--background-color);
+        & > * {
+            margin:auto 0;
+        }
+        .icon {
+            margin-right:10px;
+        }
+        small {
+            margin:auto 0;
+        }
     }
     .view{
-        margin: 10px 0 10px 0;
-        font-size: 28px;
+        height:36px;
+        font-size: 20px;
+        border-radius:20px;
+        border:1px solid var(--background-color);
+        padding:4px 16px;
+        margin-right:10px;
         display:flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
+        background-color:var(--background-color);
+        & > * {
+            margin:auto 0;
+        }
+        .icon {
+            margin-right:10px;
+        }
     }
-
 }
 
 </style>
