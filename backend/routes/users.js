@@ -6,7 +6,9 @@ const { PythonShell } = require("python-shell");
 const islogined = require('../my_modules/logincheck')
 const fs = require('fs');
 const path = require('path');
+const spawn = require('child_process').spawn
 
+    
 // const upload = multer({ dest: 'public/image', limits: { fileSize: 5 * 1024 * 1024 } });
 // const upload = multer({
 //   storage: multer.diskStorage({
@@ -38,7 +40,7 @@ const upload = multer({
     storage: multer.diskStorage({
       // set a localstorage destination
       destination: (req, file, cb) => {
-        cb(null, '../AI');
+        cb(null, 'public');
       },
       // convert a file name
       filename: (req, file, cb) => {
@@ -50,11 +52,11 @@ const upload = multer({
 router.post('/pytest',upload.single('img'),(req, res)=>{
   let options = {
     scriptPath: "../AI",
-    args: [req.file.filename]
+    args: ['public/'+req.file.filename]
   };
-  console.log(req.file.filename)
-  PythonShell.run("face_model_v2.py", options, function(err, data) {
-    fs.unlink(path.join(__dirname,'../public/testimg/',req.file.filename), err => {
+
+  PythonShell.run("face_model_v3.py", options, function(err, data) {
+    fs.unlink('public/'+req.file.filename, err => {
       if(err && err.code == 'ENOENT'){
           console.log("파일 삭제 Error 발생");
       }
@@ -63,9 +65,8 @@ router.post('/pytest',upload.single('img'),(req, res)=>{
       console.log(err)
       return res.status(400).send('fail')
     };
-    console.log(data)
     
-    return res.send('ok')
+    return res.status(200).send(data)
   });
 })
 

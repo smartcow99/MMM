@@ -1,7 +1,17 @@
 <template>
     <div id="short">
         <div id="left">
+<<<<<<< Updated upstream
             <div class="short-meta-info">
+=======
+            <button class="close" @click="$emit('close')">
+                <font-awesome-icon icon="times"/>
+            </button>
+            <div id="short-video"> 
+                <ShortVideo :src="currentShort['url']"/>
+            </div>
+            <span class="short-meta-info">
+>>>>>>> Stashed changes
                 <div class="like">
                     <font-awesome-icon class="icon" :icon="['far','heart']" @click="likeUp"/>
                     <small>{{this.currentShort['numOfHearts']}}</small>
@@ -111,8 +121,9 @@ import WriteComment from '../WriteComment.vue'
 import Comment from '../Comment.vue'
 import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
+import ShortVideo from '../ShortVideo.vue'
 export default {
-    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn },
+    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn, ShortVideo },
     data(){
         return{
             comment:"test",
@@ -231,6 +242,7 @@ export default {
         display:flex;
         flex-direction:row;
         justify-content: center;
+<<<<<<< Updated upstream
     }
     .video-zone {
         display:flex;
@@ -241,6 +253,8 @@ export default {
     #short-video{
         width:100%;
         height:100%;
+=======
+>>>>>>> Stashed changes
     }
     .video-control{
         top:100%;
