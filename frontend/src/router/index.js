@@ -91,8 +91,50 @@ router.beforeEach((to,from,next)=>{
     next(from);
   }
   else {
+    switch(to.path) {
+      case '/': {
+        break;
+      }
+      case '/search/':{
+        if(!!to.query['content']) {
+          store.dispatch('requestSearch',{
+            'type':'short',
+            'content':to.query['content']
+          });
+        }
+        break;
+      }
+      case '/search/channels':{
+        if(!!to.query['content']) {
+          store.dispatch('requestSearch',{
+            'type':'channel',
+            'content':to.query['content']
+          });
+        }
+        break;
+      }
+      case '/search/products':{
+        if(!!to.query['content']) {
+          store.dispatch('requestSearch',{
+            'type':'product',
+            'content':to.query['content']
+          });
+        }
+        break;
+      }
+      case '/channel': {
+        console.log(to.query)
+        if(!!to.query['channelId']) {
+          store.dispatch('requestChannelInfo',to.query['channelId']);
+        }
+      }
+      case '/product': {
+        if(!!to.query['productId']) {
+          store.dispatch('requestProductInfo',to.query['productId']);
+        }
+      }
+    }
     next();
   }
-
 })
 export default router;

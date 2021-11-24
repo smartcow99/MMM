@@ -28,22 +28,6 @@ export default {
             'shortList'
         ])
     },
-    methods: {
-        ...mapActions([
-            'requestSearch'
-        ])
-    },
-    watch: {
-        '$route': {
-            immediate: true,
-            handler(to,from) {
-                this.requestSearch({
-                    'type':'short',
-                    'content':this.$route.query['content']
-                });
-            }
-        }
-    }
 }
 </script>
 

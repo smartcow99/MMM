@@ -223,6 +223,7 @@ export default {
         //hot: 핫쇼츠, *: 구독한 모든 채널의 short, ID: 특정 채널의 info
         //channelId에 해당하는 채널 정보 요청
         //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
+        console.log('?')
         commit("initRequestNum");
         const response = await axios.get("http://34.64.76.43:3000/users/channel", {
             params: {
