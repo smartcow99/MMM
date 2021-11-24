@@ -5,15 +5,7 @@
                 <font-awesome-icon icon="times"/>
             </button>
             <div id="short-video"> 
-                <!-- <video id="video-element" :src="currentShort['url']" autoplay muted/> -->
-                <video id="video-element" src="@/assets/video/sample.mp4" autoplay muted/>
-                <div class="video-control">
-                    <font-awesome-icon class="icon" icon="replay" @click="replay"/>
-                    <font-awesome-icon v-if="isPlayed" class="icon" icon="pause" @click="pause"/>
-                    <font-awesome-icon v-else class="icon" icon="play" @click="play"/>
-                    <font-awesome-icon v-if="isMuted" class="icon" icon="volume-up" @click="unmute"/>
-                    <font-awesome-icon v-else class="icon" icon="volume-mute" @click="mute" />
-                </div>
+                <ShortVideo :src="currentShort['url']"/>
             </div>
             <span class="short-meta-info">
                 <div class="like">
@@ -122,8 +114,9 @@ import WriteComment from '../WriteComment.vue'
 import Comment from '../Comment.vue'
 import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
+import ShortVideo from '../ShortVideo.vue'
 export default {
-    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn },
+    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn, ShortVideo },
     data(){
         return{
             comment:"test",
@@ -229,17 +222,9 @@ export default {
         color:white;
     }
     #short-video {
-        position:absolute;
-        width:100%;
-        max-width:600px;
-        height:100%;
-        max-height:800px;
-        top:50%;
-        left:50%;
-        margin-left:-300px;
-        margin-top:-400px;
-        background-color:green;
-        
+        display:flex;
+        flex-direction:row;
+        justify-content: center;
     }
     #video-element{
         

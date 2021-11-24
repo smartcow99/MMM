@@ -1,27 +1,27 @@
 <template>
     <div class="short-summary" @click="openShort(shortInfo)">
-       <div class="shorts" @mouseover="onHover" @mouseout="offHover">
-           <div v-if="hoverOn" id="hover">
-               <img src="@/assets/images/testThumbnail.png">
-               <span id="shorts-title">{{shortInfo['title']}}</span>
-           </div>
-           <img v-else src="@/assets/images/testThumbnail.png">
+        <div class="shorts" @mouseover="onHover" @mouseout="offHover">
+            <div v-if="hoverOn" id="hover">
+                <img src="@/assets/images/testThumbnail.png">
+                <span id="shorts-title">{{shortInfo['title']}}</span>
+            </div>
+            <img v-else src="@/assets/images/testThumbnail.png">
 
-       </div>
-       <div class="shorts-stat">
-            <div id="subscriber-count">
-                <font-awesome-icon id="fa-icon" :icon="['far','user-circle']" />
-                {{subscriber}}
-            </div>
-            <div id="like-count">
-                    <font-awesome-icon id="fa-icon" :icon="['far','heart']" @click="upLike"/>
-                {{like}}
-            </div>
-            <div id="view-count">
-                <font-awesome-icon id="fa-icon" :icon="['far','eye']"/>
-                {{view}}
-            </div>
-       </div>
+        </div>
+        <div class="shorts-stat">
+                <div id="subscriber-count">
+                    <font-awesome-icon id="fa-icon" :icon="['far','user-circle']" />
+                    {{subscriber}}
+                </div>
+                <div id="like-count">
+                        <font-awesome-icon id="fa-icon" :icon="['far','heart']" @click="upLike"/>
+                    {{like}}
+                </div>
+                <div id="view-count">
+                    <font-awesome-icon id="fa-icon" :icon="['far','eye']"/>
+                    {{view}}
+                </div>
+        </div>
     </div>
 </template>
 
