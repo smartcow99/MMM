@@ -1,28 +1,18 @@
 <template>
     <div id="short">
         <div id="left">
-<<<<<<< Updated upstream
             <div class="short-meta-info">
-=======
-            <button class="close" @click="$emit('close')">
-                <font-awesome-icon icon="times"/>
-            </button>
-            <div id="short-video"> 
-                <ShortVideo :src="currentShort['url']"/>
-            </div>
-            <span class="short-meta-info">
->>>>>>> Stashed changes
                 <div class="like">
                     <font-awesome-icon class="icon" :icon="['far','heart']" @click="likeUp"/>
-                    <small>{{this.currentShort['numOfHearts']}}</small>
+                    <small>{{translateUnit("like", this.currentShort['numOfHearts'], $event).returnVal}}</small>
                 </div>
                 <div class="comment">
                     <font-awesome-icon class="icon" :icon="['far','comment-dots']"/>
-                    <small>{{this.currentShort['comments'].length}}</small>
+                    <small>{{translateUnit("comment", this.currentShort['comments'].length, $event).returnVal}}</small>
                 </div>
                 <div class="view">
                     <font-awesome-icon class="icon" :icon="['far','eye']"/>
-                    <small>{{this.currentShort['numOfViews']}}</small>
+                    <small>{{translateUnit("view", this.currentShort['numOfViews'], $event).returnVal}}</small>
                 </div>
             </div>
             <button class="close" @click="$emit('close')">
@@ -121,9 +111,8 @@ import WriteComment from '../WriteComment.vue'
 import Comment from '../Comment.vue'
 import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
-import ShortVideo from '../ShortVideo.vue'
 export default {
-    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn, ShortVideo },
+    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn },
     data(){
         return{
             comment:"test",
@@ -191,8 +180,51 @@ export default {
         },
         unmute(){
             this.isMuted=false
+        },
+        translateUnit(element, data, event){
+              console.log(data)
+              if(element=="coment"){
+                  if(data>=1000000){
+                      data/=1000000;
+                data=Math.floor(data*10)/10+'M';
+            }
+            else if(data>=1000 && data<1000000){
+                data/=1000;
+                data=Math.floor(data*10)/10+'K';
+            }
+                const returnVal=data;
+                console.log(returnVal)
+            return{
+                returnVal,
+            }
+            }
+            else if(element=="like"){
+            if(data>=1000000){
+                data/=1000000;
+                data=Math.floor(data*10)/10+'M';
+            }
+            else if(data>=1000 && data<1000000){
+                data/=1000;
+                data=Math.floor(data*10)/10+'K';
+            }const returnVal=data;
+            return{
+                returnVal,
+            }
+            }
+        else{
+            if(data>=1000000){
+                data/=1000000;
+                data=Math.floor(data*10)/10+'M';
+            }
+            else if(data>=1000 && data<1000000){
+                data/=1000;
+                data=Math.floor(data*10)/10+'K';
+            }const returnVal=data;
+            return{
+                returnVal,
+            }
         }
-
+        },
     }
 }
 </script>
@@ -242,7 +274,6 @@ export default {
         display:flex;
         flex-direction:row;
         justify-content: center;
-<<<<<<< Updated upstream
     }
     .video-zone {
         display:flex;
@@ -253,8 +284,6 @@ export default {
     #short-video{
         width:100%;
         height:100%;
-=======
->>>>>>> Stashed changes
     }
     .video-control{
         top:100%;
@@ -328,7 +357,6 @@ export default {
     #short-explanation{
         margin-bottom: 20px;
         text-align: left;
-
     }
     .tag-area {
         height:80px;
@@ -345,7 +373,6 @@ export default {
         margin-bottom:20px;
         padding-right:10px;
     }
-
 }
 .comment-area {
     flex-grow:1;
@@ -442,5 +469,4 @@ div{
         }
     }
 }
-
 </style>
