@@ -54,7 +54,7 @@ router.post('/pytest',upload.single('img'),(req, res)=>{
   };
   console.log(req.file.filename)
   PythonShell.run("face_model_v2.py", options, function(err, data) {
-    fs.unlink(path.join(__dirname,'../public/testimg/',req.file.filename), err => {
+    fs.unlink(path.join(__dirname,'../../AI/',req.file.filename), err => {
       if(err && err.code == 'ENOENT'){
           console.log("파일 삭제 Error 발생");
       }
