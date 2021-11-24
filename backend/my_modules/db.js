@@ -165,7 +165,7 @@ module.exports = new Proxy(api,{
 		else if(apiName == 'recommend'){
 			return async function(type, cid, reqNum) {
 				if(type == 'tag')
-					return await target.recommend_tag();
+					return to_string_arr(await target.recommend_tag(), 'tag');
 				else if(type == 'channel'){
 					const result = await target.recommend_channel(cid);
 					return result.filter(element => {
