@@ -291,7 +291,8 @@ export default {
 }
 .comment-area {
     flex-grow:1;
-    overflow-y:scroll;
+    padding-right:10px;
+    overflow-y:auto;
     .unlogined-comment{
         display:flex;
         flex-direction:row;
@@ -305,8 +306,15 @@ export default {
         padding:5px 0;
         font-size:1.2rem;
     }
-    .comment-list {
-
+    &::-webkit-scrollbar {
+        background-color:white;
+        width:12px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color:white;
+    }
+    &:hover::-webkit-scrollbar-thumb {
+        background-color:var(--placeholder-color);
     }
 }
 </style>
