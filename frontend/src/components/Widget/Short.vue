@@ -111,9 +111,8 @@ import WriteComment from '../WriteComment.vue'
 import Comment from '../Comment.vue'
 import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
-import ShortVideo from '../ShortVideo.vue'
 export default {
-    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn, ShortVideo },
+    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn },
     data(){
         return{
             comment:"test",

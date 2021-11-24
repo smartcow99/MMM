@@ -1,27 +1,27 @@
 <template>
     <div class="short-summary" @click="openShort(shortInfo)">
-        <div class="shorts" @mouseover="onHover" @mouseout="offHover">
-            <div v-if="hoverOn" id="hover">
-                <img src="@/assets/images/testThumbnail.png">
-                <span id="shorts-title">{{shortInfo['title']}}</span>
-            </div>
-            <img v-else src="@/assets/images/testThumbnail.png">
+       <div class="shorts" @mouseover="onHover" @mouseout="offHover">
+           <div v-if="hoverOn" id="hover">
+               <img src="@/assets/images/testThumbnail.png">
+               <span id="shorts-title">{{shortInfo['title']}}</span>
+           </div>
+           <img v-else src="@/assets/images/testThumbnail.png">
 
-        </div>
-        <div class="shorts-stat">
-                <div id="subscriber-count">
-                    <font-awesome-icon id="fa-icon" :icon="['far','user-circle']" />
-                    {{subscriber}}
-                </div>
-                <div id="like-count">
-                        <font-awesome-icon id="fa-icon" :icon="['far','heart']" @click="upLike"/>
-                    {{like}}
-                </div>
-                <div id="view-count">
-                    <font-awesome-icon id="fa-icon" :icon="['far','eye']"/>
-                    {{view}}
-                </div>
-        </div>
+       </div>
+       <div class="shorts-stat">
+            <div id="subscriber-count">
+                <font-awesome-icon id="fa-icon" :icon="['far','user-circle']" />
+                {{translateUnit("subscriber", subscriber, $event).returnVal}}
+            </div>
+            <div id="like-count">
+                    <font-awesome-icon id="fa-heart-icon" :icon="['fas','heart']" @click="upLike"/>
+                {{translateUnit("like", like, $event).returnVal}}
+            </div>
+            <div id="view-count">
+                <font-awesome-icon id="fa-icon" :icon="['far','eye']"/>
+                {{translateUnit("view", view, $event).returnVal}}
+            </div>
+       </div>
     </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
             like:this.shortInfo.numOfHearts==null?0:this.shortInfo.numOfHearts,
             view:this.shortInfo.numOfViews==null?0:this.shortInfo.numOfViews,
             subscriber:this.shortInfo.numOfSubscribers==null?0:this.shortInfo.numOfSubscribers,
-            hoverOn:false,
+           hoverOn:false,
         }
     },
     computed:{
@@ -41,7 +41,7 @@ export default {
             'currentChannel',
             'currentShort',
             'recommendShortList'
-        ])
+        ]),
     },
     props:{
         shortInfo: Object,
@@ -64,7 +64,61 @@ export default {
         offHover(){
             this.hoverOn=false;
         },
+          translateUnit(element, data, event){
+              console.log(data)
+              if(element=="subscriber"){
+                  if(data>=1000000){
+                      data/=1000000;
+                data=Math.floor(data*10)/10+'M';
+            }
+            else if(data>=1000 && data<1000000){
+                data/=1000;
+                data=Math.floor(data*10)/10+'K';
+            }
+                const returnVal=data;
+                console.log(returnVal)
+            return{
+                returnVal,
+            }
+            }
+            else if(element=="like"){
+            if(data>=1000000){
+                data/=1000000;
+                data=Math.floor(data*10)/10+'M';
+            }
+            else if(data>=1000 && data<1000000){
+                data/=1000;
+                data=Math.floor(data*10)/10+'K';
+            }const returnVal=data;
+            return{
+                returnVal,
+            }
+            }
+        else{
+            if(data>=1000000){
+                data/=1000000;
+                data=Math.floor(data*10)/10+'M';
+            }
+            else if(data>=1000 && data<1000000){
+                data/=1000;
+                data=Math.floor(data*10)/10+'K';
+            }const returnVal=data;
+            return{
+                returnVal,
+            }
+        }
+        },
+       
     },
+    beforeMount(){
+        this.translateUnit();
+    },
+    updated(){
+        this.translateUnit();
+    },
+    mounted(){
+        this.translateUnit();
+    }
 }
 </script>
 
@@ -115,6 +169,12 @@ img:hover{
 #fa-icon{
     width:40px;
     height:40px;
+}
+#fa-heart-icon{
+    width:40px;
+    height:40px;
+    color:var(--error-color);
+
 }
 .shorts-stat{
     margin-top:10px;

@@ -18,11 +18,6 @@ export default {
     props: {
         'title':String
     },
-    method:{
-        test(){
-            console.log('delete');
-        }
-    }
 }
 </script>
 

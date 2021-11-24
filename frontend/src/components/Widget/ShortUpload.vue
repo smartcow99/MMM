@@ -33,7 +33,7 @@
                 <Tag 
                     v-for="(value,index) in tagList" :key="index"
                     :title="value"
-                    @delete="deleteTag"
+                    @delete="deleteTag(index, $event)"
                 />
             </div>
             <Btn id="upload-button" @click="clickUploadButton">upload</Btn>
@@ -73,8 +73,9 @@ methods:{
         this.tagList.push(this.inputTag+'');
         this.inputTag="";
     },
-    deleteTag(){
-        this.tagList.pop();
+    deleteTag(index, event){
+        console.log(index)
+        this.tagList.splice(index, 1);
     },
     clickUploadButton(){
         alert('데모 계정에선 영상을 업로드할 수 없습니다.')

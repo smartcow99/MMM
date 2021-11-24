@@ -179,8 +179,7 @@ def face_model(myImg,model):
        
 ''' 메인 함수 '''
 print("hello world")
-# img_name = sys.argv[1] 
-img_name = 'testimg.jpg'      
+img_name = sys.argv[1]       
 myImg=getImg(img_name)
 myImg=do_cropImg_v1(myImg)
 

@@ -7,7 +7,6 @@
         <font-awesome-icon v-show="playState==='play'" class="icon" icon="pause"/>
         <font-awesome-icon v-show="playState==='pause'" class="icon" icon="play"/>
     </div>
-    
 </template>
 
 <script>
