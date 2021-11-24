@@ -1,8 +1,5 @@
 '''
     pip install opencv-python keras tensorflow pillow matplotlib sklearn
-
-    21.11.23 update
-    사진의 밝기를 고려한 RGB -> Ycrcb 추가 
 '''
 import os
 import sys
@@ -35,7 +32,7 @@ minRGB=(171.8, 112.8848, 158.9312)      # 제일 어두운 피부값
 answer=('Heart','Oblong','Oval','Round','Square')
 scaling_factor=0.1
 
-modelDir='model/'
+modelDir='../AI/model/'
 # imgDir='../public/testimg/'
 
 # 원본 이미지
