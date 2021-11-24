@@ -241,9 +241,6 @@ export default {
         background-color:green;
         
     }
-    #video-element{
-        
-    }
     .video-control{
         top:100%;
         width:120px;
