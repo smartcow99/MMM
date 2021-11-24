@@ -14,7 +14,7 @@
                 {{translateUnit("subscriber", subscriber, $event).returnVal}}
             </div>
             <div id="like-count">
-                    <font-awesome-icon id="fa-icon" :icon="['far','heart']" @click="upLike"/>
+                    <font-awesome-icon id="fa-heart-icon" :icon="['fas','heart']" @click="upLike"/>
                 {{translateUnit("like", like, $event).returnVal}}
             </div>
             <div id="view-count">
@@ -69,11 +69,11 @@ export default {
               if(element=="subscriber"){
                   if(data>=1000000){
                       data/=1000000;
-                data=Math.floor(data)+'M';
+                data=Math.floor(data*10)/10+'M';
             }
             else if(data>=1000 && data<1000000){
                 data/=1000;
-                data=Math.floor(data)+'K';
+                data=Math.floor(data*10)/10+'K';
             }
                 const returnVal=data;
                 console.log(returnVal)
@@ -84,11 +84,11 @@ export default {
             else if(element=="like"){
             if(data>=1000000){
                 data/=1000000;
-                data=Math.floor(data)+'M';
+                data=Math.floor(data*10)/10+'M';
             }
             else if(data>=1000 && data<1000000){
                 data/=1000;
-                data=Math.floor(data)+'K';
+                data=Math.floor(data*10)/10+'K';
             }const returnVal=data;
             return{
                 returnVal,
@@ -97,11 +97,11 @@ export default {
         else{
             if(data>=1000000){
                 data/=1000000;
-                data=Math.floor(data)+'M';
+                data=Math.floor(data*10)/10+'M';
             }
             else if(data>=1000 && data<1000000){
                 data/=1000;
-                data=Math.floor(data)+'K';
+                data=Math.floor(data*10)/10+'K';
             }const returnVal=data;
             return{
                 returnVal,
@@ -169,6 +169,12 @@ img:hover{
 #fa-icon{
     width:40px;
     height:40px;
+}
+#fa-heart-icon{
+    width:40px;
+    height:40px;
+    color:var(--error-color);
+
 }
 .shorts-stat{
     margin-top:10px;
