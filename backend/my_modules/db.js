@@ -89,7 +89,7 @@ const api = {
 		limit ${reqNum*6}, 6`)
 		return res;
 	},
-	get_product_review: async (pid,reqNum, isdecr) => {
+	get_product_review: async (pid,reqNum, isdesc) => {
 		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, rate, photo from channel join customer using(cid) join review using(cid) join product using(pid) left outer join (select pid, round(avg(rate),1) as rate from review group by pid)a using (pid) where pid = ${pid} order by rate ${isdesc} 
 		 limit ${reqNum*6}, 6`)
 		return res;
