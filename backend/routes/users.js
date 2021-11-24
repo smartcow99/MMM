@@ -65,9 +65,8 @@ router.post('/pytest',upload.single('img'),(req, res)=>{
       console.log(err)
       return res.status(400).send('fail')
     };
-    console.log(data)
     
-    return res.send('ok')
+    return res.status(200).send(data)
   });
 })
 
