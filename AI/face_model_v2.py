@@ -181,8 +181,9 @@ def face_model(myImg,model):
             
        
 ''' 메인 함수 '''
-img_name = 'test.png'
+# img_name = 'test.png'
 # img_name = 'test1.jpg'
+img_name = sys.argv[1]
 
 # png 이미지 -> jpg 이미지 변환
 if img_name[-4:] == '.png' :
