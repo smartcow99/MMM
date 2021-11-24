@@ -89,8 +89,8 @@ const api = {
 		limit ${reqNum*6}, 6`)
 		return res;
 	},
-	get_product_review: async (pid,reqNum) => {
-		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, avg_rate as rate, photo from channel join customer using(cid) join review using(cid) join product using(pid) left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = ${pid}
+	get_product_review: async (pid,reqNum, isdecr) => {
+		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, rate, photo from channel join customer using(cid) join review using(cid) join product using(pid) left outer join (select pid, round(avg(rate),1) as rate from review group by pid)a using (pid) where pid = ${pid} order by rate ${isdesc} 
 		 limit ${reqNum*6}, 6`)
 		return res;
 	},
@@ -192,14 +192,14 @@ module.exports = new Proxy(api,{
 			}
 		}
 		else if(apiName == 'add_request'){
-			return async function(type, id, reqNum) {
+			return async function(type, id, reqNum, isdesc) {
 				if(type == 'short')
 					return await target.get_comments(id,reqNum);
 				else if(type == 'channel'){
 					return result = await target.get_my_shorts(id,reqNum);
 				}
 				else if(type == 'product')
-					return await target.get_product_review(id,reqNum);
+					return await target.get_product_review(id,reqNum, isdesc);
 			}
 		}
 		else if(apiName =='channel_info') {
@@ -215,7 +215,7 @@ module.exports = new Proxy(api,{
 				let [res] = await target.get_product_info(pid);
 					res.productImages = to_string_arr(await target.get_product_img_info(pid), 'productImages');
 					res.relatedShorts = await target.get_related_short_info(pid,0);
-					res.reviews = await target.get_product_review(pid,0);
+					res.reviews = await target.get_product_review(pid,0,true);
 				return res;
 			}
 		}
