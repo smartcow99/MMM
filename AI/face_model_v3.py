@@ -198,7 +198,7 @@ def checkEye(image) :
     
 
 ''' 메인 함수 '''
-img_name='../AI/images.jpg'       
+img_name='../AI/testimg.jpg'       
 myImg=getImg(img_name)
 
 if checkEye(myImg) :
