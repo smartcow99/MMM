@@ -16,8 +16,8 @@ from PIL import Image, ImageOps
 import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+face_cascade = cv2.CascadeClassifier('../AI/haarcascade_frontalface_default.xml')
+eye_cascade = cv2.CascadeClassifier('../AI/haarcascade_eye.xml')
 
 # 18호, 19호, 20호, 21호, 22호, 23호, 24호
 faceColor_RGB = ((230.505, 113.61518, 144.10642), 
@@ -35,7 +35,7 @@ minRGB=(171.8, 112.8848, 158.9312)      # 제일 어두운 피부값
 answer=('Heart','Oblong','Oval','Round','Square')
 scaling_factor=0.1
 
-modelDir='model/'
+modelDir='../AI/model/'
 imgDir='public/testimg/'
 
 # 원본 이미지
