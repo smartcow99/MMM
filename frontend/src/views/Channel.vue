@@ -158,18 +158,6 @@ export default {
         modifyDressingTable() {
             alert('데모버전에선 이용 불가능')
         }
-    },
-    mounted() {
-        if(!!this.$route.query['channelId']) {
-            this.requestChannelInfo(this.$route.query['channelId']);
-        }
-    },
-    watch: {
-        '$route.query' () {
-            if(!!this.$route.query['channelId']) {
-                this.requestChannelInfo(this.$route.query['channelId']);
-            }
-        },
     }
 }
 </script>

@@ -22,22 +22,6 @@ export default {
             'channelList'
         ])
     },
-    methods: {
-        ...mapActions([
-            'requestSearch'
-        ])
-    },
-    watch: {
-        '$route': {
-            immediate: true,
-            handler(to,from) {
-                this.requestSearch({
-                    'type':'channel',
-                    'content':this.$route.query['content']
-                });
-            }
-        }
-    }
 }
 </script>
 

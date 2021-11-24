@@ -171,28 +171,6 @@ export default {
             this.sortReviewList({type});
         }
     },
-    mounted() {
-        if(!!this.$route.query['productId']) {
-            this.requestProductInfo(this.$route.query['productId']);
-        }
-    },
-    watch: {
-        '$route.query' () {
-            if(!!this.$route.query['productId']) {
-                this.requestProductInfo(this.$route.query['productId']);
-            }
-        },
-    },
-    // watch: {
-    //     '$route':{
-    //         handler(to,from){
-    //             console.log(this.$route)
-    //             if(!!this.$route.query['productId']) {
-    //                 this.requestProductInfo(this.$route.query['productId']);
-    //             }
-    //         }
-    //     }
-    // }
 }
 </script>
 

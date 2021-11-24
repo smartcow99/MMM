@@ -187,4 +187,7 @@ input:focus{
     background-color: transparent;
     cursor:pointer;
 }
+.other-button button:hover {
+    text-decoration: underline;
+}
 </style>
