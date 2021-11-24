@@ -34,22 +34,37 @@ const path = require('path');
 //   console.log(req.file);
 //   res.send('ok');
 // })
-const upload = multer({ dest: 'public/testimg' })
+const upload = multer({
+    storage: multer.diskStorage({
+      // set a localstorage destination
+      destination: (req, file, cb) => {
+        cb(null, '../AI');
+      },
+      // convert a file name
+      filename: (req, file, cb) => {
+        cb(null, file.originalname);
+      },
+    }),
+  });
 
 router.post('/pytest',upload.single('img'),(req, res)=>{
   let options = {
-    scriptPath: "my_modules",
-    args: [`public/testimg/${req.file.filename}`]
+    scriptPath: "../AI",
+    args: [req.file.filename]
   };
-  PythonShell.run("test.py", options, function(err, data) {
-    console.log('hi')
-    console.log('|'+err+'|')
-    if (err) return res.status(400).send('fail');
+  console.log(req.file.filename)
+  PythonShell.run("face_model_v2.py", options, function(err, data) {
     fs.unlink(path.join(__dirname,'../public/testimg/',req.file.filename), err => {
       if(err && err.code == 'ENOENT'){
           console.log("파일 삭제 Error 발생");
       }
     });
+    if (err) {
+      console.log(err)
+      return res.status(400).send('fail')
+    };
+    console.log(data)
+    
     return res.send('ok')
   });
 })

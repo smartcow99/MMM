@@ -106,7 +106,7 @@ const api = {
 
 	get_my_shorts: async (chid, reqNum) =>{
 		const [res] = await pool.query(`select distinct title, vid as shortId, v_comment as info, numOfHearts, hits as numOfViews , thumnail, chid as channelId \
-		from mmmservice.video left join (select vid, count(*) as numOfHearts from recommend group by vid)b on video.vid = b.vid where chid = ${chid} limit ${reqNum*6}, 6;`)
+		from mmmservice.video left join (select vid, count(*) as numOfHearts from recommend group by vid)b using(vid) where chid = ${chid} limit ${reqNum*6}, 6;`)
 		return res;
 	},
 	is_purchase: async (pid, cid) =>{
