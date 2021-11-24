@@ -67,17 +67,6 @@ export default {
             this.sortProductList({type});
         }
     },
-    watch: {
-        '$route': {
-            immediate: true,
-            handler(to,from) {
-                this.requestSearch({
-                    'type':'product',
-                    'content':this.$route.query['content']
-                });
-            }
-        }
-    }
 }
 </script>
 

@@ -1,10 +1,11 @@
 '''
     pip install opencv-python keras tensorflow pillow matplotlib sklearn
 
-    21.11.23 updata
+    21.11.23 update
     사진의 밝기를 고려한 RGB -> Ycrcb 추가 
 '''
 import os
+import sys
 import cv2
 import numpy as np
 
@@ -33,7 +34,7 @@ answer=('Heart','Oblong','Oval','Round','Square')
 scaling_factor=0.1
 
 modelDir='model/'
-# imgDir='img/'
+# imgDir='../public/testimg/'
 
 # 원본 이미지
 def getImg(imgLink):
@@ -117,6 +118,7 @@ def do_cropImg_v2(img):
           
     return cropped
 
+# YCBCR 기준 얼굴 피부 색상 분석
 def get_image_YCBCR(image, k = 3):
     
     ''' 얼굴색을 식별할 사진으로 잘라내기 '''
@@ -141,6 +143,7 @@ def get_image_YCBCR(image, k = 3):
     
     return myFace_color
 
+# 사진을 통한 얼굴형 타입 분석
 def face_model(myImg,model):
     color_coverted = cv2.cvtColor(myImg, cv2.COLOR_BGR2RGB)
     pil_image=Image.fromarray(color_coverted)
@@ -175,8 +178,8 @@ def face_model(myImg,model):
             
        
 ''' 메인 함수 '''
-img_name='images.jpg'       
-
+print("hello world")
+img_name = sys.argv[1]       
 myImg=getImg(img_name)
 myImg=do_cropImg_v1(myImg)
 
@@ -186,11 +189,14 @@ face,face_rate=face_model(myImg,'keras_model_16.h5')
 # 얼굴 피부 색상 분석
 faceColor=get_image_YCBCR(myImg)
 
+# 전달 인자 : face (얼굴형), faceColor (피부톤 호수)
 if faceColor =='error':
-    print('얼굴형은 ',face,'(',float(face_rate)*100,')이고, 피부색상 타입은 검출하지 못했습니다.')
+    print(face)
+    print('피부 색상은 확인 하지 못했습니다.')
 else :
-    print('얼굴형은 ',face,'(',float(face_rate)*100,')이고, 피부색상 타입은 [',faceColor,']호 입니다.')
+    print(face)
+    print(faceColor)
     
-cv2.imshow('result',myImg)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# cv2.imshow('result',myImg)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()

@@ -6,7 +6,6 @@
                 <td>상품명</td>
                 <td>{{currentProduct['title'] || ''}}</td>
             </tr>
-            
             <tr>
                 <td>제조사</td>
                 <td>{{currentProduct['manufacturer'] || ''}}</td>
@@ -30,8 +29,9 @@
             </tr>
         </table>
         <Detail class="product-explain">
-            상품상세설명
-            <div v-html="currentProduct['productExplainHtml'] || ''"></div>
+            <div>
+                <img :src="currentProduct['productExplainImg']"/>
+            </div>
         </Detail>
         <h2 class="related-shorts-title">shorts</h2>
         <Slider 
@@ -171,28 +171,6 @@ export default {
             this.sortReviewList({type});
         }
     },
-    mounted() {
-        if(!!this.$route.query['productId']) {
-            this.requestProductInfo(this.$route.query['productId']);
-        }
-    },
-    watch: {
-        '$route.query' () {
-            if(!!this.$route.query['productId']) {
-                this.requestProductInfo(this.$route.query['productId']);
-            }
-        },
-    },
-    // watch: {
-    //     '$route':{
-    //         handler(to,from){
-    //             console.log(this.$route)
-    //             if(!!this.$route.query['productId']) {
-    //                 this.requestProductInfo(this.$route.query['productId']);
-    //             }
-    //         }
-    //     }
-    // }
 }
 </script>
 
