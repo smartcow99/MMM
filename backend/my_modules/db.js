@@ -35,8 +35,7 @@ const api = {
 		return res;
 	},
 	recommend_shorts: async (reqNum)=>{
-		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers from mmmservice.video
-		join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using(chid) natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b order by numOfHearts desc limit ${reqNum*6}, 6`)
+		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid) left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid) left outer join (select chid, ch_profile as profile from channel )c using (chid) order by numOfSubscribers desc limit ${reqNum*6}, 6`)
 		return res;
 	},
 	recommend_channel: async (cid)=>{
@@ -107,7 +106,7 @@ const api = {
 
 	get_my_shorts: async (chid, reqNum) =>{
 		const [res] = await pool.query(`select distinct title, vid as shortId, v_comment as info, numOfHearts, hits as numOfViews , thumnail, chid as channelId \
-		from mmmservice.video left join (select vid, count(*) as numOfHearts from recommend group by vid)b on video.vid = b.vid where chid = ${chid} limit ${reqNum*6}, 6;`)
+		from mmmservice.video left join (select vid, count(*) as numOfHearts from recommend group by vid)b using(vid) where chid = ${chid} limit ${reqNum*6}, 6;`)
 		return res;
 	},
 	is_purchase: async (pid, cid) =>{
