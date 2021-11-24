@@ -17,6 +17,8 @@ from PIL import Image, ImageOps
 import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 
+face_cascade = cv2.CascadeClassifier('../AI/haarcascade_frontalface_default.xml')
+
 # 18호, 19호, 20호, 21호, 22호, 23호, 24호
 faceColor_RGB = ((230.505, 113.61518, 144.10642), 
                 (222.527, 113.60277, 146.95467), 
@@ -78,7 +80,6 @@ def check_RGB(faceColor):
 
 # 얼굴형 분석을 위한 사진 자르기
 def do_cropImg_v1(img):
-    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
     if len(img.shape)==2 :
         faces = face_cascade.detectMultiScale(img, 1.3,5)
@@ -100,7 +101,6 @@ def do_cropImg_v1(img):
 
 # 피부색 분석을 위한 사진 자르기
 def do_cropImg_v2(img):
-    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
     if len(img.shape)==2 :
         faces = face_cascade.detectMultiScale(img, 1.3,5)
@@ -178,9 +178,9 @@ def face_model(myImg,model):
             
        
 ''' 메인 함수 '''
-print("hello world")
-# img_name = sys.argv[1] 
-img_name = '../AI/testimg.jpg'      
+# print("hello world")
+img_name = sys.argv[1] 
+# img_name = '../AI/testimg.jpg'      
 myImg=getImg(img_name)
 myImg=do_cropImg_v1(myImg)
 
