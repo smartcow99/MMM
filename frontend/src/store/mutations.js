@@ -87,6 +87,18 @@ export default {
   setComments(state, payload) {
     state["currentShort"].comments = payload;
   },
+  initChannelInfo(state) {
+    state["currentChannel"].isMyChannel = false;
+    state["currentChannel"].title = '';
+    state["currentChannel"].isSubscribed = false;
+    state["currentChannel"].profile = '';
+    state["currentChannel"].channelId = 0;
+    state["currentChannel"].numOfSubscribers = 0;
+    state["currentChannel"].numOfShorts = 0;
+    state["currentChannel"].introduce = '';
+    state["currentChannel"].dressingTable = {};
+    state["currentChannel"].shortList = [];
+  },
   setChannelInfo(state, payload) {
     state["currentChannel"].isMyChannel = payload.isMyChannel === 'true'? true:false;;
     state["currentChannel"].title = payload.title;
@@ -96,8 +108,29 @@ export default {
     state["currentChannel"].numOfSubscribers = payload.numOfSubscribers;
     state["currentChannel"].numOfShorts = payload.numOfShorts;
     state["currentChannel"].introduce = payload.introduce;
-    state["currentChannel"].dressingTable = payload.dressingTable;
+    payload.dressingTable.forEach(el=>{
+      console.log(state["currentChannel"].dressingTable[el.category])
+      if(!!state["currentChannel"].dressingTable[el.category]) {
+        state["currentChannel"].dressingTable[el.category].push(el);
+      }
+      else {
+        state["currentChannel"].dressingTable[el.category] = [];
+        state["currentChannel"].dressingTable[el.category].push(el);
+      }
+    })
     state["currentChannel"].shortList = payload.shortList;
+  },
+  initProductInfo(state) {
+    state["currentProduct"].title = '';
+    state["currentProduct"].productId = 0;
+    state["currentProduct"].rate = 0;
+    state["currentProduct"].price = 0;
+    state["currentProduct"].views = 0;
+    state["currentProduct"].manufacturer = '';
+    state["currentProduct"].productImages = [];
+    state["currentProduct"].relatedShorts = [];
+    state["currentProduct"].productExplainImg = '';
+    state["currentProduct"].reviews = [];
   },
   setProductInfo(state, payload) {
     state["currentProduct"].title = payload.title;

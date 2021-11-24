@@ -129,11 +129,13 @@ router.beforeEach((to,from,next)=>{
         break;
       }
       case '/channel': {
+        store.commit('initChannelInfo');
         if(!!to.query['channelId']) {
           store.dispatch('requestChannelInfo',to.query['channelId']);
         }
       }
       case '/product': {
+        store.commit('initProductInfo');
         if(!!to.query['productId']) {
           store.dispatch('requestProductInfo',to.query['productId']);
         }
