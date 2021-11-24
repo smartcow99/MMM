@@ -327,6 +327,9 @@ a {
   text-decoration:none;
   color:var(--primary-color);
 }
+a:hover {
+  text-decoration:underline;
+}
 input {
   border-radius:4px;
   padding:10px;

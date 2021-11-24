@@ -1,11 +1,10 @@
 <template>
-
-    <div class="write-review-area">
-        <p id="comment-count">댓글</p>
+    <div class="write-comment-area">
+        <p id="comment-count">댓글 쓰기</p>
         <!-- <p id="comment-count">댓글({{currentShort[comments]}})</p> -->
         <div class="write-review-box">
             <textarea v-model="content" placeholder="댓글을 써주세요. 300자 제한"></textarea>
-            <Btn id="write-review-button" @click="$emit('write',content)">댓글 쓰기</Btn>
+            <Btn id="write-review-button" @click="$emit('write',content)">댓글 등록</Btn>
         </div>
     </div>
 
@@ -31,29 +30,27 @@ export default {
 </script>
 
 <style scoped>
-.write-review-area{
-    margin-top: 50px;
-    /* position:absolute; */
-    width:700px;
-}
 #comment-count{
     /* display:inline; */
     margin:0;
+    margin-bottom:5px;
     font-weight: bold;
     font-size:24px;
 }
 .write-review-box{
     position:relative;
-    width:700px;
+    display:flex;
+    flex-direction:column;
+    align-items: flex-end;
+    width:100%;
 }
 .write-review-box textarea{
-    width: 700px;
-    height: 200px;
+    height: 100px;
+    width:100%;
+    margin-bottom:6px;
 }
 
 #write-review-button{
-    position: absolute;
-    top:150px;
-    left:590px;
+    width:100px;
 }
 </style>

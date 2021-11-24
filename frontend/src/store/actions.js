@@ -58,8 +58,8 @@ export default {
             password: payload.password,
         });
         if (loginResponse.status === 200) {
-            const userInfoResponse = await axios.get("http://34.64.76.43:3000/users/info");//유저 정보 요청
-            commit("setUserInfo", userInfoResponse.data);
+            // const userInfoResponse = await axios.get("http://34.64.76.43:3000/users/info");//유저 정보 요청
+            // commit("setUserInfo", userInfoResponse.data);
             commit("setIsLogin", true);
             commit("setLoginPageOn", false);
         }

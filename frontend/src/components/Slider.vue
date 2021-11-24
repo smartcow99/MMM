@@ -23,6 +23,9 @@ export default {
         'count':Number,
         'maxIndex':Number
     },
+    mounted() {
+
+    },
     data() {
         return {
             index:0
@@ -48,7 +51,7 @@ export default {
 .slider {
     display:flex;
     flex-direction:row;
-    justify-content: center;
+    justify-content: space-between;
     /* overflow:hidden; */
 }
 .slider button {
@@ -62,6 +65,12 @@ export default {
     font-size:1.5rem;
     cursor:pointer;
 }
+.left {
+    margin-right:10px;
+}
+.right {
+    margin-left:10px;
+}
 .left .icon{
     margin-right: 2px;
     margin-top:2px;
@@ -71,13 +80,12 @@ export default {
     margin-top:2px;
 }
 .slider .view-box {
-    padding:0 10px;
-    display:block;
-    flex-grow:1;
+    display:grid;
     overflow:hidden;
 }
 .slider .view-box .contents {
     display:flex;
     flex-direction:row;
+    transition:0.3s;
 }
 </style>

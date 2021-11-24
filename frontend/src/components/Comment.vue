@@ -32,7 +32,7 @@ img{
     margin-right: 10px;
 }
 .comment-box{
-    width:700px;
+    width:100%;
     height: 150px;
     border:1px solid var(--placeholder-color);
     border-radius: 4px;
@@ -48,6 +48,6 @@ img{
 }
 .comment-content{
     margin-left: 10px;
-   color:var(--placeholder-color)
+    color:var(--text-color);
 }
 </style>
