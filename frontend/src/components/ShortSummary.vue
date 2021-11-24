@@ -14,7 +14,7 @@
                 {{translateUnit("subscriber", subscriber, $event).returnVal}}
             </div>
             <div id="like-count">
-                    <font-awesome-icon id="fa-heart-icon" :icon="['fas','heart']" @click="upLike"/>
+                    <font-awesome-icon id="fa-heart-icon" :icon="['far','heart']" @click="upLike"/>
                 {{translateUnit("like", like, $event).returnVal}}
             </div>
             <div id="view-count">
@@ -110,15 +110,6 @@ export default {
         },
        
     },
-    beforeMount(){
-        this.translateUnit();
-    },
-    updated(){
-        this.translateUnit();
-    },
-    mounted(){
-        this.translateUnit();
-    }
 }
 </script>
 
