@@ -6,7 +6,9 @@ const { PythonShell } = require("python-shell");
 const islogined = require('../my_modules/logincheck')
 const fs = require('fs');
 const path = require('path');
+const spawn = require('child_process').spawn
 
+    
 // const upload = multer({ dest: 'public/image', limits: { fileSize: 5 * 1024 * 1024 } });
 // const upload = multer({
 //   storage: multer.diskStorage({
@@ -38,7 +40,7 @@ const upload = multer({
     storage: multer.diskStorage({
       // set a localstorage destination
       destination: (req, file, cb) => {
-        cb(null, '../AI');
+        cb(null, 'public');
       },
       // convert a file name
       filename: (req, file, cb) => {
@@ -50,11 +52,11 @@ const upload = multer({
 router.post('/pytest',upload.single('img'),(req, res)=>{
   let options = {
     scriptPath: "../AI",
-    args: []
+    args: ['public/'+req.file.filename]
   };
-  console.log(req.file.filename)
+
   PythonShell.run("test.py", options, function(err, data) {
-    fs.unlink(path.join(__dirname,'../../AI/',req.file.filename), err => {
+    fs.unlink('public/'+req.file.filename, err => {
       if(err && err.code == 'ENOENT'){
           console.log("파일 삭제 Error 발생");
       }
