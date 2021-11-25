@@ -1,5 +1,8 @@
 <template>
-    <div id="channel-short" class="page">
+    <div class="loading-guide page" v-show="currentChannel['channelId']===0">
+        <font-awesome-icon class="loading icon" icon='spinner' spin/>
+    </div>
+    <div id="channel-short" class="page" v-show="currentChannel['channelId']>0">
         <h1>'{{currentChannel.title}}' 채널의 영상</h1>
         <div class="short-list" v-if="currentChannel.shortList.length>0">
             <ShortSummary 
@@ -13,7 +16,6 @@
             <p>
                 영상이 없습니다.
             </p>
-            
         </div>
     </div>
 </template>
@@ -50,5 +52,14 @@ h1 {
 .short-list .item {
     margin-right:40px;
     margin-bottom:30px;
+}
+.loading-guide {
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+}
+.loading.icon {
+    margin: auto;
 }
 </style>
