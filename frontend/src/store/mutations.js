@@ -35,7 +35,7 @@ export default {
     state["RecommendTagList"] = payload;
   },
   setRecommendChannelList(state, payload) {
-    state["RecommendChannelList"] = payload;
+    state["RecommendChannelList"] = [...payload];
   },
   setRecommendShortList(state, payload) {
     state["RecommendShortList"] = [...payload];
@@ -54,29 +54,33 @@ export default {
   },
   setAnalysisResult(state, payload) {
     const colorTable = {
-      18:'FEE1CB',
-      19:'FAD6C8',
-      20:'F7CBC0',
-      21:'F2C2B8',
-      22:'E9AEA8',
-      23:'E9AFA4',
-      23:'E5A4A0',
+      18:'#FEE1CB',
+      19:'#FAD6C8',
+      20:'#F7CBC0',
+      21:'#F2C2B8',
+      22:'#E9AEA8',
+      23:'#E9AFA4',
+      23:'#E5A4A0',
+      'Fault':'white'
     }
     const shapeTable = {
-      'heart':'당신의 얼굴은 하트형입니다.',
-      'oblong':'당신의 얼굴은 긴얼굴형입니다.',
-      'oval':'당신의 얼굴은 계란형입니다.',
-      'round':'당신의 얼굴은 둥근형입니다.',
-      'square':'당신의 얼굴은 각진형입니다.'
+      'heart':'하트형',
+      'oblong':'긴얼굴형',
+      'oval':'계란형',
+      'round':'둥근형',
+      'square':'각진형',
+      'Fault':'얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.'
     }
-    state["analysisResult"].content = shapeTable[payload[0]];
+    const contentGenerator = (payload) => {
+      if(payload[0]==='Fault') return '얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.'
+      else return `당신의 얼굴은 '<b>${shapeTable[payload[0]]}</b>' 입니다. 당신의 피부톤은 ${colorTable[payload[1]]}호 (<span style="background-color:${colorTable[payload[1]]}"></span>) 입니다.`;
+    }
+    state["analysisResult"].content = contentGenerator(payload);
     state["analysisResult"].RecommendDressing = payload.RecommendDressing;
-    state["analysisResult"].color = colorTable[payload[1]];
   },
   initAnalysisResult(state, payload) {
     state["analysisResult"].content = "";
     state["analysisResult"].RecommendDressing = [];
-    state["analysisResult"].color = '';
   },
   initShortInfo(state) {
     state["currentShort"].url = '';

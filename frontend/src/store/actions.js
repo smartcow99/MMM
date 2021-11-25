@@ -49,8 +49,8 @@ export default {
       password: payload.password,
     });
     if (loginResponse.status === 200) {
-      // const userInfoResponse = await axios.get("/users/info");//유저 정보 요청
-      // commit("setUserInfo", userInfoResponse.data);
+      const userInfoResponse = await axios.get("/users/info");//유저 정보 요청
+      commit("setUserInfo", userInfoResponse.data);
       commit("setIsLogin", true);
       commit("setLoginPageOn", false);
     }
@@ -121,8 +121,9 @@ export default {
       }
     }
   },
-  async requestAnalysis({ commit }, payload) {
+  async requestAnalysis({ state,commit }, payload) {
     //이미지 전송 - multer, axios + formData
+    state['isAnalysisLoading'] = 'loading';
     let formData = new FormData();
 
     const config = {
@@ -131,19 +132,9 @@ export default {
     formData.append("img", payload);
 
     const response = await axios.post("/users/pytest", formData, config);
-    console.log(response);
     if (response.status == 200) {
-      // {
-      //     success: false,
-      //     content:'잘못된 사진입니다.'
-      //     RecommendDressing:[]
-      // }
-      // {
-      //     success: true,
-      //     content:'내용',
-      //     RecommendDressing:['ㅁㅈ'ㅁㅈㄷㄹ'ㅁㅈㄷㄻㅈㄷㄹ']
-      // }
-      commit("setAnalysisResult", response.data);
+        commit("setAnalysisResult", response.data);
+        state['isAnalysisLoading'] = 'loaded';
     } else {
       alert("파일을 저장하는데 실패했습니다.");
     }
