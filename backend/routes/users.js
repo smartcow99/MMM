@@ -21,24 +21,27 @@ const upload = multer({
     }),
   });
 
-router.post('/pytest',upload.single('img'),(req, res)=>{
+router.post('/pytest',upload.single('img'),async (req, res)=>{
   let options = {
     scriptPath: "../AI",
     args: ['public/'+req.file.filename]
   };
 
-  PythonShell.run("face_model_v2.py", options, function(err, data) {
+  PythonShell.run("face_model_v2.py", options, async function(err, data) {
     fs.unlink('public/'+req.file.filename, err => {
-      if(err && err.code == 'ENOENT'){
+      if(err && err.code == 'ENOENT')
           console.log("파일 삭제 Error 발생");
-      }
     });
     if (err) {
       console.log(err)
       return res.status(400).send('fail')
     };
-    
-    return res.status(200).send(data)
+    let ret = {
+      face : data[0],
+      tone : data[1],
+      relatedShort : await db.get_AI_relation_short(data[0], data[1],req.query.requestNum)
+    }
+    return res.status(200).send(ret)
   });
 })
 

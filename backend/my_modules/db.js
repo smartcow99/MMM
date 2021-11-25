@@ -130,6 +130,22 @@ const api = {
 	},
 	get_chid: async (vid)=>{
 		return await pool.query(`select chid from video where vid = ${vid}`)
+	},
+	get_AI_relation_short: async (face, tone, reqNum)=>{
+		let [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers 
+		from mmmservice.video
+		join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using(chid) 
+		natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b 
+		where vid in (select distinct vid
+			from video
+			where url in (
+			SELECT url from video where url like '%${face}%${tone}%'
+			union all
+			SELECT url from video where url like '%${face}%'
+			union all
+			SELECT url from video where url like '%${tone}%')) 
+		limit ${reqNum*6}, 6`);
+		return res;
 	}
 
 }
