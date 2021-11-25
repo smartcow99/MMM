@@ -23,22 +23,12 @@
                 <!-- <ShortVideo id="short-video" :src="`http://34.64.76.43:3000/shorts/Oval_23%20(2).mp4`"/> -->
             </div>
         </div>
-<<<<<<< Updated upstream
         <div id="loading-guide" v-show="isLoading">
             <div class="space">
                 
             </div>
             <font-awesome-icon class="loading icon" icon="spinner" spin/>
         </div>
-=======
-        <div id="loading" v-show="isLoading">
-        {{isRecommendShortLoading}}
-      <!-- <div class="loading-guide" v-if="isRecommendShortLoading==='loading'"> -->
-        <font-awesome-icon class="loading icon" icon='spinner' spin/>
-        <div class="space"></div>
-        <p class="guide-text">loading</p>
-      </div>
->>>>>>> Stashed changes
         <div id="right" v-show="!isLoading">
             <h2 id="short-title">
                 {{currentShort['title']}}
