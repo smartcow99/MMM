@@ -145,6 +145,7 @@ export default {
     state["currentChannel"].numOfSubscribers = 0;
     state["currentChannel"].numOfShorts = 0;
     state["currentChannel"].introduce = '';
+    state["currentChannel"].haveItem = false;
     state["currentChannel"].dressingTable = {};
     state["currentChannel"].shortList = [];
   },
@@ -157,6 +158,7 @@ export default {
     state["currentChannel"].numOfSubscribers = payload.numOfSubscribers;
     state["currentChannel"].numOfShorts = payload.numOfShorts;
     state["currentChannel"].introduce = payload.introduce;
+
     payload.dressingTable.forEach(el=>{
       if(!!state["currentChannel"].dressingTable[el.category]) {
         state["currentChannel"].dressingTable[el.category].push(el);
@@ -166,6 +168,12 @@ export default {
         state["currentChannel"].dressingTable[el.category].push(el);
       }
     })
+    if(payload.dressingTable.length>0){
+      state["currentChannel"].haveItem = true;
+    }
+    else {
+      state["currentChannel"].haveItem = false;
+    }
     state["currentChannel"].shortList = payload.shortList;
   },
   initProductInfo(state) {

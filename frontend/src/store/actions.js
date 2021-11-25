@@ -172,133 +172,133 @@ export default {
   //     introduce: "나는 채널10 이다",
   //     });
   // },
-  async requestChannelInfo({ commit }, payload) {
-    //hot: 핫쇼츠, *: 구독한 모든 채널의 short, ID: 특정 채널의 info
-    //channelId에 해당하는 채널 정보 요청
-    //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
-    commit("initChannelInfo");
-    commit("initRequestNum");
-    if (!payload) return;
-    else {
-      alert("파일을 저장하는데 실패했습니다.");
-    }
-  },
-  async requestShortInfo({ commit }, shortId) {
-    commit("initShortInfo");
-    commit("initRequestNum");
-    const response = await axios.get("/users/short", {
-      params: {
-        vid: shortId,
-      },
-    });
-    if (response.status == 200) {
-      commit("setShortInfo", response.data);
-    }
-  },
-  async requestChannelInfo({ commit }, payload) {
-    //hot: 핫쇼츠, *: 구독한 모든 채널의 short, ID: 특정 채널의 info
-    //channelId에 해당하는 채널 정보 요청
-    //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
-    commit("initChannelInfo");
-    commit("initRequestNum");
-    if (!payload) return;
+    async requestChannelInfo({ commit }, payload) {
+        //hot: 핫쇼츠, *: 구독한 모든 채널의 short, ID: 특정 채널의 info
+        //channelId에 해당하는 채널 정보 요청
+        //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
+        commit("initChannelInfo");
+        commit("initRequestNum");
+        if (!payload) return;
+        else {
+        alert("파일을 저장하는데 실패했습니다.");
+        }
+    },
+    async requestShortInfo({ commit }, shortId) {
+        commit("initShortInfo");
+        commit("initRequestNum");
+        const response = await axios.get("/users/short", {
+        params: {
+            vid: shortId,
+        },
+        });
+        if (response.status == 200) {
+        commit("setShortInfo", response.data);
+        }
+    },
+    async requestChannelInfo({ commit }, payload) {
+        //hot: 핫쇼츠, *: 구독한 모든 채널의 short, ID: 특정 채널의 info
+        //channelId에 해당하는 채널 정보 요청
+        //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
+        commit("initChannelInfo");
+        commit("initRequestNum");
+        if (!payload) return;
 
-    const response = await axios.get("/users/channel", {
-      params: {
-        chid: payload,
-      },
-    });
-    console.log(response.data);
-    if (response.status == 200) {
-      commit("setChannelInfo", response.data);
-    }
-  },
-  async requestProductInfo({ commit }, payload) {
-    //상품정보요청
-    commit("initProductInfo");
-    commit("initRequestNum");
-    const response = await axios.get("/users/productInfo", {
-      params: {
-        pid: payload,
-      },
-    });
-    if (response.status == 200) {
-      console.log(response.data);
-      commit("setProductInfo", response.data);
-    }
-  },
-  async moreChannelSearch({ state, commit }) {
-    //request axios get
-    const response = await axios.get("/users/search", {
-      params: {
-        type: "channel",
-        requestNum: ++state["requestNum"],
-      },
-    });
-    if (response.status == 200) {
-      commit("pushChannelSearch", response.data);
-    }
-  },
-  async moreShortSearch({ state, commit }) {
-    const response = await axios.get("/users/search", {
-      params: {
-        type: "short",
-        requestNum: ++state["requestNum"],
-      },
-    });
-    if (response.status == 200) {
-      commit("pushShortSearch", response.data);
-    }
-  },
-  async moreProductSearch({ state, commit }) {
-    const response = await axios.get("/users/search", {
-      params: {
-        type: "product",
-        requestNum: ++state["requestNum"],
-      },
-    });
-    if (response.status == 200) {
-      commit("pushProductSearch", response.data);
-    }
-  },
-  async morePurchaseHistory({ state, commit }) {
-    const response = await axios.get("/users/purchaseList", {
-      params: {
-        requestNum: ++state["requestNum"],
-      },
-    });
-    if (response.status == 200) {
-      commit("pushPurchaseHistory", response.data);
-    }
-  },
-  async moreShortRecommend({ state, commit }) {
-    if (state["isScrollRequestOn"] === true) return;
-    else commit("setIsScrollRequestOn", true);
-    state["shortRecommendOnload"] = "loading";
-    const response = await axios.get("/users/recommend", {
-      params: {
-        type: "short",
-        requestNum: ++state["requestNum"],
-      },
-    });
-    if (response.status == 200) {
-      commit("pushShortRecommend", response.data);
-    }
-    commit("setIsScrollRequestOn", false);
-  },
-  //추후 추가
-  async moreChannelShorts({ state, commit }, payload) {
-    const response = await axios.get("/users/addRequest", {
-      params: {
-        chid: payload,
-        type: "channel", //short channel, product
-        requestNum: ++state["requestNum"],
-      },
-    });
-    if (response.status == 200) {
-      commit("pushChannelShort", response.data);
-    }
-  },
+        const response = await axios.get("/users/channel", {
+        params: {
+            chid: payload,
+        },
+        });
+        console.log(response.data);
+        if (response.status == 200) {
+        commit("setChannelInfo", response.data);
+        }
+    },
+    async requestProductInfo({ commit }, payload) {
+        //상품정보요청
+        commit("initProductInfo");
+        commit("initRequestNum");
+        const response = await axios.get("/users/productInfo", {
+        params: {
+            pid: payload,
+        },
+        });
+        if (response.status == 200) {
+        console.log(response.data);
+        commit("setProductInfo", response.data);
+        }
+    },
+    async moreChannelSearch({ state, commit }) {
+        //request axios get
+        const response = await axios.get("/users/search", {
+        params: {
+            type: "channel",
+            requestNum: ++state["requestNum"],
+        },
+        });
+        if (response.status == 200) {
+        commit("pushChannelSearch", response.data);
+        }
+    },
+    async moreShortSearch({ state, commit }) {
+        const response = await axios.get("/users/search", {
+        params: {
+            type: "short",
+            requestNum: ++state["requestNum"],
+        },
+        });
+        if (response.status == 200) {
+        commit("pushShortSearch", response.data);
+        }
+    },
+    async moreProductSearch({ state, commit }) {
+        const response = await axios.get("/users/search", {
+        params: {
+            type: "product",
+            requestNum: ++state["requestNum"],
+        },
+        });
+        if (response.status == 200) {
+        commit("pushProductSearch", response.data);
+        }
+    },
+    async morePurchaseHistory({ state, commit }) {
+        const response = await axios.get("/users/purchaseList", {
+        params: {
+            requestNum: ++state["requestNum"],
+        },
+        });
+        if (response.status == 200) {
+        commit("pushPurchaseHistory", response.data);
+        }
+    },
+    async moreShortRecommend({ state, commit }) {
+        if (state["isScrollRequestOn"] === true) return;
+        else commit("setIsScrollRequestOn", true);
+        state["shortRecommendOnload"] = "loading";
+        const response = await axios.get("/users/recommend", {
+        params: {
+            type: "short",
+            requestNum: ++state["requestNum"],
+        },
+        });
+        if (response.status == 200) {
+        commit("pushShortRecommend", response.data);
+        }
+        commit("setIsScrollRequestOn", false);
+    },
+    //추후 추가
+    async moreChannelShorts({ state, commit }, payload) {
+        const response = await axios.get("/users/addRequest", {
+        params: {
+            chid: payload,
+            type: "channel", //short channel, product
+            requestNum: ++state["requestNum"],
+        },
+        });
+        if (response.status == 200) {
+        commit("pushChannelShort", response.data);
+        }
+    },
     async moreComment({ state, commit }, payload) {
         if (state["isScrollRequestOn"] === true) return;
         else commit("setIsScrollRequestOn", true);

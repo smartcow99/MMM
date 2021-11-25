@@ -74,7 +74,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 div.product-list{
     margin-top:20px;
     display: flex;
