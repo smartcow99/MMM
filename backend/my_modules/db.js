@@ -146,7 +146,8 @@ const api = {
 			SELECT url from video where url like '%${tone}%')) 
 		limit ${reqNum*6}, 6`);
 		return res;
-	}
+	},
+	
 
 }
 
@@ -196,6 +197,7 @@ module.exports = new Proxy(api,{
 				else if(type == 'channel'){
 					const result = await target.recommend_channel(cid);
 					result.map(element => element.isSubscribed?true:false)
+					console.log(result)
 					return result
 				}
 				else if(type == 'short')
