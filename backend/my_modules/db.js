@@ -67,16 +67,16 @@ const api = {
         const [res] = await pool.query(`select distinct cu.c_name as name, ch.ch_profile as profile, re.r_comment as content from customer as cu natural join(channel as ch natural join reply as re) where re.vid = ${vid} limit ${reqNum*6},6`)
         return res;
 	},
-  get_related_product: async (vid) => {
-        const [res] = await pool.query(`select distinct p_name as title, img, pid as productId from tag natural join (product_img natural join product) where tag.vid = ${vid}`)
-        return res;
-  },
+	get_related_product: async (vid) => {
+			const [res] = await pool.query(`select distinct p_name as title, img, pid as productId from tag natural join (product_img natural join product) where tag.vid = ${vid}`)
+			return res;
+	},
 	get_dressing_talbe: async (chid) => {
 		const [res] = await pool.query(`select distinct category, p_name as title, thumnail as img, pid as productId from customer natural join (dressing_table natural join product) where chid = ${chid}`)
 		return res;
 	},
 	get_product_info: async (pid) => {
-		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, avg_rate as rate, price, access as views, detail as productExplainHtml from product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = 1;`)
+		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, avg_rate as rate, price, access as views, detail as productExplainHtml from product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = ${pid};`)
 		return res;
 	},
 	get_product_img_info : async (pid) => {
@@ -89,9 +89,9 @@ const api = {
 		limit ${reqNum*6}, 6`)
 		return res;
 	},
-	get_product_review: async (pid,reqNum) => {
+	get_product_review: async (pid,reqNum, isdesc) => {
 		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, avg_rate as rate, photo from channel join customer using(cid) join review using(cid) join product using(pid) left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = ${pid}
-		limit ${reqNum*6}, 6`)
+		 limit ${reqNum*6}, 6`)
 		return res;
 	},
 	like_up: async (cid, vid) => {
@@ -123,13 +123,7 @@ const api = {
 	},
 
 }
-const to_string_arr  = (arr, name)=>{
-	let newarr = [];
-	for(idx in arr){
-		newarr[idx] = arr[idx][name];
-	}
-	return newarr;
-}
+
 module.exports = new Proxy(api,{
 	get: (target, apiName, receiver)=>{
 		if(apiName == 'login'){ // 로그인 신청시

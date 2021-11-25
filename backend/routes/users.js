@@ -163,7 +163,7 @@ router.get('/channel', async (req, res) => {
 })
 
 router.get('/productInfo', async (req, res) => {
-  const result = await db.product_info(req.query.pid)
+  const result = await db.product_info(req.query.pid, true)
   if(result)
     return res.status(200).send(result);
   else
