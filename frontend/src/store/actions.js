@@ -58,8 +58,8 @@ export default {
             password: payload.password,
         });
         if (loginResponse.status === 200) {
-            // const userInfoResponse = await axios.get("/users/info");//유저 정보 요청
-            // commit("setUserInfo", userInfoResponse.data);
+            const userInfoResponse = await axios.get("/users/info");//유저 정보 요청
+            commit("setUserInfo", userInfoResponse.data);
             commit("setIsLogin", true);
             commit("setLoginPageOn", false);
         }
@@ -162,6 +162,7 @@ export default {
         }
     },
     async requestShortInfo({ commit }, shortId) {
+        commit("initShortInfo");
         commit("initRequestNum");
         const response = await axios.get("/users/short", {
             params: {

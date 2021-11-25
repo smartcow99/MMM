@@ -78,6 +78,19 @@ export default {
     state["analysisResult"].RecommendDressing = [];
     state["analysisResult"].color = '';
   },
+  initShortInfo(state) {
+    state["currentShort"].url = '';
+    state["currentShort"].isMyShort = false;
+    state["currentShort"].numOfHearts = 0;
+    state["currentShort"].numOfViews = 0;
+    state["currentShort"].title = '';
+    state["currentShort"].shortId = 0;
+    state["currentShort"].relatedChannel = {};
+    state["currentShort"].relatedTags = [];
+    state["currentShort"].relatedProducts = [];
+    state["currentShort"].comments = [];
+    state["currentShort"].info = '';
+  },
   setShortInfo(state, payload) {
     state["currentShort"].url = payload.url;
     state["currentShort"].isMyShort = payload.isMyShort;
