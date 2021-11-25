@@ -2,6 +2,7 @@ export default {
   loginPageOn: false,
   uploadShortPageOn: false,
   shortPageOn: false,
+  isDesc: true,
 
   isRecommendShortLoading: "loaded", // loading end loaded
   isScrollRequestOn: false,
