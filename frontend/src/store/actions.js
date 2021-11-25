@@ -28,18 +28,18 @@ export default {
   },
 
   // 추천 shorts
-  async getRecommendShorts({ commit }, payload) {
-    //필요 정보: 제목, 썸네일,shortId, channelId
-    const response = await axios.get("/users/recommend", {
-      params: {
-        type: "short",
-        requestNum: 0,
-      },
-    });
-    if (response.data) {
-      commit("setRecommendShortList", response.data);
-    }
-  },
+    async getRecommendShorts({ commit }, payload) {
+        //필요 정보: 제목, 썸네일,shortId, channelId
+        const response = await axios.get("/users/recommend", {
+            params: {
+                type: "short",
+                requestNum: 0,
+            },
+        });
+        if (response.data) {
+        commit("setRecommendShortList", response.data);
+        }
+    },
   //login 요청
   async requestLogin({ commit }, payload) {
     //로그인 요청 후 성공 시

@@ -3,6 +3,7 @@
         <h2 class="search-text">'{{$route.query['content']}}' 검색 결과</h2>
         <div class="short-list" v-show="shortList.length>0">
             <ShortSummary 
+                class="item"
                 v-for="(value,index) in shortList" 
                 :key="index" 
                 :shortInfo="value"
@@ -40,6 +41,10 @@ div.short-list{
     display: flex;
     flex-direction: row;
     flex-wrap:wrap;
+}
+.item {
+    margin-right:40px;
+    margin-bottom:100px;
 }
 </style>
 

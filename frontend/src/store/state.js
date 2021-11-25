@@ -7,16 +7,16 @@ export default {
   isScrollRequestOn: false,
   isPurchaseListLoading: "loaded",
   isAnalysisLoading:'loaded',
-  
+
   requestNum: 0,
   accessToken: "", //새로고침될때마다 로그인이 풀리므로, session을 통해 이를 해결해야함
   userInfo: {
     isLogined: false,
-    name: "홍길동",
+    name: "",
     ID: "",
     channelId: "",
-    birth: "1998-11-02",
-    profileImage: "#",
+    birth: "",
+    profileImage: "",
     subscribeChannelList: [],
   },
   shortList: [], // shorts 내역(검색 결과)
