@@ -184,7 +184,7 @@ module.exports = new Proxy(api,{
 				res.relatedTags = to_string_arr(await target.get_tag(vid), 'tag');
 				res.relatedProducts = await target.get_related_product(vid);
 				res.comments = await target.get_comments(vid,0)
-				if(res.relatedChannel.isSubscribed != null)
+				if(res.relatedChannel && res.relatedChannel.isSubscribed != null)
 					res.relatedChannel.isSubscribed = true;
 				else
 					res.relatedChannel.isSubscribed = false
