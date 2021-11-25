@@ -3,7 +3,7 @@
         <div class="shorts" @mouseover="onHover" @mouseout="offHover">
             <div v-if="hoverOn" id="hover">
                 <img :src="shortInfo['thumnail']">
-                <span id="shorts-title">{{shortInfo['title']}}</span>
+                <b id="shorts-title">{{shortInfo['title']}}</b>
             </div>
             <img v-else :src="shortInfo['thumnail']">
 
