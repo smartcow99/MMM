@@ -5,6 +5,9 @@
         :key="index"
         :PurchaseInfo="value"
     />
+    <div class="loading-guide page" v-if="isPurchaseListLoading==='loading'">
+        <font-awesome-icon class="loading icon" icon='spinner' spin/>
+    </div>
 </div>
 </template>
 
@@ -19,7 +22,8 @@ export default { // 스크롤 내림에 따라 추가 list 요청도 만드세�
     },
     computed: {
         ...mapState([
-            'purchaseList'
+            'purchaseList',
+            'isPurchaseListLoading'
         ])
     },
     methods: {

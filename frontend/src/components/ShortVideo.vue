@@ -1,11 +1,12 @@
 <template>
     <div class="short-video">
-        <video autoplay muted controls loop ref="video" >
-            <source :src="src" type="video/mp4"/>
+        <video autoplay muted controls loop ref="video" @mouseenter="setHover(true)" @mouseleave="setHover(false)">
+            <source :src="src" type="video/mp4" ref="source"/>
             지원하지 않는 태그 입니다.
         </video>
-        <font-awesome-icon v-show="playState==='play'" class="icon" icon="pause"/>
-        <font-awesome-icon v-show="playState==='pause'" class="icon" icon="play"/>
+        <!-- 
+        <font-awesome-icon v-show="playState==='play'" class="icon" :class="{show:isHover}" icon="pause"/>
+        <font-awesome-icon v-show="playState==='pause'" class="icon" :class="{show:isHover}" icon="play"/> -->
     </div>
     
 </template>
@@ -18,7 +19,8 @@ export default {
     },
     data() {
         return {
-            playState:'play' // play, pause, end
+            playState:'play', // play, pause, end
+            isHover:false,
         }
     },
     mounted() {
@@ -29,6 +31,10 @@ export default {
         this.$refs['video'].addEventListener('pause',()=>{
             this.playState = 'pause'
         },false);
+    },
+    updated() {
+        this.$refs['source'].src = this.src;
+        this.$refs['video'].load();
     },
     methods: {
         videoHandler() {
@@ -46,6 +52,9 @@ export default {
         },
         pause() {
             this.$refs['video'].pause();
+        },
+        setHover(bool) {
+            this.isHover = bool;
         }
     }
 }
@@ -69,11 +78,16 @@ video {
     top:50%;
     margin-top:-1rem;
     transition:0.3s;
+    opacity:0;
+    transition:0.3s;
 }
 video::-webkit-media-controls-play-button {
     display:none;
 }
 video::-webkit-media-controls-fullscreen-button { 
     display: none !important; 
+}
+.show {
+    opacity:1;
 }
 </style>

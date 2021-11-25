@@ -4,27 +4,32 @@
             <div class="short-meta-info">
                 <div class="like">
                     <font-awesome-icon class="icon" :icon="['far','heart']" @click="likeUp"/>
-                    <small>{{translateUnit("like", this.currentShort['numOfHearts'], $event).returnVal}}</small>
+                    <small>{{translateUnit("like", this.currentShort['numOfHearts']).returnVal}}</small>
                 </div>
                 <div class="comment">
                     <font-awesome-icon class="icon" :icon="['far','comment-dots']"/>
-                    <small>{{translateUnit("comment", this.currentShort['comments'].length, $event).returnVal}}</small>
+                    <small>{{translateUnit("comment", this.currentShort['comments'].length).returnVal}}</small>
                 </div>
                 <div class="view">
                     <font-awesome-icon class="icon" :icon="['far','eye']"/>
-                    <small>{{translateUnit("view", this.currentShort['numOfViews'], $event).returnVal}}</small>
+                    <small>{{translateUnit("view", this.currentShort['numOfViews']).returnVal}}</small>
                 </div>
             </div>
             <button class="close" @click="$emit('close')">
                 <img src="@/assets/images/times.png"/>
             </button>
             <div class="video-zone">
-                <!-- <ShortVideo id="short-video" :src="currentShort['url']"/> -->
-                <ShortVideo id="short-video" :src="`http://34.64.76.43:3000/shorts/Oval_23%20(2).mp4`"/>
-                <!-- <ShortVideo id="short-video" :src="`https://s0.2mdn.net/4253510/google_ddm_animation_480P.mp4`"/> -->
+                <ShortVideo id="short-video" :src="currentShort['url']"/>
+                <!-- <ShortVideo id="short-video" :src="`http://34.64.76.43:3000/shorts/Oval_23%20(2).mp4`"/> -->
             </div>
         </div>
-        <div id="right">
+        <div id="loading-guide" v-show="isLoading">
+            <div class="space">
+                
+            </div>
+            <font-awesome-icon class="loading icon" icon="spinner" spin/>
+        </div>
+        <div id="right" v-show="!isLoading">
             <h2 id="short-title">
                 {{currentShort['title']}}
             </h2>
@@ -90,7 +95,7 @@
                 <div class="no-comment" v-if="currentShort['comments'].length===0">
                     등록된 댓글이 없습니다.
                 </div>
-                <div v-else class="comment-list">
+                <div v-else class="comment-list" @scroll="scrollHandler($event)" ref="comment">
                     <Comment 
                         v-for="(comment,index) in currentShort['comments']"
                         :key="index" 
@@ -104,6 +109,7 @@
 </template>
 
 <script>
+import ShortVideo from '@/components/ShortVideo.vue'
 import Tag from '@/components/Tag.vue'
 import ProductMini from '@/components/ProductMini.vue'
 import Slider from '@/components/Slider.vue'
@@ -112,13 +118,15 @@ import Comment from '../Comment.vue'
 import Btn from '../Btn.vue'
 import { mapState,mapMutations,mapActions} from 'vuex'
 export default {
-    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn },
+    components: { Tag,Slider,ProductMini,WriteComment,Comment,Btn,ShortVideo },
     data(){
         return{
             comment:"test",
             isMuted:true,
             isPlayed:true,
             isEnd:false,
+            scrollHistory:0,
+            isLoaded:true,
         }
     },
     name:'Short',
@@ -126,7 +134,10 @@ export default {
         ...mapState([
             'currentShort',
             'userInfo'
-        ])
+        ]),
+        isLoading() {
+            return this.currentShort.shortId===0;
+        }
     },
     methods: {
         ...mapMutations([
@@ -134,10 +145,10 @@ export default {
             'setShortPageOn'
         ]),
         ...mapActions([
-            // 'requestRelatedChannelInfo',
             'requestSubscribe',
             'requestUnsubscribe',
-            'requestProductInfo'
+            'requestProductInfo',
+            'moreComment'
         ]),
         registComment(comment) {
             alert('데모 아이디로는 댓글을 등록할 수 없습니다.')
@@ -161,31 +172,23 @@ export default {
         likeUp(){
             alert('데모 버전에선 \'좋아요\' 불가능합니다.');
         },
-        pause(){
-            console.log(this.isPlayed)
-            $("#video-element").get(0).pause();
-            // $("video-elemnt").stop();
-            this.isPlayed=false
-            console.log(this.isPlayed)
-        },
-        play() {
-            this.$("#video-element").play();
-            this.isPlayed=true
-        },
-        replay(){
-            this.isEnd=false
-        },
-        mute(){
-            this.isMuted=true
-        },
-        unmute(){
-            this.isMuted=false
+        scrollHandler(event) {
+            const el = this.$refs['comment'];
+            const scrollPosition = (event.target.scrollTop+el.clientHeight)/300;
+            const scrollEnd = (el.scrollHeight/300).toFixed(0);
+            if(this.scrollHistory >= scrollPosition.toFixed(0)) {
+                return;
+            }
+            this.scrollHistory = scrollPosition.toFixed(0);
+            if(this.scrollHistory > scrollEnd-1) {
+                this.moreComment(this.currentShort.shortId);
+            }
         },
         translateUnit(element, data, event){
-              console.log(data)
-              if(element=="coment"){
-                  if(data>=1000000){
-                      data/=1000000;
+            console.log(data)
+            if(element=="coment"){
+                if(data>=1000000){
+                    data/=1000000;
                 data=Math.floor(data*10)/10+'M';
             }
             else if(data>=1000 && data<1000000){
@@ -240,8 +243,21 @@ export default {
     background-color:#ffffff;
     z-index:100;
 }
-#left,#right {
+#left,#right,#loading-guide {
     height:100%;
+}
+div#loading-guide {
+    display:flex;
+    flex-direction:column;
+    transition:0.3s;
+    padding:0 40px;
+    width:800px;
+    .loading.icon {
+        margin:auto;
+    }
+    .space {
+        width:700px;
+    }
 }
 #left {
     flex-grow:1;
@@ -310,7 +326,7 @@ export default {
     #short-title{
         font-weight: bold;
         margin-top:30px;
-        margin-bottom:30px;
+        margin-bottom:20px;
         padding-right:10px;
     }
     .channel{
@@ -322,6 +338,7 @@ export default {
         .channel-info{
             display:flex;
             flex-direction: row;
+            height:40px;
             img.channel-profile-image{
                 width:40px;
                 height: 40px;
@@ -332,11 +349,21 @@ export default {
                 flex-direction: column;
                 justify-content: flex-start;
                 flex-grow:1;
+                a {
+                    font-weight:400;
+                    font-size:1rem;
+                }
+                small {
+                    font-weight:100;
+                    font-size:0.8em;
+                }
                 #channel-name{
+                    height:20px;
                     width:100%;
                     text-align: left;
                 }
                 #channel-data{
+                    height:20px;
                     display:flex;
                     flex-direction: row;
                     & > * {
@@ -379,6 +406,7 @@ export default {
     padding-right:10px;
     overflow-y:auto;
     .unlogined-comment{
+        height:40px;
         display:flex;
         flex-direction:row;
         justify-content: space-between;

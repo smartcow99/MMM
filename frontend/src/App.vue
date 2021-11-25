@@ -47,7 +47,9 @@
       </div>
     </aside>
     <article ref="article" @scroll="scrollHandler($event)">
-      <router-view/>
+      <transition name="fade">
+        <router-view/>
+      </transition>
     </article>
   </main>
   <BlurCard v-if="loginPageOn" @close="closeLogin">
@@ -62,6 +64,7 @@
   />
 </template>
 <script>
+
 import Btn from './components/Btn.vue'
 import Profile from '@/components/Profile.vue'
 import Search from '@/components/SearchBar.vue'
@@ -93,7 +96,7 @@ export default {
             channelId: '*'
         }
       ],
-      scrollHistory:0
+      scrollHistory:false
     }
   },
   components: {
@@ -117,6 +120,8 @@ export default {
       'RecommendTagList',
       'RecommendChannelList',
       'currentShort',
+      'currentChannel',
+      'currentProduct',
       'loginPageOn',
       'uploadShortPageOn',
       'shortPageOn'
@@ -138,7 +143,8 @@ export default {
       'moreProductSearch',
       'morePurchaseHistory',
       'moreShortRecommend',
-      'moreChannelShorts'
+      'moreChannelShorts',
+      'moreReview'
     ]),
     closeLogin() {
       this.setLoginPageOn(false);
@@ -165,20 +171,19 @@ export default {
       const articleEl = this.$refs['article'];
       const scrollPosition = (event.target.scrollTop+articleEl.clientHeight)/300;
       const scrollEnd = (articleEl.scrollHeight/300).toFixed(0);
-      if(this.scrollHistory >= scrollPosition.toFixed(0)) {
-        return;
-      }
-      this.scrollHistory = scrollPosition.toFixed(0);
-      if(this.scrollHistory > scrollEnd-1) {
+      if(scrollPosition.toFixed(0) === scrollEnd) {
         switch(this.$route.path) {
           case '/': {
             this.moreShortRecommend(); break;
           }
           case '/channelshort': {
-            this.moreChannelShorts(); break; 
+            this.moreChannelShorts(this.currentChannel.channelId); break; 
           }
           case '/channel': {
-            this.moreChannelShorts(); break; 
+            this.moreChannelShorts(this.currentChannel.channelId); break; 
+          }
+          case '/product': {
+            this.moreReview(this.currentProduct.productId); break; 
           }
           case '/search/channels': {
             this.moreChannelSearch(); break; 
@@ -216,7 +221,8 @@ export default {
 }
 * {
   box-sizing:border-box;
-  font-weight: 400;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 300;
 }
 body {
   padding:0;
@@ -234,7 +240,12 @@ body {
   width:100%;
   color: #2c3e50;
 }
-
+h2 {
+  font-weight:700;
+}
+b {
+  font-weight:700;
+}
 header#nav {
   position:fixed;
   display:flex;
@@ -314,7 +325,9 @@ main {
     }
   }
 }
-
+button {
+  cursor:pointer;
+}
 h3 {
   text-align:left;
 }
@@ -379,5 +392,14 @@ article::-webkit-scrollbar {
 }
 article::-webkit-scrollbar-thumb {
   background-color:var(--placeholder-color);
+}
+.loading.icon {
+  font-size:3rem;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

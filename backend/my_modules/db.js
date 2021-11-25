@@ -32,7 +32,7 @@ const api = {
 	},
 	recommend_tag: async ()=>{
 		const [res] = await pool.query(`select tag from (select tag, count(*) as count from mmmservice.tag group by tag)a order by count desc limit 5`)
-		return res;
+		return res.map(el=>el.tag);
 	},
 	recommend_shorts: async (reqNum)=>{
 		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid) left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid) left outer join (select chid, ch_profile as profile from channel )c using (chid) order by numOfSubscribers desc limit ${reqNum*6}, 6`)
@@ -61,7 +61,7 @@ const api = {
 	},
 	get_tag: async (vid)=>{
 		const [res] = await pool.query(`select tag from mmmservice.tag where vid = ${vid}`);
-		return res;
+		return res.map(el=>el.tag);
 	},
 	get_comments: async (vid, reqNum) => {
         const [res] = await pool.query(`select distinct cu.c_name as name, ch.ch_profile as profile, re.r_comment as content from customer as cu natural join(channel as ch natural join reply as re) where re.vid = ${vid} limit ${reqNum*6},6`)
@@ -76,12 +76,12 @@ const api = {
 		return res;
 	},
 	get_product_info: async (pid) => {
-		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, avg_rate as rate, price, access as views, detail as productExplainHtml from product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = ${pid};`)
+		const [res] = await pool.query(`select pid as productId, p_name as title, company as manufacturer, avg_rate as rate, price, access as views, detail as productExplainHtml from product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = 1;`)
 		return res;
 	},
 	get_product_img_info : async (pid) => {
 		const [res] = await pool.query(`select img as productImages from product_img where pid = ${pid}`)
-		return res;
+		return res.map(el=>el.tag);
 	},
 	get_related_short_info : async (pid, reqNum) => {
 		const [res] = await pool.query(`select title, thumnail, vid as shortId, chid as channelId, numOfSubscribers, numOfHearts, hits as numOfViews from channel natural join (video natural join tag)
@@ -89,9 +89,9 @@ const api = {
 		limit ${reqNum*6}, 6`)
 		return res;
 	},
-	get_product_review: async (pid,reqNum, isdesc) => {
-		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, rate, photo from channel join customer using(cid) join review using(cid) join product using(pid) left outer join (select pid, round(avg(rate),1) as rate from review group by pid)a using (pid) where pid = ${pid} order by rate ${isdesc} 
-		 limit ${reqNum*6}, 6`)
+	get_product_review: async (pid,reqNum) => {
+		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content, avg_rate as rate, photo from channel join customer using(cid) join review using(cid) join product using(pid) left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where pid = ${pid}
+		limit ${reqNum*6}, 6`)
 		return res;
 	},
 	like_up: async (cid, vid) => {
@@ -165,7 +165,7 @@ module.exports = new Proxy(api,{
 		else if(apiName == 'recommend'){
 			return async function(type, cid, reqNum) {
 				if(type == 'tag')
-					return to_string_arr(await target.recommend_tag(), 'tag');
+					return await target.recommend_tag();
 				else if(type == 'channel'){
 					const result = await target.recommend_channel(cid);
 					return result.filter(element => {
@@ -192,14 +192,14 @@ module.exports = new Proxy(api,{
 			}
 		}
 		else if(apiName == 'add_request'){
-			return async function(type, id, reqNum, isdesc) {
+			return async function(type, id, reqNum) {
 				if(type == 'short')
 					return await target.get_comments(id,reqNum);
 				else if(type == 'channel'){
 					return result = await target.get_my_shorts(id,reqNum);
 				}
 				else if(type == 'product')
-					return await target.get_product_review(id,reqNum, isdesc);
+					return await target.get_product_review(id,reqNum);
 			}
 		}
 		else if(apiName =='channel_info') {
@@ -213,9 +213,9 @@ module.exports = new Proxy(api,{
 		else if(apiName == 'product_info') {
 			return async function(pid) {
 				let [res] = await target.get_product_info(pid);
-					res.productImages = to_string_arr(await target.get_product_img_info(pid), 'productImages');
+					res.productImages = await target.get_product_img_info(pid);
 					res.relatedShorts = await target.get_related_short_info(pid,0);
-					res.reviews = await target.get_product_review(pid,0,true);
+					res.reviews = await target.get_product_review(pid,0);
 				return res;
 			}
 		}

@@ -46,6 +46,7 @@ export default {
         font-size:1.5rem;
         font-weight: 400;
         text-align:center;
+        text-decoration: none;
         margin:0 15px;
         padding:5px 0;
         color: var(--text-color);

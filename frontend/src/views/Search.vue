@@ -1,7 +1,9 @@
 <template>
     <div class="page">
-        <Menubar/>
-        <router-view/>
+        <Menubar/>      
+        <transition name="fade">
+          <router-view/>
+        </transition>
     </div>
 </template>
 

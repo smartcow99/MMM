@@ -45,6 +45,7 @@ div.product-info {
         color:var(--primary-color);
         h2.product-name {
             text-align:left;
+            font-size:1.2rem;
         }
     }
     div.product-rate {
