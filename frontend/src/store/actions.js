@@ -4,7 +4,7 @@ export default {
     // 추천 태그 GET
     async getRecommendTags({ commit }, payload) {
         const response = await axios.get(
-            "http://34.64.76.43:3000/users/recommend",
+            "/users/recommend",
             {
                 params: {
                     type: "tag",
@@ -20,7 +20,7 @@ export default {
     // 추천 채널 GET
     async getRecommendChannels({ commit }, payload) {
         const response = await axios.get(
-            "http://34.64.76.43:3000/users/recommend",
+            "/users/recommend",
             {
                 params: {
                     type: "channel",
@@ -37,7 +37,7 @@ export default {
     async getRecommendShorts({ commit }, payload) {
         //필요 정보: 제목, 썸네일,shortId, channelId
         const response = await axios.get(
-            "http://34.64.76.43:3000/users/recommend",
+            "/users/recommend",
             {
                 params: {
                     type: "short",
@@ -53,12 +53,12 @@ export default {
     async requestLogin({ commit }, payload) {
         //로그인 요청 후 성공 시
         //유저 정보 요청
-        const loginResponse = await axios.post("http://34.64.76.43:3000/users/login", {
+        const loginResponse = await axios.post("/users/login", {
             id: payload.id,
             password: payload.password,
         });
         if (loginResponse.status === 200) {
-            // const userInfoResponse = await axios.get("http://34.64.76.43:3000/users/info");//유저 정보 요청
+            // const userInfoResponse = await axios.get("/users/info");//유저 정보 요청
             // commit("setUserInfo", userInfoResponse.data);
             commit("setIsLogin", true);
             commit("setLoginPageOn", false);
@@ -68,7 +68,7 @@ export default {
     //logout 요청
     async requestLogout({ commit }, payload) {
         //로그아웃 요청
-        const response = await axios.get("http://34.64.76.43:3000/users/logout");
+        const response = await axios.get("/users/logout");
         if (response.status == 200) {
             commit("initUserInfo");
             commit("setIsLogin", false);
@@ -78,7 +78,7 @@ export default {
         //구매내역 요청
         commit("initRequestNum");
         const response = await axios.get(
-            "http://34.64.76.43:3000/users/purchaseList",
+            "/users/purchaseList",
             {
                 params: {
                 requestNum: 0,
@@ -99,7 +99,7 @@ export default {
         }
         commit("initRequestNum");
         if (payload["type"] === "channel") {
-            const response = await axios.get("http://34.64.76.43:3000/users/search", {
+            const response = await axios.get("/users/search", {
                 params: {
                     type: "channel",
                     content: payload["content"],
@@ -110,7 +110,7 @@ export default {
                 commit("setChannelList", response.data.searchResult);
             }
         } else if (payload["type"] === "product") {
-            const response = await axios.get("http://34.64.76.43:3000/users/search", {
+            const response = await axios.get("/users/search", {
                 params: {
                     type: "product",
                     content: payload["content"],
@@ -121,7 +121,7 @@ export default {
                 commit("setProductList", response.data.searchResult);
             }
         } else {
-            const response = await axios.get("http://34.64.76.43:3000/users/search", {
+            const response = await axios.get("/users/search", {
                 params: {
                     type: "short",
                     content: payload["content"],
@@ -142,7 +142,7 @@ export default {
         };
         formData.append('img', payload);
 
-        const response = await axios.post('http://34.64.76.43:3000/users/pytest', formData, config);
+        const response = await axios.post('/users/pytest', formData, config);
         console.log(response)
         if (response.status == 200) {
             // {
@@ -163,7 +163,7 @@ export default {
     },
     async requestShortInfo({ commit }, shortId) {
         commit("initRequestNum");
-        const response = await axios.get("http://34.64.76.43:3000/users/short", {
+        const response = await axios.get("/users/short", {
             params: {
                 vid: shortId
             },
@@ -175,7 +175,7 @@ export default {
     // async requestRelatedChannelInfo({ commit }, payload) {
     //     //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
     //     //영상을 올린 채널정보 요청(short.vue에서 사용)
-    //     const response = await axios.get("http://34.64.76.43:3000/users/short", {
+    //     const response = await axios.get("/users/short", {
     //         params: {
     //             vid: shortId
     //         },
@@ -199,7 +199,7 @@ export default {
         //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
         commit('initChannelInfo');
         commit("initRequestNum");
-        const response = await axios.get("http://34.64.76.43:3000/users/channel", {
+        const response = await axios.get("/users/channel", {
             params: {
                 chid: payload
             },
@@ -212,7 +212,7 @@ export default {
         //상품정보요청
         commit('initProductInfo');
         commit("initRequestNum");
-        const response = await axios.get("http://34.64.76.43:3000/users/productInfo", {
+        const response = await axios.get("/users/productInfo", {
             params: {
                 pid: payload
             },
@@ -224,7 +224,7 @@ export default {
     },
     async moreChannelSearch({state,commit}){
         //request axios get
-        const response = await axios.get("http://34.64.76.43:3000/users/search", {
+        const response = await axios.get("/users/search", {
             params: {
                 type: 'channel',
                 requestNum: ++state['requestNum']
@@ -235,7 +235,7 @@ export default {
         }
     },
     async moreShortSearch({state,commit}){
-        const response = await axios.get("http://34.64.76.43:3000/users/search", {
+        const response = await axios.get("/users/search", {
             params: {
                 type: 'short',
                 requestNum: ++state['requestNum']
@@ -246,7 +246,7 @@ export default {
         }
     },
     async moreProductSearch({state,commit}){
-        const response = await axios.get("http://34.64.76.43:3000/users/search", {
+        const response = await axios.get("/users/search", {
             params: {
                 type: 'product',
                 requestNum: ++state['requestNum']
@@ -257,7 +257,7 @@ export default {
         }
     },
     async morePurchaseHistory({state,commit}){
-        const response = await axios.get("http://34.64.76.43:3000/users/purchaseList", {
+        const response = await axios.get("/users/purchaseList", {
             params: {
                 requestNum: ++state['requestNum']
             },
@@ -267,7 +267,7 @@ export default {
         }
     },
     async moreShortRecommend({state,commit}){
-        const response = await axios.get("http://34.64.76.43:3000/users/recommend", {
+        const response = await axios.get("/users/recommend", {
             params: {
                 type: 'short',
                 requestNum: ++state['requestNum']
@@ -280,7 +280,7 @@ export default {
     },
     //추후 추가
     async moreChannelShorts({state,commit},payload){
-        const response = await axios.get("http://34.64.76.43:3000/users/addRequest", {
+        const response = await axios.get("/users/addRequest", {
             params: {
                 chid:payload,
                 type: 'channel',//short channel, product
@@ -292,7 +292,7 @@ export default {
         }
     },
     async moreComment({state,commit},payload){
-        const response = await axios.get("http://34.64.76.43:3000/users/addRequest", {
+        const response = await axios.get("/users/addRequest", {
             params: {
                 vid:payload,
                 type: 'short',//short channel, product
@@ -304,7 +304,7 @@ export default {
         }
     },
     async moreReview({state,commit},payload){
-        const response = await axios.get("http://34.64.76.43:3000/users/addRequest", {
+        const response = await axios.get("/users/addRequest", {
             params: {
                 pid:payload,
                 type: 'product',//short channel, product
