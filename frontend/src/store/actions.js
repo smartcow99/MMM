@@ -77,52 +77,52 @@ export default {
       commit("setPurchaseList", response.data);
     }
   },
-  async requestSearch({ commit }, payload) {
-    //검색 요청 ( payload: 검색 string )
-    //검색 타입에 따라 다른 commit 실행(short,channel,product)
-    if (!payload["content"]) {
-      alert("내용이 비어있습니다.");
-      return;
-    }
-    commit("initRequestNum");
-    if (payload["type"] === "channel") {
-      const response = await axios.get("/users/search", {
-        params: {
-          type: "channel",
-          content: payload["content"],
-          requestNum: 0,
-          order: "rate",
-        },
-      });
-      if (response.status == 200) {
-        commit("setChannelList", response.data.searchResult);
-      }
-    } else if (payload["type"] === "product") {
-      const response = await axios.get("/users/search", {
-        params: {
-          type: "product",
-          content: payload["content"],
-          requestNum: 0,
-          order: "rate",
-        },
-      });
-      if (response.status == 200) {
-        commit("setProductList", response.data.searchResult);
-      }
-    } else {
-      const response = await axios.get("/users/search", {
-        params: {
-          type: "short",
-          content: payload["content"],
-          requestNum: 0,
-          order: "rate",
-        },
-      });
-      if (response.status == 200) {
-        commit("setShortList", response.data.searchResult);
-      }
-    }
-  },
+    async requestSearch({ commit }, payload) {
+        //검색 요청 ( payload: 검색 string )
+        //검색 타입에 따라 다른 commit 실행(short,channel,product)
+        if (!payload["content"]) {
+            alert("내용이 비어있습니다.");
+            return;
+        }
+        commit("initRequestNum");
+        if (payload["type"] === "channel") {
+            const response = await axios.get("/users/search", {
+                params: {
+                type: "channel",
+                content: payload["content"],
+                requestNum: 0,
+                order: "rate",
+                },
+            });
+            if (response.status == 200) {
+                commit("setChannelList", response.data.searchResult);
+            }
+        } else if (payload["type"] === "product") {
+            const response = await axios.get("/users/search", {
+                params: {
+                type: "product",
+                content: payload["content"],
+                requestNum: 0,
+                order: "rate",
+                },
+            });
+            if (response.status == 200) {
+                commit("setProductList", response.data.searchResult);
+            }
+        } else {
+            const response = await axios.get("/users/search", {
+                params: {
+                type: "short",
+                content: payload["content"],
+                requestNum: 0,
+                order: "rate",
+                },
+            });
+            if (response.status == 200) {
+                commit("setShortList", response.data.searchResult);
+            }
+        }
+    },
   async requestAnalysis({ state, commit }, payload) {
     //이미지 전송 - multer, axios + formData
     state["isAnalysisLoading"] = "loading";
