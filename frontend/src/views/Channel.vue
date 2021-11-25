@@ -1,5 +1,8 @@
 <template>
-    <div id="channel" class="page">
+    <div class="loading-guide page" v-show="currentProduct['productId']===0">
+        <font-awesome-icon class="loading icon" icon='spinner' spin/>
+    </div>
+    <div id="channel" class="page" v-show="currentProduct['productId']>0">
         <div v-if="currentChannel['isMyChannel']" class="channel-summary">
             <img :src="currentChannel['profile']" alt="채널 프로필"/>
             <div class="channel-info">
@@ -264,6 +267,17 @@ div#shortList {
     .item {
         margin-right:40px;
         margin-bottom:60px;
+    }
+}
+div.loading-guide {
+    transition:0.3s;
+    display:flex;
+    flex-direction:row;
+    height:100%;
+    width:100%;
+    .loading.icon {
+        margin:0 auto;
+        margin-top:200px;
     }
 }
 </style>

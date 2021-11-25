@@ -1,5 +1,8 @@
 <template>
-    <div id="product" class="page">
+    <div class="loading-guide page" v-show="currentProduct['productId']===0">
+        <font-awesome-icon class="loading icon" icon='spinner' spin/>
+    </div>
+    <div id="product" class="page" v-show="currentProduct['productId']>0">
         <ImageViewer class="image-viewer" :imageList="currentProduct['productImages'] || []"></ImageViewer>
         <table class="product-info">
             <tr>
@@ -69,7 +72,7 @@
     <BlurCard v-if="purchasePageOn" @close="closePurchase">
         <Purchase/>
     </BlurCard>
-    <div class="purchase-guide" :class="{hidden:guideHide}" ref="guide">
+    <div class="purchase-guide" :class="{hidden:guideHide}" ref="guide" v-show="currentProduct['productId']>0">
         <button class="guide-control" @click="hideGuide">
             <font-awesome-icon v-if="guideHide" icon="arrow-up"/>
             <font-awesome-icon v-else icon="arrow-down"/>
@@ -216,6 +219,17 @@ div.reviews {
     }
     .review {
         margin-bottom:20px;
+    }
+}
+div.loading-guide {
+    transition:0.3s;
+    display:flex;
+    flex-direction:row;
+    height:100%;
+    width:100%;
+    .loading.icon {
+        margin:0 auto;
+        margin-top:200px;
     }
 }
 div.purchase-guide {

@@ -384,4 +384,7 @@ article::-webkit-scrollbar {
 article::-webkit-scrollbar-thumb {
   background-color:var(--placeholder-color);
 }
+.loading.icon {
+  font-size:3rem;
+}
 </style>

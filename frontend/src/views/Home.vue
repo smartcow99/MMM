@@ -76,9 +76,6 @@ export default {
 .loading-guide > * {
   margin:0 auto;
 }
-.loading.icon {
-  font-size:3rem;
-}
 .guide-text {
   animation:fade-in-out 1.6s infinite;
 }

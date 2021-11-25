@@ -23,7 +23,12 @@
                 <!-- <ShortVideo id="short-video" :src="`http://34.64.76.43:3000/shorts/Oval_23%20(2).mp4`"/> -->
             </div>
         </div>
-        <div id="loading" v-show="isLoading"></div>
+        <div id="loading-guide" v-show="isLoading">
+            <div class="space">
+                
+            </div>
+            <font-awesome-icon class="loading icon" icon="spinner" spin/>
+        </div>
         <div id="right" v-show="!isLoading">
             <h2 id="short-title">
                 {{currentShort['title']}}
@@ -238,8 +243,21 @@ export default {
     background-color:#ffffff;
     z-index:100;
 }
-#left,#right {
+#left,#right,#loading-guide {
     height:100%;
+}
+div#loading-guide {
+    display:flex;
+    flex-direction:column;
+    transition:0.3s;
+    padding:0 40px;
+    width:800px;
+    .loading.icon {
+        margin:auto;
+    }
+    .space {
+        width:700px;
+    }
 }
 #left {
     flex-grow:1;
