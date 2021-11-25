@@ -14,7 +14,7 @@
                 {{translateUnit("subscriber", subscriber).returnVal}}
             </div>
             <div id="like-count">
-                <font-awesome-icon id="fa-heart-icon" :icon="['fas','heart']"/>
+                <font-awesome-icon id="fa-heart-icon" :icon="['far','heart']"/>
                 {{translateUnit("like", like).returnVal}}
             </div>
             <div id="view-count">
