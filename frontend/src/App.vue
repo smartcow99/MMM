@@ -189,7 +189,6 @@ export default {
             this.moreChannelShorts(this.currentChannel.channelId); break; 
           }
           case '/product': {
-            console.log(this.currentProduct.productId, this.isDesc)
             this.moreReview({pid:this.currentProduct.productId, desc:this.isDesc}); break; 
           }
           case '/search/channels': {

@@ -22,7 +22,6 @@ export default {
         requestNum: 0,
       },
     });
-    console.log(response.data)
     if (response.data) {
       commit("setRecommendChannelList", response.data);
     }
@@ -358,7 +357,6 @@ async requestHasPurchaseHistory({commit},payload) {
 },
 
   async requestReviewSort({ state, commit }, payload) {
-    console.log(payload);
     commit("initRequestNum");
     const response = await axios.get("/users/addRequest", {
       params: {

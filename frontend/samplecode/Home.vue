@@ -28,7 +28,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state)
     this.stateDuplicate = this.$store.state.isState;
     this.$store.commit('callMutation',"1234");
     this.$store.dispatch('callAction');
@@ -55,7 +54,6 @@ export default {
   },
   watch: {
     str(newV,oldV) {
-      console.log(newV,oldV);
       if(newV.length > 12) {
         this.str="abc";
       }

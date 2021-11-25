@@ -56,7 +56,6 @@ export default {
     state["purchaseList"] = payload;
   },
   setAnalysisResult(state, payload) {
-    console.log(payload);
     if (payload === "fail") {
       state["analysisResult"].content =
         "얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.";

@@ -35,11 +35,9 @@ export default {
     methods: {
         dragenterHandler(evt) {
             this.overing = true;
-            console.log('enter')
         },
         dragleaveHandler(evt) {
             this.overing = false;
-            console.log('leave')
         },
         dropHandler(evt) {
             this.overing = false;

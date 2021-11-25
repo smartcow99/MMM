@@ -196,7 +196,6 @@ export default {
             const el = this.$refs['comment'];
             const scrollPosition = (event.target.scrollTop+el.clientHeight)/300;
             const scrollEnd = (el.scrollHeight/300).toFixed(0);
-            console.log(scrollEnd,scrollPosition.toFixed(0))
             if(scrollPosition.toFixed(0) === scrollEnd && this.commentOnload!=='end') {
                 this.moreComment(this.currentShort.shortId);
             }
@@ -212,7 +211,6 @@ export default {
                 data=Math.floor(data*10)/10+'K';
             }
                 const returnVal=data;
-                console.log(returnVal)
             return{
                 returnVal,
             }
