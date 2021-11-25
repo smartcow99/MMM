@@ -262,12 +262,11 @@ export default {
     state['purchaseList'] = [...state['purchaseList'],...payload]
   },
   pushShortRecommend(state,payload) {
-    console.log(payload.length )
-    if(payload.length === 0) {
+    state['RecommendShortList'] = [...state['RecommendShortList'],...payload];
+    if(payload.length < 6) {
       state['isRecommendShortLoading'] = 'end';
     }
     else {
-      state['RecommendShortList'] = [...state['RecommendShortList'],...payload];
       state['isRecommendShortLoading'] = 'loaded';
     }
 
@@ -281,6 +280,9 @@ export default {
   pushReview(state,payload) {
     state['currentProduct'].reviews = [...state['currentProduct'].reviews, ...payload];
   },
+  setIsScrollRequestOn(state,payload) {
+    state['isScrollRequestOn'] = payload;
+  }
 };
 
 

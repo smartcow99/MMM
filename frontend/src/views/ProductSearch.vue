@@ -9,6 +9,7 @@
         </div>
         <div class="product-list">
             <ProductSummary 
+                class="item"
                 v-for="(value,index) in productList" 
                 :key="index" 
                 :productInfo="value"
@@ -83,5 +84,8 @@ div.product-list{
 }
 .sort-option label {
     margin-right:10px;
+}
+.item {
+    margin-right:40px;
 }
 </style> 

@@ -1,7 +1,6 @@
 <template>
     <div id="home" class="page">
       <h1>추천 영상</h1>
-      {{RecommendShortList.map(el=>el.shortId)}}
       <div class="short-list">
         <ShortSummary 
             class="item"
@@ -10,13 +9,12 @@
             :shortInfo="value"
         />
       </div>
-      {{isRecommendShortLoading}}
       <div class="loading-guide" v-if="isRecommendShortLoading==='loading'">
         <font-awesome-icon class="loading icon" icon='spinner' spin/>
         <div class="space"></div>
         <p class="guide-text">loading</p>
       </div>
-      <div v-else-if="isRecommendShortLoading==='end'">
+      <div class="loading-guide" v-else-if="isRecommendShortLoading==='end'">
         <p>더 이상 불러올 컨텐츠가 없습니다.</p>
       </div>
     </div>

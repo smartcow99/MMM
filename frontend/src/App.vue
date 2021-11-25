@@ -93,7 +93,7 @@ export default {
             channelId: '*'
         }
       ],
-      scrollHistory:0
+      scrollHistory:false
     }
   },
   components: {
@@ -168,12 +168,7 @@ export default {
       const articleEl = this.$refs['article'];
       const scrollPosition = (event.target.scrollTop+articleEl.clientHeight)/300;
       const scrollEnd = (articleEl.scrollHeight/300).toFixed(0);
-      if(this.scrollHistory >= scrollPosition.toFixed(0)) {
-        return;
-      }
-      this.scrollHistory = scrollPosition.toFixed(0);
-      console.log(this.scrollHistory,scrollEnd,scrollPosition.toFixed(0))
-      if(this.scrollHistory >= scrollEnd-1) {
+      if(scrollPosition.toFixed(0) === scrollEnd) {
         switch(this.$route.path) {
           case '/': {
             this.moreShortRecommend(); break;

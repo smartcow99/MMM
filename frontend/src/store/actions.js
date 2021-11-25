@@ -271,6 +271,8 @@ export default {
         }
     },
     async moreShortRecommend({state,commit}){
+        if(state['isScrollRequestOn']===true) return;
+        else commit('setIsScrollRequestOn',true);
         state['shortRecommendOnload'] = 'loading';
         const response = await axios.get("/users/recommend", {
             params: {
@@ -279,9 +281,9 @@ export default {
             },
         });
         if (response.status == 200) {
-            console.log(response.data)
             commit("pushShortRecommend", response.data);
         }
+        commit('setIsScrollRequestOn',false);
     },
     //추후 추가
     async moreChannelShorts({state,commit},payload){
