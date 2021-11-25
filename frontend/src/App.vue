@@ -47,9 +47,7 @@
       </div>
     </aside>
     <article ref="article" @scroll="scrollHandler($event)">
-      <transition name="fade">
-        <router-view/>
-      </transition>
+      <router-view/>
     </article>
   </main>
   <BlurCard v-if="loginPageOn" @close="closeLogin">
