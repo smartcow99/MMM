@@ -28,18 +28,18 @@ export default {
   },
 
   // 추천 shorts
-    async getRecommendShorts({ commit }, payload) {
-        //필요 정보: 제목, 썸네일,shortId, channelId
-        const response = await axios.get("/users/recommend", {
-            params: {
-                type: "short",
-                requestNum: 0,
-            },
-        });
-        if (response.data) {
-        commit("setRecommendShortList", response.data);
-        }
-    },
+  async getRecommendShorts({ commit }, payload) {
+    //필요 정보: 제목, 썸네일,shortId, channelId
+    const response = await axios.get("/users/recommend", {
+      params: {
+        type: "short",
+        requestNum: 0,
+      },
+    });
+    if (response.data) {
+      commit("setRecommendShortList", response.data);
+    }
+  },
   //login 요청
   async requestLogin({ commit }, payload) {
     //로그인 요청 후 성공 시
@@ -49,7 +49,7 @@ export default {
       password: payload.password,
     });
     if (loginResponse.status === 200) {
-      const userInfoResponse = await axios.get("/users/info");//유저 정보 요청
+      const userInfoResponse = await axios.get("/users/info"); //유저 정보 요청
       commit("setUserInfo", userInfoResponse.data);
       commit("setIsLogin", true);
       commit("setLoginPageOn", false);
@@ -80,7 +80,6 @@ export default {
   async requestSearch({ commit }, payload) {
     //검색 요청 ( payload: 검색 string )
     //검색 타입에 따라 다른 commit 실행(short,channel,product)
-    console.log(payload);
     if (!payload["content"]) {
       alert("내용이 비어있습니다.");
       return;
@@ -92,6 +91,7 @@ export default {
           type: "channel",
           content: payload["content"],
           requestNum: 0,
+          order: "rate",
         },
       });
       if (response.status == 200) {
@@ -103,6 +103,7 @@ export default {
           type: "product",
           content: payload["content"],
           requestNum: 0,
+          order: "rate",
         },
       });
       if (response.status == 200) {
@@ -114,6 +115,7 @@ export default {
           type: "short",
           content: payload["content"],
           requestNum: 0,
+          order: "rate",
         },
       });
       if (response.status == 200) {
@@ -121,9 +123,9 @@ export default {
       }
     }
   },
-  async requestAnalysis({ state,commit }, payload) {
+  async requestAnalysis({ state, commit }, payload) {
     //이미지 전송 - multer, axios + formData
-    state['isAnalysisLoading'] = 'loading';
+    state["isAnalysisLoading"] = "loading";
     let formData = new FormData();
 
     const config = {
@@ -133,8 +135,8 @@ export default {
 
     const response = await axios.post("/users/pytest", formData, config);
     if (response.status == 200) {
-        commit("setAnalysisResult", response.data);
-        state['isAnalysisLoading'] = 'loaded';
+      commit("setAnalysisResult", response.data);
+      state["isAnalysisLoading"] = "loaded";
     } else {
       alert("파일을 저장하는데 실패했습니다.");
     }
@@ -208,7 +210,6 @@ export default {
         chid: payload,
       },
     });
-    console.log(response.data);
     if (response.status == 200) {
       commit("setChannelInfo", response.data);
     }
@@ -223,7 +224,6 @@ export default {
       },
     });
     if (response.status == 200) {
-      console.log(response.data);
       commit("setProductInfo", response.data);
     }
   },
@@ -319,8 +319,36 @@ export default {
         requestNum: ++state["requestNum"],
       },
     });
+
     if (response.status == 200) {
       commit("pushReview", response.data);
+    }
+  },
+  async requestReviewSort({ state, commit }, payload) {
+    commit("initRequestNum");
+    const response = await axios.get("/users/addRequest", {
+      params: {
+        pid: payload.productId,
+        type: "product",
+        requestNum: ++state["requestNum"],
+        isdesc: false,
+      },
+    });
+    if (response.status == 200) {
+      commit("setProductInfo", response.data);
+    }
+  },
+  async requestSort({ commit }, payload) {
+    const response = await axios.get("/users/search", {
+      params: {
+        type: "product",
+        content: payload["content"],
+        requestNum: 0,
+        order: payload.type,
+      },
+    });
+    if (response.status == 200) {
+      commit("setProductList", response.data.searchResult);
     }
   },
 };
