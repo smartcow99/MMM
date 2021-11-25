@@ -181,7 +181,7 @@ module.exports = new Proxy(api,{
 			return async function(vid, cid) {
 				let [res] = await target.get_short_info(vid, cid);
 				[res.relatedChannel] = await target.get_channel_info(vid, cid)
-				res.relatedTags = to_string_arr(await target.get_tag(vid), 'tag');
+				res.relatedTags = await target.get_tag(vid);
 				res.relatedProducts = await target.get_related_product(vid);
 				res.comments = await target.get_comments(vid,0)
 				if(res.relatedChannel && res.relatedChannel.isSubscribed != null)
