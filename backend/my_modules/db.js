@@ -56,7 +56,11 @@ const api = {
 		return res;
 	},
 	get_channel_info: async (chid, cid)=>{
-		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when cid = ${cid} then 'true' else 'false' end as isMyChannel, case when ${cid} not in(select cid from subscribe where chid = ${chid}) then 'false' else 'true' end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid = ${chid}`);
+		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, 
+		case when cid = ${cid} then 'true' else 'false' end as isMyChannel, 
+		case when ${cid} not in(select cid from subscribe where chid = ${chid}) then 'false' else 'true' end as isSubscribed 
+		from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) 
+		left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid = ${chid}`);
 		return res;
 	},
 	get_tag: async (vid)=>{
@@ -152,6 +156,8 @@ module.exports = new Proxy(api,{
 						order = order + ' desc';
 					else if(order == 'price_desc')
 						order = 'price desc'
+					else if(order == undefined)
+						return null
 					ret.searchResult = await target.search_product(content,reqNum,order);
 				}
 				else if(type == 'channel'){
