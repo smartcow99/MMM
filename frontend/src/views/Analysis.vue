@@ -25,12 +25,10 @@
                 <Slider 
                     :count="3"
                     :elWidth="280"
-                    :maxIndex="analysisResult['RecommendDressing'].length">
-                >
-                
+                    :maxIndex="analysisResult['relatedShort'].length">
                     <ShortSummary
                         class="item"
-                        v-for="(value,index) in analysisResult['RecommendDressing']" 
+                        v-for="(value,index) in analysisResult['relatedShort']" 
                         :key="index" 
                         :shortInfo="value"/>
                 </Slider>
@@ -40,6 +38,7 @@
 </template>
 
 <script>
+import Slider from '../components/Slider.vue'
 import UploadBox from '../components/UploadBox.vue'
 import ShortSummary from '../components/ShortSummary.vue'
 import { mapState,mapMutations,mapActions } from 'vuex'
@@ -47,11 +46,21 @@ export default {
     name:'Analysis',
     components: {
         UploadBox,
-        ShortSummary
+        ShortSummary,
+        Slider
     },
     data() {
         return {
-            explainText:"얼굴 정면 사진을 올려주세요",
+            explainText:"얼굴 정면 사진을 올려주세요",      
+            colorTable : {
+                18:'#FEE1CB',
+                19:'#FAD6C8',
+                20:'#F7CBC0',
+                21:'#F2C2B8',
+                22:'#E9AEA8',
+                23:'#E9AFA4',
+                23:'#E5A4A0',
+            }
         }
     },
     created() {
@@ -63,9 +72,8 @@ export default {
             'isAnalysisLoading'
         ]),
         url() {
-            console.log(this.analysisResult)
-            if(this.analysisResult['color'] && this.analysisResult['shape']) {
-                return `/AI/face_${this.analysisResult['shape']}_${this.analysisResult['color']}.JPG`;
+            if(this.analysisResult['tone'] && this.analysisResult['face']) {
+                return `/AI/face_${this.analysisResult['face']}_${this.analysisResult['tone']}.JPG`;
             }
             else {
                 return '';
@@ -139,7 +147,6 @@ h3{
 }
 .Recommend-makeup {
     width:1000px;
-    border: 1px solid black;
     display:flex;
     flex-direction:row;
 }

@@ -25,8 +25,8 @@
             <div class="channel-info">
                 <div class="channel-title">
                     <h2>{{currentChannel['title']}}</h2>
-                    <Btn class="subscribe-button" theme="gray" v-if="currentChannel['isSubscribed']" @click="subscribe">구독 취소</Btn>
-                    <Btn class="subscribe-button" v-else @click="unsubscribe">구독</Btn>
+                    <Btn class="subscribe-button" theme="gray" v-if="currentChannel['isSubscribed']" @click="unsubscribe">구독 취소</Btn>
+                    <Btn class="subscribe-button" v-else @click="subscribe">구독</Btn>
                 </div>
                 <small class="channel-meta">
                     <span>구독자 수 {{currentChannel['numOfSubscribers']}} | shorts {{currentChannel['numOfShorts']}}</span>
@@ -38,7 +38,7 @@
             <h3>{{`'${currentChannel['title']}' 님의 화장대`}}</h3>
             <Btn v-if="currentChannel['isMyChannel']" @click="modifyDressingTable" theme="white">수정하기</Btn>
         </div>
-        <Detail v-if="currentChannel['isMyChannel']" :foldable="currentChannel['haveItem']===false">
+        <Detail v-if="currentChannel['isMyChannel']" :foldable="currentChannel['haveItem']!==false">
             <div v-if="currentChannel['haveItem']===false">
                 화장대에 아이템이 없습니다.
             </div>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </Detail>
-        <Detail v-else :foldable="currentChannel['haveItem']===false">
+        <Detail v-else :foldable="currentChannel['haveItem']!==false">
             <div v-if="currentChannel['haveItem']===false">
                 화장대에 아이템이 없습니다.
             </div>
@@ -140,23 +140,23 @@ export default {
             'requestUnsubscribe'
         ]),
         deleteProduct() {
-            alert('데모 아이디로는 상품을 삭제할 수 없습니다.')
+            alert('데모 계정에서는 상품을 삭제할 수 없습니다.')
         },
         deleteShort() {
-            alert('데모 아이디로는 영상을 삭제할 수 없습니다.')
+            alert('데모 계정에서는 영상을 삭제할 수 없습니다.')
         },
         subscribe() {
-            alert('데모버전에선 이용 불가능')
+            alert('데모 계정으로는 구독이 불가능합니다.')
             // this.requestSubscribe(this.currentChannel['channelId']);
             // this.requestChannelInfo(this.currentChannel['channelId']);
         },
         unsubscribe() {
-            alert('데모버전에선 이용 불가능')
+            alert('데모 계정으로는 구독 취소가 불가능합니다.')
             // this.requestUnsubscribe(this.currentChannel['channelId']);
             // this.requestChannelInfo(this.currentChannel['channelId']);
         },
         modifyOn() {
-            alert('데모버전에선 이용 불가능')
+            alert('데모 계정에서는 프로필 변경이 불가능합니다.')
             // this.isModifyOn = true;
             // this.modifyTitle = this.currentChannel['title'];
             // this.modifyIntro = this.currentChannel['introduce'];
@@ -165,7 +165,7 @@ export default {
             this.isModifyOn = false;
         },
         modifyDressingTable() {
-            alert('데모버전에선 이용 불가능')
+            alert('데모 계정에서는 \'나의 화장대\' 변경이 불가능합니다.')
         }
     }
 }

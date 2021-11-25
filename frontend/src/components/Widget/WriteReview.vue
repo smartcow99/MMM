@@ -34,7 +34,7 @@ export default {
     },
     methods:{
         registerReview(){
-            alert("데모 버전에선 안돼용~")
+            alert("데모 계정에서는 사용 후기를 등록할 수 없습니다")
         },
         oneStar(){
             this.rate=1;

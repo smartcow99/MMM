@@ -123,36 +123,43 @@ export default {
             }
         }
     },
-  async requestAnalysis({ state, commit }, payload) {
-    //이미지 전송 - multer, axios + formData
-    state["isAnalysisLoading"] = "loading";
-    let formData = new FormData();
+    async requestAnalysis({ state, commit }, payload) {
+        try {
+            //이미지 전송 - multer, axios + formData
+            state["isAnalysisLoading"] = "loading";
+            let formData = new FormData();
 
-    const config = {
-      header: { "content-type": "multipart/form-data" },
-    };
-    formData.append("img", payload);
+            const config = {
+                header: { "content-type": "multipart/form-data" },
+            };
+            formData.append("img", payload);
+            formData.append("requestNum",0);
 
-    const response = await axios.post("/users/pytest", formData, config);
-    if (response.status == 200) {
-      commit("setAnalysisResult", response.data);
-      state["isAnalysisLoading"] = "loaded";
-    } else {
-      alert("파일을 저장하는데 실패했습니다.");
-    }
-  },
-  async requestShortInfo({ commit }, shortId) {
-    commit("initShortInfo");
-    commit("initRequestNum");
-    const response = await axios.get("/users/short", {
-      params: {
-        vid: shortId,
-      },
-    });
-    if (response.status == 200) {
-      commit("setShortInfo", response.data);
-    }
-  },
+            const response = await axios.post("/users/pytest", formData, config);
+            console.log(response)
+            if (response.status == 200) {
+                commit("setAnalysisResult", response.data);
+                state["isAnalysisLoading"] = "loaded";
+            } else {
+                alert("파일을 저장하는데 실패했습니다.");
+            }
+        }
+        catch(err) {
+            console.log(err);
+        }
+    },
+    async requestShortInfo({ commit }, shortId) {
+        commit("initShortInfo");
+        commit("initRequestNum");
+        const response = await axios.get("/users/short", {
+        params: {
+            vid: shortId,
+        },
+        });
+        if (response.status == 200) {
+        commit("setShortInfo", response.data);
+        }
+    },
   // async requestRelatedChannelInfo({ commit }, payload) {
   //     //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
   //     //영상을 올린 채널정보 요청(short.vue에서 사용)
@@ -220,86 +227,100 @@ export default {
         commit("initProductInfo");
         commit("initRequestNum");
         const response = await axios.get("/users/productInfo", {
-        params: {
-            pid: payload,
-        },
+            params: {
+                pid: payload,
+            },
         });
         if (response.status == 200) {
-        console.log(response.data);
-        commit("setProductInfo", response.data);
+            commit("setProductInfo", response.data);
         }
     },
     async moreChannelSearch({ state, commit }) {
         //request axios get
+        if (state["isScrollRequestOn"] === true) return;
+        else commit("setIsScrollRequestOn", true);
         const response = await axios.get("/users/search", {
-        params: {
-            type: "channel",
-            requestNum: ++state["requestNum"],
-        },
+            params: {
+                type: "channel",
+                requestNum: ++state["requestNum"],
+            },
         });
         if (response.status == 200) {
-        commit("pushChannelSearch", response.data);
+            commit("pushChannelSearch", response.data);
         }
+        commit("setIsScrollRequestOn", false);
     },
     async moreShortSearch({ state, commit }) {
+        if (state["isScrollRequestOn"] === true) return;
+        else commit("setIsScrollRequestOn", true);
         const response = await axios.get("/users/search", {
-        params: {
-            type: "short",
-            requestNum: ++state["requestNum"],
-        },
+            params: {
+                type: "short",
+                requestNum: ++state["requestNum"],
+            },
         });
         if (response.status == 200) {
-        commit("pushShortSearch", response.data);
+            commit("pushShortSearch", response.data);
         }
+        commit("setIsScrollRequestOn", false);
     },
     async moreProductSearch({ state, commit }) {
+        if (state["isScrollRequestOn"] === true) return;
+        else commit("setIsScrollRequestOn", true);
         const response = await axios.get("/users/search", {
-        params: {
-            type: "product",
-            requestNum: ++state["requestNum"],
-        },
+            params: {
+                type: "product",
+                requestNum: ++state["requestNum"],
+            },
         });
         if (response.status == 200) {
-        commit("pushProductSearch", response.data);
+            commit("pushProductSearch", response.data);
         }
+        commit("setIsScrollRequestOn", false);
     },
     async morePurchaseHistory({ state, commit }) {
+        if (state["isScrollRequestOn"] === true) return;
+        else commit("setIsScrollRequestOn", true);
         const response = await axios.get("/users/purchaseList", {
-        params: {
-            requestNum: ++state["requestNum"],
-        },
+            params: {
+                requestNum: ++state["requestNum"],
+            },
         });
         if (response.status == 200) {
-        commit("pushPurchaseHistory", response.data);
+            commit("pushPurchaseHistory", response.data);
         }
+        commit("setIsScrollRequestOn", false);
     },
     async moreShortRecommend({ state, commit }) {
         if (state["isScrollRequestOn"] === true) return;
         else commit("setIsScrollRequestOn", true);
         state["shortRecommendOnload"] = "loading";
         const response = await axios.get("/users/recommend", {
-        params: {
-            type: "short",
-            requestNum: ++state["requestNum"],
-        },
-        });
+            params: {
+                type: "short",
+                requestNum: ++state["requestNum"],
+            },
+            });
         if (response.status == 200) {
-        commit("pushShortRecommend", response.data);
+            commit("pushShortRecommend", response.data);
         }
         commit("setIsScrollRequestOn", false);
     },
     //추후 추가
     async moreChannelShorts({ state, commit }, payload) {
+        if (state["isScrollRequestOn"] === true) return;
+        else commit("setIsScrollRequestOn", true);
         const response = await axios.get("/users/addRequest", {
-        params: {
-            chid: payload,
-            type: "channel", //short channel, product
-            requestNum: ++state["requestNum"],
-        },
+            params: {
+                chid: payload,
+                type: "channel", //short channel, product
+                requestNum: ++state["requestNum"],
+            },
         });
         if (response.status == 200) {
-        commit("pushChannelShort", response.data);
+            commit("pushChannelShort", response.data);
         }
+        commit("setIsScrollRequestOn", false);
     },
     async moreComment({ state, commit }, payload) {
         if (state["isScrollRequestOn"] === true) return;
@@ -318,16 +339,19 @@ export default {
         commit("setIsScrollRequestOn", false);
     },
     async moreReview({ state, commit }, payload) {
+        if (state["isScrollRequestOn"] === true) return;
+        else commit("setIsScrollRequestOn", true);
         const response = await axios.get("/users/addRequest", {
-        params: {
-            pid: payload,
-            type: "product", //short channel, product
-            requestNum: ++state["requestNum"],
-        },
+            params: {
+                pid: payload,
+                type: "product", //short channel, product
+                requestNum: ++state["requestNum"],
+            },
         });
         if (response.status == 200) {
-        commit("pushReview", response.data);
+            commit("pushReview", response.data);
         }
+        commit("setIsScrollRequestOn", false);
     },
 
     async requestReviewSort({ state, commit }, payload) {

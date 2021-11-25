@@ -57,6 +57,7 @@
                         </div>
                     </div>
                     <!-- 구독버튼 -->
+                    {{relatedChannel}}
                     <Btn id="subscribe-button" v-if="relatedChannel.isMyShort" :theme="white" @click="modifyShort">수정하기</Btn>
                     <Btn id="subscribe-button" v-else-if="relatedChannel.isSubscribed" theme="gray" @click="unsubscribe">구독 취소</Btn>
                     <Btn id="subscribe-button" v-else :theme="primary" @click="subscribe">구독</Btn>
@@ -171,26 +172,26 @@ export default {
             'moreComment'
         ]),
         registComment(comment) {
-            alert('데모 아이디로는 댓글을 등록할 수 없습니다.')
+            alert('데모 계정에서는 댓글을 등록할 수 없습니다.')
         },
         openLogin(){
             this.setLoginPageOn(true)
         },
         subscribe() {
-            alert('데모버전에선 구독요청이 불가능합니다.');
+            alert('데모 계정에서는 구독요청이 불가능합니다.');
             // this.requestSubscribe(this.currentShort['channelId']);
             // this.requestRelatedChannelInfo(this.currentShort['channelId']);
         },
         unsubscribe() {
-            alert('데모버전에선 구독취소가 불가능합니다.');
+            alert('데모 계정에서는 구독취소가 불가능합니다.');
             // this.requestUnsubscribe(this.currentShort['channelId']);
             // this.requestRelatedChannelInfo(this.currentShort['channelId']);
         },
         modifyShort() {
-            alert('데모버전에선 수정 불가능합니다.');
+            alert('데모 계정에서는 수정 불가능합니다.');
         },
         likeUp(){
-            alert('데모 버전에선 \'좋아요\' 불가능합니다.');
+            alert('데모 계정에서는 \'좋아요\'가 불가능합니다.');
         },
         scrollHandler(event) {
             const el = this.$refs['comment'];

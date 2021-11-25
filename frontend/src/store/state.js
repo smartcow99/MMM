@@ -70,7 +70,8 @@ export default {
   },
   analysisResult: {
     content: "",
-    RecommendDressing: [],
-    color: "",
+    relatedShort: [],
+    tone: "",
+    face:'',
   },
 };
