@@ -262,7 +262,15 @@ export default {
     state['purchaseList'] = [...state['purchaseList'],...payload]
   },
   pushShortRecommend(state,payload) {
-    state['RecommendShortList'] = [...state['RecommendShortList'],...payload]
+    console.log(payload.length )
+    if(payload.length === 0) {
+      state['isRecommendShortLoading'] = 'end';
+    }
+    else {
+      state['RecommendShortList'] = [...state['RecommendShortList'],...payload];
+      state['isRecommendShortLoading'] = 'loaded';
+    }
+
   },
   pushChannelShort(state,payload) {
     state['currentChannel'].shortList = [...state['currentChannel'].shortList, ...payload];
@@ -272,7 +280,7 @@ export default {
   },
   pushReview(state,payload) {
     state['currentProduct'].reviews = [...state['currentProduct'].reviews, ...payload];
-  }
+  },
 };
 
 

@@ -58,8 +58,8 @@ export default {
             password: payload.password,
         });
         if (loginResponse.status === 200) {
-            const userInfoResponse = await axios.get("/users/info");//유저 정보 요청
-            commit("setUserInfo", userInfoResponse.data);
+            // const userInfoResponse = await axios.get("/users/info");//유저 정보 요청
+            // commit("setUserInfo", userInfoResponse.data);
             commit("setIsLogin", true);
             commit("setLoginPageOn", false);
         }
@@ -200,11 +200,14 @@ export default {
         //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
         commit('initChannelInfo');
         commit("initRequestNum");
+        if(!payload) return;
+
         const response = await axios.get("/users/channel", {
             params: {
                 chid: payload
             },
         });
+        console.log(response.data)
         if (response.status == 200) {
             commit("setChannelInfo", response.data);
         }
@@ -268,6 +271,7 @@ export default {
         }
     },
     async moreShortRecommend({state,commit}){
+        state['shortRecommendOnload'] = 'loading';
         const response = await axios.get("/users/recommend", {
             params: {
                 type: 'short',

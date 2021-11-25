@@ -4,15 +4,15 @@
             <div class="short-meta-info">
                 <div class="like">
                     <font-awesome-icon class="icon" :icon="['far','heart']" @click="likeUp"/>
-                    <small>{{translateUnit("like", this.currentShort['numOfHearts'], $event).returnVal}}</small>
+                    <small>{{translateUnit("like", this.currentShort['numOfHearts']).returnVal}}</small>
                 </div>
                 <div class="comment">
                     <font-awesome-icon class="icon" :icon="['far','comment-dots']"/>
-                    <small>{{translateUnit("comment", this.currentShort['comments'].length, $event).returnVal}}</small>
+                    <small>{{translateUnit("comment", this.currentShort['comments'].length).returnVal}}</small>
                 </div>
                 <div class="view">
                     <font-awesome-icon class="icon" :icon="['far','eye']"/>
-                    <small>{{translateUnit("view", this.currentShort['numOfViews'], $event).returnVal}}</small>
+                    <small>{{translateUnit("view", this.currentShort['numOfViews']).returnVal}}</small>
                 </div>
             </div>
             <button class="close" @click="$emit('close')">

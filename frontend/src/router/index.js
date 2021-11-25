@@ -89,6 +89,7 @@ router.beforeEach((to,from,next)=>{
   }
   switch(to.path) {
     case '/': {
+      store.dispatch('getRecommendShorts');
       break;
     }
     case '/channelshort': {
