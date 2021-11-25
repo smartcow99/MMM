@@ -8,7 +8,6 @@
                 <p>사진 용량 제한 10MB</p>
             </div>
         </div>
-
         <div class="box" id="second-box">
             <div >
             <span>이름</span><input type="text" :value="userInfo['name']" disabled/>
@@ -17,11 +16,10 @@
             <span>생년월일</span><input type="date" :value="userInfo['birth']" disabled/>
             </div>
         </div>
-
         <div class="box" id="third-box">
             로그인 정보
             <div>
-            <span>아이디</span><input type="text" :value="userInfo['userId']" disabled/>
+            <span>아이디</span><input type="text" :value="userInfo['ID']" disabled/>
             </div>
             <div>
             <span>비밀번호</span><Btn theme="gray" @click="changePassword">비밀번호 변경</Btn>

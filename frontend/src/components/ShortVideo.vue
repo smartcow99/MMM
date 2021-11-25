@@ -1,12 +1,9 @@
 <template>
     <div class="short-video">
-        <video autoplay muted controls loop ref="video" @mouseenter="setHover(true)" @mouseleave="setHover(false)">
+        <video autoplay muted controls loop ref="video">
             <source :src="src" type="video/mp4" ref="source"/>
             지원하지 않는 태그 입니다.
         </video>
-        <!-- 
-        <font-awesome-icon v-show="playState==='play'" class="icon" :class="{show:isHover}" icon="pause"/>
-        <font-awesome-icon v-show="playState==='pause'" class="icon" :class="{show:isHover}" icon="play"/> -->
     </div>
     
 </template>
@@ -80,9 +77,6 @@ video {
     transition:0.3s;
     opacity:0;
     transition:0.3s;
-}
-video::-webkit-media-controls-play-button {
-    display:none;
 }
 video::-webkit-media-controls-fullscreen-button { 
     display: none !important; 

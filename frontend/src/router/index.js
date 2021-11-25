@@ -126,7 +126,7 @@ router.beforeEach((to,from,next)=>{
       break;
     }
     case '/channel': {
-      if(!!to.query['channelId']) {
+      if(!!to.query['channelId']) {console.log('?')
         store.dispatch('requestChannelInfo',to.query['channelId']);
       }
     }
