@@ -108,10 +108,6 @@ export default {
     LoginCard,
     Btn
   },
-  mounted() {
-    this.getRecommendTags();
-    this.getRecommendChannels();
-  },
   computed: {
     ...mapState([
       'userInfo',

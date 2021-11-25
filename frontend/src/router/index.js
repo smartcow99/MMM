@@ -78,18 +78,25 @@ const router = createRouter({
 });
 
 router.beforeEach((to,from,next)=>{
-  if(store.state['loginPageOn']==true) {
+  if(store.state['loginPageOn']===true) {
     store.commit('setLoginPageOn',false);
   }
-  else if(store.state['uploadShortPageOn']==true) {
+  else if(store.state['uploadShortPageOn']===true) {
     store.commit('setUploadShortPageOn',false);
   }
-  else if(store.state['shortPageOn']==true) {
+  else if(store.state['shortPageOn']===true) {
     store.commit('setShortPageOn',false);
   }
   switch(to.path) {
     case '/': {
+      store.dispatch('getRecommendTags');
       store.dispatch('getRecommendShorts');
+      if(store.state['loginPageOn']===true) {
+      }
+      else {
+        store.dispatch('getRecommendChannels');
+      }
+
       break;
     }
     case '/channelshort': {

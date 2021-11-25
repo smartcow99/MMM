@@ -205,27 +205,6 @@ export default {
       commit("setShortInfo", response.data);
     }
   },
-  // async requestRelatedChannelInfo({ commit }, payload) {
-  //     //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
-  //     //영상을 올린 채널정보 요청(short.vue에서 사용)
-  //     const response = await axios.get("/users/short", {
-  //         params: {
-  //             vid: shortId
-  //         },
-  //     });
-  //     if (response.status == 200) {
-  //         commit("setShortInfo", response.data);
-  //     }
-  //     commit("setRelatedChannel", {
-  //     title: "채널10",
-  //     profile: "",
-  //     channelId: 7,
-  //     numOfSubscribers: 210000,
-  //     numOfShorts: 10,
-  //     isSubscribed: false,
-  //     introduce: "나는 채널10 이다",
-  //     });
-  // },
   async requestChannelInfo({ commit }, payload) {
     //hot: 핫쇼츠, *: 구독한 모든 채널의 short, ID: 특정 채널의 info
     //channelId에 해당하는 채널 정보 요청

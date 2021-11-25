@@ -259,7 +259,13 @@ export default {
     state['productList'] = [...state['productList'],...payload]
   },
   pushPurchaseHistory(state,payload) {
-    state['purchaseList'] = [...state['purchaseList'],...payload]
+    state['purchaseList'] = [...state['purchaseList'],...payload];
+    if(payload.length < 6) {
+      state['isPurchaseListLoading'] = 'end';
+    }
+    else {
+      state['isPurchaseListLoading'] = 'loaded';
+    }
   },
   pushShortRecommend(state,payload) {
     state['RecommendShortList'] = [...state['RecommendShortList'],...payload];
