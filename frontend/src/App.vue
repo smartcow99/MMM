@@ -26,7 +26,7 @@
           <h3>구독한 채널</h3>
           <hr/>
           <ChannelList path="/channelshort" :channelList="defaultChannels"/>
-          <!-- <ChannelList path="/channelshort" :channelList="userInfo['subscribeChannelList']"/> -->
+          <ChannelList path="/channelshort" :channelList="userInfo['subscribeChannelList']"/>
         </div>
         <div v-else class="Recommend-channels">
           <h3>추천 채널</h3>

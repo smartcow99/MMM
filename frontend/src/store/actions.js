@@ -22,6 +22,7 @@ export default {
         requestNum: 0,
       },
     });
+    console.log(response.data)
     if (response.data) {
       commit("setRecommendChannelList", response.data);
     }
