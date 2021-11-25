@@ -36,6 +36,10 @@ router.post('/pytest',upload.single('img'),async (req, res)=>{
       console.log(err)
       return res.status(400).send('fail')
     };
+    if(req.query.requestNum == undefined)
+      return res.status(400).send('not enough element')
+    else if(data.length != 2)
+      return res.status(400).send('wrong picture')
     let ret = {
       face : data[0],
       tone : data[1],
@@ -165,7 +169,7 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 
 router.get('/addRequest', async (req, res)=>{
   const id = req.query.chid | req.query.pid | req.query.vid | 0;
-  const orderdesc = req.query.isdesc == 'false'?false : true;
+  const orderdesc = req.query.isDesc == 'false'?false : true;
   if(id && req.query.requestNum == undefined)
     return res.status(400).send('not enough element')
   const result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
