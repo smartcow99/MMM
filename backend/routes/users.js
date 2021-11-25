@@ -8,34 +8,6 @@ const fs = require('fs');
 const path = require('path');
 const spawn = require('child_process').spawn
 
-    
-// const upload = multer({ dest: 'public/image', limits: { fileSize: 5 * 1024 * 1024 } });
-// const upload = multer({
-//   storage: multer.diskStorage({
-//     // set a localstorage destination
-//     destination: (req, file, cb) => {
-//       cb(null, 'uploads/');
-//     },
-//     // convert a file name
-//     filename: (req, file, cb) => {
-//       cb(null, new Date().valueOf() + path.extname(file.originalname));
-//     },
-//   }),
-// });
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
-
-// router.get('/dbtest', async (req, res)=>{
-//   const ret = await db.account();
-//   return res.send(ret);
-// });
-
-// router.post('/imgtest', upload.single('file'/* img사용 가능?*/), (req, res)=>{
-//   console.log(req.file);
-//   res.send('ok');
-// })
 const upload = multer({
     storage: multer.diskStorage({
       // set a localstorage destination
@@ -49,24 +21,31 @@ const upload = multer({
     }),
   });
 
-router.post('/pytest',upload.single('img'),(req, res)=>{
+router.post('/pytest',upload.single('img'),async (req, res)=>{
   let options = {
     scriptPath: "../AI",
     args: ['public/'+req.file.filename]
   };
 
-  PythonShell.run("face_model_v2.py", options, function(err, data) {
+  PythonShell.run("face_model_v2.py", options, async function(err, data) {
     fs.unlink('public/'+req.file.filename, err => {
-      if(err && err.code == 'ENOENT'){
+      if(err && err.code == 'ENOENT')
           console.log("파일 삭제 Error 발생");
-      }
     });
     if (err) {
       console.log(err)
       return res.status(400).send('fail')
     };
-    
-    return res.status(200).send(data)
+    if(req.query.requestNum == undefined)
+      return res.status(400).send('not enough element')
+    else if(data.length != 2)
+      return res.status(400).send('wrong picture')
+    let ret = {
+      face : data[0],
+      tone : data[1],
+      relatedShort : await db.get_AI_relation_short(data[0], data[1],req.query.requestNum)
+    }
+    return res.status(200).send(ret)
   });
 })
 
@@ -97,7 +76,9 @@ router.get('/logout',islogined,(req, res)=>{
 
 router.get('/search',async (req, res)=>{
   const cid = req.session.cid | 0;
-  const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum);
+  if(req.query.type == undefined || req.query.content == undefined || req.query.requestNum == undefined)
+    return res.status(400).send('not enough element')
+  const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum, req.query.order);
 
   if(result)
     return res.status(200).send(result);
@@ -107,6 +88,8 @@ router.get('/search',async (req, res)=>{
 
 router.get('/recommend', async (req, res)=>{
   const cid = req.session.cid | 0;
+  if(req.query.type == undefined || req.query.requestNum == undefined)
+    return res.status(400).send('not enough element')
   const result = await db.recommend(req.query.type, cid, req.query.requestNum);
   if(result)
     return res.status(200).send(result);
@@ -115,8 +98,9 @@ router.get('/recommend', async (req, res)=>{
 })
 
 router.get('/purchaseList', islogined, async (req, res)=>{
+  if(req.query.requestNum == undefined)
+    return res.status(400).send('not enough element')
   const result = await db.get_purchare_list(req.session.cid, req.query.requestNum);
-
   if(result)
     return res.status(200).send(result);
   else
@@ -125,6 +109,9 @@ router.get('/purchaseList', islogined, async (req, res)=>{
 
 router.get('/short', async (req, res)=>{
   const cid = req.session.cid | 0;
+  if(req.query.vid == undefined)
+    return res.status(400).send('not enough element')
+  db.add_view(req.query.vid)
   const result = await db.short_info(req.query.vid, cid)
 
   if(result)
@@ -134,7 +121,6 @@ router.get('/short', async (req, res)=>{
 })
 
 router.get('/likeUp', islogined, async (req, res)=> {
-
   const result = await db.like_up(req.session.cid, req.query.vid)
 
   if(result)
@@ -183,8 +169,9 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 
 router.get('/addRequest', async (req, res)=>{
   const id = req.query.chid | req.query.pid | req.query.vid | 0;
-  const orderdesc = req.query.isdesc == 'false'?false : true;
-  console.log(orderdesc)
+  const orderdesc = req.query.isDesc == 'false'?false : true;
+  if(id && req.query.requestNum == undefined)
+    return res.status(400).send('not enough element')
   const result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
 
   if(result)
