@@ -47,7 +47,9 @@
       </div>
     </aside>
     <article ref="article" @scroll="scrollHandler($event)">
-      <router-view/>
+      <transition name="fade">
+        <router-view/>
+      </transition>
     </article>
   </main>
   <BlurCard v-if="loginPageOn" @close="closeLogin">
@@ -107,6 +109,10 @@ export default {
     ShortUpload,
     LoginCard,
     Btn
+  },
+  mounted() {
+    this.getRecommendTags();
+    this.getRecommendChannels();
   },
   computed: {
     ...mapState([
@@ -233,6 +239,9 @@ body {
   height:100%;
   width:100%;
   color: #2c3e50;
+}
+h2 {
+  font-weight:700;
 }
 b {
   font-weight:700;
@@ -386,5 +395,11 @@ article::-webkit-scrollbar-thumb {
 }
 .loading.icon {
   font-size:3rem;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

@@ -89,14 +89,7 @@ router.beforeEach((to,from,next)=>{
   }
   switch(to.path) {
     case '/': {
-      store.dispatch('getRecommendTags');
       store.dispatch('getRecommendShorts');
-      if(store.state['loginPageOn']===true) {
-      }
-      else {
-        store.dispatch('getRecommendChannels');
-      }
-
       break;
     }
     case '/channelshort': {

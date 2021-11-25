@@ -1,12 +1,15 @@
 <template>
     <div id="short-search">
         <h2 class="search-text">'{{$route.query['content']}}' 검색 결과</h2>
-        <div class="short-list">
+        <div class="short-list" v-show="shortList.length>0">
             <ShortSummary 
                 v-for="(value,index) in shortList" 
                 :key="index" 
                 :shortInfo="value"
             />
+        </div>
+        <div class="short-list" v-show="shortList.length===0">
+            <b>결과 없음</b>
         </div>
     </div>
 </template>
