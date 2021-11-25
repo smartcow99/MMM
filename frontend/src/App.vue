@@ -62,6 +62,7 @@
   />
 </template>
 <script>
+
 import Btn from './components/Btn.vue'
 import Profile from '@/components/Profile.vue'
 import Search from '@/components/SearchBar.vue'
@@ -218,7 +219,8 @@ export default {
 }
 * {
   box-sizing:border-box;
-  font-weight: 400;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 300;
 }
 body {
   padding:0;
@@ -236,7 +238,9 @@ body {
   width:100%;
   color: #2c3e50;
 }
-
+b {
+  font-weight:700;
+}
 header#nav {
   position:fixed;
   display:flex;

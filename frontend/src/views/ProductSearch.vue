@@ -7,13 +7,16 @@
                 {{value.title}}
             </label>
         </div>
-        <div class="product-list">
+        <div class="product-list" v-show="productList.length>0">
             <ProductSummary 
                 class="item"
                 v-for="(value,index) in productList" 
                 :key="index" 
                 :productInfo="value"
             />
+        </div>
+        <div class="product-list" v-show="productList.length===0">
+            <b>결과 없음</b>
         </div>
     </div>
 </template>
@@ -86,6 +89,8 @@ div.product-list{
     margin-right:10px;
 }
 .item {
-    margin-right:40px;
+    margin-right:30px;
+    margin-bottom:100px;
+    width:280px;
 }
 </style> 

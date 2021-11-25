@@ -32,13 +32,13 @@ export default {
             else return '/';
         }
     },
-    watch: {
-        '$route'(to,from) {
-            if(to.query['content']!=='') {
-                this.content = to.query['content'];
-            }
-        }
-    }
+    // watch: {
+    //     '$route'(to,from) {
+    //         if(to.query['content']!=='') {
+    //             this.content = to.query['content'];
+    //         }
+    //     }
+    // }
 }
 </script>
 

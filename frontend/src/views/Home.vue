@@ -1,6 +1,6 @@
 <template>
     <div id="home" class="page">
-      <h1>추천 영상</h1>
+      <h1><b>추천 영상</b></h1>
       <div class="short-list">
         <ShortSummary 
             class="item"

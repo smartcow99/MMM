@@ -326,7 +326,7 @@ div#loading-guide {
     #short-title{
         font-weight: bold;
         margin-top:30px;
-        margin-bottom:30px;
+        margin-bottom:20px;
         padding-right:10px;
     }
     .channel{
@@ -338,6 +338,7 @@ div#loading-guide {
         .channel-info{
             display:flex;
             flex-direction: row;
+            height:40px;
             img.channel-profile-image{
                 width:40px;
                 height: 40px;
@@ -348,11 +349,21 @@ div#loading-guide {
                 flex-direction: column;
                 justify-content: flex-start;
                 flex-grow:1;
+                a {
+                    font-weight:400;
+                    font-size:1rem;
+                }
+                small {
+                    font-weight:100;
+                    font-size:0.8em;
+                }
                 #channel-name{
+                    height:20px;
                     width:100%;
                     text-align: left;
                 }
                 #channel-data{
+                    height:20px;
                     display:flex;
                     flex-direction: row;
                     & > * {
@@ -395,6 +406,7 @@ div#loading-guide {
     padding-right:10px;
     overflow-y:auto;
     .unlogined-comment{
+        height:40px;
         display:flex;
         flex-direction:row;
         justify-content: space-between;
