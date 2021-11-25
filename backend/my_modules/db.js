@@ -27,7 +27,7 @@ const api = {
 		return res;
 	},
 	search_product: async (content,reqNum)=>{
-		const [res] = await pool.query(`select p_name as title, thumnail, pid as productId, avg_rate as rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where p_name like '%${content}%' limit ${reqNum*6}, 6`);
+		const [res] = await pool.query(`select p_name as title, thumnail, pid as productId, avg_rate as rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where p_name like '%${content}%' order by avg_rate desc limit ${reqNum*6}, 6`);
 		return res;
 	},
 	recommend_tag: async ()=>{
