@@ -221,7 +221,7 @@ module.exports = new Proxy(api,{
 			}
 		}
 		else if(apiName == 'user_info') {
-			return async function(pid) {
+			return async function(cid) {
 				let [res] = await target.get_user_info(cid);
 				res.subscribeChannelList = await target.get_subscribe_list(cid);
 
