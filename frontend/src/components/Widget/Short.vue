@@ -57,10 +57,9 @@
                         </div>
                     </div>
                     <!-- 구독버튼 -->
-                    {{relatedChannel}}
-                    <Btn id="subscribe-button" v-if="relatedChannel.isMyShort" :theme="white" @click="modifyShort">수정하기</Btn>
+                    <Btn id="subscribe-button" v-if="relatedChannel.isMyChannel" theme="white" @click="modifyShort">수정하기</Btn>
                     <Btn id="subscribe-button" v-else-if="relatedChannel.isSubscribed" theme="gray" @click="unsubscribe">구독 취소</Btn>
-                    <Btn id="subscribe-button" v-else :theme="primary" @click="subscribe">구독</Btn>
+                    <Btn id="subscribe-button" v-else theme="primary" @click="subscribe">구독</Btn>
                 </div>
             </div>
             <div id="short-explanation">   <!--영상정보-->

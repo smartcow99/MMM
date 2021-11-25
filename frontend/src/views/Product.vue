@@ -135,6 +135,7 @@ export default {
         ...mapActions([
             'requestProductInfo',
             'requestReviewSort',
+            'requestHasPurchaseHistory'
         ]),
         openPurchasePage(){
             if(this.userInfo['isLogined']===true) {
@@ -146,9 +147,15 @@ export default {
             }
         },
         addComment(){
-            if(this.userInfo['isLogined']!==true) {
+            if(this.userInfo['isLogined']===true) {
                 //해당 유저가 이 물품을 구매한적 있는지 먼저 확인할 것
-                this.addCommentPageOn=true;
+                if(this.requestHasPurchaseHistory(this.currentProduct.productId)) {
+                    this.addCommentPageOn=true;
+                }
+                else {
+                    alert('상품을 구매한 유저만 리뷰를 쓸 수 있습니다.');
+                }
+                
             }
             else {
                 alert('로그인을 해야 서비스를 이용할 수 있습니다.');

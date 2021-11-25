@@ -49,6 +49,9 @@ export default {
   setShortList(state, payload) {
     state["shortList"] = payload;
   },
+  initPurchaseList(state) {
+    state["purchaseList"] = [];
+  },
   setPurchaseList(state, payload) {
     state["purchaseList"] = payload;
   },
@@ -145,9 +148,9 @@ export default {
     state["currentChannel"].shortList = [];
   },
   setChannelInfo(state, payload) {
-    state["currentChannel"].isMyChannel = payload.isMyChannel === 'true'? true:false;
+    state["currentChannel"].isMyChannel = payload.isMyChannel;
     state["currentChannel"].title = payload.title;
-    state["currentChannel"].isSubscribed = payload.isSubscribed === 'true'? true:false;
+    state["currentChannel"].isSubscribed = payload.isSubscribed;
     state["currentChannel"].profile = payload.profile;
     state["currentChannel"].channelId = payload.channelId;
     state["currentChannel"].numOfSubscribers = payload.numOfSubscribers;

@@ -356,28 +356,39 @@ export default {
     async requestReviewSort({ state, commit }, payload) {
         commit("initRequestNum");
         const response = await axios.get("/users/addRequest", {
-        params: {
-            pid: payload.productId,
-            type: "product",
-            requestNum: ++state["requestNum"],
-            isdesc: false,
-        },
+            params: {
+                pid: payload.productId,
+                type: "product",
+                requestNum: ++state["requestNum"],
+                isdesc: false,
+            },
         });
         if (response.status == 200) {
-        commit("setProductInfo", response.data);
+            commit("setProductInfo", response.data);
         }
     },
     async requestSort({ commit }, payload) {
         const response = await axios.get("/users/search", {
-        params: {
-            type: "product",
-            content: payload["content"],
-            requestNum: 0,
-            order: payload.type,
-        },
+            params: {
+                type: "product",
+                content: payload["content"],
+                requestNum: 0,
+                order: payload.type,
+            },
         });
         if (response.status == 200) {
-        commit("setProductList", response.data.searchResult);
+            commit("setProductList", response.data.searchResult);
         }
     },
+
+    async requestHasPurchaseHistory({commit},payload) {
+        const response = await axios.get("/users/isPurchase", {
+            params: {
+                pid:payload
+            },
+        });
+        if (response.status == 200) {
+            return response.data;
+        }
+    }
 };

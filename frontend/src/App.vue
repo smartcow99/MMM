@@ -131,7 +131,8 @@ export default {
     ...mapMutations([
       'setLoginPageOn',
       'setUploadShortPageOn',
-      'setShortPageOn'
+      'setShortPageOn',
+      'initPurchaseList'
     ]),
     ...mapActions([
       'requestLogout',
@@ -166,6 +167,7 @@ export default {
     },
     logout() {
       this.requestLogout();
+      this.initPurchaseList();
     },
     scrollHandler(event) {
       const articleEl = this.$refs['article'];
