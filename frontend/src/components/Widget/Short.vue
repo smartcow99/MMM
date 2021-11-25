@@ -58,7 +58,7 @@
                     </div>
                     <!-- 구독버튼 -->
                     <Btn id="subscribe-button" v-if="currentShort['relatedChannel'].isMyShort" :theme="white" @click="modifyShort">수정하기</Btn>
-                    <Btn id="subscribe-button" v-else-if="isSubscribed" :theme="gray" @click="unsubscribe">구독 취소</Btn>
+                    <Btn id="subscribe-button" v-else-if="currentShort['relatedChannel'].isSubscribed" theme="gray" @click="unsubscribe">구독 취소</Btn>
                     <Btn id="subscribe-button" v-else :theme="primary" @click="subscribe">구독</Btn>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                     :productId="value.productId"
                 />
             </Slider>
-            <div class="comment-area">
+            <div class="comment-area" ref="comment" @scroll="scrollHandler($event)">
                 <WriteComment v-if="userInfo['isLogined']" @write="registComment"></WriteComment>
                 <div class="unlogined-comment" v-else>
                     <p>댓글을 등록하려면 로그인을 해주세요</p>
@@ -95,12 +95,16 @@
                 <div class="no-comment" v-if="currentShort['comments'].length===0">
                     등록된 댓글이 없습니다.
                 </div>
-                <div v-else class="comment-list" @scroll="scrollHandler($event)" ref="comment">
+                <div v-else class="comment-list" ref="comment">
                     <Comment 
+                        class="item"
                         v-for="(comment,index) in currentShort['comments']"
                         :key="index" 
                         :commentInfo="comment"
                     />
+                    <div v-show="commentOnload==='loading'">
+                        <font-awesome-icon class="loading icon" icon='spinner' spin/>
+                    </div>
                 </div>
 
             </div>
@@ -133,7 +137,8 @@ export default {
     computed: {
         ...mapState([
             'currentShort',
-            'userInfo'
+            'userInfo',
+            'commentOnload'
         ]),
         isLoading() {
             return this.currentShort.shortId===0;
@@ -173,15 +178,15 @@ export default {
             alert('데모 버전에선 \'좋아요\' 불가능합니다.');
         },
         scrollHandler(event) {
-            const articleEl = this.$refs['article'];
-            const scrollPosition = (event.target.scrollTop+articleEl.clientHeight)/300;
-            const scrollEnd = (articleEl.scrollHeight/300).toFixed(0);
-            if(scrollPosition.toFixed(0) === scrollEnd) {
+            const el = this.$refs['comment'];
+            const scrollPosition = (event.target.scrollTop+el.clientHeight)/300;
+            const scrollEnd = (el.scrollHeight/300).toFixed(0);
+            console.log(scrollEnd,scrollPosition.toFixed(0))
+            if(scrollPosition.toFixed(0) === scrollEnd && this.commentOnload!=='end') {
                 this.moreComment(this.currentShort.shortId);
             }
         },
         translateUnit(element, data, event){
-            console.log(data)
             if(element=="coment"){
                 if(data>=1000000){
                     data/=1000000;
