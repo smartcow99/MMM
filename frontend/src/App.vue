@@ -26,7 +26,7 @@
           <h3>구독한 채널</h3>
           <hr/>
           <ChannelList path="/channelshort" :channelList="defaultChannels"/>
-          <!-- <ChannelList path="/channelshort" :channelList="userInfo['subscribeChannelList']"/> -->
+          <ChannelList path="/channelshort" :channelList="userInfo['subscribeChannelList']"/>
         </div>
         <div v-else class="Recommend-channels">
           <h3>추천 채널</h3>
@@ -134,7 +134,8 @@ export default {
     ...mapMutations([
       'setLoginPageOn',
       'setUploadShortPageOn',
-      'setShortPageOn'
+      'setShortPageOn',
+      'initPurchaseList'
     ]),
     ...mapActions([
       'requestLogout',
@@ -169,6 +170,7 @@ export default {
     },
     logout() {
       this.requestLogout();
+      this.initPurchaseList();
     },
     scrollHandler(event) {
       const articleEl = this.$refs['article'];
@@ -187,7 +189,6 @@ export default {
             this.moreChannelShorts(this.currentChannel.channelId); break; 
           }
           case '/product': {
-            console.log(this.currentProduct.productId, this.isDesc)
             this.moreReview({pid:this.currentProduct.productId, desc:this.isDesc}); break; 
           }
           case '/search/channels': {

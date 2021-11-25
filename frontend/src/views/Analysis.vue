@@ -24,7 +24,7 @@
             <div class="Recommend-makeup">
                 <Slider 
                     :count="3"
-                    :elWidth="280"
+                    :elWidth="300"
                     :maxIndex="analysisResult['relatedShort'].length">
                     <ShortSummary
                         class="item"
@@ -166,5 +166,8 @@ h3{
 #result-face {
     width:100px;
     height:auto;
+}
+.item {
+    margin-right:20px;
 }
 </style>

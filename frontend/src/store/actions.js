@@ -77,40 +77,80 @@ export default {
       commit("setPurchaseList", response.data);
     }
   },
-  async requestSearch({ commit }, payload) {
-    //검색 요청 ( payload: 검색 string )
-    //검색 타입에 따라 다른 commit 실행(short,channel,product)
-    if (!payload["content"]) {
-      alert("내용이 비어있습니다.");
-      return;
-    }
-    commit("initRequestNum");
-    if (payload["type"] === "channel") {
-      const response = await axios.get("/users/search", {
-        params: {
-          type: "channel",
-          content: payload["content"],
-          requestNum: 0,
-          order: "rate",
-        },
-      });
-      if (response.status == 200) {
-        commit("setChannelList", response.data.searchResult);
-      }
-    } else if (payload["type"] === "product") {
-      const response = await axios.get("/users/search", {
-        params: {
-          type: "product",
-          content: payload["content"],
-          requestNum: 0,
-          order: "rate",
-        },
-      });
-      if (response.status == 200) {
-        commit("setProductList", response.data.searchResult);
-      }
-    } else {
-      const response = await axios.get("/users/search", {
+    async requestSearch({ commit }, payload) {
+        //검색 요청 ( payload: 검색 string )
+        //검색 타입에 따라 다른 commit 실행(short,channel,product)
+        if (!payload["content"]) {
+            alert("내용이 비어있습니다.");
+            return;
+        }
+        commit("initRequestNum");
+        if (payload["type"] === "channel") {
+            const response = await axios.get("/users/search", {
+                params: {
+                type: "channel",
+                content: payload["content"],
+                requestNum: 0,
+                order: "rate",
+                },
+            });
+            if (response.status == 200) {
+                commit("setChannelList", response.data.searchResult);
+            }
+        } else if (payload["type"] === "product") {
+            const response = await axios.get("/users/search", {
+                params: {
+                type: "product",
+                content: payload["content"],
+                requestNum: 0,
+                order: "rate",
+                },
+            });
+            if (response.status == 200) {
+                commit("setProductList", response.data.searchResult);
+            }
+        } else {
+            const response = await axios.get("/users/search", {
+                params: {
+                type: "short",
+                content: payload["content"],
+                requestNum: 0,
+                order: "rate",
+                },
+            });
+            if (response.status == 200) {
+                commit("setShortList", response.data.searchResult);
+            }
+        }
+    },
+    async requestAnalysis({ state, commit }, payload) {
+        try {
+            //이미지 전송 - multer, axios + formData
+            state["isAnalysisLoading"] = "loading";
+            let formData = new FormData();
+
+            const config = {
+                header: { "content-type": "multipart/form-data" },
+            };
+            formData.append("img", payload);
+            formData.append("requestNum",0);
+
+            const response = await axios.post("/users/pytest", formData, config);
+            if (response.status == 200) {
+                commit("setAnalysisResult", response.data);
+                state["isAnalysisLoading"] = "loaded";
+            } else {
+                alert("파일을 저장하는데 실패했습니다.");
+            }
+        }
+        catch(err) {
+            console.log(err);
+        }
+    },
+    async requestShortInfo({ commit }, shortId) {
+        commit("initShortInfo");
+        commit("initRequestNum");
+        const response = await axios.get("/users/short", {
         params: {
           type: "short",
           content: payload["content"],
@@ -121,32 +161,7 @@ export default {
       if (response.status == 200) {
         commit("setShortList", response.data.searchResult);
       }
-    }
-  },
-  async requestAnalysis({ state, commit }, payload) {
-    try {
-      //이미지 전송 - multer, axios + formData
-      state["isAnalysisLoading"] = "loading";
-      let formData = new FormData();
-
-      const config = {
-        header: { "content-type": "multipart/form-data" },
-      };
-      formData.append("img", payload);
-      formData.append("requestNum", 0);
-
-      const response = await axios.post("/users/pytest", formData, config);
-      console.log(response);
-      if (response.status == 200) {
-        commit("setAnalysisResult", response.data);
-        state["isAnalysisLoading"] = "loaded";
-      } else {
-        alert("파일을 저장하는데 실패했습니다.");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  },
+    },
   async requestShortInfo({ commit }, shortId) {
     commit("initShortInfo");
     commit("initRequestNum");
@@ -317,7 +332,7 @@ export default {
       commit("pushComment", response.data);
     }
   },
-  async moreReview({ state, commit }, { pid, desc }) {
+async moreReview({ state, commit }, { pid, desc }) {
     const response = await axios.get("/users/addRequest", {
       params: {
         pid: pid,
@@ -326,13 +341,22 @@ export default {
         isDesc: desc,
       },
     });
-
     if (response.status == 200) {
-      commit("pushReview", response.data);
+        commit("pushReview", response.data);
+      }
+},
+async requestHasPurchaseHistory({commit},payload) {
+    const response = await axios.get("/users/isPurchase", {
+        params: {
+            pid:payload
+        },
+    });
+    if (response.status == 200) {
+        return response.data;
     }
-  },
+},
+
   async requestReviewSort({ state, commit }, payload) {
-    console.log(payload);
     commit("initRequestNum");
     const response = await axios.get("/users/addRequest", {
       params: {
@@ -358,5 +382,5 @@ export default {
     if (response.status == 200) {
       commit("setProductList", response.data.searchResult);
     }
-  },
+  }
 };

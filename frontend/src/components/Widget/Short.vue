@@ -57,10 +57,9 @@
                         </div>
                     </div>
                     <!-- 구독버튼 -->
-                    {{relatedChannel}}
-                    <Btn id="subscribe-button" v-if="relatedChannel.isMyShort" :theme="white" @click="modifyShort">수정하기</Btn>
+                    <Btn id="subscribe-button" v-if="relatedChannel.isMyChannel" theme="white" @click="modifyShort">수정하기</Btn>
                     <Btn id="subscribe-button" v-else-if="relatedChannel.isSubscribed" theme="gray" @click="unsubscribe">구독 취소</Btn>
-                    <Btn id="subscribe-button" v-else :theme="primary" @click="subscribe">구독</Btn>
+                    <Btn id="subscribe-button" v-else theme="primary" @click="subscribe">구독</Btn>
                 </div>
             </div>
             <div id="short-explanation">   <!--영상정보-->
@@ -197,7 +196,6 @@ export default {
             const el = this.$refs['comment'];
             const scrollPosition = (event.target.scrollTop+el.clientHeight)/300;
             const scrollEnd = (el.scrollHeight/300).toFixed(0);
-            console.log(scrollEnd,scrollPosition.toFixed(0))
             if(scrollPosition.toFixed(0) === scrollEnd && this.commentOnload!=='end') {
                 this.moreComment(this.currentShort.shortId);
             }
@@ -213,7 +211,6 @@ export default {
                 data=Math.floor(data*10)/10+'K';
             }
                 const returnVal=data;
-                console.log(returnVal)
             return{
                 returnVal,
             }

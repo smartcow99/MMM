@@ -74,7 +74,6 @@ methods:{
         this.inputTag="";
     },
     deleteTag(index, event){
-        console.log(index)
         this.tagList.splice(index, 1);
     },
     clickUploadButton(){

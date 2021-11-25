@@ -74,9 +74,6 @@ export default {
             return dateString.substring(0,10);
         }
     },
-    mounted(){
-        console.log(this.userInfo)
-    }
 }
 </script>
 

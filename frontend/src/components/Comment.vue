@@ -12,16 +12,10 @@
 
 <script>
 export default {
+    name:'Comment',
     props:{
         commentInfo:String,
-
     },
-    methods:{
-        test(){
-            console.log(this.commentInfo);
-        }
-    }
-   
 }
 </script>
 

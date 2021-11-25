@@ -49,11 +49,13 @@ export default {
   setShortList(state, payload) {
     state["shortList"] = payload;
   },
+  initPurchaseList(state) {
+    state["purchaseList"] = [];
+  },
   setPurchaseList(state, payload) {
     state["purchaseList"] = payload;
   },
   setAnalysisResult(state, payload) {
-    console.log(payload);
     if (payload === "fail") {
       state["analysisResult"].content =
         "얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.";
@@ -79,7 +81,7 @@ export default {
       }
     };
     state["analysisResult"].content = contentGenerator(payload.face);
-    state["analysisResult"].tone = payload.tone;
+    state["analysisResult"].tone = Number(payload.tone);
     state["analysisResult"].face = payload.face;
     state["analysisResult"].relatedShort = payload.relatedShort;
   },
@@ -141,11 +143,9 @@ export default {
     state["currentChannel"].shortList = [];
   },
   setChannelInfo(state, payload) {
-    state["currentChannel"].isMyChannel =
-      payload.isMyChannel === "true" ? true : false;
+    state["currentChannel"].isMyChannel = payload.isMyChannel;
     state["currentChannel"].title = payload.title;
-    state["currentChannel"].isSubscribed =
-      payload.isSubscribed === "true" ? true : false;
+    state["currentChannel"].isSubscribed = payload.isSubscribed;
     state["currentChannel"].profile = payload.profile;
     state["currentChannel"].channelId = payload.channelId;
     state["currentChannel"].numOfSubscribers = payload.numOfSubscribers;

@@ -35,6 +35,7 @@ img{
 }
 h2{
     margin: 0;
+    font-size:1.2rem;
 }
 .purchase-element{
     width: 550px;
@@ -54,9 +55,6 @@ h2{
     align-items: flex-start;
     h2 {
         margin-bottom:10px;
-    }
-    .purchase-date {
-        margin-top:70px;
     }
 }
 </style>
