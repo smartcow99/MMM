@@ -161,31 +161,7 @@ export default {
       if (response.status == 200) {
         commit("setShortList", response.data.searchResult);
       }
-    }
-  async requestAnalysis({ state, commit }, payload) {
-    try {
-      //이미지 전송 - multer, axios + formData
-      state["isAnalysisLoading"] = "loading";
-      let formData = new FormData();
-
-      const config = {
-        header: { "content-type": "multipart/form-data" },
-      };
-      formData.append("img", payload);
-      formData.append("requestNum", 0);
-
-      const response = await axios.post("/users/pytest", formData, config);
-      console.log(response);
-      if (response.status == 200) {
-        commit("setAnalysisResult", response.data);
-        state["isAnalysisLoading"] = "loaded";
-      } else {
-        alert("파일을 저장하는데 실패했습니다.");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  },
+    },
   async requestShortInfo({ commit }, shortId) {
     commit("initShortInfo");
     commit("initRequestNum");
