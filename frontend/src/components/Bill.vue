@@ -2,12 +2,12 @@
     <div class="purchase-element">
         <img :src="PurchaseInfo['thumnail']" alt="구매상품사진"/>
         <div class="purchase-info">
-            <h2>{{PurchaseInfo['title']}}</h2>
+            <h2>{{this.PurchaseInfo.productName}}</h2>
             <div class="purchase-price">
                 <span>결재 금액</span>&nbsp;&nbsp;{{PurchaseInfo['price']}}
             </div>
             <div class="purchase-date">
-                <span>구매 날짜</span>&nbsp;&nbsp;{{PurchaseInfo['date']}}
+                <span>구매 날짜</span>&nbsp;&nbsp;{{simplifyPurchaseDate(PurchaseInfo['date'])}}
             </div>
         </div>
 
@@ -19,7 +19,12 @@ export default {
     name:'Bill',
     props: {
         'PurchaseInfo': Object
-    }
+    },
+    methods:{
+        simplifyPurchaseDate(dateString){
+            return dateString.substring(0,10);
+        }
+    },
 }
 </script>
 
@@ -51,7 +56,7 @@ h2{
         margin-bottom:10px;
     }
     .purchase-date {
-        margin-top:50px;
+        margin-top:70px;
     }
 }
 </style>
