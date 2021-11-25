@@ -4,8 +4,8 @@
             <slot/>
             <div class="fade-transparent"></div>
         </div>
-        <Btn v-if="isFold" theme="primary" @click="spread">자세히보기</Btn>
-        <Btn v-else theme="gray" @click="fold">접기</Btn>
+        <Btn v-if="isFold" theme="primary" @click="spread" :disabled="!foldable">자세히보기</Btn>
+        <Btn v-else theme="gray" @click="fold" :disabled="!foldable">접기</Btn>
     </div>
 
 </template>
@@ -13,7 +13,8 @@
 <script>
 import Btn from './Btn.vue'
 export default {
-  components: { Btn },
+    components: { Btn },
+    props: [ 'foldable' ],
     data() {
         return {
             isFold:true
@@ -41,9 +42,11 @@ export default {
     position: relative;
     height:fit-content;
     margin-bottom:20px;
+    padding-top:20px;
 }
 .detail .fade-transparent {
     position:absolute;
+    z-index:40;
     width:100%;
     height:100px;
     bottom:0;

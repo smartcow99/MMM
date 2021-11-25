@@ -26,8 +26,8 @@ const api = {
 		natural left outer join (select chid, case when cid = ${cid} then 'true' else 'false' end as isSubscribed from mmmservice.subscribe where cid = ${cid})c where ch_name like '%${content}%' limit ${reqNum*6}, 6;`);
 		return res;
 	},
-	search_product: async (content,reqNum,order)=>{
-		const [res] = await pool.query(`select access, p_name as title, thumnail, pid as productId, rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as rate from review group by pid)a using (pid) where p_name like '%${content}%' order by ${order} limit ${reqNum*6}, 6`);
+	search_product: async (content,reqNum)=>{
+		const [res] = await pool.query(`select p_name as title, thumnail, pid as productId, avg_rate as rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where p_name like '%${content}%' order by avg_rate desc limit ${reqNum*6}, 6`);
 		return res;
 	},
 	recommend_tag: async ()=>{
@@ -56,11 +56,7 @@ const api = {
 		return res;
 	},
 	get_channel_info: async (chid, cid)=>{
-		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, 
-		case when cid = ${cid} then 'true' else 'false' end as isMyChannel, 
-		case when ${cid} not in(select cid from subscribe where chid = ${chid}) then 'false' else 'true' end as isSubscribed 
-		from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) 
-		left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid = ${chid}`);
+		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when cid = ${cid} then 'true' else 'false' end as isMyChannel, case when ${cid} not in(select cid from subscribe where chid = ${chid}) then 'false' else 'true' end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid = ${chid}`);
 		return res;
 	},
 	get_tag: async (vid)=>{
@@ -68,7 +64,7 @@ const api = {
 		return res.map(el=>el.tag);
 	},
 	get_comments: async (vid, reqNum) => {
-        const [res] = await pool.query(`select distinct cu.c_name as name, ch.ch_profile as profile, re.r_comment as content, r_date as date from customer as cu natural join(channel as ch natural join reply as re) where re.vid = ${vid} order by r_date desc limit ${reqNum*6},6`)
+        const [res] = await pool.query(`select distinct cu.c_name as name, ch.ch_profile as profile, re.r_comment as content from customer as cu natural join(channel as ch natural join reply as re) where re.vid = ${vid} limit ${reqNum*6},6`)
         return res;
 	},
 	get_related_product: async (vid) => {
@@ -161,24 +157,15 @@ module.exports = new Proxy(api,{
 			}
 		}
 		else if(apiName == 'search'){
-			return async function(type, content, cid, reqNum,order) {
+			return async function(type, content, cid, reqNum) {
 				if(!content)
 					return null;
 
 				let ret = {
 					'type': type
 				}
-				if(type == 'product'){
-					if(order == 'rate')
-						order = order + ' desc';
-					else if(order == 'access')
-						order = order + ' desc';
-					else if(order == 'price_desc')
-						order = 'price desc'
-					else if(order == undefined)
-						return null
-					ret.searchResult = await target.search_product(content,reqNum,order);
-				}
+				if(type == 'product')
+					ret.searchResult =  await target.search_product(content,reqNum);
 				else if(type == 'channel'){
 					const result = await target.search_channel(content, cid, reqNum);
 					ret.searchResult = result.filter(element => {
@@ -209,8 +196,7 @@ module.exports = new Proxy(api,{
 		else if(apiName == 'short_info'){
 			return async function(vid, cid) {
 				let [res] = await target.get_short_info(vid, cid);
-				const [[chid]] = await target.get_chid(vid);
-				[res.relatedChannel] = await target.get_channel_info(chid.chid, cid)
+				[res.relatedChannel] = await target.get_channel_info(vid, cid)
 				res.relatedTags = await target.get_tag(vid);
 				res.relatedProducts = await target.get_related_product(vid);
 				res.comments = await target.get_comments(vid,0)

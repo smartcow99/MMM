@@ -73,29 +73,33 @@ export default {
     }
     const contentGenerator = (payload) => {
       if(payload[0]==='Heart') {
-        return `<p>당신의 얼굴은 '<b>${shapeTable[payload[0]]}</b>'</p> <p>당신의 피부톤은 ${payload[1]}호 (<div style="background-color:${colorTable[payload[1]]}; width:50px; height:50px;"></div>) 입니다.</p> <p>날카로운 이미지를 가지기 때문에 이마의 양옆과 턱 끝에 섀딩을 넣고 눈 밑과 턱 선에 하이라이트를 넣어줍니다. 블러셔를 강조하게 되면 인상이 강해 보일 수 있기 때문에 브라운 톤의 블러셔를 사용하면 됩니다.</p>`;
+        return `날카로운 이미지를 가지기 때문에 이마의 양옆과 턱 끝에 섀딩을 넣고 눈 밑과 턱 선에 하이라이트를 넣어줍니다. 블러셔를 강조하게 되면 인상이 강해 보일 수 있기 때문에 브라운 톤의 블러셔를 사용하면 됩니다.`;
       }
       else if(payload[0]==='Oval') {
-        return `<p>당신의 얼굴은 '<b>${shapeTable[payload[0]]}</b>'</p> <p>당신의 피부톤은 ${payload[1]}호 (<div style="background-color:${colorTable[payload[1]]}; width:50px; height:50px;"></div>) 입니다.</p> <p> 동양인에게서 많이 찾아볼 수 있습니다. 눈썹에 각진 눈썹(각진형, 상승형)를 주어 날카롭고 이지적인 분위기의 포인트를 줘야 합니다. 얼굴이 부드러워 보일 수가 있지만 평면적으로 보일 수도 있기 때문에 입체감을 살려주는 것이 중요하다.</p>`;
+        return `동양인에게서 많이 찾아볼 수 있습니다. 눈썹에 각진 눈썹(각진형, 상승형)를 주어 날카롭고 이지적인 분위기의 포인트를 줘야 합니다. 얼굴이 부드러워 보일 수가 있지만 평면적으로 보일 수도 있기 때문에 입체감을 살려주는 것이 중요하다.`;
       }
       else if(payload[0]==='Oblong') {
-        return `<p>당신의 얼굴은 '<b>${shapeTable[payload[0]]}</b>'</p> <p>당신의 피부톤은 ${payload[1]}호 (<div style="background-color:${colorTable[payload[1]]}; width:50px; height:50px;"></div>) 입니다.</p> <p> 얼굴이 짧아 보여야 하므로 블러셔는 가로로 넣어주고 이마 끝과 턱 끝에 섀딩 처리를 해주면 된다. 또한 코끝까지 하이라이트를 넣어주면 더 길어 보일 수 있으니 코 하이라이트는 주의해야 한다.</p>`;
+        return `얼굴이 짧아 보여야 하므로 블러셔는 가로로 넣어주고 이마 끝과 턱 끝에 섀딩 처리를 해주면 된다. 또한 코끝까지 하이라이트를 넣어주면 더 길어 보일 수 있으니 코 하이라이트는 주의해야 한다.`;
       }
       else if(payload[0]==='Round') {
-        return `<p>당신의 얼굴은 '<b>${shapeTable[payload[0]]}</b>'</p> <p>당신의 피부톤은 ${payload[1]}호 (<div style="background-color:${colorTable[payload[1]]}; width:50px; height:50px;"></div>) 입니다.</p> <p> 상승형 눈썹으로 동글해 보이는 인상을 풀어주고 메이크업에서 둥근 느낌이 없어지게 그려주면 된다.</p>`;
+        return `상승형 눈썹으로 동글해 보이는 인상을 풀어주고 메이크업에서 둥근 느낌이 없어지게 그려주면 된다.`;
       }
       else if(payload[0]==='Square') {
-        return `<p>당신의 얼굴은 '<b>${shapeTable[payload[0]]}</b>'</p> <p>당신의 피부톤은 ${payload[1]}호 (<div style="background-color:${colorTable[payload[1]]}; width:50px; height:50px;"></div>) 입니다.</p> <p> 둥근 눈썹을 통해 선한 이미지를 보여줄 수 있으면서, 일자형 눈썹을 통해 남자답고 강한 매력을 어필 할 수 있다. 매력이 있고 개성이 있어 보이지만 강한 인상을 줄 수 있기 때문에 부드러워 보이도록 이마 양옆과 각진 턱에 섀딩을 넣어주고 밸런스를 맞추어 줄 수 있다.</p>`;
+        return `둥근 눈썹을 통해 선한 이미지를 보여줄 수 있으면서, 일자형 눈썹을 통해 남자답고 강한 매력을 어필 할 수 있다. 매력이 있고 개성이 있어 보이지만 강한 인상을 줄 수 있기 때문에 부드러워 보이도록 이마 양옆과 각진 턱에 섀딩을 넣어주고 밸런스를 맞추어 줄 수 있다.`;
       }
       else {
         return '얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.'
       }
     }
     state["analysisResult"].content = contentGenerator(payload);
+    state["analysisResult"].color = payload[1];
+    state["analysisResult"].shape = payload[0];
     state["analysisResult"].RecommendDressing = payload.RecommendDressing;
   },
   initAnalysisResult(state, payload) {
     state["analysisResult"].content = "";
+    state["analysisResult"].color = '';
+    state["analysisResult"].shape = '';
     state["analysisResult"].RecommendDressing = [];
   },
   initShortInfo(state) {
@@ -145,6 +149,7 @@ export default {
     state["currentChannel"].numOfSubscribers = 0;
     state["currentChannel"].numOfShorts = 0;
     state["currentChannel"].introduce = '';
+    state["currentChannel"].haveItem = false;
     state["currentChannel"].dressingTable = {};
     state["currentChannel"].shortList = [];
   },
@@ -157,6 +162,7 @@ export default {
     state["currentChannel"].numOfSubscribers = payload.numOfSubscribers;
     state["currentChannel"].numOfShorts = payload.numOfShorts;
     state["currentChannel"].introduce = payload.introduce;
+
     payload.dressingTable.forEach(el=>{
       if(!!state["currentChannel"].dressingTable[el.category]) {
         state["currentChannel"].dressingTable[el.category].push(el);
@@ -166,6 +172,12 @@ export default {
         state["currentChannel"].dressingTable[el.category].push(el);
       }
     })
+    if(payload.dressingTable.length>0){
+      state["currentChannel"].haveItem = true;
+    }
+    else {
+      state["currentChannel"].haveItem = false;
+    }
     state["currentChannel"].shortList = payload.shortList;
   },
   initProductInfo(state) {

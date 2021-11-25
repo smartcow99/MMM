@@ -8,6 +8,34 @@ const fs = require('fs');
 const path = require('path');
 const spawn = require('child_process').spawn
 
+    
+// const upload = multer({ dest: 'public/image', limits: { fileSize: 5 * 1024 * 1024 } });
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     // set a localstorage destination
+//     destination: (req, file, cb) => {
+//       cb(null, 'uploads/');
+//     },
+//     // convert a file name
+//     filename: (req, file, cb) => {
+//       cb(null, new Date().valueOf() + path.extname(file.originalname));
+//     },
+//   }),
+// });
+// /* GET users listing. */
+// router.get('/', function(req, res, next) {
+//   res.send('respond with a resource');
+// });
+
+// router.get('/dbtest', async (req, res)=>{
+//   const ret = await db.account();
+//   return res.send(ret);
+// });
+
+// router.post('/imgtest', upload.single('file'/* img사용 가능?*/), (req, res)=>{
+//   console.log(req.file);
+//   res.send('ok');
+// })
 const upload = multer({
     storage: multer.diskStorage({
       // set a localstorage destination
@@ -72,9 +100,7 @@ router.get('/logout',islogined,(req, res)=>{
 
 router.get('/search',async (req, res)=>{
   const cid = req.session.cid | 0;
-  if(req.query.type == undefined || req.query.content == undefined || req.query.requestNum == undefined)
-    return res.status(400).send('not enough element')
-  const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum, req.query.order);
+  const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum);
 
   if(result)
     return res.status(200).send(result);
@@ -84,8 +110,6 @@ router.get('/search',async (req, res)=>{
 
 router.get('/recommend', async (req, res)=>{
   const cid = req.session.cid | 0;
-  if(req.query.type == undefined || req.query.requestNum == undefined)
-    return res.status(400).send('not enough element')
   const result = await db.recommend(req.query.type, cid, req.query.requestNum);
   if(result)
     return res.status(200).send(result);
@@ -94,9 +118,8 @@ router.get('/recommend', async (req, res)=>{
 })
 
 router.get('/purchaseList', islogined, async (req, res)=>{
-  if(req.query.requestNum == undefined)
-    return res.status(400).send('not enough element')
   const result = await db.get_purchare_list(req.session.cid, req.query.requestNum);
+
   if(result)
     return res.status(200).send(result);
   else
@@ -105,9 +128,6 @@ router.get('/purchaseList', islogined, async (req, res)=>{
 
 router.get('/short', async (req, res)=>{
   const cid = req.session.cid | 0;
-  if(req.query.vid == undefined)
-    return res.status(400).send('not enough element')
-  db.add_view(req.query.vid)
   const result = await db.short_info(req.query.vid, cid)
 
   if(result)
@@ -117,6 +137,7 @@ router.get('/short', async (req, res)=>{
 })
 
 router.get('/likeUp', islogined, async (req, res)=> {
+
   const result = await db.like_up(req.session.cid, req.query.vid)
 
   if(result)
@@ -166,8 +187,7 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 router.get('/addRequest', async (req, res)=>{
   const id = req.query.chid | req.query.pid | req.query.vid | 0;
   const orderdesc = req.query.isdesc == 'false'?false : true;
-  if(id && req.query.requestNum == undefined)
-    return res.status(400).send('not enough element')
+  console.log(orderdesc)
   const result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
 
   if(result)

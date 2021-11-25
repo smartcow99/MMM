@@ -41,24 +41,24 @@
                     <div id="channel-meta-data">
                         <router-link id="channel-name"
                             @click.capture="setShortPageOn(false)"
-                            :to="{name: 'Channel', query: { channelId: currentShort['relatedChannel'].channelId }}">
-                            {{currentShort['relatedChannel'].title}}
+                            :to="{name: 'Channel', query: { channelId: relatedChannel.channelId }}">
+                            {{relatedChannel.title}}
                         </router-link>
                         <div id="channel-data">
                             <small>
                                 구독자수
-                                {{currentShort['relatedChannel'].numOfSubscribers}}
+                                {{relatedChannel.numOfSubscribers}}
                             </small> &nbsp;<small>|</small>&nbsp;
                             <small>
                                 short개수
-                                {{currentShort['relatedChannel'].numOfShorts}}
+                                {{relatedChannel.numOfShorts}}
                             </small>
                             
                         </div>
                     </div>
                     <!-- 구독버튼 -->
-                    <Btn id="subscribe-button" v-if="currentShort['relatedChannel'].isMyShort" :theme="white" @click="modifyShort">수정하기</Btn>
-                    <Btn id="subscribe-button" v-else-if="currentShort['relatedChannel'].isSubscribed" theme="gray" @click="unsubscribe">구독 취소</Btn>
+                    <Btn id="subscribe-button" v-if="relatedChannel.isMyShort" :theme="white" @click="modifyShort">수정하기</Btn>
+                    <Btn id="subscribe-button" v-else-if="relatedChannel.isSubscribed" theme="gray" @click="unsubscribe">구독 취소</Btn>
                     <Btn id="subscribe-button" v-else :theme="primary" @click="subscribe">구독</Btn>
                 </div>
             </div>
@@ -142,6 +142,21 @@ export default {
         ]),
         isLoading() {
             return this.currentShort.shortId===0;
+        },
+        relatedChannel() {
+            if(!!this.currentShort['relatedChannel']) {
+                return this.currentShort['relatedChannel'];
+            }
+            else {
+                return {
+                    channelId:0,
+                    title:'',
+                    numOfSubscribers:0,
+                    numOfShorts:0,
+                    isMyShort:false,
+                    isSubscribed:false
+                }
+            }
         }
     },
     methods: {

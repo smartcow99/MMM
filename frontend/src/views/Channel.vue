@@ -38,8 +38,11 @@
             <h3>{{`'${currentChannel['title']}' 님의 화장대`}}</h3>
             <Btn v-if="currentChannel['isMyChannel']" @click="modifyDressingTable" theme="white">수정하기</Btn>
         </div>
-        <Detail v-if="currentChannel['isMyChannel']">
-            <div class="product-box">
+        <Detail v-if="currentChannel['isMyChannel']" :foldable="currentChannel['haveItem']===false">
+            <div v-if="currentChannel['haveItem']===false">
+                화장대에 아이템이 없습니다.
+            </div>
+            <div v-else class="product-box">
                 <div class="product-list"
                     v-for="(productList,key) of currentChannel['dressingTable']"
                     :key="key"
@@ -61,8 +64,11 @@
                 </div>
             </div>
         </Detail>
-        <Detail v-else>
-            <div class="product-box">
+        <Detail v-else :foldable="currentChannel['haveItem']===false">
+            <div v-if="currentChannel['haveItem']===false">
+                화장대에 아이템이 없습니다.
+            </div>
+            <div v-else class="product-box">
                 <div class="product-list"
                     v-for="(productList,key) of currentChannel['dressingTable']"
                     :key="key"
@@ -249,6 +255,7 @@ div.product-box {
             display:flex;
             flex-direction:row;
             flex-wrap:wrap;
+            height:100px;
             .item {
                 margin-right:20px;
                 &:hover {
