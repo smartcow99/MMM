@@ -36,10 +36,10 @@ router.post('/pytest',upload.single('img'),async (req, res)=>{
       console.log(err)
       return res.status(400).send('fail')
     };
-    if(req.query.requestNum == undefined)
-      return res.status(400).send('not enough element')
-    else if(data.length != 2)
-      return res.status(400).send('wrong picture')
+    if(req.query.requestNum == undefined){console.log(req.query.requestNum,' req.query.requestNum')
+      return res.status(400).send('not enough element')}
+    else if(data.length != 2){console.log(data,' data')
+      return res.status(400).send('wrong picture')}
     let ret = {
       face : data[0],
       tone : data[1],

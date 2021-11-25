@@ -23,7 +23,7 @@ const api = {
 	search_channel: async (content,cid,reqNum)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed
 		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) \
-		natural left outer join (select chid, case when cid = ${cid} then 'true' else 'false' end as isSubscribed from mmmservice.subscribe where cid = ${cid})c where ch_name like '%${content}%' limit ${reqNum*6}, 6;`);
+		natural left outer join (select chid, case when cid = ${cid} then true else false end as isSubscribed from mmmservice.subscribe where cid = ${cid})c where ch_name like '%${content}%' limit ${reqNum*6}, 6;`);
 		return res;
 	},
 	search_product: async (content,reqNum,order)=>{
@@ -41,7 +41,7 @@ const api = {
 	recommend_channel: async (cid)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed \
 		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) \
-		natural left outer join (select chid, case when cid = ${cid} then 'true' else 'false' end as isSubscribed from mmmservice.subscribe)c order by numOfSubscribers desc limit 5;`)
+		natural left outer join (select chid, case when cid = ${cid} then true else false end as isSubscribed from mmmservice.subscribe)c order by numOfSubscribers desc limit 5;`)
 		return res;
 	},
 	get_purchare_list: async (cid, reqNum) => {
@@ -52,13 +52,13 @@ const api = {
 	},
 
 	get_short_info: async (vid, cid) =>{
-		const [res] = await pool.query(`select distinct  title, vid as shortId, v_comment as info, numOfHearts, hits as numOfViews, url, numOfShorts, case when cid = ${cid} then 'true' else 'false' end as isMyShort from video natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid) as recommendCounts natural join channel left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where vid = ${vid}`)
+		const [res] = await pool.query(`select distinct  title, vid as shortId, v_comment as info, numOfHearts, hits as numOfViews, url, numOfShorts, case when cid = ${cid} then true else false end as isMyShort from video natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid) as recommendCounts natural join channel left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where vid = ${vid}`)
 		return res;
 	},
 	get_channel_info: async (chid, cid)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, 
-		case when cid = ${cid} then 'true' else 'false' end as isMyChannel, 
-		case when ${cid} not in(select cid from subscribe where chid = ${chid}) then 'false' else 'true' end as isSubscribed 
+		case when cid = ${cid} then true else false end as isMyChannel, 
+		case when ${cid} not in(select cid from subscribe where chid = ${chid}) then false else true end as isSubscribed 
 		from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) 
 		left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid = ${chid}`);
 		return res;
@@ -118,11 +118,11 @@ const api = {
 		return res;
 	},
 	get_user_info: async (cid) =>{
-		const [res] = await pool.query(`select c_name as name, id as ID, chid as channelId, birth, channel.ch_profile as profileImage, case when ${cid} is not null then 'true' else 'false' end as isLogined from customer natural join channel`)
+		const [res] = await pool.query(`select c_name as name, id as ID, chid as channelId, birth, channel.ch_profile as profileImage, case when ${cid} is not null then true else false end as isLogined from customer natural join channel`)
 		return res;
 	},
 	get_subscribe_list: async (cid) =>{
-		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when cid = ${cid} then 'true' else 'false' end as isMyChannel, case when ${cid} not in(select cid from subscribe where chid in (select chid from subscribe where cid = ${cid})) then 'false' else 'true' end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid in (select chid from subscribe where cid = ${cid})`)
+		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when cid = ${cid} then true else false end as isMyChannel, case when ${cid} not in(select cid from subscribe where chid in (select chid from subscribe where cid = ${cid})) then false else true end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid in (select chid from subscribe where cid = ${cid})`)
 		return res;
 	},
 	add_view: (vid)=>{
@@ -181,10 +181,8 @@ module.exports = new Proxy(api,{
 				}
 				else if(type == 'channel'){
 					const result = await target.search_channel(content, cid, reqNum);
-					ret.searchResult = result.filter(element => {
-						element.isSubscribed = element.isSubscribed?true:false;
-						return element;
-					})
+					ret.searchResult = await target.search_channel(content, cid, reqNum);
+					ret.searchResult.map(element => element.isSubscribed?true:false)
 				}
 				else if(type == 'short')
 					ret.searchResult = await target.search_shorts(content, reqNum);
@@ -197,10 +195,8 @@ module.exports = new Proxy(api,{
 					return await target.recommend_tag();
 				else if(type == 'channel'){
 					const result = await target.recommend_channel(cid);
-					return result.filter(element => {
-						element.isSubscribed = element.isSubscribed?true:false;
-						return element;
-					})
+					result.map(element => element.isSubscribed?true:false)
+					return result
 				}
 				else if(type == 'short')
 					return await target.recommend_shorts(reqNum);
