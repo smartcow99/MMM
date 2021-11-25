@@ -53,7 +53,7 @@
         <div class="reviews">
             <div class="sort-option">
                 <label v-for="(value,index) in sortType" :key="index">
-                    <input type="checkbox" :checked="sortType[index].isChecked" @change="sorting(index,value.type)"/>
+                    <input type="checkbox" :checked="sortType[index].isChecked" @change="sorting(this.currentProduct.productId,index,value.type)"/>
                     {{value.title}}
                 </label>
             </div>
@@ -130,7 +130,9 @@ export default {
     methods: {
         ...mapMutations([
             'setLoginPageOn',
-            'sortReviewList'
+            'sortReviewList',
+            'setSortDesc',
+            'isDesc',
         ]),
         ...mapActions([
             'requestProductInfo',
@@ -169,10 +171,11 @@ export default {
                 this.guideHide=true;
             }
         },
-        sorting(index,type) {
+        sorting(pid,index,type) {
             this.sortType.forEach(el=>el.isChecked=false);
             this.sortType[index].isChecked = true;
-            this.requestReviewSort({type});
+            type=='high-rate'?this.setSortDesc(true):this.setSortDesc(false),
+            this.requestReviewSort({pid, type});
         }
     },
 }
