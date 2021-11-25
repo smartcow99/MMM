@@ -136,7 +136,6 @@ export default {
             formData.append("requestNum",0);
 
             const response = await axios.post("/users/pytest", formData, config);
-            console.log(response)
             if (response.status == 200) {
                 commit("setAnalysisResult", response.data);
                 state["isAnalysisLoading"] = "loaded";

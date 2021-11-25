@@ -83,7 +83,7 @@ export default {
       }
     }
     state["analysisResult"].content = contentGenerator(payload.face);
-    state["analysisResult"].tone = payload.tone;
+    state["analysisResult"].tone = Number(payload.tone);
     state["analysisResult"].face = payload.face;
     state["analysisResult"].relatedShort = payload.relatedShort;
   },
