@@ -13,7 +13,7 @@
             <span>이름</span><input type="text" :value="userInfo['name']" disabled/>
             </div>
             <div>
-            <span>생년월일</span><input type="date" :value="userInfo['birth']" disabled/>
+            <span>생년월일</span><input type="date" :value="simplifyPurchaseDate(userInfo['birth'])" disabled/>
             </div>
         </div>
         <div class="box" id="third-box">
@@ -69,7 +69,13 @@ export default {
         },
         closeUpload() {
             this.uploadClicked = false;
+        },
+        simplifyPurchaseDate(dateString){
+            return dateString.substring(0,10);
         }
+    },
+    mounted(){
+        console.log(this.userInfo)
     }
 }
 </script>
