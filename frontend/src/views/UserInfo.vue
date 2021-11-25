@@ -2,26 +2,24 @@
     <div class="my-profile-box">
         <div class="box" id="first-box">
             <!-- <img src='@/assets/images/defaultProfile.png' alt="내 프로필"/> -->
-            <img :src="userInfo['profile']" alt="내 프로필"/>
+            <img :src="userInfo['profileImage']" alt="내 프로필"/>
             <div>
                 <Btn theme="primary" @click="openUpload">프로필 사진 변경</Btn>
                 <p>사진 용량 제한 10MB</p>
             </div>
         </div>
-
         <div class="box" id="second-box">
             <div >
             <span>이름</span><input type="text" :value="userInfo['name']" disabled/>
             </div>
             <div>
-            <span>생년월일</span><input type="date" :value="userInfo['birth']" disabled/>
+            <span>생년월일</span><input type="date" :value="simplifyPurchaseDate(userInfo['birth'])" disabled/>
             </div>
         </div>
-
         <div class="box" id="third-box">
             로그인 정보
             <div>
-            <span>아이디</span><input type="text" :value="userInfo['userId']" disabled/>
+            <span>아이디</span><input type="text" :value="userInfo['ID']" disabled/>
             </div>
             <div>
             <span>비밀번호</span><Btn theme="gray" @click="changePassword">비밀번호 변경</Btn>
@@ -71,7 +69,13 @@ export default {
         },
         closeUpload() {
             this.uploadClicked = false;
+        },
+        simplifyPurchaseDate(dateString){
+            return dateString.substring(0,10);
         }
+    },
+    mounted(){
+        console.log(this.userInfo)
     }
 }
 </script>
@@ -88,6 +92,7 @@ img{
     border-radius: 70%;
     margin-left: 30px;
     margin-right: 30px;
+    border:1px solid black;
 }
 input{
     width:330px;

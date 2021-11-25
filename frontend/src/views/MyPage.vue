@@ -10,7 +10,6 @@
                     <span>구매 내역</span>
                 </router-link> 
             </div>
-            
             <router-view/>
         </div>
     </div>

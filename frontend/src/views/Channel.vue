@@ -1,8 +1,8 @@
 <template>
-    <div class="loading-guide page" v-show="currentProduct['productId']===0">
+    <div class="loading-guide page" v-show="currentChannel['channelId']===0">
         <font-awesome-icon class="loading icon" icon='spinner' spin/>
     </div>
-    <div id="channel" class="page" v-show="currentProduct['productId']>0">
+    <div id="channel" class="page" v-show="currentChannel['channelId']>0">
         <div v-if="currentChannel['isMyChannel']" class="channel-summary">
             <img :src="currentChannel['profile']" alt="채널 프로필"/>
             <div class="channel-info">
