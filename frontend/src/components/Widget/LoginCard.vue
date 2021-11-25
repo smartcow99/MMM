@@ -56,10 +56,10 @@ methods:{
     },
     
     goToSignUp(){
-        alert("데모 버전에선 안돼요")
+        alert("데모 버전에선 이용할 수 없습니다.")
     },
     goToFindPassword(){
-        alert("데모 버전에선 안돼요")
+        alert("데모 버전에선 이용할 수 없습니다.")
     }
     
 },

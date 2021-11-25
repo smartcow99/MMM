@@ -53,7 +53,7 @@ methods:{
         }
     },
     purchase(){
-        alert("데모 버전에선 안돼용~")
+        alert("데모 버전에선 상품을 구매할 수 없습니다.")
     }
 },
 components:{

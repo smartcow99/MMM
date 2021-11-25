@@ -20,7 +20,7 @@ export default {
     },
     methods:{
         changeProfile(){
-            alert("데모버전에서는 바꿀 수 없습니다.");
+            alert("데모 버전에서는 바꿀 수 없습니다.");
         }
     }
 

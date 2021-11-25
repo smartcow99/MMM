@@ -14,7 +14,14 @@
 import Btn from './Btn.vue'
 export default {
     components: { Btn },
-    props: [ 'foldable' ],
+    props: { 
+        foldable: {
+            type:Boolean,
+            default() {
+                return true;
+            }
+        }
+    },
     data() {
         return {
             isFold:true
