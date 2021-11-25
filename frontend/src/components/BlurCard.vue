@@ -3,7 +3,7 @@
         <div id="blur-card-content">
             <slot/>
             <button class="close" @click="$emit('close',$event)">
-                <font-awesome-icon icon="times"/>
+                 <img src="@/assets/images/times-black.png"/>
             </button>
         </div>
 
@@ -61,5 +61,9 @@ export default {
     background-color: transparent;
     border:transparent;
     cursor:pointer;
+}
+img{
+    width:32px;
+    height:32px;
 }
 </style>
