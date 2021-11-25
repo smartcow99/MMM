@@ -30,7 +30,7 @@ export default {
         isMyShort: false,
         url: '',
         title: "",
-        shortId: "",
+        shortId: 0,
         numOfHearts: 0,
         numOfViews: 0,
         relatedChannel: {},

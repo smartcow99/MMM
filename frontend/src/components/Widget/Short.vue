@@ -23,7 +23,8 @@
                 <!-- <ShortVideo id="short-video" :src="`http://34.64.76.43:3000/shorts/Oval_23%20(2).mp4`"/> -->
             </div>
         </div>
-        <div id="right">
+        <div id="loading" v-show="isLoading"></div>
+        <div id="right" v-show="!isLoading">
             <h2 id="short-title">
                 {{currentShort['title']}}
             </h2>
@@ -119,7 +120,8 @@ export default {
             isMuted:true,
             isPlayed:true,
             isEnd:false,
-            scrollHistory:0
+            scrollHistory:0,
+            isLoaded:true,
         }
     },
     name:'Short',
@@ -127,7 +129,10 @@ export default {
         ...mapState([
             'currentShort',
             'userInfo'
-        ])
+        ]),
+        isLoading() {
+            return this.currentShort.shortId===0;
+        }
     },
     methods: {
         ...mapMutations([
