@@ -97,7 +97,7 @@ router.get('/logout',islogined,(req, res)=>{
 
 router.get('/search',async (req, res)=>{
   const cid = req.session.cid | 0;
-  const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum, 'rate');
+  const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum, req.query.order);
 
   if(result)
     return res.status(200).send(result);

@@ -27,7 +27,7 @@ const api = {
 		return res;
 	},
 	search_product: async (content,reqNum,order)=>{
-		const [res] = await pool.query(`select p_name as title, thumnail, pid as productId, rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as rate from review group by pid)a using (pid) where p_name like '%${content}%' order by ${order} desc limit ${reqNum*6}, 6`);
+		const [res] = await pool.query(`select access, p_name as title, thumnail, pid as productId, rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as rate from review group by pid)a using (pid) where p_name like '%${content}%' order by ${order} limit ${reqNum*6}, 6`);
 		return res;
 	},
 	recommend_tag: async ()=>{
@@ -145,8 +145,15 @@ module.exports = new Proxy(api,{
 				let ret = {
 					'type': type
 				}
-				if(type == 'product')
+				if(type == 'product'){
+					if(order == 'rate')
+						order = order + ' desc';
+					else if(order == 'access')
+						order = order + ' desc';
+					else if(order == 'price_desc')
+						order = 'price desc'
 					ret.searchResult = await target.search_product(content,reqNum,order);
+				}
 				else if(type == 'channel'){
 					const result = await target.search_channel(content, cid, reqNum);
 					ret.searchResult = result.filter(element => {
