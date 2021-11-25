@@ -127,6 +127,9 @@ const api = {
 	},
 	add_view: (vid)=>{
 		pool.query(`update video set hits = hits + 1 where vid = ${vid}`)
+	},
+	get_chid: async (vid)=>{
+		return await pool.query(`select chid from video where vid = ${vid}`)
 	}
 
 }
@@ -190,7 +193,8 @@ module.exports = new Proxy(api,{
 		else if(apiName == 'short_info'){
 			return async function(vid, cid) {
 				let [res] = await target.get_short_info(vid, cid);
-				[res.relatedChannel] = await target.get_channel_info(vid, cid)
+				const [[chid]] = await target.get_chid(vid);
+				[res.relatedChannel] = await target.get_channel_info(chid.chid, cid)
 				res.relatedTags = await target.get_tag(vid);
 				res.relatedProducts = await target.get_related_product(vid);
 				res.comments = await target.get_comments(vid,0)
