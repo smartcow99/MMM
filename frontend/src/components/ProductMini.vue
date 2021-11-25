@@ -10,11 +10,10 @@
 
 <script>
 export default {
-    name:'ProductMini',
     props: {
-        img:String,
-        productId:Number,
-        title:String
+        img: String,
+        productId: String,
+        title: String
     }
 }
 </script>

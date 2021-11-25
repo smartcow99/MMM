@@ -37,17 +37,17 @@ export default {
                 },
                 {
                     title:'조회수 순',
-                    type:'view',
+                    type:'access',
                     isChecked:false
                 },
                 {
                     title:'낮은 가격 순',
-                    type:'low-price',
+                    type:'price',
                     isChecked:false
                 },
                 {
                     title:'높은 가격 순',
-                    type:'high-price',
+                    type:'price_desc',
                     isChecked:false
                 }
             ],
@@ -63,12 +63,15 @@ export default {
             'sortProductList'
         ]),
         ...mapActions([
-            'requestSearch',
+            'requestSearch'
+            ,
+            'requestSort',
         ]),
         sorting(index,type) {
+            const content=this.$route.query['content'];
             this.sortType.forEach(el=>el.isChecked=false);
             this.sortType[index].isChecked = true;
-            this.sortProductList({type});
+            this.requestSort({content,type});
         }
     },
 }

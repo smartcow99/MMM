@@ -13,7 +13,7 @@
 <script>
 export default {
     props:{
-        commentInfo:Object,
+        commentInfo:String,
 
     },
     methods:{
@@ -21,7 +21,7 @@ export default {
             console.log(this.commentInfo);
         }
     }
-    
+   
 }
 </script>
 

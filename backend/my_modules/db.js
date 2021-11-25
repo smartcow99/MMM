@@ -64,7 +64,7 @@ const api = {
 		return res.map(el=>el.tag);
 	},
 	get_comments: async (vid, reqNum) => {
-        const [res] = await pool.query(`select distinct cu.c_name as name, ch.ch_profile as profile, re.r_comment as content, r_date as date from customer as cu natural join(channel as ch natural join reply as re) where re.vid = ${vid} order by r_date desc limit ${reqNum*6},6`)
+        const [res] = await pool.query(`select distinct cu.c_name as name, ch.ch_profile as profile, re.r_comment as content from customer as cu natural join(channel as ch natural join reply as re) where re.vid = ${vid} limit ${reqNum*6},6`)
         return res;
 	},
 	get_related_product: async (vid) => {
