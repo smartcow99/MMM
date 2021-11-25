@@ -183,7 +183,9 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 
 router.get('/addRequest', async (req, res)=>{
   const id = req.query.chid | req.query.pid | req.query.vid | 0;
-  const result = await db.add_request(req.query.type, id, req.query.requestNum, true)
+  const orderdesc = req.query.isdesc == 'false'?false : true;
+  console.log(orderdesc)
+  const result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
 
   if(result)
     return res.status(200).send(result);

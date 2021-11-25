@@ -4,7 +4,7 @@
         <div class="purchase-info">
             <h2>{{this.PurchaseInfo.productName}}</h2>
             <div class="purchase-price">
-                <span>결재 금액</span>&nbsp;&nbsp;{{PurchaseInfo['price']}}
+                <span>결제 금액</span>&nbsp;&nbsp;{{PurchaseInfo['price']}}
             </div>
             <div class="purchase-date">
                 <span>구매 날짜</span>&nbsp;&nbsp;{{simplifyPurchaseDate(PurchaseInfo['date'])}}
