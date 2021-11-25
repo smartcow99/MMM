@@ -76,7 +76,7 @@ export default {
   initAnalysisResult(state, payload) {
     state["analysisResult"].content = "";
     state["analysisResult"].RecommendDressing = [];
-    state["analysisResult"].color = colorTable[payload[1]];
+    state["analysisResult"].color = '';
   },
   setShortInfo(state, payload) {
     state["currentShort"].url = payload.url;
