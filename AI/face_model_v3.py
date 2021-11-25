@@ -1,10 +1,13 @@
 '''
     pip install opencv-python keras tensorflow pillow matplotlib sklearn
+
+    21.11.24 update
+    검출한 사진의 정확도를 올리기 위해 사진의 눈 정보를 확인해 작업 진행 판별
 '''
 import os
-import sys
 import cv2
 import numpy as np
+import sys
 
 from keras.models import load_model
 import tensorflow.keras
@@ -15,6 +18,7 @@ import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 
 face_cascade = cv2.CascadeClassifier('../AI/haarcascade_frontalface_default.xml')
+eye_cascade = cv2.CascadeClassifier('../AI/haarcascade_eye.xml')
 
 # 18호, 19호, 20호, 21호, 22호, 23호, 24호
 faceColor_RGB = ((230.505, 113.61518, 144.10642), 
@@ -33,7 +37,7 @@ answer=('Heart','Oblong','Oval','Round','Square')
 scaling_factor=0.1
 
 modelDir='../AI/model/'
-# imgDir='../public/testimg/'
+imgDir='public/testimg/'
 
 # 원본 이미지
 def getImg(imgLink):
@@ -77,8 +81,7 @@ def check_RGB(faceColor):
 
 # 얼굴형 분석을 위한 사진 자르기
 def do_cropImg_v1(img):
-    cropped = 'error'   # default
-    
+
     if len(img.shape)==2 :
         faces = face_cascade.detectMultiScale(img, 1.3,5)
     else :
@@ -94,8 +97,8 @@ def do_cropImg_v1(img):
             cropped = img[y - int(h / 8):y + h + int(h / 8), x - int(w / 8):x + w + int(w / 8)]
         elif y - int(h / 10)>=0 and x - int(w / 10)>=0:
             cropped = img[y - int(h / 10):y + h + int(h / 10), x - int(w / 10):x + w + int(w / 10)]
-        else :
-            cropped = 'error'
+            
+    print(cropped)
             
     return cropped
 
@@ -118,7 +121,6 @@ def do_cropImg_v2(img):
           
     return cropped
 
-# YCBCR 기준 얼굴 피부 색상 분석
 def get_image_YCBCR(image, k = 3):
     
     ''' 얼굴색을 식별할 사진으로 잘라내기 '''
@@ -143,7 +145,6 @@ def get_image_YCBCR(image, k = 3):
     
     return myFace_color
 
-# 사진을 통한 얼굴형 타입 분석
 def face_model(myImg,model):
     color_coverted = cv2.cvtColor(myImg, cv2.COLOR_BGR2RGB)
     pil_image=Image.fromarray(color_coverted)
@@ -176,21 +177,40 @@ def face_model(myImg,model):
     
     return answer[res_index],'{:.3f}'.format(res_score)
             
-       
+def checkImg(image) :
+    res=0       # check eye position
+    src_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    faces = face_cascade.detectMultiScale(src_gray,1.1,3)
+
+    for x, y, w, h in faces:
+        face_gray = src_gray[y: y + h, x: x + w]
+        eyes = eye_cascade.detectMultiScale(face_gray)
+        
+        for (ex, ey, ew, eh) in eyes:
+            # 눈의 중심 좌표
+            ctrX, ctrY = ex + ew//2,  ey + eh//2
+            
+            if ( ( h//3 ) <= ctrY and ctrY <= ( h*3//5 ) ) and ( ( w*1//5 ) <= ctrX and ctrX <= ( w*4//5 )):
+                res+=1
+                
+    if res==2 :
+        return True
+    else :
+        return False
+    
+
 ''' 메인 함수 '''
-# img_name = 'test.png'
-# img_name = 'test3.jpg'
-img_name = sys.argv[1]
-
-# png 이미지 -> jpg 이미지 변환
-if img_name[-4:] == '.png' :
-    im = Image.open(img_name).convert('RGB')
-    img_name = img_name[:-4]+'.jpg'
-    im.save(img_name, 'jpeg')
-
+img_name='test1.jpg'
+# img_name = sys.argv[1]        
 myImg=getImg(img_name)
-myImg=do_cropImg_v1(myImg)
-if myImg != 'error' :
+
+cv2.imshow('result',myImg)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+if checkImg(myImg) :
+    myImg=do_cropImg_v1(myImg)
     # 얼굴형 분석
     face,face_rate=face_model(myImg,'keras_model_16.h5')
 
@@ -204,9 +224,6 @@ if myImg != 'error' :
     else :
         print(face)
         print(faceColor)
-        
-    # cv2.imshow('result',myImg)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    
 else :
-    print('Fault')
+    print('Something wrong....')
