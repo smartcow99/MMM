@@ -332,7 +332,7 @@ export default {
       commit("pushComment", response.data);
     }
   },
-  async moreReview({ state, commit }, { pid, desc }) {
+async moreReview({ state, commit }, { pid, desc }) {
     const response = await axios.get("/users/addRequest", {
       params: {
         pid: pid,
@@ -341,21 +341,21 @@ export default {
         isDesc: desc,
       },
     });
-
-    async requestHasPurchaseHistory({commit},payload) {
-        const response = await axios.get("/users/isPurchase", {
-            params: {
-                pid:payload
-            },
-        });
-        if (response.status == 200) {
-            return response.data;
-        }
-    }
     if (response.status == 200) {
-      commit("pushReview", response.data);
+        commit("pushReview", response.data);
+      }
+},
+async requestHasPurchaseHistory({commit},payload) {
+    const response = await axios.get("/users/isPurchase", {
+        params: {
+            pid:payload
+        },
+    });
+    if (response.status == 200) {
+        return response.data;
     }
-  },
+},
+
   async requestReviewSort({ state, commit }, payload) {
     console.log(payload);
     commit("initRequestNum");
