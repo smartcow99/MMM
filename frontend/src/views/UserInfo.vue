@@ -2,7 +2,7 @@
     <div class="my-profile-box">
         <div class="box" id="first-box">
             <!-- <img src='@/assets/images/defaultProfile.png' alt="내 프로필"/> -->
-            <img :src="userInfo['profile']" alt="내 프로필"/>
+            <img :src="userInfo['profileImage']" alt="내 프로필"/>
             <div>
                 <Btn theme="primary" @click="openUpload">프로필 사진 변경</Btn>
                 <p>사진 용량 제한 10MB</p>
@@ -92,6 +92,7 @@ img{
     border-radius: 70%;
     margin-left: 30px;
     margin-right: 30px;
+    border:1px solid black;
 }
 input{
     width:330px;
