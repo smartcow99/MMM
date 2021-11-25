@@ -26,8 +26,8 @@ const api = {
 		natural left outer join (select chid, case when cid = ${cid} then 'true' else 'false' end as isSubscribed from mmmservice.subscribe where cid = ${cid})c where ch_name like '%${content}%' limit ${reqNum*6}, 6;`);
 		return res;
 	},
-	search_product: async (content,reqNum)=>{
-		const [res] = await pool.query(`select p_name as title, thumnail, pid as productId, avg_rate as rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as avg_rate from review group by pid)a using (pid) where p_name like '%${content}%' order by avg_rate desc limit ${reqNum*6}, 6`);
+	search_product: async (content,reqNum,order)=>{
+		const [res] = await pool.query(`select p_name as title, thumnail, pid as productId, rate, price from mmmservice.product left outer join (select pid, round(avg(rate),1) as rate from review group by pid)a using (pid) where p_name like '%${content}%' order by ${order} desc limit ${reqNum*6}, 6`);
 		return res;
 	},
 	recommend_tag: async ()=>{
@@ -121,6 +121,9 @@ const api = {
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when cid = ${cid} then 'true' else 'false' end as isMyChannel, case when ${cid} not in(select cid from subscribe where chid in (select chid from subscribe where cid = ${cid})) then 'false' else 'true' end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid in (select chid from subscribe where cid = ${cid})`)
 		return res;
 	},
+	add_view: (vid)=>{
+		pool.query(`update video set hits = hits + 1 where vid = ${vid}`)
+	}
 
 }
 
@@ -135,7 +138,7 @@ module.exports = new Proxy(api,{
 			}
 		}
 		else if(apiName == 'search'){
-			return async function(type, content, cid, reqNum) {
+			return async function(type, content, cid, reqNum,order) {
 				if(!content)
 					return null;
 
@@ -143,7 +146,7 @@ module.exports = new Proxy(api,{
 					'type': type
 				}
 				if(type == 'product')
-					ret.searchResult =  await target.search_product(content,reqNum);
+					ret.searchResult = await target.search_product(content,reqNum,order);
 				else if(type == 'channel'){
 					const result = await target.search_channel(content, cid, reqNum);
 					ret.searchResult = result.filter(element => {

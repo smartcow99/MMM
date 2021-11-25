@@ -97,7 +97,7 @@ router.get('/logout',islogined,(req, res)=>{
 
 router.get('/search',async (req, res)=>{
   const cid = req.session.cid | 0;
-  const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum);
+  const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum, 'rate');
 
   if(result)
     return res.status(200).send(result);
@@ -125,6 +125,7 @@ router.get('/purchaseList', islogined, async (req, res)=>{
 
 router.get('/short', async (req, res)=>{
   const cid = req.session.cid | 0;
+  db.add_view(req.query.vid)
   const result = await db.short_info(req.query.vid, cid)
 
   if(result)
