@@ -53,35 +53,31 @@ export default {
     state["purchaseList"] = payload;
   },
   setAnalysisResult(state, payload) {
-    console.log(payload)
-    if(payload === 'fail') {
-      state["analysisResult"].content = '얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.';
+    console.log(payload);
+    if (payload === "fail") {
+      state["analysisResult"].content =
+        "얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.";
       state["analysisResult"].tone = 0;
-      state["analysisResult"].face = '';
+      state["analysisResult"].face = "";
       state["analysisResult"].relatedShort = [];
       return;
     }
 
     const contentGenerator = (face) => {
-      if(face==='Heart') {
+      if (face === "Heart") {
         return `Heart형 얼굴입니다. 날카로운 이미지를 가지기 때문에 이마의 양옆과 턱 끝에 섀딩을 넣고 눈 밑과 턱 선에 하이라이트를 넣어줍니다. 블러셔를 강조하게 되면 인상이 강해 보일 수 있기 때문에 브라운 톤의 블러셔를 사용하면 됩니다.`;
-      }
-      else if(face==='Oval') {
+      } else if (face === "Oval") {
         return `Oval형 얼굴입니다. 동양인에게서 많이 찾아볼 수 있습니다. 눈썹에 각진 눈썹(각진형, 상승형)를 주어 날카롭고 이지적인 분위기의 포인트를 줘야 합니다. 얼굴이 부드러워 보일 수가 있지만 평면적으로 보일 수도 있기 때문에 입체감을 살려주는 것이 중요하다.`;
-      }
-      else if(face==='Oblong') {
+      } else if (face === "Oblong") {
         return `Oblong형 얼굴입니다. 얼굴이 짧아 보여야 하므로 블러셔는 가로로 넣어주고 이마 끝과 턱 끝에 섀딩 처리를 해주면 된다. 또한 코끝까지 하이라이트를 넣어주면 더 길어 보일 수 있으니 코 하이라이트는 주의해야 한다.`;
-      }
-      else if(face==='Round') {
+      } else if (face === "Round") {
         return `Round형 얼굴입니다. 상승형 눈썹으로 동글해 보이는 인상을 풀어주고 메이크업에서 둥근 느낌이 없어지게 그려주면 된다.`;
-      }
-      else if(face==='Square') {
+      } else if (face === "Square") {
         return `Square형 얼굴입니다. 둥근 눈썹을 통해 선한 이미지를 보여줄 수 있으면서, 일자형 눈썹을 통해 남자답고 강한 매력을 어필 할 수 있다. 매력이 있고 개성이 있어 보이지만 강한 인상을 줄 수 있기 때문에 부드러워 보이도록 이마 양옆과 각진 턱에 섀딩을 넣어주고 밸런스를 맞추어 줄 수 있다.`;
+      } else {
+        return "얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.";
       }
-      else {
-        return '얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.'
-      }
-    }
+    };
     state["analysisResult"].content = contentGenerator(payload.face);
     state["analysisResult"].tone = payload.tone;
     state["analysisResult"].face = payload.face;
@@ -90,21 +86,21 @@ export default {
   initAnalysisResult(state, payload) {
     state["analysisResult"].content = "";
     state["analysisResult"].tone = 0;
-    state["analysisResult"].face = '';
+    state["analysisResult"].face = "";
     state["analysisResult"].relatedShort = [];
   },
   initShortInfo(state) {
-    state["currentShort"].url = '';
+    state["currentShort"].url = "";
     state["currentShort"].isMyShort = false;
     state["currentShort"].numOfHearts = 0;
     state["currentShort"].numOfViews = 0;
-    state["currentShort"].title = '';
+    state["currentShort"].title = "";
     state["currentShort"].shortId = 0;
     state["currentShort"].relatedChannel = {};
     state["currentShort"].relatedTags = [];
     state["currentShort"].relatedProducts = [];
     state["currentShort"].comments = [];
-    state["currentShort"].info = '';
+    state["currentShort"].info = "";
   },
   setShortInfo(state, payload) {
     state["currentShort"].url = payload.url;
@@ -133,54 +129,54 @@ export default {
   },
   initChannelInfo(state) {
     state["currentChannel"].isMyChannel = false;
-    state["currentChannel"].title = '';
+    state["currentChannel"].title = "";
     state["currentChannel"].isSubscribed = false;
-    state["currentChannel"].profile = '';
+    state["currentChannel"].profile = "";
     state["currentChannel"].channelId = 0;
     state["currentChannel"].numOfSubscribers = 0;
     state["currentChannel"].numOfShorts = 0;
-    state["currentChannel"].introduce = '';
+    state["currentChannel"].introduce = "";
     state["currentChannel"].haveItem = false;
     state["currentChannel"].dressingTable = {};
     state["currentChannel"].shortList = [];
   },
   setChannelInfo(state, payload) {
-    state["currentChannel"].isMyChannel = payload.isMyChannel === 'true'? true:false;
+    state["currentChannel"].isMyChannel =
+      payload.isMyChannel === "true" ? true : false;
     state["currentChannel"].title = payload.title;
-    state["currentChannel"].isSubscribed = payload.isSubscribed === 'true'? true:false;
+    state["currentChannel"].isSubscribed =
+      payload.isSubscribed === "true" ? true : false;
     state["currentChannel"].profile = payload.profile;
     state["currentChannel"].channelId = payload.channelId;
     state["currentChannel"].numOfSubscribers = payload.numOfSubscribers;
     state["currentChannel"].numOfShorts = payload.numOfShorts;
     state["currentChannel"].introduce = payload.introduce;
 
-    payload.dressingTable.forEach(el=>{
-      if(!!state["currentChannel"].dressingTable[el.category]) {
+    payload.dressingTable.forEach((el) => {
+      if (!!state["currentChannel"].dressingTable[el.category]) {
         state["currentChannel"].dressingTable[el.category].push(el);
-      }
-      else {
+      } else {
         state["currentChannel"].dressingTable[el.category] = [];
         state["currentChannel"].dressingTable[el.category].push(el);
       }
-    })
-    if(payload.dressingTable.length>0){
+    });
+    if (payload.dressingTable.length > 0) {
       state["currentChannel"].haveItem = true;
-    }
-    else {
+    } else {
       state["currentChannel"].haveItem = false;
     }
     state["currentChannel"].shortList = payload.shortList;
   },
   initProductInfo(state) {
-    state["currentProduct"].title = '';
+    state["currentProduct"].title = "";
     state["currentProduct"].productId = 0;
     state["currentProduct"].rate = 0;
     state["currentProduct"].price = 0;
     state["currentProduct"].views = 0;
-    state["currentProduct"].manufacturer = '';
+    state["currentProduct"].manufacturer = "";
     state["currentProduct"].productImages = [];
     state["currentProduct"].relatedShorts = [];
-    state["currentProduct"].productExplainImg = '';
+    state["currentProduct"].productExplainImg = "";
     state["currentProduct"].reviews = [];
   },
   setProductInfo(state, payload) {
@@ -270,57 +266,65 @@ export default {
     }
   },
   initRequestNum(state) {
-    state['requestNum'] = 0;
+    state["requestNum"] = 0;
   },
-  pushChannelSearch(state,payload) {
-    state['channelList'] = [...state['channelList'],...payload]
+  pushChannelSearch(state, payload) {
+    state["channelList"] = [...state["channelList"], ...payload];
   },
-  pushShortSearch(state,payload) {
-    state['shortList'] = [...state['shortList'],...payload]
+  pushShortSearch(state, payload) {
+    state["shortList"] = [...state["shortList"], ...payload];
   },
-  pushProductSearch(state,payload) {
-    state['productList'] = [...state['productList'],...payload]
+  pushProductSearch(state, payload) {
+    state["productList"] = [...state["productList"], ...payload];
   },
-  pushPurchaseHistory(state,payload) {
-    state['purchaseList'] = [...state['purchaseList'],...payload];
-    if(payload.length < 6) {
-      state['isPurchaseListLoading'] = 'end';
+  pushPurchaseHistory(state, payload) {
+    state["purchaseList"] = [...state["purchaseList"], ...payload];
+    if (payload.length < 6) {
+      state["isPurchaseListLoading"] = "end";
+    } else {
+      state["isPurchaseListLoading"] = "loaded";
     }
-    else {
-      state['isPurchaseListLoading'] = 'loaded';
+  },
+  pushShortRecommend(state, payload) {
+    state["RecommendShortList"] = [...state["RecommendShortList"], ...payload];
+    if (payload.length < 6) {
+      state["isRecommendShortLoading"] = "end";
+    } else {
+      state["isRecommendShortLoading"] = "loaded";
     }
   },
-  pushShortRecommend(state,payload) {
-    state['RecommendShortList'] = [...state['RecommendShortList'],...payload];
-    if(payload.length < 6) {
-      state['isRecommendShortLoading'] = 'end';
-    }
-    else {
-      state['isRecommendShortLoading'] = 'loaded';
-    }
+  pushChannelShort(state, payload) {
+    state["currentChannel"].shortList = [
+      ...state["currentChannel"].shortList,
+      ...payload,
+    ];
+  },
 
-  },
-  pushChannelShort(state,payload) {
-    state['currentChannel'].shortList = [...state['currentChannel'].shortList, ...payload];
-  },
-  pushComment(state,payload) {
-    state['currentShort'].comments = [...state['currentShort'].comments, ...payload];
-    if(payload.length < 6) {
-      state["commentOnload"] = 'end';
-    }
-    else {
-      state["commentOnload"] = 'loaded';
+  pushComment(state, payload) {
+    state["currentShort"].comments = [
+      ...state["currentShort"].comments,
+      ...payload,
+    ];
+    if (payload.length < 6) {
+      state["commentOnload"] = "end";
+    } else {
+      state["commentOnload"] = "loaded";
     }
   },
-  pushReview(state,payload) {
-    state['currentProduct'].reviews = [...state['currentProduct'].reviews, ...payload];
+  pushReview(state, payload) {
+    state["currentProduct"].reviews = [
+      ...state["currentProduct"].reviews,
+      ...payload,
+    ];
   },
-  setIsScrollRequestOn(state,payload) {
-    state['isScrollRequestOn'] = payload;
-  }
+  reloadReview(state, payload) {
+    state["currentProduct"].reviews = [];
+    state["currentProduct"].reviews = payload;
+  },
+  setIsScrollRequestOn(state, payload) {
+    state["isScrollRequestOn"] = payload;
+  },
+  setSortDesc(state, payload) {
+    state["isDesc"] = payload;
+  },
 };
-
-
-
-
-
