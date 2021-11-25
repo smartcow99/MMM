@@ -124,7 +124,9 @@ export default {
       'currentProduct',
       'loginPageOn',
       'uploadShortPageOn',
-      'shortPageOn'
+      'shortPageOn',
+      'isPurchaseListLoading',
+      'isRecommendShortLoading'
     ])
   },
   methods: {
@@ -174,7 +176,8 @@ export default {
       if(scrollPosition.toFixed(0) === scrollEnd) {
         switch(this.$route.path) {
           case '/': {
-            this.moreShortRecommend(); break;
+            if(this.isRecommendShortLoading!=='end')
+              this.moreShortRecommend(); break;
           }
           case '/channelshort': {
             this.moreChannelShorts(this.currentChannel.channelId); break; 
@@ -195,7 +198,8 @@ export default {
             this.moreShortSearch(); break; 
           }
           case '/mypage/purchase-history': {
-            this.morePurchaseHistory(); break; 
+            if(this.isPurchaseListLoading!=='end')
+              this.morePurchaseHistory(); break; 
           }
         }
       }

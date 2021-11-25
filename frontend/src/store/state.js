@@ -7,7 +7,8 @@ export default {
   isScrollRequestOn: false,
   isPurchaseListLoading: "loaded",
   isAnalysisLoading:'loaded',
-
+  commentOnload:'loaded',
+  
   requestNum: 0,
   accessToken: "", //새로고침될때마다 로그인이 풀리므로, session을 통해 이를 해결해야함
   userInfo: {

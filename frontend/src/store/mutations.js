@@ -302,6 +302,12 @@ export default {
   },
   pushComment(state,payload) {
     state['currentShort'].comments = [...state['currentShort'].comments, ...payload];
+    if(payload.length < 6) {
+      state["commentOnload"] = 'end';
+    }
+    else {
+      state["commentOnload"] = 'loaded';
+    }
   },
   pushReview(state,payload) {
     state['currentProduct'].reviews = [...state['currentProduct'].reviews, ...payload];

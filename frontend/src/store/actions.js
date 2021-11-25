@@ -139,18 +139,18 @@ export default {
       alert("파일을 저장하는데 실패했습니다.");
     }
   },
-  async requestShortInfo({ commit }, shortId) {
-    commit("initShortInfo");
-    commit("initRequestNum");
-    const response = await axios.get("/users/short", {
-      params: {
-        vid: shortId,
-      },
-    });
-    if (response.status == 200) {
-      commit("setShortInfo", response.data);
-    }
-  },
+    async requestShortInfo({ commit }, shortId) {
+        commit("initShortInfo");
+        commit("initRequestNum");
+        const response = await axios.get("/users/short", {
+            params: {
+                vid: shortId,
+            },
+        });
+        if (response.status == 200) {
+            commit("setShortInfo", response.data);
+        }
+    },
   // async requestRelatedChannelInfo({ commit }, payload) {
   //     //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
   //     //영상을 올린 채널정보 요청(short.vue에서 사용)
@@ -299,28 +299,32 @@ export default {
       commit("pushChannelShort", response.data);
     }
   },
-  async moreComment({ state, commit }, payload) {
-    const response = await axios.get("/users/addRequest", {
-      params: {
-        vid: payload,
-        type: "short", //short channel, product
-        requestNum: ++state["requestNum"],
-      },
-    });
-    if (response.status == 200) {
-      commit("pushComment", response.data);
-    }
-  },
-  async moreReview({ state, commit }, payload) {
-    const response = await axios.get("/users/addRequest", {
-      params: {
-        pid: payload,
-        type: "product", //short channel, product
-        requestNum: ++state["requestNum"],
-      },
-    });
-    if (response.status == 200) {
-      commit("pushReview", response.data);
-    }
-  },
+    async moreComment({ state, commit }, payload) {
+        if (state["isScrollRequestOn"] === true) return;
+        else commit("setIsScrollRequestOn", true);
+        state["commentOnload"] = "loading";
+        const response = await axios.get("/users/addRequest", {
+            params: {
+                vid: payload,
+                type: "short", //short channel, product
+                requestNum: ++state["requestNum"],
+            },
+        });
+        if (response.status == 200) {
+            commit("pushComment", response.data);
+        }
+        commit("setIsScrollRequestOn", false);
+    },
+    async moreReview({ state, commit }, payload) {
+        const response = await axios.get("/users/addRequest", {
+        params: {
+            pid: payload,
+            type: "product", //short channel, product
+            requestNum: ++state["requestNum"],
+        },
+        });
+        if (response.status == 200) {
+        commit("pushReview", response.data);
+        }
+    },
 };
