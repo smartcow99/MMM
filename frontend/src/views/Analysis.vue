@@ -10,11 +10,10 @@
                 <div class="analysis-result-content">
                     <h3>분석 결과</h3>
                     <img :src="analysisResult.img"/>
-                    <div class="analysis-result-box" >
-                        {{analysisResult.content}}
-                        <div class="loading-guide" v-if="isAnalysisLoading==='loading'">
-                            <font-awesome-icon class="loading icon" icon='spinner' spin/>
-                        </div>
+                    <div class="analysis-result-box" v-html="analysisResult.content">
+                    </div>
+                    <div class="loading-guide" v-if="isAnalysisLoading==='loading'">
+                        <font-awesome-icon class="loading icon" icon='spinner' spin/>
                     </div>
                 </div>
             </div>

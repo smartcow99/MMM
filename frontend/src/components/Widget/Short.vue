@@ -173,14 +173,10 @@ export default {
             alert('데모 버전에선 \'좋아요\' 불가능합니다.');
         },
         scrollHandler(event) {
-            const el = this.$refs['comment'];
-            const scrollPosition = (event.target.scrollTop+el.clientHeight)/300;
-            const scrollEnd = (el.scrollHeight/300).toFixed(0);
-            if(this.scrollHistory >= scrollPosition.toFixed(0)) {
-                return;
-            }
-            this.scrollHistory = scrollPosition.toFixed(0);
-            if(this.scrollHistory > scrollEnd-1) {
+            const articleEl = this.$refs['article'];
+            const scrollPosition = (event.target.scrollTop+articleEl.clientHeight)/300;
+            const scrollEnd = (articleEl.scrollHeight/300).toFixed(0);
+            if(scrollPosition.toFixed(0) === scrollEnd) {
                 this.moreComment(this.currentShort.shortId);
             }
         },
