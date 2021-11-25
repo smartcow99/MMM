@@ -1,27 +1,27 @@
 <template>
     <div class="short-summary" @click="openShort(shortInfo)">
-       <div class="shorts" @mouseover="onHover" @mouseout="offHover">
-           <div v-if="hoverOn" id="hover">
-               <img src="@/assets/images/testThumbnail.png">
-               <span id="shorts-title">{{shortInfo['title']}}</span>
-           </div>
-           <img v-else src="@/assets/images/testThumbnail.png">
+        <div class="shorts" @mouseover="onHover" @mouseout="offHover">
+            <div v-if="hoverOn" id="hover">
+                <img :src="shortInfo['thumnail']">
+                <span id="shorts-title">{{shortInfo['title']}}</span>
+            </div>
+            <img v-else :src="shortInfo['thumnail']">
 
-       </div>
-       <div class="shorts-stat">
+        </div>
+        <div class="shorts-stat">
             <div id="subscriber-count">
                 <font-awesome-icon id="fa-icon" :icon="['far','user-circle']" />
-                {{translateUnit("subscriber", subscriber, $event).returnVal}}
+                {{translateUnit("subscriber", subscriber).returnVal}}
             </div>
             <div id="like-count">
-                    <font-awesome-icon id="fa-heart-icon" :icon="['fas','heart']" @click="upLike"/>
-                {{translateUnit("like", like, $event).returnVal}}
+                    <font-awesome-icon id="fa-heart-icon" :icon="['fas','heart']"/>
+                {{translateUnit("like", like).returnVal}}
             </div>
             <div id="view-count">
                 <font-awesome-icon id="fa-icon" :icon="['far','eye']"/>
-                {{translateUnit("view", view, $event).returnVal}}
+                {{translateUnit("view", view).returnVal}}
             </div>
-       </div>
+        </div>
     </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
             like:this.shortInfo.numOfHearts==null?0:this.shortInfo.numOfHearts,
             view:this.shortInfo.numOfViews==null?0:this.shortInfo.numOfViews,
             subscriber:this.shortInfo.numOfSubscribers==null?0:this.shortInfo.numOfSubscribers,
-           hoverOn:false,
+            hoverOn:false,
         }
     },
     computed:{
@@ -64,8 +64,7 @@ export default {
         offHover(){
             this.hoverOn=false;
         },
-          translateUnit(element, data, event){
-              console.log(data)
+          translateUnit(element, data){
               if(element=="subscriber"){
                   if(data>=1000000){
                       data/=1000000;
@@ -76,7 +75,6 @@ export default {
                 data=Math.floor(data*10)/10+'K';
             }
                 const returnVal=data;
-                console.log(returnVal)
             return{
                 returnVal,
             }

@@ -80,66 +80,61 @@ const router = createRouter({
 router.beforeEach((to,from,next)=>{
   if(store.state['loginPageOn']==true) {
     store.commit('setLoginPageOn',false);
-    next(from);
   }
   else if(store.state['uploadShortPageOn']==true) {
     store.commit('setUploadShortPageOn',false);
-    next(from);
   }
   else if(store.state['shortPageOn']==true) {
     store.commit('setShortPageOn',false);
-    next(from);
   }
-  else {
-    switch(to.path) {
-      case '/': {
-        break;
+  switch(to.path) {
+    case '/': {
+      break;
+    }
+    case '/channelshort': {
+      if(!!to.query['channelId']) {
+        store.dispatch('requestChannelInfo',to.query['channelId']);
       }
-      case '/channelshort': {
-        if(!!to.query['channelId']) {
-          store.dispatch('requestChannelInfo',to.query['channelId']);
-        }
-        break;
+      break;
+    }
+    case '/search/':{
+      if(!!to.query['content']) {
+        store.dispatch('requestSearch',{
+          'type':'short',
+          'content':to.query['content']
+        });
       }
-      case '/search/':{
-        if(!!to.query['content']) {
-          store.dispatch('requestSearch',{
-            'type':'short',
-            'content':to.query['content']
-          });
-        }
-        break;
+      break;
+    }
+    case '/search/channels':{
+      if(!!to.query['content']) {
+        store.dispatch('requestSearch',{
+          'type':'channel',
+          'content':to.query['content']
+        });
       }
-      case '/search/channels':{
-        if(!!to.query['content']) {
-          store.dispatch('requestSearch',{
-            'type':'channel',
-            'content':to.query['content']
-          });
-        }
-        break;
+      break;
+    }
+    case '/search/products':{
+      if(!!to.query['content']) {
+        store.dispatch('requestSearch',{
+          'type':'product',
+          'content':to.query['content']
+        });
       }
-      case '/search/products':{
-        if(!!to.query['content']) {
-          store.dispatch('requestSearch',{
-            'type':'product',
-            'content':to.query['content']
-          });
-        }
-        break;
-      }
-      case '/channel': {
-        if(!!to.query['channelId']) {
-          store.dispatch('requestChannelInfo',to.query['channelId']);
-        }
-      }
-      case '/product': {
-        if(!!to.query['productId']) {
-          store.dispatch('requestProductInfo',to.query['productId']);
-        }
+      break;
+    }
+    case '/channel': {
+      if(!!to.query['channelId']) {
+        store.dispatch('requestChannelInfo',to.query['channelId']);
       }
     }
-    next();
+    case '/product': {
+      if(!!to.query['productId']) {
+        store.dispatch('requestProductInfo',to.query['productId']);
+      }
+    }
   }
+  next();
 })
 export default router;

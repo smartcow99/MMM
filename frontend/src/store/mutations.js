@@ -53,14 +53,30 @@ export default {
     state["purchaseList"] = payload;
   },
   setAnalysisResult(state, payload) {
-    state["analysisResult"].img = payload.img;
-    state["analysisResult"].content = payload.content;
+    const colorTable = {
+      18:'FEE1CB',
+      19:'FAD6C8',
+      20:'F7CBC0',
+      21:'F2C2B8',
+      22:'E9AEA8',
+      23:'E9AFA4',
+      23:'E5A4A0',
+    }
+    const shapeTable = {
+      'heart':'당신의 얼굴은 하트형입니다.',
+      'oblong':'당신의 얼굴은 긴얼굴형입니다.',
+      'oval':'당신의 얼굴은 계란형입니다.',
+      'round':'당신의 얼굴은 둥근형입니다.',
+      'square':'당신의 얼굴은 각진형입니다.'
+    }
+    state["analysisResult"].content = shapeTable[payload[0]];
     state["analysisResult"].RecommendDressing = payload.RecommendDressing;
+    state["analysisResult"].color = colorTable[payload[1]];
   },
   initAnalysisResult(state, payload) {
-    state["analysisResult"].img = "";
     state["analysisResult"].content = "";
     state["analysisResult"].RecommendDressing = [];
+    state["analysisResult"].color = colorTable[payload[1]];
   },
   setShortInfo(state, payload) {
     state["currentShort"].url = payload.url;
@@ -109,7 +125,6 @@ export default {
     state["currentChannel"].numOfShorts = payload.numOfShorts;
     state["currentChannel"].introduce = payload.introduce;
     payload.dressingTable.forEach(el=>{
-      console.log(state["currentChannel"].dressingTable[el.category])
       if(!!state["currentChannel"].dressingTable[el.category]) {
         state["currentChannel"].dressingTable[el.category].push(el);
       }

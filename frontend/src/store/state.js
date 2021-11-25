@@ -61,8 +61,8 @@ export default {
         shortList: [],
     },
     analysisResult: {
-        img: "",
         content: "",
         RecommendDressing: [],
+        color:''
     },
 };

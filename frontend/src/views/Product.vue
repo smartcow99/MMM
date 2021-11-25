@@ -130,7 +130,8 @@ export default {
             'sortReviewList'
         ]),
         ...mapActions([
-            'requestProductInfo'
+            'requestProductInfo',
+            'requestReviewSort',
         ]),
         openPurchasePage(){
             if(this.userInfo['isLogined']===true) {
@@ -168,7 +169,7 @@ export default {
         sorting(index,type) {
             this.sortType.forEach(el=>el.isChecked=false);
             this.sortType[index].isChecked = true;
-            this.sortReviewList({type});
+            this.requestReviewSort({type});
         }
     },
 }

@@ -117,6 +117,8 @@ export default {
       'RecommendTagList',
       'RecommendChannelList',
       'currentShort',
+      'currentChannel',
+      'currentProduct',
       'loginPageOn',
       'uploadShortPageOn',
       'shortPageOn'
@@ -138,7 +140,8 @@ export default {
       'moreProductSearch',
       'morePurchaseHistory',
       'moreShortRecommend',
-      'moreChannelShorts'
+      'moreChannelShorts',
+      'moreReview'
     ]),
     closeLogin() {
       this.setLoginPageOn(false);
@@ -169,16 +172,20 @@ export default {
         return;
       }
       this.scrollHistory = scrollPosition.toFixed(0);
+      console.log(this.scrollHistory,scrollEnd)
       if(this.scrollHistory > scrollEnd-1) {
         switch(this.$route.path) {
           case '/': {
             this.moreShortRecommend(); break;
           }
           case '/channelshort': {
-            this.moreChannelShorts(); break; 
+            this.moreChannelShorts(this.currentChannel.channelId); break; 
           }
           case '/channel': {
-            this.moreChannelShorts(); break; 
+            this.moreChannelShorts(this.currentChannel.channelId); break; 
+          }
+          case '/product': {
+            this.moreReview(this.currentProduct.productId); break; 
           }
           case '/search/channels': {
             this.moreChannelSearch(); break; 
@@ -314,7 +321,9 @@ main {
     }
   }
 }
-
+button {
+  cursor:pointer;
+}
 h3 {
   text-align:left;
 }

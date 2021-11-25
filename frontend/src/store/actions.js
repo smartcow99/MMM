@@ -69,7 +69,7 @@ export default {
     async requestLogout({ commit }, payload) {
         //로그아웃 요청
         const response = await axios.get("http://34.64.76.43:3000/users/logout");
-        if ((response.status = 200)) {
+        if (response.status == 200) {
             commit("initUserInfo");
             commit("setIsLogin", false);
         }
@@ -106,7 +106,7 @@ export default {
                     requestNum: 0,
                 },
             });
-            if ((response.status = 200)) {
+            if (response.status == 200) {
                 commit("setChannelList", response.data.searchResult);
             }
         } else if (payload["type"] === "product") {
@@ -117,7 +117,7 @@ export default {
                     requestNum: 0,
                 },
             });
-            if ((response.status = 200)) {
+            if (response.status == 200) {
                 commit("setProductList", response.data.searchResult);
             }
         } else {
@@ -128,7 +128,7 @@ export default {
                     requestNum: 0,
                 },
             });
-            if ((response.status = 200)) {
+            if (response.status == 200) {
                 commit("setShortList", response.data.searchResult);
             }
         }
@@ -140,11 +140,23 @@ export default {
         const config = {
             header: { 'content-type': 'multipart/form-data' },
         };
-        formData.append('file', payload);
+        formData.append('img', payload);
 
         const response = await axios.post('http://34.64.76.43:3000/users/pytest', formData, config);
-        if (response.status = 200) {
+        console.log(response)
+        if (response.status == 200) {
+            // {
+            //     success: false,
+            //     content:'잘못된 사진입니다.'
+            //     RecommendDressing:[]
+            // }
+            // {
+            //     success: true,
+            //     content:'내용',
+            //     RecommendDressing:['ㅁㅈ'ㅁㅈㄷㄹ'ㅁㅈㄷㄻㅈㄷㄹ']
+            // }
             commit("setAnalysisResult", response.data);
+
         } else {
             alert('파일을 저장하는데 실패했습니다.');
         }
@@ -156,7 +168,7 @@ export default {
                 vid: shortId
             },
         });
-        if ((response.status = 200)) {
+        if (response.status == 200) {
             commit("setShortInfo", response.data);
         }
     },
@@ -168,7 +180,7 @@ export default {
     //             vid: shortId
     //         },
     //     });
-    //     if ((response.status = 200)) {
+    //     if (response.status == 200) {
     //         commit("setShortInfo", response.data);
     //     }
     //     commit("setRelatedChannel", {
@@ -192,7 +204,7 @@ export default {
                 chid: payload
             },
         });
-        if ((response.status = 200)) {
+        if (response.status == 200) {
             commit("setChannelInfo", response.data);
         }
     },
@@ -205,7 +217,7 @@ export default {
                 pid: payload
             },
         });
-        if ((response.status = 200)) {
+        if (response.status == 200) {
             console.log(response.data)
             commit("setProductInfo", response.data);
         }
@@ -218,7 +230,7 @@ export default {
                 requestNum: ++state['requestNum']
             },
         });
-        if ((response.status = 200)) {
+        if (response.status == 200) {
             commit("pushChannelSearch", response.data);
         }
     },
@@ -229,7 +241,7 @@ export default {
                 requestNum: ++state['requestNum']
             },
         });
-        if ((response.status = 200)) {
+        if (response.status == 200) {
             commit("pushShortSearch", response.data);
         }
     },
@@ -240,7 +252,7 @@ export default {
                 requestNum: ++state['requestNum']
             },
         });
-        if ((response.status = 200)) {
+        if (response.status == 200) {
             commit("pushProductSearch", response.data);
         }
     },
@@ -250,7 +262,7 @@ export default {
                 requestNum: ++state['requestNum']
             },
         });
-        if ((response.status = 200)) {
+        if (response.status == 200) {
             commit("pushPurchaseHistory", response.data);
         }
     },
@@ -261,19 +273,46 @@ export default {
                 requestNum: ++state['requestNum']
             },
         });
-        if ((response.status = 200)) {
+        if (response.status == 200) {
             console.log(response.data)
             commit("pushShortRecommend", response.data);
         }
     },
     //추후 추가
-    async moreChannelShorts({state,commit}){
-        commit('pushChannelShort',[])
+    async moreChannelShorts({state,commit},payload){
+        const response = await axios.get("http://34.64.76.43:3000/users/addRequest", {
+            params: {
+                chid:payload,
+                type: 'channel',//short channel, product
+                requestNum: ++state['requestNum']
+            },
+        });
+        if (response.status == 200) {
+            commit("pushChannelShort", response.data);
+        }
     },
-    async moreComment({state,commit}){
-        commit('pushComment',[])
+    async moreComment({state,commit},payload){
+        const response = await axios.get("http://34.64.76.43:3000/users/addRequest", {
+            params: {
+                vid:payload,
+                type: 'short',//short channel, product
+                requestNum: ++state['requestNum']
+            },
+        });
+        if (response.status == 200) {
+            commit("pushComment", response.data);
+        }
     },
-    async moreReview({state,commit}){
-        commit('pushReview',[])
+    async moreReview({state,commit},payload){
+        const response = await axios.get("http://34.64.76.43:3000/users/addRequest", {
+            params: {
+                pid:payload,
+                type: 'product',//short channel, product
+                requestNum: ++state['requestNum']
+            },
+        });
+        if (response.status == 200) {
+            commit("pushReview", response.data);
+        }
     },
 };

@@ -1,7 +1,7 @@
 <template>
     <div class="short-video">
-        <video autoplay muted controls loop ref="video" >
-            <source :src="src" type="video/mp4"/>
+        <video autoplay muted controls loop ref="video">
+            <source :src="src" type="video/mp4" ref="source"/>
             지원하지 않는 태그 입니다.
         </video>
         <font-awesome-icon v-show="playState==='play'" class="icon" icon="pause"/>
@@ -21,6 +21,7 @@ export default {
         }
     },
     mounted() {
+
         this.$refs['video'].addEventListener('playing',()=>{
             this.playState = 'play'
         },false);
@@ -28,6 +29,10 @@ export default {
         this.$refs['video'].addEventListener('pause',()=>{
             this.playState = 'pause'
         },false);
+    },
+    updated() {
+        this.$refs['source'].src = this.src;
+        this.$refs['video'].load();
     },
     methods: {
         videoHandler() {
