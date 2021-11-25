@@ -2,17 +2,17 @@
     <div id="short">
         <div id="left">
             <div class="short-meta-info">
-                <div class="like" @click="likeUp">
-                    <font-awesome-icon class="icon" :icon="['far','heart']"/>
-                    <small>{{this.currentShort['numOfHearts']}}</small>
+                <div class="like">
+                    <font-awesome-icon class="icon" :icon="['far','heart']" @click="likeUp"/>
+                    <small>{{translateUnit("like", this.currentShort['numOfHearts'], $event).returnVal}}</small>
                 </div>
                 <div class="comment">
                     <font-awesome-icon class="icon" :icon="['far','comment-dots']"/>
-                    <small>{{this.currentShort['comments'].length}}</small>
+                    <small>{{translateUnit("comment", this.currentShort['comments'].length, $event).returnVal}}</small>
                 </div>
                 <div class="view">
                     <font-awesome-icon class="icon" :icon="['far','eye']"/>
-                    <small>{{this.currentShort['numOfViews']}}</small>
+                    <small>{{translateUnit("view", this.currentShort['numOfViews'], $event).returnVal}}</small>
                 </div>
             </div>
             <button class="close" @click="$emit('close')">
@@ -173,7 +173,51 @@ export default {
             if(this.scrollHistory > scrollEnd-1) {
                 this.moreComment(this.currentShort.shortId);
             }
+        },
+        translateUnit(element, data, event){
+            console.log(data)
+            if(element=="coment"){
+                if(data>=1000000){
+                    data/=1000000;
+                data=Math.floor(data*10)/10+'M';
+            }
+            else if(data>=1000 && data<1000000){
+                data/=1000;
+                data=Math.floor(data*10)/10+'K';
+            }
+                const returnVal=data;
+                console.log(returnVal)
+            return{
+                returnVal,
+            }
+            }
+            else if(element=="like"){
+            if(data>=1000000){
+                data/=1000000;
+                data=Math.floor(data*10)/10+'M';
+            }
+            else if(data>=1000 && data<1000000){
+                data/=1000;
+                data=Math.floor(data*10)/10+'K';
+            }const returnVal=data;
+            return{
+                returnVal,
+            }
+            }
+        else{
+            if(data>=1000000){
+                data/=1000000;
+                data=Math.floor(data*10)/10+'M';
+            }
+            else if(data>=1000 && data<1000000){
+                data/=1000;
+                data=Math.floor(data*10)/10+'K';
+            }const returnVal=data;
+            return{
+                returnVal,
+            }
         }
+        },
     }
 }
 </script>
@@ -306,7 +350,6 @@ export default {
     #short-explanation{
         margin-bottom: 20px;
         text-align: left;
-
     }
     .tag-area {
         height:80px;
@@ -323,7 +366,6 @@ export default {
         margin-bottom:20px;
         padding-right:10px;
     }
-
 }
 .comment-area {
     flex-grow:1;
@@ -420,5 +462,4 @@ div{
         }
     }
 }
-
 </style>
