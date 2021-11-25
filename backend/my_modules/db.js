@@ -207,11 +207,12 @@ module.exports = new Proxy(api,{
 				let [res] = await target.get_short_info(vid, cid);
 				const [[chid]] = await target.get_chid(vid);
 				[res.relatedChannel] = await target.get_channel_info(chid.chid, cid)
+				res.relatedChannel.isMyChannel = res.relatedChannel.isMyChannel? true:false;
 				res.relatedTags = await target.get_tag(vid);
 				res.relatedProducts = await target.get_related_product(vid);
 				res.comments = await target.get_comments(vid,0)
 				if(res.relatedChannel)
-					if( res.relatedChannel.isSubscribed != null)
+					if( res.relatedChannel.isSubscribed)
 						res.relatedChannel.isSubscribed = true;
 					else
 						res.relatedChannel.isSubscribed = false
@@ -232,6 +233,7 @@ module.exports = new Proxy(api,{
 		else if(apiName =='channel_info') {
 			return async function(chid, cid) {
 				let [res] = await target.get_channel_info(chid, cid);
+				res.isMyChannel = res.isMyChannel?true:false;
 				res.dressingTable = await target.get_dressing_talbe(chid);
 				res.shortList = await target.get_my_shorts(chid,0);
 				return res;
