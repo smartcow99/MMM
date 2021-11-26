@@ -191,6 +191,7 @@ export default {
     //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
     commit("initChannelInfo");
     commit("initRequestNum");
+
     if (!payload) return;
     const response = await axios.get("/users/channel", {
       params: {
@@ -299,6 +300,7 @@ export default {
         chid: payload,
         type: "channel", //short channel, product
         requestNum: ++state["requestNum"],
+        isDesc:false
       },
     });
     if (response.status == 200) {
