@@ -41,7 +41,7 @@ router.post('/pytest',upload.single('img'),async (req, res)=>{
       return res.status(400).send('not enough element')}
     else if(data.length != 2){
       console.log(data,' data')
-      return res.status(400).send('wrong picture')}
+      return res.status(200).send('fail')}
     let ret = {
       face : data[0],
       tone : data[1],
