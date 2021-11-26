@@ -204,17 +204,6 @@ export default {
   //     introduce: "나는 채널10 이다",
   //     });
   // },
-  async requestChannelInfo({ commit }, payload) {
-    //hot: 핫쇼츠, *: 구독한 모든 채널의 short, ID: 특정 채널의 info
-    //channelId에 해당하는 채널 정보 요청
-    //지금은 내 채널인경우와 아닌경우로 나눠놨지만 추후 내 channel page에서 대조해서 사용할 것임
-    commit("initChannelInfo");
-    commit("initRequestNum");
-    if (!payload) return;
-    else {
-      alert("파일을 저장하는데 실패했습니다.");
-    }
-  },
   async requestShortInfo({ commit }, shortId) {
     commit("initShortInfo");
     commit("initRequestNum");
@@ -391,5 +380,5 @@ async requestHasPurchaseHistory({commit},payload) {
     if (response.status == 200) {
       commit("setProductList", response.data.searchResult);
     }
-  }
+  },
 };
