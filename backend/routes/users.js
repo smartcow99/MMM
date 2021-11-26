@@ -56,7 +56,7 @@ router.post('/login', async (req, res)=>{
     req.session.islogined = true;
     req.session.cid = result.cid;
     res.cookie('login', 'logined', {
-      httpOnly: true
+      // httpOnly: true
     })
     res.status(200).send('success');
   }
