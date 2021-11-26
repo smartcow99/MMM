@@ -4,7 +4,7 @@
         :to="{ path:'/product', query:{'productId':productId}}"
     >
         <img :src="img">
-        <p>{{title}}</p>
+        <small>{{title}}</small>
     </router-link>
 </template>
 
@@ -26,5 +26,9 @@ export default {
 }
 .product-mini p {
     margin:0;
+}
+img {
+    width:100px;
+    height:100px;
 }
 </style>

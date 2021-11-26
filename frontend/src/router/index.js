@@ -78,6 +78,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to,from,next)=>{
+  const getCookie = (name) => {
+      const value = document.cookie.match(`(^|;)?${name}=([^;]*)(;|$)`);
+      return value? value[2] : null;
+  };
+  if(getCookie('login')==='logined' && store.state['userInfo'].isLogined===false) {
+    store.dispatch('requestUserInfo');
+  }
   if(store.state['loginPageOn']===true) {
     store.commit('setLoginPageOn',false);
   }
