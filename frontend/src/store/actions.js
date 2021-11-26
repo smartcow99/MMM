@@ -192,10 +192,10 @@ export default {
     commit("initChannelInfo");
     commit("initRequestNum");
     if (!payload) return;
-
     const response = await axios.get("/users/channel", {
       params: {
         chid: payload,
+        requestNum: 0,
       },
     });
     if (response.status == 200) {

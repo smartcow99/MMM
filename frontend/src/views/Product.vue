@@ -33,7 +33,7 @@
         </table>
         <Detail class="product-explain">
             <div>
-                <img :src="currentProduct['productExplainHtml']"/>
+                <img id="explain-html" :src="currentProduct['productExplainHtml']"/>
             </div>
         </Detail>
         <h2 class="related-shorts-title">shorts</h2>
@@ -290,5 +290,8 @@ div.purchase-guide {
     &.hidden {
         transform:translateY(120px);
     }
+}
+#explain-html {
+    width:100%;
 }
 </style>
