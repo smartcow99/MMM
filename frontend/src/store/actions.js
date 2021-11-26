@@ -55,7 +55,7 @@ export default {
       commit("setLoginPageOn", false);
     }
   },
-  async requestUserInfo({commit},payload) {
+  async requestUserInfo({ commit }, payload) {
     const userInfoResponse = await axios.get("/users/info"); //유저 정보 요청
     commit("setUserInfo", userInfoResponse.data);
     commit("setIsLogin", true);
@@ -65,10 +65,10 @@ export default {
     //로그아웃 요청
     const response = await axios.get("/users/logout");
     function deleteCookie(name) {
-        const date = new Date();
-        document.cookie = `${name}='';expires=${date.toUTCString()};path=/`;
+      const date = new Date();
+      document.cookie = `${name}='';expires=${date.toUTCString()};path=/`;
     }
-    deleteCookie('login');
+    deleteCookie("login");
     if (response.status == 200) {
       commit("initUserInfo");
       commit("setIsLogin", false);
@@ -86,76 +86,73 @@ export default {
       commit("setPurchaseList", response.data);
     }
   },
-    async requestSearch({ commit }, payload) {
-        //검색 요청 ( payload: 검색 string )
-        //검색 타입에 따라 다른 commit 실행(short,channel,product)
-        if (!payload["content"]) {
-            alert("내용이 비어있습니다.");
-            return;
-        }
-        commit("initRequestNum");
-        if (payload["type"] === "channel") {
-            const response = await axios.get("/users/search", {
-                params: {
-                type: "channel",
-                content: payload["content"],
-                requestNum: 0,
-                order: "rate",
-                },
-            });
-            if (response.status == 200) {
-                commit("setChannelList", response.data.searchResult);
-            }
-        } else if (payload["type"] === "product") {
-            const response = await axios.get("/users/search", {
-                params: {
-                type: "product",
-                content: payload["content"],
-                requestNum: 0,
-                order: "rate",
-                },
-            });
-            if (response.status == 200) {
-                commit("setProductList", response.data.searchResult);
-            }
-        } else {
-            const response = await axios.get("/users/search", {
-                params: {
-                type: "short",
-                content: payload["content"],
-                requestNum: 0,
-                order: "rate",
-                },
-            });
-            if (response.status == 200) {
-                commit("setShortList", response.data.searchResult);
-            }
-        }
-    },
-    async requestAnalysis({ state, commit }, payload) {
-        try {
-            //이미지 전송 - multer, axios + formData
-            state["isAnalysisLoading"] = "loading";
-            let formData = new FormData();
+  async requestSearch({ commit }, payload) {
+    //검색 요청 ( payload: 검색 string )
+    //검색 타입에 따라 다른 commit 실행(short,channel,product)
+    if (!payload["content"]) {
+      alert("내용이 비어있습니다.");
+      return;
+    }
+    commit("initRequestNum");
+    if (payload["type"] === "channel") {
+      const response = await axios.get("/users/search", {
+        params: {
+          type: "channel",
+          content: payload["content"],
+          requestNum: 0,
+        },
+      });
+      if (response.status == 200) {
+        commit("setChannelList", response.data.searchResult);
+      }
+    } else if (payload["type"] === "product") {
+      const response = await axios.get("/users/search", {
+        params: {
+          type: "product",
+          content: payload["content"],
+          requestNum: 0,
+          order: "rate",
+        },
+      });
+      if (response.status == 200) {
+        commit("setProductList", response.data.searchResult);
+      }
+    } else {
+      const response = await axios.get("/users/search", {
+        params: {
+          type: "short",
+          content: payload["content"],
+          requestNum: 0,
+        },
+      });
+      if (response.status == 200) {
+        commit("setShortList", response.data.searchResult);
+      }
+    }
+  },
+  async requestAnalysis({ state, commit }, payload) {
+    try {
+      //이미지 전송 - multer, axios + formData
+      state["isAnalysisLoading"] = "loading";
+      let formData = new FormData();
 
-            const config = {
-                header: { "content-type": "multipart/form-data" },
-            };
-            formData.append("img", payload);
-            formData.append("requestNum",0);
+      const config = {
+        header: { "content-type": "multipart/form-data" },
+      };
+      formData.append("img", payload);
+      formData.append("requestNum", 0);
 
-            const response = await axios.post("/users/pytest", formData, config);
-            if (response.status == 200) {
-                commit("setAnalysisResult", response.data);
-                state["isAnalysisLoading"] = "loaded";
-            } else {
-                alert("파일을 저장하는데 실패했습니다.");
-            }
-        }
-        catch(err) {
-            console.log(err);
-        }
-    },
+      const response = await axios.post("/users/pytest", formData, config);
+      if (response.status == 200) {
+        commit("setAnalysisResult", response.data);
+        state["isAnalysisLoading"] = "loaded";
+      } else {
+        alert("파일을 저장하는데 실패했습니다.");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
   // async requestRelatedChannelInfo({ commit }, payload) {
   //     //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
   //     //영상을 올린 채널정보 요청(short.vue에서 사용)
@@ -215,17 +212,20 @@ export default {
         pid: payload,
       },
     });
+    // console.log(response);
     if (response.status == 200) {
       commit("setProductInfo", response.data);
     }
   },
-  async moreChannelSearch({ state, commit }) {
+  async moreChannelSearch({ state, commit }, payload) {
+    // console.log(payload);
     if (state["isScrollRequestOn"] === true) return;
     else commit("setIsScrollRequestOn", true);
     //request axios get
     const response = await axios.get("/users/search", {
       params: {
         type: "channel",
+        content: payload,
         requestNum: ++state["requestNum"],
       },
     });
@@ -234,12 +234,14 @@ export default {
     }
     commit("setIsScrollRequestOn", false);
   },
-  async moreShortSearch({ state, commit }) {
+  async moreShortSearch({ state, commit }, payload) {
+    // console.log(payload);
     if (state["isScrollRequestOn"] === true) return;
     else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/search", {
       params: {
         type: "short",
+        content: payload,
         requestNum: ++state["requestNum"],
       },
     });
@@ -248,13 +250,17 @@ export default {
     }
     commit("setIsScrollRequestOn", false);
   },
-  async moreProductSearch({ state, commit }) {
+  async moreProductSearch({ state, commit }, payload) {
+    // console.log(payload);
+    // console.log(state["order"]);
     if (state["isScrollRequestOn"] === true) return;
     else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/search", {
       params: {
         type: "product",
+        content: payload,
         requestNum: ++state["requestNum"],
+        order: state["searchOrder"],
       },
     });
     if (response.status == 200) {
@@ -321,7 +327,7 @@ export default {
     }
     commit("setIsScrollRequestOn", false);
   },
-async moreReview({ state, commit }, { pid, desc }) {
+  async moreReview({ state, commit }, { pid, desc }) {
     if (state["isScrollRequestOn"] === true) return;
     else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/addRequest", {
@@ -333,20 +339,20 @@ async moreReview({ state, commit }, { pid, desc }) {
       },
     });
     if (response.status == 200) {
-        commit("pushReview", response.data);
+      commit("pushReview", response.data);
     }
     commit("setIsScrollRequestOn", false);
-},
-async requestHasPurchaseHistory({commit},payload) {
+  },
+  async requestHasPurchaseHistory({ commit }, payload) {
     const response = await axios.get("/users/isPurchase", {
-        params: {
-            pid:payload
-        },
+      params: {
+        pid: payload,
+      },
     });
     if (response.status == 200) {
-        return response.data;
+      return response.data;
     }
-},
+  },
 
   async requestReviewSort({ state, commit }, payload) {
     commit("initRequestNum");
