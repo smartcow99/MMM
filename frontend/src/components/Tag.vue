@@ -16,8 +16,8 @@ export default {
     methods: {
         makeUrl(type) {
             if(type==='short') return '/search/';
-            else if(type==='channel') return '/search/channel';
-            else if(type==='product') return '/search/product';
+            else if(type==='channel') return '/search/channels';
+            else if(type==='product') return '/search/products';
         }
     }
 }
