@@ -61,7 +61,7 @@ export default {
     isMyChannel: false,
     title: "",
     profile: "",
-    channelId: 0,
+    channelId: -1,
     numOfSubscribers: 0,
     numOfShorts: 0,
     isSubscribed: false,

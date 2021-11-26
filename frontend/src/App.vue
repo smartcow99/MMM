@@ -85,7 +85,7 @@ export default {
         {
             title:'구독한 모든 채널',
             profile:AllSubscribeImg,
-            channelId: '*'
+            channelId: 0
         }
       ],
       scrollHistory:false
