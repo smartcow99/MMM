@@ -162,7 +162,7 @@ const api = {
 			numOfShorts : 0,
 			introduce : "",
 			haveItem : false,
-			dressingTable : {},
+			dressingTable : [],
 			shortList: await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile
 				from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid)
 				left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid)
