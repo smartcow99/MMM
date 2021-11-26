@@ -191,11 +191,7 @@ try :
 
     myImg=getImg(img_name)
     myImg=do_cropImg_v1(myImg)
-
-    cv2.imshow('res',myImg)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
+    
     if myImg != 'error' :
         # 얼굴형 분석
         face,face_rate=face_model(myImg,'keras_model_16.h5')
