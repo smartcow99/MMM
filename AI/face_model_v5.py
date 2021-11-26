@@ -54,7 +54,6 @@ def centroid_histogram(clt):
 
 
 def check_RGB(faceColor):
-    res='-'
     resColor=[0,0,0]
 
     # 에러 체크
@@ -86,16 +85,20 @@ def do_cropImg_v1(img):
         faces = face_cascade.detectMultiScale(gray, 1.3,5)
     
     for (x,y,w,h) in faces:
-        
+        setY=0
+        setX=0
         # 자른 이미지에 대해 다른 값이 나올 수 있으니 조절
-        if y - int(h / 4)>=0 and x - int(w / 4)>=0:
-            cropped = img[y - int(h / 4):y + h + int(h / 4), x - int(w / 4):x + w + int(w / 4)]
-        elif y - int(h / 8)>=0 and x - int(w / 8)>=0:
-            cropped = img[y - int(h / 8):y + h + int(h / 8), x - int(w / 8):x + w + int(w / 8)]
-        elif y - int(h / 10)>=0 and x - int(w / 10)>=0:
-            cropped = img[y - int(h / 10):y + h + int(h / 10), x - int(w / 10):x + w + int(w / 10)]
-        else :
-            cropped = 'error'
+        for n in range(1,101) :
+            if y - int(h/n) >=0 and y + h + int(h/n) <= 960 :
+                setY=int(h/n)
+                break
+            
+        for n in range(1,101) :
+            if x - int(w/n) >=0 and x + w + int(w/n) <= 720 :
+                setX=int(w/n)
+                break
+        
+        cropped = img[y - setY:y + h + setY, x - setX:x + w + setX]
             
     return cropped
 
@@ -178,8 +181,7 @@ def face_model(myImg,model):
             
        
 ''' 메인 함수 '''
-img_name = 'test3.jpg'
-# img_name = 'trump.jpg'
+img_name = '2.jpg'
 # img_name = sys.argv[1]
 
 # png 이미지 -> jpg 이미지 변환
@@ -189,7 +191,7 @@ if img_name[-4:] == '.png' :
     im.save(img_name, 'jpeg')
 
 try :
-    myImg=getImg(img_name)
+    myImg=getImg(img_name)    
     myImg=do_cropImg_v1(myImg)
     
     cv2.imshow('res',myImg)
