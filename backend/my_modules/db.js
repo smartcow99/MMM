@@ -151,7 +151,9 @@ const api = {
 		limit ${reqNum*6}, 6`);
 		return res;
 	},
-	
+	get_sub_video: async (cid)=>{
+
+	}
 
 }
 
