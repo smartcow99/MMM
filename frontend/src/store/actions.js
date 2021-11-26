@@ -156,33 +156,6 @@ export default {
             console.log(err);
         }
     },
-    async requestShortInfo({ commit }, shortId) {
-        commit("initShortInfo");
-        commit("initRequestNum");
-        const response = await axios.get("/users/short", {
-        params: {
-          type: "short",
-          content: payload["content"],
-          requestNum: 0,
-          order: "rate",
-        },
-      });
-      if (response.status == 200) {
-        commit("setShortList", response.data.searchResult);
-      }
-    },
-  async requestShortInfo({ commit }, shortId) {
-    commit("initShortInfo");
-    commit("initRequestNum");
-    const response = await axios.get("/users/short", {
-      params: {
-        vid: shortId,
-      },
-    });
-    if (response.status == 200) {
-      commit("setShortInfo", response.data);
-    }
-  },
   // async requestRelatedChannelInfo({ commit }, payload) {
   //     //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
   //     //영상을 올린 채널정보 요청(short.vue에서 사용)
