@@ -59,7 +59,7 @@ export default {
     if (payload === "fail") {
       state["analysisResult"].content =
         "얼굴을 인식하는데 실패했습니다. 다른사진으로 시도해주세요.";
-      state["analysisResult"].tone = 0;
+      state["analysisResult"].tone = "";
       state["analysisResult"].face = "";
       state["analysisResult"].relatedShort = [];
       return;
