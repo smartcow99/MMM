@@ -87,7 +87,7 @@ router.get('/search',async (req, res)=>{
 })
 
 router.get('/getSubscribeVideo', islogined, async (req, res)=>{
-  const result = await  db.get_sub_video(req.session.cid)
+  const result = await db.get_sub_video(req.session.cid, req.query.requestNum)
 
   if(result)
     return res.status(200).send(result);
