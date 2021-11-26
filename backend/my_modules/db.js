@@ -86,7 +86,7 @@ const api = {
 	},
 	get_product_img_info : async (pid) => {
 		const [res] = await pool.query(`select img as productImages from product_img where pid = ${pid}`)
-		return res;
+		return res.map(el=>el.productImages);
 	},
 	get_related_short_info : async (pid, reqNum) => {
 		const [res] = await pool.query(`select title, thumnail, vid as shortId, chid as channelId, numOfSubscribers, numOfHearts, hits as numOfViews from channel natural join (video natural join tag)
@@ -152,10 +152,10 @@ const api = {
 		return res;
 	},
 	get_sub_video: async (cid, reqNum)=>{
-		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile 
-		from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid) 
-		left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid) 
-		left outer join (select chid, ch_profile as profile from channel )c using (chid) 
+		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile
+		from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid)
+		left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid)
+		left outer join (select chid, ch_profile as profile from channel )c using (chid)
         where chid in (select chid from subscribe where cid = ${cid})
         order by numOfSubscribers desc limit ${reqNum*6}, 6`)
 		return res;
