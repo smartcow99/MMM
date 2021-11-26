@@ -47,7 +47,6 @@ const api = {
 		return res;
 	},
 	get_purchare_list: async (cid, reqNum) => {
-		console.log(reqNum);
 		const [res] = await pool.query(`select distinct pid, p_date as date, price, p_num as purchaseNum, thumnail, p_name as productName\
 		from product natural join purchase where cid = ${cid} limit ${reqNum*6}, 6`)
 		return res;
@@ -202,7 +201,6 @@ module.exports = new Proxy(api,{
 				else if(type == 'channel'){
 					const result = await target.recommend_channel(cid);
 					result.map(element => element.isSubscribed?true:false)
-					console.log(result)
 					return result
 				}
 				else if(type == 'short')
