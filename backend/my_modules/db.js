@@ -22,8 +22,9 @@ const api = {
 	},
 	search_channel: async (content,cid,reqNum)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed
-		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) \
-		natural left outer join (select chid, case when cid = ${cid} then true else false end as isSubscribed from mmmservice.subscribe where cid = ${cid})c where ch_name like '%${content}%' limit ${reqNum*6}, 6;`);
+		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) 
+        join (select chid, count(sub) - 1 as isSubscribed from (select distinct chid, case when cid = ${cid} then 1 else 0 end as sub from mmmservice.subscribe)b group by chid)c using (chid)  
+		where ch_name like '%${content}%' limit ${reqNum*6}, 6;`);
 		return res;
 	},
 	search_product: async (content,reqNum,order)=>{
@@ -39,9 +40,10 @@ const api = {
 		return res;
 	},
 	recommend_channel: async (cid)=>{
-		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed \
-		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) \
-		natural left outer join (select chid, case when cid = ${cid} then true else false end as isSubscribed from mmmservice.subscribe)c order by numOfSubscribers desc limit 5;`)
+		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed
+		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) 
+        join (select chid, count(sub) - 1 as isSubscribed from (select distinct chid, case when cid = ${cid} then 1 else 0 end as sub from mmmservice.subscribe)b group by chid)c using (chid)
+        order by numOfSubscribers desc limit 5;`)
 		return res;
 	},
 	get_purchare_list: async (cid, reqNum) => {
