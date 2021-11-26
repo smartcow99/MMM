@@ -125,8 +125,11 @@ const api = {
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, case when cid = ${cid} then true else false end as isMyChannel, case when ${cid} not in(select cid from subscribe where chid in (select chid from subscribe where cid = ${cid})) then false else true end as isSubscribed from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid in (select chid from subscribe where cid = ${cid})`)
 		return res;
 	},
-	add_view: (vid)=>{
+	add_view_video: (vid)=>{
 		pool.query(`update video set hits = hits + 1 where vid = ${vid}`)
+	},
+	add_view_product: (pid)=>{
+		pool.query(`update product set access = access + 1 where pid = ${pid}`)
 	},
 	get_chid: async (vid)=>{
 		return await pool.query(`select chid from video where vid = ${vid}`)
