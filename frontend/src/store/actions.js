@@ -259,6 +259,8 @@ export default {
     }
   },
   async moreShortSearch({ state, commit }) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/search", {
       params: {
         type: "short",
@@ -268,8 +270,11 @@ export default {
     if (response.status == 200) {
       commit("pushShortSearch", response.data);
     }
+    commit("setIsScrollRequestOn", false);
   },
   async moreProductSearch({ state, commit }) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/search", {
       params: {
         type: "product",
@@ -279,8 +284,11 @@ export default {
     if (response.status == 200) {
       commit("pushProductSearch", response.data);
     }
+    commit("setIsScrollRequestOn", false);
   },
   async morePurchaseHistory({ state, commit }) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/purchaseList", {
       params: {
         requestNum: ++state["requestNum"],
@@ -289,6 +297,7 @@ export default {
     if (response.status == 200) {
       commit("pushPurchaseHistory", response.data);
     }
+    commit("setIsScrollRequestOn", false);
   },
   async moreShortRecommend({ state, commit }) {
     if (state["isScrollRequestOn"] === true) return;

@@ -7,8 +7,8 @@ export default {
   isRecommendShortLoading: "loaded", // loading end loaded
   isScrollRequestOn: false,
   isPurchaseListLoading: "loaded",
-  isAnalysisLoading:'loaded',
-  commentOnload:'loaded',
+  isAnalysisLoading: "loaded",
+  commentOnload: "loaded",
 
   requestNum: 0,
   userInfo: {
@@ -52,7 +52,7 @@ export default {
     manufacturer: "",
     productImages: [],
     relatedShorts: [],
-    productExplainImg: "",
+    productExplainHtml: "",
     reviews: [],
   },
   currentChannel: {
@@ -64,7 +64,7 @@ export default {
     numOfShorts: 0,
     isSubscribed: false,
     introduce: "",
-    haveItem:false,
+    haveItem: false,
     dressingTable: {},
     shortList: [],
   },
@@ -72,6 +72,6 @@ export default {
     content: "",
     relatedShort: [],
     tone: "",
-    face:'',
+    face: "",
   },
 };

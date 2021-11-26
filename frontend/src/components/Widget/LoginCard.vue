@@ -6,7 +6,7 @@
         <div id="sub-logo">makeup maketh man</div>
     </div>
     
-    <div class="login-form" >
+    <div class="login-form" @keyup.enter="requestLogin">
         <div id="input-id">
             <font-awesome-icon id="user-icon" :icon="faUser"/>
             <input type="text" v-model="id" name="userId"/>

@@ -36,13 +36,7 @@ export default {
             'requestUnsubscribe'
         ]),
         subscribe() {
-            const isSubscribed = this.channelInfo['isSubscribed'];
-            if(isSubscribed) {
-                this.requestUnsubscribe();
-            }
-            else {
-                this.requestSubscribe();
-            }
+            alert('데모 계정에선 구독/구독 취소가 불가능합니다.')
         }
     }
 }
