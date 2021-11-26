@@ -7,7 +7,7 @@
             ><p>{{explainText}}</p></UploadBox>
             <div class="analysis-result">
                 <h2>AI 화장법 추천</h2>
-                <small>얼굴형을 분석해 적적한 화장법을 추천해줍니다. 본인의 얼굴 사진을 올리고 알맞는 화장법을 추천받아보세요</small>
+                <small>얼굴형을 분석해 적적한 화장법을 추천해줍니다. 본인의 얼굴 사진을 올리고 알맞는 화장법을 추천받아보세요. (정면 사진이 아닌 경우 얼굴 인식이 제대로 되지 않을 수 있습니다.)</small>
                 <br/>
                 <div class="analysis-result-content">
                     <h3 v-show="!!analysisResult.content">분석 결과: {{analysisResult['face']}} {{analysisResult['tone']}}호</h3>
