@@ -150,7 +150,7 @@ router.get('/likeDown', islogined, async (req, res)=> {
 router.get('/channel', async (req, res) => {
   const cid = req.session.cid | 0;
   let result;
-  if(req.query.chid == '*'){
+  if(req.query.chid == '0'){
     result = await db.get_sub_video(cid, req.query.requestNum)}
   else
     result = await db.channel_info(req.query.chid, cid)
@@ -185,11 +185,15 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 })
 
 router.get('/addRequest', async (req, res)=>{
-  const id = req.query.chid | req.query.pid | req.query.vid | 0;
+  const id = req.query.chid | req.query.pid | req.query.vid;
   const orderdesc = req.query.isDesc == 'false'?false : true;
-  if(!id || req.query.requestNum == undefined)
+  let result;
+  if(req.query.requestNum == undefined)
     return res.status(400).send('not enough element')
-  const result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
+  else if(id == 0)
+    result = await db.get_sub_video(req.session.cid, req.query.requestNum)
+  else
+    result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
 
   if(result)
     return res.status(200).send(result);
