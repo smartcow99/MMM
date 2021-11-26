@@ -354,6 +354,7 @@ export default {
   },
 
   async requestReviewSort({ state, commit }, payload) {
+    state['isSearchLoading'] = 'loaded';
     commit("initRequestNum");
     const response = await axios.get("/users/addRequest", {
       params: {
@@ -368,6 +369,7 @@ export default {
     }
   },
   async requestSort({ commit }, payload) {
+    state['isSearchLoading'] = 'loaded';
     const response = await axios.get("/users/search", {
       params: {
         type: "product",
