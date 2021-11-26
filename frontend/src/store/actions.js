@@ -64,6 +64,11 @@ export default {
   async requestLogout({ commit }, payload) {
     //로그아웃 요청
     const response = await axios.get("/users/logout");
+    function deleteCookie(name) {
+        const date = new Date();
+        document.cookie = `${name}='';expires=${date.toUTCString()};path=/`;
+    }
+    deleteCookie('login');
     if (response.status == 200) {
       commit("initUserInfo");
       commit("setIsLogin", false);

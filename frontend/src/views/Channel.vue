@@ -258,9 +258,9 @@ div.product-box {
             height:100px;
             .item {
                 margin-right:20px;
-                &:hover {
-                    background-color: var(--background-color-darken);
-                }
+                // &:hover {
+                //     background-color: var(--background-color-darken);
+                // }
             }
         }
     }
