@@ -5,7 +5,6 @@
             지원하지 않는 태그 입니다.
         </video>
     </div>
-    
 </template>
 
 <script>

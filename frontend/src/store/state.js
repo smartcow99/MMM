@@ -3,11 +3,13 @@ export default {
   uploadShortPageOn: false,
   shortPageOn: false,
   isDesc: true,
+  searchOrder: "rate",
 
   isRecommendShortLoading: "loaded", // loading end loaded
   isScrollRequestOn: false,
   isPurchaseListLoading: "loaded",
   isAnalysisLoading: "loaded",
+  isSearchLoading:'loaded',
   commentOnload: "loaded",
 
   requestNum: 0,

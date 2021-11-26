@@ -269,13 +269,28 @@ export default {
     state["requestNum"] = 0;
   },
   pushChannelSearch(state, payload) {
-    state["channelList"] = [...state["channelList"], ...payload];
+    state["channelList"] = [...state["channelList"], ...payload.searchResult];
+    if (payload.searchResult.length < 6) {
+      state["isSearchLoading"] = "end";
+    } else {
+      state["isSearchLoading"] = "loaded";
+    }
   },
   pushShortSearch(state, payload) {
-    state["shortList"] = [...state["shortList"], ...payload];
+    state["shortList"] = [...state["shortList"], ...payload.searchResult];
+    if (payload.searchResult.length < 6) {
+      state["isSearchLoading"] = "end";
+    } else {
+      state["isSearchLoading"] = "loaded";
+    }
   },
   pushProductSearch(state, payload) {
-    state["productList"] = [...state["productList"], ...payload];
+    state["productList"] = [...state["productList"], ...payload.searchResult];
+    if (payload.searchResult.length < 6) {
+      state["isSearchLoading"] = "end";
+    } else {
+      state["isSearchLoading"] = "loaded";
+    }
   },
   pushPurchaseHistory(state, payload) {
     state["purchaseList"] = [...state["purchaseList"], ...payload];
@@ -326,5 +341,8 @@ export default {
   },
   setSortDesc(state, payload) {
     state["isDesc"] = payload;
+  },
+  setSearchOrder(state, payload) {
+    state["searchOrder"] = payload;
   },
 };

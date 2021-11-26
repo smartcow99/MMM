@@ -7,6 +7,14 @@
                 :key="index"
                 :channelInfo="value"
             />
+        </div>        
+        <div class="loading-guide" v-if="isSearchLoading==='loading'">
+            <font-awesome-icon class="loading icon" icon='spinner' spin/>
+            <div class="space"></div>
+            <p class="guide-text">loading</p>
+        </div>
+        <div class="loading-guide" v-else-if="isSearchLoading==='end'">
+            <p>더 이상 불러올 컨텐츠가 없습니다.</p>
         </div>
         <div class="channel-list" v-show="channelList.length===0">
             <b>결과 없음</b>
@@ -22,12 +30,16 @@ export default {
     components: { ChannelSummary },
     computed: {
         ...mapState([
-            'channelList'
+            'channelList',
+            'isSearchLoading'
         ])
     },
 }
 </script>
 
 <style>
-
+.loading-guide p {
+    margin:0 auto;
+    text-align:center;
+}
 </style> 

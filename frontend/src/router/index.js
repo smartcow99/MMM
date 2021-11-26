@@ -78,7 +78,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to,from,next)=>{
-  console.log(next)
+  store.state['isRecommendShortLoading'] = 'loaded';
+  store.state['isPurchaseListLoading'] = 'loaded';
+  store.state['isAnalysisLoading'] = 'loaded';
+  store.state['isSearchLoading'] = 'loaded';
+  
   const getCookie = (name) => {
       const value = document.cookie.match(`(^|;)?${name}=([^;]*)(;|$)`);
       return value? value[2] : null;

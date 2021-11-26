@@ -27,7 +27,6 @@ img{
 }
 .comment-box{
     width:100%;
-    height: 150px;
     border:1px solid var(--placeholder-color);
     border-radius: 4px;
     margin:10px 0 10px 0;

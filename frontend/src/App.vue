@@ -2,7 +2,7 @@
   <header id="nav">
     <span class="menus">
       <router-link to="/" class="logo">
-        <img src="@/assets/images/logo.png"/>
+        <img id="logo-image" src="@/assets/logo.png"/>
       </router-link>
       <Search id="search-bar" @search="search"/>
       <span class="button-zone">
@@ -180,9 +180,9 @@ export default {
           case '/channel': {
             this.moreChannelShorts(this.currentChannel.channelId); break; 
           }
-          case '/product': {
-            this.moreReview({pid:this.currentProduct.productId, desc:this.isDesc}); break; 
-          }
+          // case '/product': {
+          //   this.moreReview({pid:this.currentProduct.productId, desc:this.isDesc}); break; 
+          // }
           case '/search/channels': {
             //
             this.moreChannelSearch(this.$route.query['content']); break; 
@@ -190,7 +190,7 @@ export default {
           case '/search/products': {
             this.moreProductSearch(this.$route.query['content']); break; 
           }
-          case '/search': {
+          case '/search/': {
             this.moreShortSearch(this.$route.query['content']); break; 
           }
           case '/mypage/purchase-history': {
@@ -266,10 +266,10 @@ header#nav {
     height:60px;
     a.logo {
       margin:auto 0;
-      height:40px;
+      height:60px;
       img {
-        width:40px;
-        height:40px;
+        width:auto;
+        height:60px;
       }
     }
     #search-bar {
