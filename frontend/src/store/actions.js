@@ -1,5 +1,4 @@
 import axios from "axios";
-const host = "http://34.64.76.43:3000/";
 export default {
   // 추천 태그 GET
   async getRecommendTags({ commit }, payload) {
