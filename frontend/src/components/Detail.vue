@@ -2,7 +2,6 @@
     <div class="detail">
         <div class="view-box" :class="{'folded':isFold}">
             <slot/>
-            <div class="fade-transparent"></div>
         </div>
         <Btn v-if="isFold" theme="primary" @click="spread" :disabled="!foldable">자세히보기</Btn>
         <Btn v-else theme="gray" @click="fold" :disabled="!foldable">접기</Btn>
@@ -48,16 +47,7 @@ export default {
     overflow:hidden;
     position: relative;
     height:fit-content;
-    margin-bottom:20px;
     padding-top:20px;
-}
-.detail .fade-transparent {
-    position:absolute;
-    z-index:40;
-    width:100%;
-    height:100px;
-    bottom:0;
-    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
 }
 .detail .view-box.folded {
     height:300px;

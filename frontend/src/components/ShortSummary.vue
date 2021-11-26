@@ -188,4 +188,7 @@ img:hover{
     flex-direction: column;
     align-items: center;
 }
+b {
+    pointer-events: none;
+}
 </style>
