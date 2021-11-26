@@ -1,5 +1,4 @@
 import axios from "axios";
-const host = "http://34.64.76.43:3000/";
 export default {
   // 추천 태그 GET
   async getRecommendTags({ commit }, payload) {
@@ -182,6 +181,7 @@ export default {
         vid: shortId,
       },
     });
+    console.log(response)
     if (response.status == 200) {
       commit("setShortInfo", response.data);
     }
