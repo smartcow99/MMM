@@ -180,9 +180,9 @@ export default {
           case '/channel': {
             this.moreChannelShorts(this.currentChannel.channelId); break; 
           }
-          case '/product': {
-            this.moreReview({pid:this.currentProduct.productId, desc:this.isDesc}); break; 
-          }
+          // case '/product': {
+          //   this.moreReview({pid:this.currentProduct.productId, desc:this.isDesc}); break; 
+          // }
           case '/search/channels': {
             //
             this.moreChannelSearch(this.$route.query['content']); break; 

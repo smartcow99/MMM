@@ -55,5 +55,9 @@ div.short-list{
     margin-right:40px;
     margin-bottom:100px;
 }
+.loading-guide p {
+    margin:0 auto;
+    text-align:center;
+}
 </style>
 

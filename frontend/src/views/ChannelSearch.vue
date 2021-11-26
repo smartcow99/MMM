@@ -38,5 +38,8 @@ export default {
 </script>
 
 <style>
-
+.loading-guide p {
+    margin:0 auto;
+    text-align:center;
+}
 </style> 

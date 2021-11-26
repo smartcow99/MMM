@@ -107,4 +107,8 @@ div.product-list{
     margin-bottom:100px;
     width:280px;
 }
+.loading-guide p {
+    margin:0 auto;
+    text-align:center;
+}
 </style> 
