@@ -191,7 +191,7 @@ router.get('/addRequest', async (req, res)=>{
   if(req.query.requestNum == undefined)
     return res.status(400).send('not enough element')
   else if(id == 0)
-    result = await db.get_sub_video(cid, req.query.requestNum)
+    result = await db.get_sub_video(req.session.cid, req.query.requestNum)
   else
     result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
 
