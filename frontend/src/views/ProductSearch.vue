@@ -75,13 +75,13 @@ export default {
         ]),
         ...mapActions([
             'requestSearch',
-            'requestSort',
+            'requestProductSort',
         ]),
         sorting(index,type) {
             const content=this.$route.query['content'];
             this.sortType.forEach(el=>el.isChecked=false);
             this.sortType[index].isChecked = true;
-            this.requestSort({content,type});
+            this.requestProductSort({content,type});
             this.setSearchOrder(type);
         }
     },

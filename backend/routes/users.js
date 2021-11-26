@@ -187,7 +187,7 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 router.get('/addRequest', async (req, res)=>{
   const id = req.query.chid | req.query.pid | req.query.vid | 0;
   const orderdesc = req.query.isDesc == 'false'?false : true;
-  if(id || req.query.requestNum == undefined)
+  if(!id || req.query.requestNum == undefined)
     return res.status(400).send('not enough element')
   const result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
 
