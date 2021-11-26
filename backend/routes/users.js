@@ -123,7 +123,6 @@ router.get('/short', async (req, res)=>{
   db.add_view_video(req.query.vid)
   const result = await db.short_info(req.query.vid, cid)
 
-  console.log(result)
   if(result)
     return res.status(200).send(result);
   else
