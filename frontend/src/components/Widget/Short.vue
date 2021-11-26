@@ -35,7 +35,6 @@
             <div class="channel">
                 <div class="channel-info">
                     <!-- 채널 프로필 -->
-                    
                     <img class="channel-profile-image" :src="currentShort['relatedChannel'].profile" alt="채널 프로필"/>
                     <div id="channel-meta-data">
                         <router-link id="channel-name"
