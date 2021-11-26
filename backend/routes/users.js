@@ -69,7 +69,6 @@ router.get('/logout',islogined,(req, res)=>{
     req.session.destroy(function(){
       req.session;
     });
-    res.clearCookie('login');
   res.status(200).send('success')
 })
 
