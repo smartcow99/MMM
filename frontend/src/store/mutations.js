@@ -143,7 +143,6 @@ export default {
     state["currentChannel"].shortList = [];
   },
   setChannelInfo(state, payload) {
-    console.log(payload)
     state["currentChannel"].isMyChannel = payload.isMyChannel;
     state["currentChannel"].title = payload.title;
     state["currentChannel"].isSubscribed = payload.isSubscribed;
@@ -314,6 +313,11 @@ export default {
       ...state["currentChannel"].shortList,
       ...payload,
     ];
+    if (payload.length < 6) {
+      state["isChannelShortLoading"] = "end";
+    } else {
+      state["isChannelShortLoading"] = "loaded";
+    }
   },
 
   pushComment(state, payload) {

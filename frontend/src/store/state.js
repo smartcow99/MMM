@@ -10,6 +10,7 @@ export default {
   isPurchaseListLoading: "loaded",
   isAnalysisLoading: "loaded",
   isSearchLoading:'loaded',
+  isChannelShortLoading:'loaded',
   commentOnload: "loaded",
 
   requestNum: 0,

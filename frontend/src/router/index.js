@@ -82,6 +82,7 @@ router.beforeEach((to,from,next)=>{
   store.state['isPurchaseListLoading'] = 'loaded';
   store.state['isAnalysisLoading'] = 'loaded';
   store.state['isSearchLoading'] = 'loaded';
+  store.state["isChannelShortLoading"] = "loaded";
   
   const getCookie = (name) => {
       const value = document.cookie.match(`(^|;)?${name}=([^;]*)(;|$)`);

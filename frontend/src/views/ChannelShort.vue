@@ -12,10 +12,13 @@
                 :shortInfo="value"
             />
         </div>
-        <div v-else>
-            <p>
-                영상이 없습니다.
-            </p>
+        <div class="loading-guider" v-if="isChannelShortLoading==='loading'">
+            <font-awesome-icon class="loading icon" icon='spinner' spin/>
+            <div class="space"></div>
+            <p class="guide-text">loading</p>
+        </div>
+        <div class="loading-guider" v-else-if="isChannelShortLoading==='end'">
+            <p>더 이상 불러올 컨텐츠가 없습니다.</p>
         </div>
     </div>
 </template>
@@ -33,7 +36,8 @@ export default {
     },
     computed: {
         ...mapState([
-            'currentChannel'
+            'currentChannel',
+            'isChannelShortLoading'
         ])
     }
 }
@@ -61,5 +65,9 @@ h1 {
 }
 .loading.icon {
     margin: auto;
+}
+.loading-guider p{
+    margin-top:100px;
+    text-align:center;
 }
 </style>
