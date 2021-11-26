@@ -41,7 +41,7 @@ router.post('/pytest',upload.single('img'),async (req, res)=>{
       return res.status(400).send('not enough element')}
     else if(data.length != 2){
       console.log(data,' data')
-      return res.status(400).send('wrong picture')}
+      return res.status(200).send('fail')}
     let ret = {
       face : data[0],
       tone : data[1],
@@ -149,11 +149,12 @@ router.get('/likeDown', islogined, async (req, res)=> {
 
 router.get('/channel', async (req, res) => {
   const cid = req.session.cid | 0;
+  let result;
   if(req.query.chid == '*')
-    const result = await db.get_sub_video(req.session.cid, req.query.requestNum)
+    result = await db.get_sub_video(req.session.cid, req.query.requestNum)
   else
-  const result = await db.channel_info(req.query.chid, cid)
-
+    result = await db.channel_info(req.query.chid, cid)
+  
   if(result)
     return res.status(200).send(result);
   else
