@@ -9,6 +9,14 @@
                 :shortInfo="value"
             />
         </div>
+        <div class="loading-guide" v-if="isSearchLoading==='loading'">
+            <font-awesome-icon class="loading icon" icon='spinner' spin/>
+            <div class="space"></div>
+            <p class="guide-text">loading</p>
+        </div>
+        <div class="loading-guide" v-else-if="isSearchLoading==='end'">
+            <p>더 이상 불러올 컨텐츠가 없습니다.</p>
+        </div>
         <div class="short-list" v-show="shortList.length===0">
             <b>결과 없음</b>
         </div>
@@ -29,7 +37,8 @@ export default {
     },
     computed: {
         ...mapState([
-            'shortList'
+            'shortList',
+            'isSearchLoading'
         ])
     },
 }

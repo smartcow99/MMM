@@ -9,6 +9,7 @@ export default {
   isScrollRequestOn: false,
   isPurchaseListLoading: "loaded",
   isAnalysisLoading: "loaded",
+  isSearchLoading:'loaded',
   commentOnload: "loaded",
 
   requestNum: 0,

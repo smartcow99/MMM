@@ -190,7 +190,7 @@ export default {
           case '/search/products': {
             this.moreProductSearch(this.$route.query['content']); break; 
           }
-          case '/search': {
+          case '/search/': {
             this.moreShortSearch(this.$route.query['content']); break; 
           }
           case '/mypage/purchase-history': {
