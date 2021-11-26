@@ -211,13 +211,11 @@ export default {
         pid: payload,
       },
     });
-    // console.log(response);
     if (response.status == 200) {
       commit("setProductInfo", response.data);
     }
   },
   async moreChannelSearch({ state, commit }, payload) {
-    // console.log(payload);
     if (state["isScrollRequestOn"] === true) return;
     else commit("setIsScrollRequestOn", true);
     //request axios get
@@ -234,7 +232,6 @@ export default {
     commit("setIsScrollRequestOn", false);
   },
   async moreShortSearch({ state, commit }, payload) {
-    // console.log(payload);
     if (state["isScrollRequestOn"] === true) return;
     else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/search", {
@@ -250,8 +247,6 @@ export default {
     commit("setIsScrollRequestOn", false);
   },
   async moreProductSearch({ state, commit }, payload) {
-    // console.log(payload);
-    // console.log(state["order"]);
     if (state["isScrollRequestOn"] === true) return;
     else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/search", {
