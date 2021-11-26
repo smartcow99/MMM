@@ -153,16 +153,16 @@ const api = {
 	},
 	get_sub_video: async (cid, reqNum)=>{
 		const res={
-			isMyChannel : 0,
-			title : 0,
-			isSubscribed : 0,
-			profile : 0,
+			isMyChannel : false,
+			title : "",
+			isSubscribed : false,
+			profile : "",
 			channelId : 0,
 			numOfSubscribers : 0,
 			numOfShorts : 0,
-			introduce : 0,
-			haveItem : 0,
-			dressingTable : 0,
+			introduce : "",
+			haveItem : false,
+			dressingTable : {},
 			shortList: await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile
 				from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid)
 				left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid)
