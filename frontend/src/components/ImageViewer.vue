@@ -48,7 +48,7 @@ export default {
     width:300px;
     display:flex;
     flex-direction:row;
-    justify-content: space-between;
+    justify-content: center;
     margin:0 auto;
 }
 .preview-image {

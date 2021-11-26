@@ -32,9 +32,10 @@ div.product-summary {
     border:1px solid var(--placeholder-color);
     border-radius:4px;
     & > a {
+        overflow:hidden;
         img.product-image {
             display:inline-block;
-            width:280px;
+            width:278px;
             height:280px;
         }
     }

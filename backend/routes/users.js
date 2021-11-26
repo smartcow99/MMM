@@ -36,9 +36,11 @@ router.post('/pytest',upload.single('img'),async (req, res)=>{
       console.log(err)
       return res.status(400).send('fail')
     };
-    if(req.body.requestNum == undefined){console.log(req.body.requestNum,' req.query.requestNum')
+    if(req.body.requestNum == undefined){
+      console.log(req.body.requestNum,' req.query.requestNum')
       return res.status(400).send('not enough element')}
-    else if(data.length != 2){console.log(data,' data')
+    else if(data.length != 2){
+      console.log(data,' data')
       return res.status(400).send('wrong picture')}
     let ret = {
       face : data[0],
@@ -55,22 +57,20 @@ router.post('/login', async (req, res)=>{
     // session.setAttribute(String name, Object value);
     req.session.islogined = true;
     req.session.cid = result.cid;
-    req.session.save((err)=>{
-      if(err) return res.status(400).send('fail');
-      res.status(200).send('success');
+    res.cookie('login', 'logined', {
+      // httpOnly: true
     })
-
+    res.status(200).send('success');
   }
   else
     res.status(401).send('fail');
 })
 
 router.get('/logout',islogined,(req, res)=>{
-  if(req.session.islogined){
+  
     req.session.destroy(function(){
       req.session;
     });
-  }
   res.status(200).send('success')
 })
 
@@ -111,7 +111,7 @@ router.get('/short', async (req, res)=>{
   const cid = req.session.cid | 0;
   if(req.query.vid == undefined)
     return res.status(400).send('not enough element')
-  db.add_view(req.query.vid)
+  db.add_view_video(req.query.vid)
   const result = await db.short_info(req.query.vid, cid)
 
   if(result)
@@ -149,7 +149,10 @@ router.get('/channel', async (req, res) => {
 })
 
 router.get('/productInfo', async (req, res) => {
+  if(req.query.pid == undefined)
+    return res.status(400).send('not enough element')
   const result = await db.product_info(req.query.pid)
+  db.add_view_product(req.query.pid)
   if(result)
     return res.status(200).send(result);
   else
@@ -170,7 +173,7 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 router.get('/addRequest', async (req, res)=>{
   const id = req.query.chid | req.query.pid | req.query.vid | 0;
   const orderdesc = req.query.isDesc == 'false'?false : true;
-  if(id && req.query.requestNum == undefined)
+  if(id || req.query.requestNum == undefined)
     return res.status(400).send('not enough element')
   const result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
 

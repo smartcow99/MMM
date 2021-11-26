@@ -55,11 +55,20 @@ export default {
       commit("setLoginPageOn", false);
     }
   },
-
+  async requestUserInfo({commit},payload) {
+    const userInfoResponse = await axios.get("/users/info"); //유저 정보 요청
+    commit("setUserInfo", userInfoResponse.data);
+    commit("setIsLogin", true);
+  },
   //logout 요청
   async requestLogout({ commit }, payload) {
     //로그아웃 요청
     const response = await axios.get("/users/logout");
+    function deleteCookie(name) {
+        const date = new Date();
+        document.cookie = `${name}='';expires=${date.toUTCString()};path=/`;
+    }
+    deleteCookie('login');
     if (response.status == 200) {
       commit("initUserInfo");
       commit("setIsLogin", false);
