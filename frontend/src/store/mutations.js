@@ -327,4 +327,8 @@ export default {
   setSortDesc(state, payload) {
     state["isDesc"] = payload;
   },
+  setSearchOrder(state, payload) {
+    console.log("mut", payload);
+    state["searchOrder"] = payload;
+  },
 };

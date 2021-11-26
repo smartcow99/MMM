@@ -55,16 +55,17 @@ export default {
     },
     computed: {
         ...mapState([
-            'productList'
+            'productList',
+            'searchOrder',
         ])
     },
     methods: {
         ...mapMutations([
-            'sortProductList'
+            'sortProductList',
+            'setSearchOrder',
         ]),
         ...mapActions([
-            'requestSearch'
-            ,
+            'requestSearch',
             'requestSort',
         ]),
         sorting(index,type) {
@@ -72,6 +73,7 @@ export default {
             this.sortType.forEach(el=>el.isChecked=false);
             this.sortType[index].isChecked = true;
             this.requestSort({content,type});
+            this.setSearchOrder(type);
         }
     },
 }
