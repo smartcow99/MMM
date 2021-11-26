@@ -247,6 +247,8 @@ export default {
     }
   },
   async moreChannelSearch({ state, commit }) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     //request axios get
     const response = await axios.get("/users/search", {
       params: {
@@ -257,6 +259,7 @@ export default {
     if (response.status == 200) {
       commit("pushChannelSearch", response.data);
     }
+    commit("setIsScrollRequestOn", false);
   },
   async moreShortSearch({ state, commit }) {
     if (state["isScrollRequestOn"] === true) return;
@@ -316,6 +319,8 @@ export default {
   },
   //추후 추가
   async moreChannelShorts({ state, commit }, payload) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/addRequest", {
       params: {
         chid: payload,
@@ -326,8 +331,11 @@ export default {
     if (response.status == 200) {
       commit("pushChannelShort", response.data);
     }
+    commit("setIsScrollRequestOn", false);
   },
   async moreComment({ state, commit }, payload) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/addRequest", {
       params: {
         vid: payload,
@@ -338,8 +346,11 @@ export default {
     if (response.status == 200) {
       commit("pushComment", response.data);
     }
+    commit("setIsScrollRequestOn", false);
   },
 async moreReview({ state, commit }, { pid, desc }) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/addRequest", {
       params: {
         pid: pid,
@@ -350,7 +361,8 @@ async moreReview({ state, commit }, { pid, desc }) {
     });
     if (response.status == 200) {
         commit("pushReview", response.data);
-      }
+    }
+    commit("setIsScrollRequestOn", false);
 },
 async requestHasPurchaseHistory({commit},payload) {
     const response = await axios.get("/users/isPurchase", {

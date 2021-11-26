@@ -78,6 +78,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to,from,next)=>{
+  console.log(next)
   const getCookie = (name) => {
       const value = document.cookie.match(`(^|;)?${name}=([^;]*)(;|$)`);
       return value? value[2] : null;
