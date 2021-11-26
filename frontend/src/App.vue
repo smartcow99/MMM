@@ -33,7 +33,6 @@
           <hr/>
           <ChannelList path="/channelshort" :channelList="RecommendChannelList"/>
         </div>
-        
         <div class="Recommend-tags">
           <h3>추천 태그</h3>
           <hr/>
@@ -46,6 +45,7 @@
         </div>
       </div>
     </aside>
+    
     <article ref="article" @scroll="scrollHandler($event)">
       <router-view/>
     </article>
