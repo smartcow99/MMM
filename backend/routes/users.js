@@ -65,11 +65,11 @@ router.post('/login', async (req, res)=>{
 })
 
 router.get('/logout',islogined,(req, res)=>{
-  if(req.session.islogined){
+  
     req.session.destroy(function(){
       req.session;
     });
-  }
+  
   res.status(200).send('success')
 })
 
@@ -110,7 +110,7 @@ router.get('/short', async (req, res)=>{
   const cid = req.session.cid | 0;
   if(req.query.vid == undefined)
     return res.status(400).send('not enough element')
-  db.add_view(req.query.vid)
+  db.add_view_video(req.query.vid)
   const result = await db.short_info(req.query.vid, cid)
 
   if(result)
@@ -148,7 +148,10 @@ router.get('/channel', async (req, res) => {
 })
 
 router.get('/productInfo', async (req, res) => {
+  if(req.query.pid == undefined)
+    return res.status(400).send('not enough element')
   const result = await db.product_info(req.query.pid)
+  db.add_view_product(req.query.pid)
   if(result)
     return res.status(200).send(result);
   else
@@ -169,7 +172,7 @@ router.get('/isPurchase', islogined, async(req, res)=>{
 router.get('/addRequest', async (req, res)=>{
   const id = req.query.chid | req.query.pid | req.query.vid | 0;
   const orderdesc = req.query.isDesc == 'false'?false : true;
-  if(id && req.query.requestNum == undefined)
+  if(id || req.query.requestNum == undefined)
     return res.status(400).send('not enough element')
   const result = await db.add_request(req.query.type, id, req.query.requestNum, orderdesc)
 
