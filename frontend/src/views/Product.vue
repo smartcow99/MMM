@@ -288,7 +288,7 @@ div.purchase-guide {
         width:100px;
     }
     &.hidden {
-        transform:translateY(100px);
+        transform:translateY(120px);
     }
 }
 </style>
