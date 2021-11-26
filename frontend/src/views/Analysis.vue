@@ -6,9 +6,11 @@
                 @upload="uploadFile"
             ><p>{{explainText}}</p></UploadBox>
             <div class="analysis-result">
-                <h2>AI 얼굴 분석</h2>
+                <h2>AI 화장법 추천</h2>
+                <small>얼굴형을 분석해 적적한 화장법을 추천해줍니다. 본인의 얼굴 사진을 올리고 알맞는 화장법을 추천받아보세요</small>
+                <br/>
                 <div class="analysis-result-content">
-                    <h3>분석 결과</h3>
+                    <h3 v-show="!!analysisResult.content">분석 결과: {{analysisResult['face']}} {{analysisResult['tone']}}호</h3>
                     <img v-show="!!url" id="result-face" :src="url"/>
                     <div class="analysis-result-box">
                         {{analysisResult.content}}
@@ -23,6 +25,7 @@
             <h2 id="Recommendation-title">추천 화장법</h2>
             <div class="Recommend-makeup">
                 <Slider 
+                    v-if="analysisResult['relatedShort'].length>0"
                     :count="3"
                     :elWidth="300"
                     :maxIndex="analysisResult['relatedShort'].length">
@@ -32,6 +35,9 @@
                         :key="index" 
                         :shortInfo="value"/>
                 </Slider>
+                <div v-else>
+                    먼저 얼굴 사진을 올려주세요!
+                </div>
             </div>
         </div>
     </div>
@@ -52,15 +58,6 @@ export default {
     data() {
         return {
             explainText:"얼굴 정면 사진을 올려주세요",      
-            colorTable : {
-                18:'#FEE1CB',
-                19:'#FAD6C8',
-                20:'#F7CBC0',
-                21:'#F2C2B8',
-                22:'#E9AEA8',
-                23:'#E9AFA4',
-                23:'#E5A4A0',
-            }
         }
     },
     created() {
@@ -123,6 +120,7 @@ h3{
     display:flex;
     flex-direction: column;
     align-items: flex-start;
+    width:400px;
     height:500px;
 }
 .analysis-result-content{

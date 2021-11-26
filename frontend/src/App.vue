@@ -9,7 +9,7 @@
         <Btn v-if="userInfo['isLogined']" class="button" @click="logout" theme="primary">로그아웃</Btn>
         <Btn v-else class="button" @click="openLogin" theme="primary">로그인</Btn>
         <router-link class="button" to="/analysis">
-          <Btn theme="white">AI 얼굴 분석</Btn>
+          <Btn theme="white">AI 화장법 추천</Btn>
         </router-link>
       </span> 
     </span>
@@ -73,7 +73,6 @@ import Tag from '@/components/Tag.vue'
 import ShortUpload from '@/components/widget/ShortUpload.vue'
 import LoginCard from '@/components/widget/LoginCard.vue'
 
-import HotShortImg from '@/assets/images/hot-short.png';
 import AllSubscribeImg from '@/assets/images/all-subscribe.png';
 import {mapState,mapActions, mapMutations} from 'vuex'
 
@@ -83,11 +82,6 @@ export default {
     return {
       uploadClicked:false,
       defaultChannels: [
-        {
-            title:'핫 채널',
-            profile:HotShortImg,
-            channelId: 'hot'
-        },
         {
             title:'구독한 모든 채널',
             profile:AllSubscribeImg,

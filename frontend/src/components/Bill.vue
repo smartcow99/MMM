@@ -30,8 +30,9 @@ export default {
 
 <style lang="scss" scoped>
 img{
-    width:170px;
-    height:170px;
+    width:180px;
+    height:180px;
+    padding:20px;
 }
 h2{
     margin: 0;
@@ -45,6 +46,7 @@ h2{
     margin-bottom:30px;
     display:flex;
     flex-direction: row;
+    overflow:hidden;
 }
 .purchase-info{
     flex-grow:1;
