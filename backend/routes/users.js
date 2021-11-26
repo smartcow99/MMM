@@ -55,11 +55,10 @@ router.post('/login', async (req, res)=>{
     // session.setAttribute(String name, Object value);
     req.session.islogined = true;
     req.session.cid = result.cid;
-    req.session.save((err)=>{
-      if(err) return res.status(400).send('fail');
-      res.status(200).send('success');
+    res.cookie('login', 'logined', {
+      httpOnly: true
     })
-
+    res.status(200).send('success');
   }
   else
     res.status(401).send('fail');
