@@ -192,10 +192,10 @@ export default {
     commit("initChannelInfo");
     commit("initRequestNum");
     if (!payload) return;
-
     const response = await axios.get("/users/channel", {
       params: {
         chid: payload,
+        requestNum: 0,
       },
     });
     if (response.status == 200) {
@@ -349,7 +349,7 @@ export default {
   },
 
   async requestReviewSort({ state, commit }, payload) {
-    state['isSearchLoading'] = 'loaded';
+    state["isSearchLoading"] = "loaded";
     commit("initRequestNum");
     const response = await axios.get("/users/addRequest", {
       params: {
@@ -363,8 +363,7 @@ export default {
       commit("reloadReview", response.data);
     }
   },
-  async requestSort({ commit }, payload) {
-    state['isSearchLoading'] = 'loaded';
+  async requestProductSort({ commit }, payload) {
     const response = await axios.get("/users/search", {
       params: {
         type: "product",
