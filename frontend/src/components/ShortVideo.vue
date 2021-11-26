@@ -4,8 +4,8 @@
             <source :src="src" type="video/mp4" ref="source"/>
             지원하지 않는 태그 입니다.
         </video>
+        {{src}}
     </div>
-    
 </template>
 
 <script>
