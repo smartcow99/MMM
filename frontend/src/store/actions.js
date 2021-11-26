@@ -1,5 +1,4 @@
 import axios from "axios";
-const host = "http://34.64.76.43:3000/";
 export default {
   // 추천 태그 GET
   async getRecommendTags({ commit }, payload) {
@@ -156,33 +155,6 @@ export default {
             console.log(err);
         }
     },
-    async requestShortInfo({ commit }, shortId) {
-        commit("initShortInfo");
-        commit("initRequestNum");
-        const response = await axios.get("/users/short", {
-        params: {
-          type: "short",
-          content: payload["content"],
-          requestNum: 0,
-          order: "rate",
-        },
-      });
-      if (response.status == 200) {
-        commit("setShortList", response.data.searchResult);
-      }
-    },
-  async requestShortInfo({ commit }, shortId) {
-    commit("initShortInfo");
-    commit("initRequestNum");
-    const response = await axios.get("/users/short", {
-      params: {
-        vid: shortId,
-      },
-    });
-    if (response.status == 200) {
-      commit("setShortInfo", response.data);
-    }
-  },
   // async requestRelatedChannelInfo({ commit }, payload) {
   //     //parameter: 채널 아이디(session으로 저장하는게 나을지 좀 의문)
   //     //영상을 올린 채널정보 요청(short.vue에서 사용)
@@ -247,6 +219,8 @@ export default {
     }
   },
   async moreChannelSearch({ state, commit }) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     //request axios get
     const response = await axios.get("/users/search", {
       params: {
@@ -257,6 +231,7 @@ export default {
     if (response.status == 200) {
       commit("pushChannelSearch", response.data);
     }
+    commit("setIsScrollRequestOn", false);
   },
   async moreShortSearch({ state, commit }) {
     if (state["isScrollRequestOn"] === true) return;
@@ -316,6 +291,8 @@ export default {
   },
   //추후 추가
   async moreChannelShorts({ state, commit }, payload) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/addRequest", {
       params: {
         chid: payload,
@@ -326,8 +303,11 @@ export default {
     if (response.status == 200) {
       commit("pushChannelShort", response.data);
     }
+    commit("setIsScrollRequestOn", false);
   },
   async moreComment({ state, commit }, payload) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/addRequest", {
       params: {
         vid: payload,
@@ -338,8 +318,11 @@ export default {
     if (response.status == 200) {
       commit("pushComment", response.data);
     }
+    commit("setIsScrollRequestOn", false);
   },
 async moreReview({ state, commit }, { pid, desc }) {
+    if (state["isScrollRequestOn"] === true) return;
+    else commit("setIsScrollRequestOn", true);
     const response = await axios.get("/users/addRequest", {
       params: {
         pid: pid,
@@ -350,7 +333,8 @@ async moreReview({ state, commit }, { pid, desc }) {
     });
     if (response.status == 200) {
         commit("pushReview", response.data);
-      }
+    }
+    commit("setIsScrollRequestOn", false);
 },
 async requestHasPurchaseHistory({commit},payload) {
     const response = await axios.get("/users/isPurchase", {

@@ -20,7 +20,6 @@
             </button>
             <div class="video-zone">
                 <ShortVideo id="short-video" :src="currentShort['url']"/>
-                <!-- <ShortVideo id="short-video" :src="`http://34.64.76.43:3000/shorts/Oval_23%20(2).mp4`"/> -->
             </div>
         </div>
         <div id="loading-guide" v-show="isLoading">
@@ -36,6 +35,7 @@
             <div class="channel">
                 <div class="channel-info">
                     <!-- 채널 프로필 -->
+                    
                     <img class="channel-profile-image" :src="currentShort['relatedChannel'].profile" alt="채널 프로필"/>
                     <div id="channel-meta-data">
                         <router-link id="channel-name"

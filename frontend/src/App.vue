@@ -184,13 +184,14 @@ export default {
             this.moreReview({pid:this.currentProduct.productId, desc:this.isDesc}); break; 
           }
           case '/search/channels': {
-            this.moreChannelSearch(); break; 
+            //
+            this.moreChannelSearch(this.$route.query['content']); break; 
           }
           case '/search/products': {
-            this.moreProductSearch(); break; 
+            this.moreProductSearch(this.$route.query['content']); break; 
           }
           case '/search': {
-            this.moreShortSearch(); break; 
+            this.moreShortSearch(this.$route.query['content']); break; 
           }
           case '/mypage/purchase-history': {
             if(this.isPurchaseListLoading!=='end')
