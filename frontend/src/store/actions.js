@@ -181,7 +181,6 @@ export default {
         vid: shortId,
       },
     });
-    console.log(response)
     if (response.status == 200) {
       commit("setShortInfo", response.data);
     }
