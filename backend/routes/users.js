@@ -36,9 +36,11 @@ router.post('/pytest',upload.single('img'),async (req, res)=>{
       console.log(err)
       return res.status(400).send('fail')
     };
-    if(req.body.requestNum == undefined){console.log(req.body.requestNum,' req.query.requestNum')
+    if(req.body.requestNum == undefined){
+      console.log(req.body.requestNum,' req.query.requestNum')
       return res.status(400).send('not enough element')}
-    else if(data.length != 2){console.log(data,' data')
+    else if(data.length != 2){
+      console.log(data,' data')
       return res.status(400).send('wrong picture')}
     let ret = {
       face : data[0],
@@ -77,6 +79,15 @@ router.get('/search',async (req, res)=>{
   if(req.query.type == undefined || req.query.content == undefined || req.query.requestNum == undefined)
     return res.status(400).send('not enough element')
   const result = await db.search(req.query.type, req.query.content, cid, req.query.requestNum, req.query.order);
+
+  if(result)
+    return res.status(200).send(result);
+  else
+    return res.status(400).send('fail');
+})
+
+router.get('/getSubscribeVideo', islogined, async (req, res)=>{
+  const result = await db.get_sub_video(req.session.cid, req.query.requestNum)
 
   if(result)
     return res.status(200).send(result);
@@ -138,6 +149,9 @@ router.get('/likeDown', islogined, async (req, res)=> {
 
 router.get('/channel', async (req, res) => {
   const cid = req.session.cid | 0;
+  if(req.query.chid == '*')
+    const result = await db.get_sub_video(req.session.cid, req.query.requestNum)
+  else
   const result = await db.channel_info(req.query.chid, cid)
 
   if(result)
@@ -156,6 +170,7 @@ router.get('/productInfo', async (req, res) => {
   else
     return res.status(400).send('fail');
 })
+
 router.get('/isPurchase', islogined, async(req, res)=>{
   const result = await db.is_purchase(req.query.pid,req.session.cid);
   if(result){

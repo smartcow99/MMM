@@ -22,8 +22,8 @@ const api = {
 	},
 	search_channel: async (content,cid,reqNum)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed
-		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) 
-        join (select chid, count(sub) - 1 as isSubscribed from (select distinct chid, case when cid = ${cid} then 1 else 0 end as sub from mmmservice.subscribe)b group by chid)c using (chid)  
+		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid)
+        join (select chid, count(sub) - 1 as isSubscribed from (select distinct chid, case when cid = ${cid} then 1 else 0 end as sub from mmmservice.subscribe)b group by chid)c using (chid)
 		where ch_name like '%${content}%' limit ${reqNum*6}, 6;`);
 		return res;
 	},
@@ -41,13 +41,12 @@ const api = {
 	},
 	recommend_channel: async (cid)=>{
 		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed
-		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid) 
+		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid)
         join (select chid, count(sub) - 1 as isSubscribed from (select distinct chid, case when cid = ${cid} then 1 else 0 end as sub from mmmservice.subscribe)b group by chid)c using (chid)
         order by numOfSubscribers desc limit 5;`)
 		return res;
 	},
 	get_purchare_list: async (cid, reqNum) => {
-		console.log(reqNum);
 		const [res] = await pool.query(`select distinct pid, p_date as date, price, p_num as purchaseNum, thumnail, p_name as productName\
 		from product natural join purchase where cid = ${cid} limit ${reqNum*6}, 6`)
 		return res;
@@ -58,10 +57,10 @@ const api = {
 		return res;
 	},
 	get_channel_info: async (chid, cid)=>{
-		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts, 
-		case when cid = ${cid} then true else false end as isMyChannel, 
-		case when ${cid} not in(select cid from subscribe where chid = ${chid}) then false else true end as isSubscribed 
-		from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid) 
+		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, introduce, numOfSubscribers, numOfShorts,
+		case when cid = ${cid} then true else false end as isMyChannel,
+		case when ${cid} not in(select cid from subscribe where chid = ${chid}) then false else true end as isSubscribed
+		from channel left outer join (select chid, count(*) as numOfSubscribers from subscribe group by chid) as subscribeCount using (chid)
 		left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid) where chid = ${chid}`);
 		return res;
 	},
@@ -74,7 +73,7 @@ const api = {
         return res;
 	},
 	get_related_product: async (vid) => {
-			const [res] = await pool.query(`select distinct p_name as title, img, pid as productId from tag natural join (product_img natural join product) where tag.vid = ${vid}`)
+			const [res] = await pool.query(`select distinct p_name as title, thumnail as img, pid as productId from tag natural join product where tag.vid = ${vid};`)
 			return res;
 	},
 	get_dressing_talbe: async (chid) => {
@@ -87,7 +86,7 @@ const api = {
 	},
 	get_product_img_info : async (pid) => {
 		const [res] = await pool.query(`select img as productImages from product_img where pid = ${pid}`)
-		return res.map(el=>el.tag);
+		return res;
 	},
 	get_related_short_info : async (pid, reqNum) => {
 		const [res] = await pool.query(`select title, thumnail, vid as shortId, chid as channelId, numOfSubscribers, numOfHearts, hits as numOfViews from channel natural join (video natural join tag)
@@ -96,7 +95,7 @@ const api = {
 		return res;
 	},
 	get_product_review: async (pid,reqNum, isdesc) => {
-		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content,rate, photo 
+		const [res] = await pool.query(`select ch_profile as profile, c_name as name, comment as content,rate, photo
 		from channel join customer using(cid) join review using(cid) join product using(pid) where pid = ${pid} order by rate ${isdesc?'desc':''} limit ${reqNum*6}, 6`)
 		return res;
 	},
@@ -137,10 +136,10 @@ const api = {
 		return await pool.query(`select chid from video where vid = ${vid}`)
 	},
 	get_AI_relation_short: async (face, tone, reqNum)=>{
-		let [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers 
+		let [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers
 		from mmmservice.video
-		join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using(chid) 
-		natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b 
+		join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using(chid)
+		natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b
 		where vid in (select distinct vid
 			from video
 			where url in (
@@ -148,11 +147,19 @@ const api = {
 			union all
 			SELECT url from video where url like '%${face}%'
 			union all
-			SELECT url from video where url like '%${tone}%')) 
+			SELECT url from video where url like '%${tone}%'))
 		limit ${reqNum*6}, 6`);
 		return res;
 	},
-	
+	get_sub_video: async (cid, reqNum)=>{
+		const [res] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile 
+		from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid) 
+		left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid) 
+		left outer join (select chid, ch_profile as profile from channel )c using (chid) 
+        where chid in (select chid from subscribe where cid = ${cid})
+        order by numOfSubscribers desc limit ${reqNum*6}, 6`)
+		return res;
+	}
 
 }
 
@@ -202,7 +209,6 @@ module.exports = new Proxy(api,{
 				else if(type == 'channel'){
 					const result = await target.recommend_channel(cid);
 					result.map(element => element.isSubscribed?true:false)
-					console.log(result)
 					return result
 				}
 				else if(type == 'short')

@@ -1,8 +1,8 @@
 <template>
     <div class="purchase-card">
         <h1>구매하기</h1>
-        <h1 v-if="mileageOn">{{finalPrice}}원</h1>
-        <h1 v-else>{{originalPrice}}원</h1>
+        <h1 v-if="mileageOn">{{currentProduct['price']-usingMileage}}원</h1>
+        <h1 v-else>{{currentProduct['price']}}원</h1>
 
         <div class="mileage-area">
             <span>보유 마일리지 : {{ownMileage}}</span>
@@ -15,12 +15,12 @@
         <div class="price-area">
         <div class="original-price-area">
             <p>최종 결제 금액</p>
-            <p id="original-price">{{originalPrice}}원</p>
+            <p id="original-price">{{currentProduct['price']}}원</p>
             <small v-if="mileageOn">-{{usingMileage}}</small>
         </div>
         <div class="final-price-area">
-            <p id="final-price" v-if="mileageOn">{{finalPrice}}원</p>
-            <p id="final-price" v-else>{{originalPrice}}원</p>
+            <p id="final-price" v-if="mileageOn">{{currentProduct['price']-usingMileage}}원</p>
+            <p id="final-price" v-else>{{currentProduct['price']}}원</p>
             
         </div>
         </div>
@@ -31,10 +31,15 @@
 
 <script>
 import Btn from '@/components/Btn.vue'
+import { mapState } from 'vuex';
 export default {
+     computed: {
+        ...mapState([
+            'currentProduct',
+        ])
+    },
 data(){
     return{
-        originalPrice:39000,
         mileageOn:false,
         usingMileage:'',
         ownMileage:"1234",
@@ -49,7 +54,6 @@ methods:{
         else{
             this.mileageOn=true;
             this.finalPrice=this.originalPrice-this.usingMileage;
-            // this.usingMileage='';
         }
     },
     purchase(){
@@ -58,7 +62,7 @@ methods:{
 },
 components:{
     Btn,
-}
+},
 }
 </script>
 
@@ -86,7 +90,6 @@ small{
     display:flex;
     flex-direction: column;
     align-items: center;
-     /* margin:200px auto; */
     width:500px;
     height:600px;
     padding:50px;
