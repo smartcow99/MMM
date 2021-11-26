@@ -362,7 +362,7 @@ export default {
       commit("reloadReview", response.data);
     }
   },
-  async requestSort({ commit }, payload) {
+  async requestProductSort({ commit }, payload) {
     const response = await axios.get("/users/search", {
       params: {
         type: "product",
