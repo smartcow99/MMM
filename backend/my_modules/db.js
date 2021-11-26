@@ -152,6 +152,12 @@ const api = {
 		return res;
 	},
 	get_sub_video: async (cid, reqNum)=>{
+		const [list] = await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile
+		from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid)
+		left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid)
+		left outer join (select chid, ch_profile as profile from channel )c using (chid)
+		where chid in (select chid from subscribe where cid = ${cid})
+		order by numOfSubscribers desc limit ${reqNum*6}, 6`);
 		const res={
 			isMyChannel : false,
 			title : "",
@@ -163,12 +169,7 @@ const api = {
 			introduce : "",
 			haveItem : false,
 			dressingTable : [],
-			shortList: await pool.query(`select distinct title, thumnail, vid as shortId, chid as channelId, hits as numOfViews, numOfHearts, numOfSubscribers, profile
-				from video join (select chid, count(*) as numOfSubscribers from subscribe group by chid)a using(chid)
-				left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b using (vid)
-				left outer join (select chid, ch_profile as profile from channel )c using (chid)
-				where chid in (select chid from subscribe where cid = ${cid})
-				order by numOfSubscribers desc limit ${reqNum*6}, 6`)
+			shortList: list
 		}
 		return res;
 	}
