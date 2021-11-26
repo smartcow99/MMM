@@ -33,7 +33,7 @@
         </table>
         <Detail class="product-explain">
             <div>
-                <img :src="currentProduct['productExplainImg']"/>
+                <img :src="currentProduct['productExplainHtml']"/>
             </div>
         </Detail>
         <h2 class="related-shorts-title">shorts</h2>

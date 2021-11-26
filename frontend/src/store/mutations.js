@@ -176,7 +176,7 @@ export default {
     state["currentProduct"].manufacturer = "";
     state["currentProduct"].productImages = [];
     state["currentProduct"].relatedShorts = [];
-    state["currentProduct"].productExplainImg = "";
+    state["currentProduct"].productExplainHtml = "";
     state["currentProduct"].reviews = [];
   },
   setProductInfo(state, payload) {
@@ -188,7 +188,7 @@ export default {
     state["currentProduct"].manufacturer = payload.manufacturer;
     state["currentProduct"].productImages = payload.productImages;
     state["currentProduct"].relatedShorts = payload.relatedShorts;
-    state["currentProduct"].productExplainImg = payload.productExplainImg;
+    state["currentProduct"].productExplainHtml = payload.productExplainHtml;
     state["currentProduct"].reviews = payload.reviews;
   },
   setDressingTable(state, payload) {
