@@ -149,12 +149,12 @@ router.get('/likeDown', islogined, async (req, res)=> {
 
 router.get('/channel', async (req, res) => {
   const cid = req.session.cid | 0;
-  const result= await db.channel_info(req.query.chid, cid);
-  // if(req.query.chid == '*')
-  //   result = await db.get_sub_video(req.session.cid, req.query.requestNum)
-  // else
-  //   result = await db.channel_info(req.query.chid, cid)
-
+  let result;
+  if(req.query.chid == '*')
+    result = await db.get_sub_video(req.session.cid, req.query.requestNum)
+  else
+    result = await db.channel_info(req.query.chid, cid)
+  
   if(result)
     return res.status(200).send(result);
   else
