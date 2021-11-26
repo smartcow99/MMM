@@ -2,8 +2,8 @@
 <div class="comment-box">
     <div class="channel-info">
         <!-- 채널 프로필 -->
-        <img @click="test" class="channel-profile-image" src='@/assets/images/defaultProfile.png' alt="내 프로필"/>
-        <!-- <img :src="currentShort['relatedChannel'].profile" alt="채널 프로필"/> -->
+        <!-- <img @click="test" class="channel-profile-image" src='@/assets/images/defaultProfile.png' alt="내 프로필"/> -->
+        <img :src="commentInfo.profile" alt="채널 프로필"/>
         {{this.commentInfo.name}}
     </div>
     <p class="comment-content">{{this.commentInfo.content}}</p>
@@ -15,7 +15,7 @@ export default {
     name:'Comment',
     props:{
         commentInfo:String,
-    },
+    }
 }
 </script>
 
