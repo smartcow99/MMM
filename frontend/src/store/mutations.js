@@ -134,7 +134,7 @@ export default {
     state["currentChannel"].title = "";
     state["currentChannel"].isSubscribed = false;
     state["currentChannel"].profile = "";
-    state["currentChannel"].channelId = 0;
+    state["currentChannel"].channelId = -1;
     state["currentChannel"].numOfSubscribers = 0;
     state["currentChannel"].numOfShorts = 0;
     state["currentChannel"].introduce = "";
