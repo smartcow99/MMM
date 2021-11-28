@@ -11,7 +11,6 @@
                     <h2 v-else>{{currentChannel['title']}}</h2>
                     <Btn class="subscribe-button" theme="white" v-if="isModifyOn" @click="saveModify">저장하기</Btn>
                     <Btn class="subscribe-button" theme="white" v-else @click="modifyOn()">수정하기</Btn>
-
                 </div>
                 <small class="channel-meta">
                     <span>구독자 수 {{currentChannel['numOfSubscribers']}} | shorts {{currentChannel['numOfShorts']}}</span>

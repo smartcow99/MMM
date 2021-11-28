@@ -351,7 +351,7 @@ export default {
   },
 
   async requestReviewSort({ state, commit }, payload) {
-    state["isSearchLoading"] = "loaded";
+    state["isSearchLoading"] = "loading";
     commit("initRequestNum");
     const response = await axios.get("/users/addRequest", {
       params: {
@@ -364,8 +364,11 @@ export default {
     if (response.status == 200) {
       commit("reloadReview", response.data);
     }
+    state["isSearchLoading"] = "loaded";
   },
-  async requestProductSort({ commit }, payload) {
+  async requestProductSort({ state,commit }, payload) {
+    state["isSearchLoading"] = "loading";
+    commit("initRequestNum");
     const response = await axios.get("/users/search", {
       params: {
         type: "product",
@@ -377,5 +380,6 @@ export default {
     if (response.status == 200) {
       commit("setProductList", response.data.searchResult);
     }
+    state["isSearchLoading"] = "loaded";
   },
 };

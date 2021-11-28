@@ -40,8 +40,8 @@
         <Slider 
             class="related-shorts"
             :count="3"
-            :elWidth="200"
-            :maxIndex="currentProduct['reviews'].length">
+            :elWidth="300"
+            :maxIndex="currentProduct['relatedShorts'].length">
             <ShortSummary
                 class="short" 
                 v-for="(short,index) in currentProduct['relatedShorts']"
@@ -215,7 +215,7 @@ h2.related-shorts-title {
 .related-shorts {
     width:100%;
     .short {
-        margin-right:40px;
+        margin-right:20px;
     }
 }
 h2.reviews-title {

@@ -341,6 +341,10 @@ export default {
     state["currentProduct"].reviews = [];
     state["currentProduct"].reviews = payload;
   },
+  reloadProduct(state, payload) {
+    state["currentProduct"].reviews = [];
+    state["currentProduct"].reviews = payload;
+  },
   setIsScrollRequestOn(state, payload) {
     state["isScrollRequestOn"] = payload;
   },

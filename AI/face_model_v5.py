@@ -11,8 +11,6 @@ import tensorflow.keras
 from sklearn.cluster import KMeans
 
 from PIL import Image, ImageOps
-import matplotlib.image as mpimg
-from matplotlib import pyplot as plt
 
 face_cascade = cv2.CascadeClassifier('../AI/haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('../AI/haarcascade_eye.xml')
@@ -34,7 +32,6 @@ answer=('Heart','Oblong','Oval','Round','Square')
 scaling_factor=0.1
 
 modelDir='../AI/model/'
-# imgDir='../public/testimg/'
 
 # 원본 이미지
 def getImg(imgLink):
@@ -181,7 +178,7 @@ def face_model(myImg,model):
             
        
 ''' 메인 함수 '''
-# img_name = '2.jpg'
+# img_name = 'test.jpg'
 img_name = sys.argv[1]
 
 # png 이미지 -> jpg 이미지 변환

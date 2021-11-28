@@ -38,6 +38,7 @@ export default {
             }
         },
         showRight() {
+            console.log(this.index,this.maxIndex,this.count)
             if(this.index<this.maxIndex-this.count) {
                 this.index++;
             }
@@ -64,6 +65,7 @@ export default {
     color:var(--background-color);
     font-size:1.5rem;
     cursor:pointer;
+    z-index:10;
 }
 .left {
     margin-right:10px;
