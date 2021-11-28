@@ -15,6 +15,7 @@ import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 
 face_cascade = cv2.CascadeClassifier('../AI/haarcascade_frontalface_default.xml')
+eye_cascade = cv2.CascadeClassifier('../AI/haarcascade_eye.xml')
 
 # 18호, 19호, 20호, 21호, 22호, 23호, 24호
 faceColor_RGB = ((230.505, 113.61518, 144.10642), 
@@ -75,9 +76,7 @@ def check_RGB(faceColor):
     return res
 
 # 얼굴형 분석을 위한 사진 자르기
-def do_cropImg_v1(img):
-    cropped = 'error'   # default
-    
+def do_cropImg_v1(img):    
     if len(img.shape)==2 :
         faces = face_cascade.detectMultiScale(img, 1.3,5)
     else :
@@ -123,6 +122,7 @@ def do_cropImg_v2(img):
 
 # YCBCR 기준 얼굴 피부 색상 분석
 def get_image_YCBCR(image, k = 3):
+    myFace_color = 'error'
     
     ''' 얼굴색을 식별할 사진으로 잘라내기 '''
     image = do_cropImg_v2(image)
@@ -193,27 +193,24 @@ if img_name[-4:] == '.png' :
 try :
     myImg=getImg(img_name)    
     myImg=do_cropImg_v1(myImg)
-    
-    cv2.imshow('res',myImg)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    
-    if myImg != 'error' :
-        # 얼굴형 분석
-        face,face_rate=face_model(myImg,'keras_model_16.h5')
 
-        # 얼굴 피부 색상 분석
-        faceColor=get_image_YCBCR(myImg)
+    # cv2.imshow('res',myImg)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    
+    # 얼굴형 분석
+    face,face_rate=face_model(myImg,'keras_model_16.h5')
 
-        # 전달 인자 : face (얼굴형), faceColor (피부톤 호수)
-        if faceColor =='error':
-            print(face)
-            print('피부 색상은 확인 하지 못했습니다.')
-        else :
-            print(face)
-            print(faceColor)
-    # 얼굴 인식이 되지 않은 경우
+    # 얼굴 피부 색상 분석
+    faceColor=get_image_YCBCR(myImg)
+
+    # 전달 인자 : face (얼굴형), faceColor (피부톤 호수)
+    if faceColor =='error':
+        print(face)
+        print('피부 색상은 확인 하지 못했습니다.')
     else :
-        print('Fault')
+        print(face)
+        print(faceColor)
+    # 얼굴 인식이 되지 않은 경우
 except :
     print('Fault')
