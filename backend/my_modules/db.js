@@ -21,7 +21,7 @@ const api = {
 		return res;
 	},
 	search_channel: async (content,cid,reqNum)=>{
-		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed
+		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed, numOfShorts
 		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid)
         join (select chid, count(sub) - 1 as isSubscribed from (select distinct chid, case when cid = ${cid} then 1 else 0 end as sub from mmmservice.subscribe)b group by chid)c using (chid)
 		left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid)
