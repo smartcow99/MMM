@@ -21,9 +21,10 @@ const api = {
 		return res;
 	},
 	search_channel: async (content,cid,reqNum)=>{
-		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed
+		const [res] = await pool.query(`select distinct ch_name as title, ch_profile as profile, chid as channelId, numOfSubscribers, introduce, isSubscribed, numOfShorts
 		from mmmservice.channel left outer join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using (chid)
         join (select chid, count(sub) - 1 as isSubscribed from (select distinct chid, case when cid = ${cid} then 1 else 0 end as sub from mmmservice.subscribe)b group by chid)c using (chid)
+		left outer join (select chid, count(*) as numOfShorts from video group by chid) as shortsCount using (chid)
 		where ch_name like '%${content}%' limit ${reqNum*6}, 6;`);
 		return res;
 	},
@@ -206,7 +207,7 @@ module.exports = new Proxy(api,{
 					ret.searchResult = await target.search_product(content,reqNum,order);
 				}
 				else if(type == 'channel'){
-					const result = await target.search_channel(content, cid, reqNum);
+					// const result = await target.search_channel(content, cid, reqNum);
 					ret.searchResult = await target.search_channel(content, cid, reqNum);
 					ret.searchResult.map(element => element.isSubscribed?true:false)
 				}
