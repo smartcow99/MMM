@@ -1,6 +1,6 @@
 <template>
-    <div class="short-summary" @click="openShort(shortInfo)">
-        <div class="shorts" @mouseover="onHover" @mouseout="offHover">
+    <div class="short-summary">
+        <div class="shorts" @click="openShort(shortInfo)" @mouseover="onHover" @mouseout="offHover">
             <div v-if="hoverOn" id="hover">
                 <img :src="shortInfo['thumnail']">
                 <b id="shorts-title">{{shortInfo['title']}}</b>
