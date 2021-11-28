@@ -139,7 +139,7 @@ export default {
     state["currentChannel"].numOfShorts = 0;
     state["currentChannel"].introduce = "";
     state["currentChannel"].haveItem = false;
-    state["currentChannel"].dressingTable = [];
+    state["currentChannel"].dressingTable = {};
     state["currentChannel"].shortList = [];
   },
   setChannelInfo(state, payload) {
