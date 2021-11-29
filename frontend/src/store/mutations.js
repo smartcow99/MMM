@@ -134,12 +134,12 @@ export default {
     state["currentChannel"].title = "";
     state["currentChannel"].isSubscribed = false;
     state["currentChannel"].profile = "";
-    state["currentChannel"].channelId = 0;
+    state["currentChannel"].channelId = -1;
     state["currentChannel"].numOfSubscribers = 0;
     state["currentChannel"].numOfShorts = 0;
     state["currentChannel"].introduce = "";
     state["currentChannel"].haveItem = false;
-    state["currentChannel"].dressingTable = [];
+    state["currentChannel"].dressingTable = {};
     state["currentChannel"].shortList = [];
   },
   setChannelInfo(state, payload) {

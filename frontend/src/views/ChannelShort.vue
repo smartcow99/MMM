@@ -3,7 +3,8 @@
         <font-awesome-icon class="loading icon" icon='spinner' spin/>
     </div>
     <div id="channel-short" class="page" v-show="currentChannel['channelId']>=0">
-        <h1>{{currentChannel['channelId']===0 ? '구독한 모든 채널 영상' : `'${currentChannel.title}' 채널의 영상`}}</h1>
+        <h1 v-if="currentChannel['channelId']===0">구독한 모든 채널 영상</h1>
+        <h1 v-else-if="currentChannel['channelId']>0">{{`'${currentChannel.title}' 채널의 영상`}}</h1>
         <div class="short-list" v-if="currentChannel.shortList.length>0">
             <ShortSummary 
                 class="item"
