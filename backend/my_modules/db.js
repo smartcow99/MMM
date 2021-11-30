@@ -141,14 +141,7 @@ const api = {
 		from mmmservice.video
 		join (select chid, count(*) as numOfSubscribers from mmmservice.subscribe group by chid)a using(chid)
 		natural left outer join (select vid, count(*) as numOfHearts from recommend group by vid)b
-		where vid in (select distinct vid
-			from video
-			where thumnail in (
-			SELECT thumnail from video where thumnail like '%${face}%${tone}%'
-			union all
-			SELECT thumnail from video where thumnail like '%${face}%'
-			union all
-			SELECT thumnail from video where thumnail like '%${tone}%'))
+
 		limit ${reqNum*6}, 6`);
 		return res;
 	},
