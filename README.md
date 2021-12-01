@@ -208,8 +208,15 @@ PW: mypassword
 ## 서비스 기대 효과
 MMM 서비스가 제시한 솔루션은 더 많은 남성들의 메이크업 시작화 커뮤니티의 활성화를 가져오고, 이는 남성 메이크업에 대한 사회의 부정적 인식에 변화를 줄 것입니다. 부정적 인식의 변화는 다시 남성 뷰티 시장의 확대와 성장을 가져오고 더 많은 남성이 메이크업 시장에 참여하도록 유도하는 선순환 구조를 형성할 것이라 기대됩니다.  
 
-## 개발 환경
-사용된 라이브러리
+## 개발 환경 
+|제목|내용|
+|---|---|
+|Front-end| Vue, Vuex, Vue-router  
+|Back-end| Nodejs, Express  
+|DB| MySQL  
+|DevOps| Google Cloud Platform, Docker, Github  
+|Communication & Design| Figma  
+|AI | Tensorflow, Scikit-learn, Teachable Machine
 
 ## 연락 & 개발자들
 추가로 궁금하신 사항은 second28200@naver.com 으로 연락주시면 됩니다.
