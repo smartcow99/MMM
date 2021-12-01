@@ -218,6 +218,9 @@ MMM 서비스가 제시한 솔루션은 더 많은 남성들의 메이크업 시
 |Communication & Design| Figma  
 |AI | Tensorflow, Scikit-learn, Teachable Machine
 
+## 개발 기간
+2021/11/01 ~ 2021/11/30
+
 ## 연락 & 개발자들
 추가로 궁금하신 사항은 second28200@naver.com 으로 연락주시면 됩니다.
 
