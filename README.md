@@ -203,13 +203,10 @@ PW: mypassword
 ![AI 추천 페이지 - 이미지 분석 후](./image/ai-page-after.PNG)
 [AI 추천 페이지 - 이미지 분석 후]
 
-#### 테스트용 이미지 : AI/test_image 디렉토리에 테스트 가능한 얼굴 이미지 사진을 포함해두었습니다(./AI/test_image)
-|<img src="./AI/test_image/testimg1.jpg" width="240" height="420">|<img src="./AI/test_image/testimg2.jpg" width="240" height="420">|<img src="./AI/test_image/testimg3.jpg" width="240" height="420">|
-<!-- <img src="./AI/test_image/testimg1.jpg" width="240" height="420">
-<img src="./AI/test_image/testimg2.jpg" width="240" height="420">
-<img src="./AI/test_image/testimg3.jpg" width="240" height="420"> -->
-
 얼굴 분석이 끝나면 얼굴형, 피부톤에 대한 정보가 나오고, 하단에 분석 결과를 바탕으로한 추천 쇼츠들이 나옵니다. 화장을 처음 접하는 유저도 이를 통해 빠르게 화장을 시작할 수 있습니다.
+
+#### 테스트용 이미지 : AI/test_image 디렉토리에 테스트 가능한 얼굴 이미지를 포함해두었습니다(./AI/test_image)
+|<img src="./AI/test_image/testimg1.jpg" width="240" height="420">|<img src="./AI/test_image/testimg2.jpg" width="240" height="420">|<img src="./AI/test_image/testimg3.jpg" width="240" height="420">|
 
 ## 서비스 기대 효과
 MMM 서비스가 제시한 솔루션은 더 많은 남성들의 메이크업 시작화 커뮤니티의 활성화를 가져오고, 이는 남성 메이크업에 대한 사회의 부정적 인식에 변화를 줄 것입니다. 부정적 인식의 변화는 다시 남성 뷰티 시장의 확대와 성장을 가져오고 더 많은 남성이 메이크업 시장에 참여하도록 유도하는 선순환 구조를 형성할 것이라 기대됩니다.  
