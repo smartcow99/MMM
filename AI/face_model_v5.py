@@ -178,7 +178,7 @@ def face_model(myImg,model):
             
        
 ''' 메인 함수 '''
-# img_name = 'test.jpg'
+# img_name = 'testimg3.jpg'
 img_name = sys.argv[1]
 
 # png 이미지 -> jpg 이미지 변환
@@ -194,7 +194,7 @@ try :
     # cv2.imshow('res',myImg)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
-    
+
     # 얼굴형 분석
     face,face_rate=face_model(myImg,'keras_model_16.h5')
 
@@ -208,6 +208,6 @@ try :
     else :
         print(face)
         print(faceColor)
-    # 얼굴 인식이 되지 않은 경우
+# 얼굴 인식이 되지 않은 경우
 except :
     print('Fault')
