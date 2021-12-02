@@ -204,9 +204,12 @@ PW: mypassword
 [AI 추천 페이지 - 이미지 분석 후]
 
 #### 테스트용 이미지 : AI/test_image 디렉토리에 테스트 가능한 얼굴 이미지 사진을 포함해두었습니다(./AI/test_image)
-![test image1](./AI/test_image/testimg1.jpg){: width="480" height="720"}
+<!-- ![test image1](./AI/test_image/testimg1.jpg){: width="480" height="720"}
 ![test image2](./AI/test_image/testimg2.jpg){: width="480" height="720"}
-![test image3](./AI/test_image/testimg3.jpg){: width="480" height="720"}
+![test image3](./AI/test_image/testimg3.jpg){: width="480" height="720"} -->
+<img src="./AI/test_image/testimg1.jpg" width="480" height="720">
+<img src="./AI/test_image/testimg2.jpg" width="480" height="720">
+<img src="./AI/test_image/testimg3.jpg" width="480" height="720">
 
 얼굴 분석이 끝나면 얼굴형, 피부톤에 대한 정보가 나오고, 하단에 분석 결과를 바탕으로한 추천 쇼츠들이 나옵니다. 화장을 처음 접하는 유저도 이를 통해 빠르게 화장을 시작할 수 있습니다.
 
